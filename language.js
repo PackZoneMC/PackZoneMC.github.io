@@ -1,3 +1,5 @@
+// PZMC Language System
+
 function changeLanguage(language) {
 
     localStorage.setItem("PZMC_language", language);
@@ -13,5 +15,5 @@ function changeLanguage(language) {
     }
 
     window.location.href = path;
-// PZMC Language System
+
 }
