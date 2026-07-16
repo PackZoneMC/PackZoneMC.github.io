@@ -93,7 +93,38 @@
 
 <label>📝 توضیحات</label><br>
 <textarea id="description" rows="4"></textarea>
+<br><br>
 
+<label>🎨 رنگ توضیحات</label><br>
+
+<select id="descColor">
+
+<option value="§f">⚪ سفید</option>
+<option value="§a">🟢 سبز</option>
+<option value="§b">🔵 آبی روشن</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§c">🔴 قرمز</option>
+<option value="§e">🟡 زرد</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§d">🩷 صورتی</option>
+<option value="§5">🟣 بنفش</option>
+
+</select>
+
+
+<br><br>
+
+<label>✨ فونت توضیحات</label><br>
+
+<select id="descStyle">
+
+<option value="§l">ضخیم</option>
+<option value="§o">کج</option>
+<option value="§n">زیرخط</option>
+<option value="§m">خط خورده</option>
+<option value="">عادی</option>
+
+</select>
 <br><br>
 
 <label>👤 سازنده</label><br>
@@ -351,8 +382,15 @@ let manifest = {
     "format_version": 2,
 
 "header": {
-    "name": document.getElementById("packName").value,
-    "description": document.getElementById("description").value,
+    "name":
+document.getElementById("nameColor").value +
+document.getElementById("nameStyle").value +
+document.getElementById("packName").value,
+
+"description":
+document.getElementById("descColor").value +
+document.getElementById("descStyle").value +
+document.getElementById("description").value,,
     "uuid": document.getElementById("headerUUID").value,
     "version": [1,0,0],
     "min_engine_version": document.getElementById("mcVersion").value.split(".").map(Number)
