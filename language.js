@@ -2,12 +2,16 @@ function changeLanguage(language) {
 
     localStorage.setItem("PZMC_language", language);
 
-    if (language === "fa") {
-        window.location.href = "/fa/index.html";
-    }
+    let path = window.location.pathname;
 
     if (language === "en") {
-        window.location.href = "/en/index.html";
+        path = path.replace("/fa/", "/en/");
     }
+
+    if (language === "fa") {
+        path = path.replace("/en/", "/fa/");
+    }
+
+    window.location.href = path;
 
 }
