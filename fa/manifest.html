@@ -119,6 +119,31 @@
 </button>
 
 </div>
+  <div class="card">
+
+<h2>🖼 انتخاب Pack Icon</h2>
+
+<p>
+آیکون پک خود را از گالری انتخاب کنید.
+</p>
+
+<input 
+type="file" 
+id="packIcon"
+accept="image/png,image/jpeg"
+onchange="previewIcon(event)"
+>
+
+<br><br>
+
+<img 
+id="iconPreview"
+src=""
+width="128"
+style="display:none;border-radius:15px;"
+>
+
+  </div>
 <footer>
 
 © PackZone MC 💙
@@ -153,7 +178,29 @@ document.getElementById("moduleUUID").value = createUUID();
 
 
 generateUUID();
+function previewIcon(event){
 
+let file = event.target.files[0];
+
+if(file){
+
+let reader = new FileReader();
+
+reader.onload = function(){
+
+let img = document.getElementById("iconPreview");
+
+img.src = reader.result;
+
+img.style.display = "block";
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+}
   </script>
 </body>
 
