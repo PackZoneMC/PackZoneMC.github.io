@@ -450,6 +450,73 @@ reader.readAsDataURL(file);
 }
 
 }
+function downloadPack(){
+
+let zip = new JSZip();
+
+let manifest = {
+"format_version":2,
+
+"header":{
+"name":document.getElementById("nameColor").value +
+document.getElementById("nameStyle").value +
+document.getElementById("packName").value,
+
+"description":
+document.getElementById("descColor").value +
+document.getElementById("descStyle").value +
+document.getElementById("description").value,
+
+"uuid":document.getElementById("headerUUID").value,
+
+"version":[1,0,0],
+
+"min_engine_version":
+document.getElementById("mcVersion").value.split(".").map(Number)
+},
+
+"modules":[
+{
+"type":"resources",
+"uuid":document.getElementById("moduleUUID").value,
+"version":[1,0,0]
+}
+]
+
+};
+
+
+zip.file(
+"manifest.json",
+JSON.stringify(manifest,null,4)
+);
+
+
+if(packIconFile){
+
+zip.file(
+"pack_icon.png",
+packIconFile
+);
+
+}
+
+
+zip.generateAsync({
+type:"blob"
+}).then(function(content){
+
+let link=document.createElement("a");
+
+link.href=URL.createObjectURL(content);
+
+link.download="PZMC-Pack.zip";
+
+link.click();
+
+});
+
+}
   </script>
 </body>
 
