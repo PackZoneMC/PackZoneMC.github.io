@@ -96,7 +96,29 @@
 </select>
 
 </div>
+<div class="card">
 
+<h2>🆔 ساخت UUID</h2>
+
+<p>UUID های معتبر برای مانیفست به صورت خودکار ساخته می‌شوند.</p>
+
+<label>Header UUID</label><br>
+
+<input type="text" id="headerUUID" readonly>
+
+<br><br>
+
+<label>Module UUID</label><br>
+
+<input type="text" id="moduleUUID" readonly>
+
+<br><br>
+
+<button onclick="generateUUID()">
+🔄 تولید UUID جدید
+</button>
+
+</div>
 <footer>
 
 © PackZone MC 💙
@@ -104,7 +126,35 @@
 </footer>
 
 <script src="../language.js"></script>
+<script>
 
+function createUUID() {
+
+return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){
+
+let r = Math.random() * 16 | 0;
+
+let v = c === "x" ? r : (r & 0x3 | 0x8);
+
+return v.toString(16);
+
+});
+
+}
+
+
+function generateUUID(){
+
+document.getElementById("headerUUID").value = createUUID();
+
+document.getElementById("moduleUUID").value = createUUID();
+
+}
+
+
+generateUUID();
+
+  </script>
 </body>
 
 </html>
