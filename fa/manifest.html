@@ -319,19 +319,18 @@ let manifest = {
     "format_version": 2,
 
     "header": {
-        "name": document.getElementById("packName").value,
-        "description": document.getElementById("description").value,
-        "uuid": document.getElementById("headerUUID").value,
-        "version": [1,0,0],
-        "min_engine_version": document.getElementById("mcVersion").value.split(".").map(Number)
-         "subpacks": subpacks.map(sub => ({
+"header": {
+    "name": document.getElementById("packName").value,
+    "description": document.getElementById("description").value,
+    "uuid": document.getElementById("headerUUID").value,
+    "version": [1,0,0],
+    "min_engine_version": document.getElementById("mcVersion").value.split(".").map(Number)
+},
+
+"subpacks": subpacks.map(sub => ({
     "folder_name": sub.folder,
     "name": sub.color + sub.name
-})), 
-            
-        
-        
-    },
+})),
 
     "modules": [
         {
