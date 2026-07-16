@@ -203,6 +203,91 @@ document.getElementById("moduleUUID").value = createUUID();
 
 
 generateUUID();
+let subpacks = [];
+
+
+function addSubpack(){
+
+let folder = document.getElementById("subFolder").value;
+
+let name = document.getElementById("subName").value;
+
+
+if(folder === "" || name === ""){
+
+alert("لطفا اسم پوشه و اسم نمایشی را وارد کنید");
+
+return;
+
+}
+
+
+subpacks.push({
+
+folder: folder,
+
+name: name
+
+});
+
+
+showSubpacks();
+
+
+document.getElementById("subFolder").value = "";
+
+document.getElementById("subName").value = "";
+
+}
+
+
+
+function showSubpacks(){
+
+let list = document.getElementById("subpackList");
+
+list.innerHTML = "";
+
+
+subpacks.forEach((sub,index)=>{
+
+
+list.innerHTML += `
+
+<div class="card">
+
+📁 پوشه: ${sub.folder}
+
+<br>
+
+🎮 نام داخل بازی: ${sub.name}
+
+<br><br>
+
+<button onclick="removeSubpack(${index})">
+
+❌ حذف
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+
+function removeSubpack(index){
+
+subpacks.splice(index,1);
+
+showSubpacks();
+
+}
 function previewIcon(event){
 
 let file = event.target.files[0];
