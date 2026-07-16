@@ -1,39 +1,25 @@
 function saveLanguage(language) {
-
-localStorage.setItem("PZMC_language", language);
-
+    localStorage.setItem("PZMC_language", language);
 }
-
 
 
 window.onload = function() {
 
-let language = localStorage.getItem("PZMC_language");
+    let language = localStorage.getItem("PZMC_language");
+    let path = window.location.pathname;
 
 
-if(language) {
+    // فقط در صفحه اصلی ریدایرکت کن
+    if (path === "/" || path.endsWith("PackZoneMC.github.io/")) {
 
-let currentPage = window.location.pathname;
+        if (language === "fa") {
+            window.location.href = "/fa/index.html";
+        }
 
+        if (language === "en") {
+            window.location.href = "/en/index.html";
+        }
 
-if(currentPage.endsWith("index.html") || currentPage === "/") {
-
-
-if(language === "fa") {
-
-window.location.href = "fa/index.html";
-
-}
-
-
-if(language === "en") {
-
-window.location.href = "en/index.html";
-
-}
-
-}
-
-}
+    }
 
 }
