@@ -288,7 +288,7 @@ document.getElementById("moduleUUID").value = createUUID();
 
 generateUUID();
 let subpacks = [];
-
+let packIconFile = null;
 
 function addSubpack(){
 
@@ -430,9 +430,8 @@ link.click();
 function previewIcon(event){
 
 let file = event.target.files[0];
-
+packIconFile = file;
 if(file){
-
 let reader = new FileReader();
 
 reader.onload = function(){
