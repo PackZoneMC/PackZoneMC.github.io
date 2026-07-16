@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PackZone MC | Manifest Builder</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+
+<div class="language-switch">
+
+<button onclick="changeLanguage('fa')">
+🇮🇷 FA
+</button>
+
+<button onclick="changeLanguage('en')">
+🇺🇸 EN
+</button>
+
+</div>
+
+
+<header>
+
+<h1>💙 PackZone MC</h1>
+
+<nav>
+
+<a href="index.html">🏠 Home</a>
+<a href="java.html">🟦 Java Packs</a>
+<a href="bedrock.html">🟩 Bedrock Packs</a>
+<a href="mysmce.html">💎 MysMce Packs</a>
+<a href="manifest.html">📄 Manifest Builder</a>
+
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<h2>📄 Manifest Builder</h2>
+
+<p>Create your Minecraft resource pack manifest without coding.</p>
+
+</section>
+<div class="card">
+
+<h2>📦 Pack Information</h2>
+
+<label>📦 Pack Name</label><br>
+<input type="text" id="packName">
+
+<br><br>
+
+<label>🎨 Pack Name Color</label><br>
+
+<select id="nameColor">
+
+<option value="§f">⚪ White</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§e">🟡 Yellow</option>
+<option value="§6">🟠 Gold</option>
+<option value="§d">🩷 Pink</option>
+<option value="§5">🟣 Purple</option>
+<option value="§0">⚫ Black</option>
+
+</select>
+
+
+<br><br>
+
+<label>✨ Pack Name Style</label><br>
+
+<select id="nameStyle">
+
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+<option value="">Normal</option>
+
+</select>
+
+
+<br><br>
+
+<label>📝 Description</label><br>
+
+<textarea id="description" rows="4"></textarea>
+
+
+<br><br>
+
+<label>🎨 Description Color</label><br>
+
+<select id="descColor">
+
+<option value="§f">⚪ White</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§e">🟡 Yellow</option>
+<option value="§6">🟠 Gold</option>
+<option value="§d">🩷 Pink</option>
+<option value="§5">🟣 Purple</option>
+
+</select>
+
+
+<br><br>
+
+<label>✨ Description Style</label><br>
+
+<select id="descStyle">
+
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+<option value="">Normal</option>
+
+</select>
+
+
+<br><br>
+
+<label>👤 Author</label><br>
+
+<input type="text" id="author">
+
+
+<br><br>
+
+<label>🎮 Minecraft Version</label><br>
+
+<select id="mcVersion">
+
+<option>1.16.0</option>
+<option>1.17.0</option>
+<option>1.18.0</option>
+<option>1.19.0</option>
+<option>1.20.0</option>
+<option>1.21.0</option>
+
+<option selected>1.26.30</option>
+
+</select>
+
+</div>
+<div class="card">
+
+<h2>🆔 UUID Generator</h2>
+
+<p>Valid UUIDs are generated automatically for your manifest.</p>
+
+
+<label>Header UUID</label><br>
+
+<input type="text" id="headerUUID" readonly>
+
+
+<br><br>
+
+
+<label>Module UUID</label><br>
+
+<input type="text" id="moduleUUID" readonly>
+
+
+<br><br>
+
+
+<button onclick="generateUUID()">
+🔄 Generate New UUID
+</button>
+
+
+<br><br>
+
+
+<button onclick="generateManifest()">
+📄 Create manifest.json
+</button>
+
+
+<br><br>
+
+
+<button onclick="downloadPack()">
+📦 Download Pack (Manifest + Icon)
+</button>
+
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🖼 Select Pack Icon</h2>
+
+<p>
+Choose your pack icon from your device.
+</p>
+
+
+<input 
+type="file" 
+id="packIcon"
+accept="image/png,image/jpeg"
+onchange="previewIcon(event)"
+>
+
+
+<br><br>
+
+
+<img 
+id="iconPreview"
+src=""
+width="128"
+style="display:none;border-radius:15px;"
+>
+
+
+</div>
+<div class="card">
+
+<h2>📂 Create Subpack</h2>
+
+<p>
+Create your resource pack subpacks.
+</p>
+
+
+<label>📁 Subpack Folder Name</label><br>
+
+<input 
+type="text" 
+id="subFolder" 
+placeholder="Example: day"
+>
+
+
+<br><br>
+
+
+<label>🎮 Display Name In Game</label><br>
+
+<input 
+type="text" 
+id="subName" 
+placeholder="Example: Day Sky"
+>
+
+
+<br><br>
+
+
+<label>🎨 Subpack Name Color</label><br>
+
+
+<select id="subColor">
+
+<option value="§f">⚪ White</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§e">🟡 Yellow</option>
+<option value="§6">🟠 Gold</option>
+<option value="§d">🩷 Pink</option>
+<option value="§5">🟣 Purple</option>
+
+</select>
+
+
+<br><br>
+
+
+<button onclick="addSubpack()">
+
+➕ Add Subpack
+
+</button>
+
+
+<div id="subpackList">
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+© PackZone MC 💙
+
+</footer>
+<script src="../language.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
