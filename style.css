@@ -9,26 +9,16 @@ color:#fff;
 /* Header */
 
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
+display:block;
+padding:20px;
 background:#081b35;
 box-shadow:0 0 20px #008cff;
+text-align:center;
 }
 
 
-nav a{
-color:#7ec8ff;
-text-decoration:none;
-margin:0 10px;
-transition:.3s;
-}
-
-
-nav a:hover{
-color:#fff;
-text-shadow:0 0 10px #00aaff;
+.page-header{
+text-align:center;
 }
 
 
@@ -260,14 +250,15 @@ box-shadow:0 0 20px #00aaff;
 }
 .home-button{
 
-position:fixed;
-top:15px;
-right:15px;
+display:inline-block;
+
+margin-top:15px;
 
 background:#102847;
+
 color:#7ec8ff;
 
-padding:8px 15px;
+padding:8px 20px;
 
 border-radius:12px;
 
@@ -275,7 +266,16 @@ text-decoration:none;
 
 box-shadow:0 0 15px #008cff;
 
-z-index:1000;
+}
+
+
+.home-button:hover{
+
+background:#008cff;
+
+color:white;
+
+box-shadow:0 0 25px #00aaff;
 
 }
 
