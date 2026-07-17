@@ -391,7 +391,7 @@ let manifest = {
     "format_version": 2,
 
 "header": {
-    "name":
+
 "name":
 document.getElementById("customName").value ||
 document.getElementById("nameColor").value +
@@ -399,7 +399,6 @@ document.getElementById("nameStyle").value +
 document.getElementById("packName").value,
 
 "description":
-document.getElementById("customDescription").value ||
 document.getElementById("descColor").value +
 document.getElementById("descStyle").value +
 document.getElementById("description").value,
@@ -469,7 +468,9 @@ let manifest = {
 "format_version":2,
 
 "header":{
-"name":document.getElementById("nameColor").value +
+"name":
+document.getElementById("customName").value ||
+document.getElementById("nameColor").value +
 document.getElementById("nameStyle").value +
 document.getElementById("packName").value,
 
