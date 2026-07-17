@@ -56,6 +56,9 @@
 
 <label>📦 نام پک</label><br>
 <input type="text" id="packName">
+<label>🎨 متن رنگی سفارشی</label><br>
+
+<textarea id="customName" rows="2" placeholder="مثال: §cAref §bmahdi"></textarea>
 <br><br>
 
 <label>🎨 رنگ اسم پک</label><br>
@@ -389,11 +392,14 @@ let manifest = {
 
 "header": {
     "name":
+"name":
+document.getElementById("customName").value ||
 document.getElementById("nameColor").value +
 document.getElementById("nameStyle").value +
 document.getElementById("packName").value,
 
 "description":
+document.getElementById("customDescription").value ||
 document.getElementById("descColor").value +
 document.getElementById("descStyle").value +
 document.getElementById("description").value,
