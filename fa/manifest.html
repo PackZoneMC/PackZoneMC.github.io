@@ -233,7 +233,15 @@ style="display:none;border-radius:15px;"
 
 <label>📁 اسم پوشه Subpack</label><br>
 <input type="text" id="subFolder" placeholder="مثلا day">
+<br><br>
 
+<label>🎨 متن رنگی سفارشی Subpack</label><br>
+
+<textarea 
+id="customSubName" 
+rows="2" 
+placeholder="مثال: §bDay §eSky">
+</textarea>
 <br><br>
 
 <label>🎮 اسم نمایشی داخل بازی</label><br>
@@ -319,11 +327,13 @@ return;
 }
 
 
-  subpacks.push({
+subpacks.push({
 
 folder: folder,
 
 name: name,
+
+customName: document.getElementById("customSubName").value,
 
 color: document.getElementById("subColor").value
 
