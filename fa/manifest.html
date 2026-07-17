@@ -486,7 +486,10 @@ document.getElementById("description").value,
 "min_engine_version":
 document.getElementById("mcVersion").value.split(".").map(Number)
 },
-
+"subpacks": subpacks.map(sub => ({
+    "folder_name": sub.folder,
+    "name": sub.color + sub.name
+})),
 "modules":[
 {
 "type":"resources",
