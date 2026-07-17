@@ -435,7 +435,7 @@ document.getElementById("description").value,
 
 "subpacks": subpacks.map(sub => ({
     "folder_name": sub.folder,
-    sub.customName
+    "name": sub.customName || sub.name
 })),
 
     "modules": [
@@ -514,8 +514,8 @@ document.getElementById("description").value,
 document.getElementById("mcVersion").value.split(".").map(Number)
 },
 "subpacks": subpacks.map(sub => ({
-    "folder_name": sub.folder
-     sub.customName
+    "folder_name": sub.folder,
+    "name": sub.customName || sub.name
 })),
 "modules":[
 {
