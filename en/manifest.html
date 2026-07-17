@@ -425,4 +425,621 @@ placeholder="Example: Day"
 
 
 <script>
-  
+function createUUID(){
+
+return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+
+let r = Math.random()*16|0;
+
+let v = c=="x" ? r : (r&0x3|0x8);
+
+return v.toString(16);
+
+});
+
+}
+
+
+
+function generateUUID(){
+
+document.getElementById("headerUUID").value=createUUID();
+
+document.getElementById("moduleUUID").value=createUUID();
+
+}
+
+
+generateUUID();
+
+
+
+let subpacks=[];
+
+let packIconFile=null;
+
+
+
+function addNamePart(){
+
+let box=document.createElement("div");
+
+box.className="namePart";
+
+
+box.innerHTML=`
+
+<input class="partText" placeholder="Text">
+
+
+<select class="partColor">
+
+<option value="§f">⚪ White</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§5">🟣 Purple</option>
+<option value="§6">🟠 Gold</option>
+<option value="§9">🔵 Blue</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§d">🩷 Pink</option>
+<option value="§e">🟡 Yellow</option>
+
+</select>
+
+
+<select class="partStyle">
+
+<option value="">Normal</option>
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+
+</select>
+
+`;
+
+
+document.getElementById("nameParts").appendChild(box);
+
+}
+
+
+
+
+
+function addDescPart(){
+
+
+let box=document.createElement("div");
+
+box.className="descPart";
+
+
+box.innerHTML=`
+
+<input class="descText" placeholder="Text">
+
+
+<select class="descColor">
+
+<option value="§f">⚪ White</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§5">🟣 Purple</option>
+<option value="§6">🟠 Gold</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§e">🟡 Yellow</option>
+
+</select>
+
+
+<select class="descStyle">
+
+<option value="">Normal</option>
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+
+</select>
+
+`;
+
+
+document.getElementById("descParts").appendChild(box);
+
+
+}
+function addSubPart(){
+
+let box=document.createElement("div");
+
+box.className="subPart";
+
+
+box.innerHTML=`
+
+<input class="subText" placeholder="Text">
+
+
+<select class="subColor">
+
+<option value="§f">⚪ White</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§5">🟣 Purple</option>
+<option value="§6">🟠 Gold</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§e">🟡 Yellow</option>
+
+</select>
+
+
+<select class="subStyle">
+
+<option value="">Normal</option>
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+
+</select>
+
+`;
+
+
+document.getElementById("subParts").appendChild(box);
+
+}
+
+
+
+
+function buildColoredText(container,textClass,colorClass,styleClass){
+
+let result="";
+
+
+let texts=document.querySelectorAll(container+" "+textClass);
+
+let colors=document.querySelectorAll(container+" "+colorClass);
+
+let styles=document.querySelectorAll(container+" "+styleClass);
+
+
+
+for(let i=0;i<texts.length;i++){
+
+if(texts[i].value.trim()!==""){
+
+result += 
+colors[i].value +
+styles[i].value +
+texts[i].value;
+
+}
+
+}
+
+
+return result;
+
+}
+
+
+
+
+
+function addSubpack(){
+
+
+let folder=document.getElementById("subFolder").value;
+
+
+
+if(folder===""){
+
+alert("Enter Subpack folder name");
+
+return;
+
+}
+
+
+
+let name=buildColoredText(
+
+"#subParts",
+".subText",
+".subColor",
+".subStyle"
+
+);
+
+
+
+if(name===""){
+
+alert("Enter Subpack name");
+
+return;
+
+}
+
+
+
+subpacks.push({
+
+folder:folder,
+
+name:name
+
+});
+
+
+
+showSubpacks();
+
+
+
+document.getElementById("subFolder").value="";
+
+
+}
+
+
+
+
+
+
+function showSubpacks(){
+
+
+let list=document.getElementById("subpackList");
+
+
+list.innerHTML="";
+
+
+
+subpacks.forEach((sub,index)=>{
+
+
+list.innerHTML += `
+
+<div class="card">
+
+📁 Folder: ${sub.folder}
+
+<br>
+
+🎮 Name: ${sub.name}
+
+<br><br>
+
+<button onclick="removeSubpack(${index})">
+
+❌ Remove
+
+</button>
+
+
+</div>
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+function removeSubpack(index){
+
+subpacks.splice(index,1);
+
+showSubpacks();
+
+}
+function generateManifest(){
+
+
+let packName=buildColoredText(
+
+"#nameParts",
+".partText",
+".partColor",
+".partStyle"
+
+);
+
+
+
+let description=buildColoredText(
+
+"#descParts",
+".descText",
+".descColor",
+".descStyle"
+
+);
+
+
+
+
+
+let manifest={
+
+
+"format_version":2,
+
+
+"header":{
+
+
+"name":packName,
+
+
+"description":description,
+
+
+"uuid":document.getElementById("headerUUID").value,
+
+
+"version":[1,0,0],
+
+
+"min_engine_version":
+document.getElementById("mcVersion").value
+.split(".")
+.map(Number)
+
+
+},
+
+
+
+"subpacks":subpacks.map(sub=>({
+
+
+"folder_name":sub.folder,
+
+
+"name":sub.name
+
+
+})),
+
+
+
+"modules":[{
+
+
+"type":"resources",
+
+
+"uuid":document.getElementById("moduleUUID").value,
+
+
+"version":[1,0,0]
+
+
+}]
+
+
+
+};
+
+
+
+
+let file=new Blob(
+
+[JSON.stringify(manifest,null,4)],
+
+{type:"application/json"}
+
+);
+
+
+
+let link=document.createElement("a");
+
+
+link.href=URL.createObjectURL(file);
+
+
+link.download="manifest.json";
+
+
+link.click();
+
+
+
+}
+
+
+
+
+function previewIcon(event){
+
+
+let file=event.target.files[0];
+
+
+packIconFile=file;
+
+
+
+if(file){
+
+
+let reader=new FileReader();
+
+
+
+reader.onload=function(){
+
+
+let img=document.getElementById("iconPreview");
+
+
+img.src=reader.result;
+
+
+img.style.display="block";
+
+
+}
+
+
+
+reader.readAsDataURL(file);
+
+
+}
+
+
+}
+function downloadPack(){
+
+
+let zip = new JSZip();
+
+
+
+let packName=buildColoredText(
+"#nameParts",
+".partText",
+".partColor",
+".partStyle"
+);
+
+
+
+let description=buildColoredText(
+"#descParts",
+".descText",
+".descColor",
+".descStyle"
+);
+
+
+
+
+let manifest={
+
+
+"format_version":2,
+
+
+"header":{
+
+"name":packName,
+
+"description":description,
+
+"uuid":document.getElementById("headerUUID").value,
+
+"version":[1,0,0],
+
+"min_engine_version":
+document.getElementById("mcVersion").value
+.split(".")
+.map(Number)
+
+},
+
+
+
+"subpacks":subpacks.map(sub=>({
+
+"folder_name":sub.folder,
+
+"name":sub.name
+
+})),
+
+
+
+"modules":[
+
+{
+
+"type":"resources",
+
+"uuid":document.getElementById("moduleUUID").value,
+
+"version":[1,0,0]
+
+}
+
+]
+
+
+};
+
+
+
+
+
+zip.file(
+
+"manifest.json",
+
+JSON.stringify(manifest,null,4)
+
+);
+
+
+
+
+if(packIconFile){
+
+
+zip.file(
+
+"pack_icon.png",
+
+packIconFile
+
+);
+
+
+}
+
+
+
+
+zip.generateAsync({
+
+type:"blob"
+
+}).then(function(content){
+
+
+
+let link=document.createElement("a");
+
+
+link.href=URL.createObjectURL(content);
+
+
+link.download="PZMC-Pack.zip";
+
+
+link.click();
+
+
+
+});
+
+
+}
