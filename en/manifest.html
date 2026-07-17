@@ -48,122 +48,183 @@
 
 <h2>📄 Manifest Builder</h2>
 
-<p>Create your Minecraft resource pack manifest without coding.</p>
+<p>Create your resource pack manifest without coding.</p>
 
 </section>
+
+
 <div class="card">
 
 <h2>📦 Pack Information</h2>
 
+
 <label>📦 Pack Name</label><br>
-<input type="text" id="packName">
 
-<br><br>
+<input type="text" id="packName" placeholder="Example: PZMC Version Test">
 
-<label>🎨 Pack Name Color</label><br>
 
-<select id="nameColor">
+<h3>🎨 Professional Colored Name Builder</h3>
+
+
+<p>
+Create each word separately and choose its color and font.
+</p>
+
+
+<div id="nameParts">
+
+
+<div class="namePart">
+
+<input class="partText" placeholder="Example: PZMC">
+<select class="partColor">
 
 <option value="§f">⚪ White</option>
-<option value="§a">🟢 Green</option>
-<option value="§b">🔵 Light Blue</option>
-<option value="§1">🔷 Dark Blue</option>
-<option value="§c">🔴 Red</option>
-<option value="§e">🟡 Yellow</option>
-<option value="§6">🟠 Gold</option>
-<option value="§d">🩷 Pink</option>
-<option value="§5">🟣 Purple</option>
 <option value="§0">⚫ Black</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§2">🟢 Dark Green</option>
+<option value="§3">🌊 Dark Aqua</option>
+<option value="§4">🔴 Dark Red</option>
+<option value="§5">🟣 Purple</option>
+<option value="§6">🟠 Gold</option>
+<option value="§7">⚙ Gray</option>
+<option value="§8">🩶 Dark Gray</option>
+<option value="§9">🔵 Blue</option>
+<option value="§a">🟢 Green</option>
+<option value="§b">🔵 Light Blue</option>
+<option value="§c">🔴 Red</option>
+<option value="§d">🩷 Pink</option>
+<option value="§e">🟡 Yellow</option>
 
 </select>
 
 
-<br><br>
+<select class="partStyle">
 
-<label>✨ Pack Name Style</label><br>
-
-<select id="nameStyle">
-
+<option value="">Normal</option>
 <option value="§l">Bold</option>
 <option value="§o">Italic</option>
 <option value="§n">Underline</option>
 <option value="§m">Strikethrough</option>
-<option value="">Normal</option>
 
 </select>
 
 
+</div>
+
+
+</div>
+
+
+<button onclick="addNamePart()">
+➕ Add New Part
+</button>
+
+
 <br><br>
 
-<label>📝 Description</label><br>
 
-<textarea id="description" rows="4"></textarea>
+<h3>📝 Pack Description</h3>
 
 
-<br><br>
+<textarea id="description" rows="3" placeholder="Normal description"></textarea>
 
-<label>🎨 Description Color</label><br>
 
-<select id="descColor">
+<h3>🎨 Colored Description Builder</h3>
+
+
+<div id="descParts">
+
+
+<div class="descPart">
+
+
+<input class="descText" placeholder="Example: Made By">
+
+
+<select class="descColor">
 
 <option value="§f">⚪ White</option>
-<option value="§a">🟢 Green</option>
 <option value="§b">🔵 Light Blue</option>
-<option value="§1">🔷 Dark Blue</option>
-<option value="§c">🔴 Red</option>
 <option value="§e">🟡 Yellow</option>
-<option value="§6">🟠 Gold</option>
-<option value="§d">🩷 Pink</option>
+<option value="§a">🟢 Green</option>
+<option value="§c">🔴 Red</option>
 <option value="§5">🟣 Purple</option>
 
 </select>
 
 
-<br><br>
+<select class="descStyle">
 
-<label>✨ Description Style</label><br>
-
-<select id="descStyle">
-
+<option value="">Normal</option>
 <option value="§l">Bold</option>
 <option value="§o">Italic</option>
 <option value="§n">Underline</option>
 <option value="§m">Strikethrough</option>
-<option value="">Normal</option>
 
 </select>
 
 
+</div>
+
+
+</div>
+
+
+<button onclick="addDescPart()">
+➕ Add Description Part
+</button>
+
+
 <br><br>
 
-<label>👤 Author</label><br>
+
+<label>👤 Creator</label><br>
 
 <input type="text" id="author">
 
 
 <br><br>
 
+
 <label>🎮 Minecraft Version</label><br>
 
 <select id="mcVersion">
-
 <option>1.16.0</option>
+<option>1.16.100</option>
+<option>1.16.200</option>
+
 <option>1.17.0</option>
+<option>1.17.30</option>
+
 <option>1.18.0</option>
+
 <option>1.19.0</option>
+
 <option>1.20.0</option>
+<option>1.20.80</option>
+
 <option>1.21.0</option>
+<option>1.21.100</option>
+<option>1.21.110</option>
 
 <option selected>1.26.30</option>
 
 </select>
 
+
 </div>
+
+
+
 <div class="card">
 
 <h2>🆔 UUID Generator</h2>
 
-<p>Valid UUIDs are generated automatically for your manifest.</p>
+
+<p>
+Valid UUIDs for the manifest are generated automatically.
+</p>
 
 
 <label>Header UUID</label><br>
@@ -183,7 +244,9 @@
 
 
 <button onclick="generateUUID()">
+
 🔄 Generate New UUID
+
 </button>
 
 
@@ -191,7 +254,9 @@
 
 
 <button onclick="generateManifest()">
-📄 Create manifest.json
+
+📄 Generate manifest.json
+
 </button>
 
 
@@ -199,7 +264,9 @@
 
 
 <button onclick="downloadPack()">
-📦 Download Pack (Manifest + Icon)
+
+📦 Download Pack
+
 </button>
 
 
@@ -207,9 +274,11 @@
 
 
 
+
 <div class="card">
 
 <h2>🖼 Select Pack Icon</h2>
+
 
 <p>
 Choose your pack icon from your device.
@@ -217,7 +286,7 @@ Choose your pack icon from your device.
 
 
 <input 
-type="file" 
+type="file"
 id="packIcon"
 accept="image/png,image/jpeg"
 onchange="previewIcon(event)"
@@ -227,9 +296,8 @@ onchange="previewIcon(event)"
 <br><br>
 
 
-<img 
+<img
 id="iconPreview"
-src=""
 width="128"
 style="display:none;border-radius:15px;"
 >
@@ -238,18 +306,15 @@ style="display:none;border-radius:15px;"
 </div>
 <div class="card">
 
-<h2>📂 Create Subpack</h2>
 
-<p>
-Create your resource pack subpacks.
-</p>
+<h2>📂 Subpack Builder</h2>
 
 
 <label>📁 Subpack Folder Name</label><br>
 
 <input 
-type="text" 
-id="subFolder" 
+type="text"
+id="subFolder"
 placeholder="Example: day"
 >
 
@@ -257,34 +322,74 @@ placeholder="Example: day"
 <br><br>
 
 
-<label>🎮 Display Name In Game</label><br>
+
+<h3>🎨 Colored Subpack Name Builder</h3>
+
+
+
+<div id="subParts">
+
+
+
+<div class="subPart">
+
+
 
 <input 
-type="text" 
-id="subName" 
-placeholder="Example: Day Sky"
+class="subText"
+placeholder="Example: Day"
 >
 
 
-<br><br>
+<select class="subColor">
 
-
-<label>🎨 Subpack Name Color</label><br>
-
-
-<select id="subColor">
 
 <option value="§f">⚪ White</option>
+<option value="§0">⚫ Black</option>
+<option value="§1">🔷 Dark Blue</option>
+<option value="§2">🟢 Dark Green</option>
+<option value="§3">🌊 Dark Aqua</option>
+<option value="§5">🟣 Purple</option>
+<option value="§6">🟠 Gold</option>
+<option value="§9">🔵 Blue</option>
 <option value="§a">🟢 Green</option>
 <option value="§b">🔵 Light Blue</option>
-<option value="§1">🔷 Dark Blue</option>
 <option value="§c">🔴 Red</option>
-<option value="§e">🟡 Yellow</option>
-<option value="§6">🟠 Gold</option>
 <option value="§d">🩷 Pink</option>
-<option value="§5">🟣 Purple</option>
+<option value="§e">🟡 Yellow</option>
+
 
 </select>
+
+
+
+
+<select class="subStyle">
+
+
+<option value="">Normal</option>
+<option value="§l">Bold</option>
+<option value="§o">Italic</option>
+<option value="§n">Underline</option>
+<option value="§m">Strikethrough</option>
+
+
+</select>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<button onclick="addSubPart()">
+
+➕ Add Subpack Part
+
+</button>
 
 
 <br><br>
@@ -292,9 +397,10 @@ placeholder="Example: Day Sky"
 
 <button onclick="addSubpack()">
 
-➕ Add Subpack
+📂 Create Subpack
 
 </button>
+
 
 
 <div id="subpackList">
@@ -305,268 +411,18 @@ placeholder="Example: Day Sky"
 </div>
 
 
+
 <footer>
 
 © PackZone MC 💙
 
 </footer>
 
-<script src="../language.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script>  
-function createUUID() {  
-  
-return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){  
-  
-let r = Math.random() * 16 | 0;  
-  
-let v = c === "x" ? r : (r & 0x3 | 0x8);  
-  
-return v.toString(16);  
-  
-});  
-  
-}  
-  
-  
-function generateUUID(){  
-  
-document.getElementById("headerUUID").value = createUUID();  
-  
-document.getElementById("moduleUUID").value = createUUID();  
-  
-}  
-  
-  
-generateUUID();  
-let subpacks = [];  
-let packIconFile = null;  
-  
-function addSubpack(){  
-  
-let folder = document.getElementById("subFolder").value;  
-  
-let name = document.getElementById("subName").value;  
-  
-  
-if(folder === "" || name === ""){  
-  
-alert("Please enter folder name and display name");
-  
-return;  
-  
-}  
-  
-  
-  subpacks.push({  
-  
-folder: folder,  
-  
-name: name,  
-  
-color: document.getElementById("subColor").value  
-  
-});  
-  
-  
-showSubpacks();  
-  
-  
-document.getElementById("subFolder").value = "";  
-  
-document.getElementById("subName").value = "";  
-let color = document.getElementById("subColor").value;  
-}  
-  
-  
-  
-function showSubpacks(){  
-  
-let list = document.getElementById("subpackList");  
-  
-list.innerHTML = "";  
-  
-  
-subpacks.forEach((sub,index)=>{  
-  
-  
-list.innerHTML += `  
-  
-<div class="card">  
-  
-📁 Folder: ${sub.folder}
 
+<script src="../language.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+
+<script>
   
-<br>  
-  
-🎮 In Game Name: <span style="color:${sub.color.replace('§','#')}">${sub.name}</span>  
-  
-<br><br>  
-  
-<button onclick="removeSubpack(${index})">  
-  
-❌ Remove
-  
-</button>  
-  
-</div>  
-  
-`;  
-  
-});  
-  
-  
-}  
-  
-  
-  
-function removeSubpack(index){  
-  
-subpacks.splice(index,1);  
-  
-showSubpacks();  
-  
-}  
-  
-  
-function generateManifest(){  
-  
-let manifest = {  
-    "format_version": 2,  
-  
-"header": {  
-    "name":  
-document.getElementById("nameColor").value +  
-document.getElementById("nameStyle").value +  
-document.getElementById("packName").value,  
-  
-"description":  
-document.getElementById("descColor").value +  
-document.getElementById("descStyle").value +  
-document.getElementById("description").value,  
-    "uuid": document.getElementById("headerUUID").value,  
-    "version": [1,0,0],  
-    "min_engine_version": document.getElementById("mcVersion").value.split(".").map(Number)  
-},  
-  
-"subpacks": subpacks.map(sub => ({  
-    "folder_name": sub.folder,  
-    "name": sub.color + sub.name  
-})),  
-  
-    "modules": [  
-        {  
-            "type": "resources",  
-            "uuid": document.getElementById("moduleUUID").value,  
-            "version": [1,0,0]  
-        }  
-    ]  
-};  
-  
-  
-let file = new Blob(  
-    [JSON.stringify(manifest,null,4)],  
-    {type:"application/json"}  
-);  
-  
-  
-let link = document.createElement("a");  
-  
-link.href = URL.createObjectURL(file);  
-  
-link.download = "manifest.json";  
-  
-link.click();  
-  
-}  
-  
-function previewIcon(event){  
-  
-let file = event.target.files[0];  
-packIconFile = file;  
-if(file){  
-let reader = new FileReader();  
-  
-reader.onload = function(){  
-  
-let img = document.getElementById("iconPreview");  
-  
-img.src = reader.result;  
-  
-img.style.display = "block";  
-  
-}  
-  
-reader.readAsDataURL(file);  
-  
-}  
-  
-}  
-function downloadPack(){  
-  
-let zip = new JSZip();  
-  
-let manifest = {  
-"format_version":2,  
-  
-"header":{  
-"name":document.getElementById("nameColor").value +  
-document.getElementById("nameStyle").value +  
-document.getElementById("packName").value,  
-  
-"description":  
-document.getElementById("descColor").value +  
-document.getElementById("descStyle").value +  
-document.getElementById("description").value,  
-  
-"uuid":document.getElementById("headerUUID").value,  
-  
-"version":[1,0,0],  
-  
-"min_engine_version":  
-document.getElementById("mcVersion").value.split(".").map(Number)  
-},  
-  
-"modules":[  
-{  
-"type":"resources",  
-"uuid":document.getElementById("moduleUUID").value,  
-"version":[1,0,0]  
-}  
-]  
-  
-};  
-  
-  
-zip.file(  
-"manifest.json",  
-JSON.stringify(manifest,null,4)  
-);  
-  
-  
-if(packIconFile){  
-  
-zip.file(  
-"pack_icon.png",  
-packIconFile  
-);  
-  
-}  
-  
-  
-zip.generateAsync({  
-type:"blob"  
-}).then(function(content){  
-  
-let link=document.createElement("a");  
-  
-link.href=URL.createObjectURL(content);  
-  
-link.download="PZMC-Pack.zip";  
-  
-link.click();  
-  
-});  
-  
-}  
-  </script>  </body>  </html>
