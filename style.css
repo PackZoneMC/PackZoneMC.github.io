@@ -215,3 +215,61 @@ background:#17406d;
 box-shadow:0 0 20px #00aaff;
 
 }
+/* Home Page Design */
+
+.main-logo{
+    text-align:center;
+    width:100%;
+    color:#7ec8ff;
+    font-size:40px;
+    text-shadow:0 0 20px #008cff;
+    margin-top:30px;
+}
+
+
+.about{
+    text-align:center;
+    max-width:800px;
+    margin:30px auto;
+    line-height:2;
+}
+
+
+.menu-box{
+
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:30px;
+
+}
+
+
+.small-card{
+
+    width:220px;
+    text-align:center;
+    padding:15px;
+
+}
+
+
+.small-card h3{
+
+    color:#7ec8ff;
+    text-shadow:0 0 10px #008cff;
+
+}
+
+
+/* Move language buttons */
+
+.language-switch{
+
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    top:auto;
+
+}
