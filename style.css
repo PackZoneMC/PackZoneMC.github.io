@@ -170,21 +170,6 @@ color:#9ecfff;
 }
 
 
-/* Language Button */
-
-.language-switch{
-
-position:fixed;
-
-top:15px;
-
-right:15px;
-
-z-index:1000;
-
-}
-
-
 .language-switch button{
 
 background:#102847;
