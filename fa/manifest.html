@@ -350,7 +350,18 @@ let color = document.getElementById("subColor").value;
 }
 
 
+function colorCode(text){
 
+return text
+.replace(/§b/g,'🔵')
+.replace(/§e/g,'🟡')
+.replace(/§a/g,'🟢')
+.replace(/§c/g,'🔴')
+.replace(/§d/g,'🩷')
+.replace(/§5/g,'🟣')
+.replace(/§f/g,'⚪');
+
+}
 function showSubpacks(){
 
 let list = document.getElementById("subpackList");
@@ -369,7 +380,7 @@ list.innerHTML += `
 
 <br>
 
-🎮 نام داخل بازی: <span style="color:${sub.color.replace('§','#')}">${sub.name}</span>
+🎮 نام داخل بازی: ${colorCode(sub.customName || sub.name)}
 
 <br><br>
 
@@ -424,7 +435,7 @@ document.getElementById("description").value,
 
 "subpacks": subpacks.map(sub => ({
     "folder_name": sub.folder,
-    "name": sub.color + sub.name
+    sub.customName
 })),
 
     "modules": [
@@ -503,8 +514,8 @@ document.getElementById("description").value,
 document.getElementById("mcVersion").value.split(".").map(Number)
 },
 "subpacks": subpacks.map(sub => ({
-    "folder_name": sub.folder,
-    "name": sub.color + sub.name
+    "folder_name": sub.folder
+     sub.customName
 })),
 "modules":[
 {
