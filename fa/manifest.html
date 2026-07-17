@@ -26,6 +26,7 @@
 
 </div>
 
+
 <header>
 
 <h1>💙 PackZone MC</h1>
@@ -42,6 +43,7 @@
 
 </header>
 
+
 <section class="hero">
 
 <h2>📄 ساخت مانیفست</h2>
@@ -50,94 +52,137 @@
 
 </section>
 
+
+
 <div class="card">
 
 <h2>📦 اطلاعات پک</h2>
 
+
 <label>📦 نام پک</label><br>
-<input type="text" id="packName">
-<label>🎨 متن رنگی سفارشی</label><br>
 
-<textarea id="customName" rows="2" placeholder="مثال: §cAref §bmahdi"></textarea>
-<br><br>
+<input type="text" id="packName" placeholder="مثلا PZMC Version Test">
 
-<label>🎨 رنگ اسم پک</label><br>
 
-<select id="nameColor">
+<h3>🎨 ساخت اسم رنگی حرفه‌ای</h3>
+
+<p>
+هر کلمه را جدا وارد کن و رنگ و فونت بده.
+</p>
+
+
+<div id="nameParts">
+
+
+<div class="namePart">
+
+<input class="partText" placeholder="مثلا PZMC">
+
+<select class="partColor">
 
 <option value="§f">⚪ سفید</option>
-<option value="§a">🟢 سبز</option>
-<option value="§b">🔵 آبی روشن</option>
-<option value="§1">🔷 آبی تیره</option>
-<option value="§c">🔴 قرمز</option>
-<option value="§e">🟡 زرد</option>
-<option value="§6">🟠 طلایی</option>
-<option value="§d">🩷 صورتی</option>
-<option value="§5">🟣 بنفش</option>
 <option value="§0">⚫ مشکی</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§2">🟢 سبز تیره</option>
+<option value="§3">🌊 فیروزه‌ای</option>
+<option value="§4">🔴 قرمز تیره</option>
+<option value="§5">🟣 بنفش</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§7">⚙ خاکستری</option>
+<option value="§8">🩶 خاکستری تیره</option>
+<option value="§9">🔵 آبی</option>
+<option value="§a">🟢 سبز</option>
+<option value="§b">🔵 آبی روشن</option>
+<option value="§c">🔴 قرمز</option>
+<option value="§d">🩷 صورتی</option>
+<option value="§e">🟡 زرد</option>
 
 </select>
 
 
-<br><br>
+<select class="partStyle">
 
-<label>✨ فونت اسم پک</label><br>
-
-<select id="nameStyle">
-
+<option value="">عادی</option>
 <option value="§l">ضخیم</option>
 <option value="§o">کج</option>
 <option value="§n">زیرخط</option>
 <option value="§m">خط خورده</option>
-<option value="">عادی</option>
 
 </select>
+
+
+</div>
+
+
+</div>
+
+
+<button onclick="addNamePart()">
+➕ اضافه کردن بخش جدید
+</button>
+
+
 <br><br>
 
-<label>📝 توضیحات</label><br>
-<textarea id="description" rows="4"></textarea>
-<br><br>
 
-<label>🎨 توضیحات رنگی سفارشی</label><br>
+<h3>📝 توضیحات پک</h3>
 
-<textarea id="customDescription" rows="3" placeholder="مثال: §fMade By §bAmirPZ §6PZMC"></textarea>
 
-<label>🎨 رنگ توضیحات</label><br>
+<textarea id="description" rows="3" placeholder="توضیحات معمولی"></textarea>
 
-<select id="descColor">
+
+<h3>🎨 ساخت توضیحات رنگی</h3>
+
+
+<div id="descParts">
+
+
+<div class="descPart">
+
+<input class="descText" placeholder="مثلا Made By">
+
+
+<select class="descColor">
 
 <option value="§f">⚪ سفید</option>
-<option value="§a">🟢 سبز</option>
 <option value="§b">🔵 آبی روشن</option>
-<option value="§1">🔷 آبی تیره</option>
-<option value="§c">🔴 قرمز</option>
 <option value="§e">🟡 زرد</option>
-<option value="§6">🟠 طلایی</option>
-<option value="§d">🩷 صورتی</option>
+<option value="§a">🟢 سبز</option>
+<option value="§c">🔴 قرمز</option>
 <option value="§5">🟣 بنفش</option>
 
 </select>
 
 
-<br><br>
+<select class="descStyle">
 
-<label>✨ فونت توضیحات</label><br>
-
-<select id="descStyle">
-
+<option value="">عادی</option>
 <option value="§l">ضخیم</option>
 <option value="§o">کج</option>
 <option value="§n">زیرخط</option>
 <option value="§m">خط خورده</option>
-<option value="">عادی</option>
 
 </select>
+
+
+</div>
+
+
+</div>
+
+
+<button onclick="addDescPart()">
+➕ اضافه کردن بخش توضیحات
+</button>
 <br><br>
 
 <label>👤 سازنده</label><br>
+
 <input type="text" id="author">
 
+
 <br><br>
+
 
 <label>🎮 نسخه ماینکرفت</label><br>
 
@@ -165,131 +210,223 @@
 
 </select>
 
+
 </div>
+
+
+
 <div class="card">
 
 <h2>🆔 ساخت UUID</h2>
 
-<p>UUID های معتبر برای مانیفست به صورت خودکار ساخته می‌شوند.</p>
+
+<p>
+UUID های معتبر برای مانیفست به صورت خودکار ساخته می‌شوند.
+</p>
+
 
 <label>Header UUID</label><br>
 
 <input type="text" id="headerUUID" readonly>
 
+
 <br><br>
+
 
 <label>Module UUID</label><br>
 
 <input type="text" id="moduleUUID" readonly>
 
+
 <br><br>
+
 
 <button onclick="generateUUID()">
+
 🔄 تولید UUID جدید
+
 </button>
+
+
 <br><br>
+
 
 <button onclick="generateManifest()">
+
 📄 ساخت manifest.json
+
 </button>
+
+
 <br><br>
 
+
 <button onclick="downloadPack()">
-📦 دانلود پک (manifest + icon)
+
+📦 دانلود پک
+
 </button>
+
+
 </div>
-  <div class="card">
+
+
+
+
+<div class="card">
 
 <h2>🖼 انتخاب Pack Icon</h2>
 
+
 <p>
-آیکون پک خود را از گالری انتخاب کنید.
+آیکون پک خود را انتخاب کنید.
 </p>
 
+
 <input 
-type="file" 
+type="file"
 id="packIcon"
 accept="image/png,image/jpeg"
 onchange="previewIcon(event)"
 >
 
+
 <br><br>
 
-<img 
+
+<img
 id="iconPreview"
-src=""
 width="128"
 style="display:none;border-radius:15px;"
 >
 
-  </div>
-  <div class="card">
+
+</div>
+
+
+
+
+
+<div class="card">
+
 
 <h2>📂 ساخت Subpack</h2>
 
-<p>
-ساب‌پک خود را بسازید.
-</p>
 
 <label>📁 اسم پوشه Subpack</label><br>
-<input type="text" id="subFolder" placeholder="مثلا day">
-<br><br>
 
-<label>🎨 متن رنگی سفارشی Subpack</label><br>
+<input 
+type="text"
+id="subFolder"
+placeholder="مثلا day"
+>
 
-<textarea 
-id="customSubName" 
-rows="2" 
-placeholder="مثال: §bDay §eSky">
-</textarea>
-<br><br>
-
-<label>🎮 اسم نمایشی داخل بازی</label><br>
-<input type="text" id="subName" placeholder="مثلا Day Sky">
 
 <br><br>
- <label>🎨 رنگ اسم Subpack</label><br>
 
-<select id="subColor">
+
+
+<h3>🎨 ساخت اسم رنگی Subpack</h3>
+
+
+
+<div id="subParts">
+
+
+
+<div class="subPart">
+
+
+
+<input 
+class="subText"
+placeholder="مثلا Day"
+>
+
+
+<select class="subColor">
+
 
 <option value="§f">⚪ سفید</option>
+<option value="§0">⚫ مشکی</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§2">🟢 سبز تیره</option>
+<option value="§3">🌊 فیروزه‌ای</option>
+<option value="§5">🟣 بنفش</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§9">🔵 آبی</option>
 <option value="§a">🟢 سبز</option>
 <option value="§b">🔵 آبی روشن</option>
-<option value="§1">🔷 آبی تیره</option>
 <option value="§c">🔴 قرمز</option>
-<option value="§e">🟡 زرد</option>
-<option value="§6">🟠 طلایی</option>
 <option value="§d">🩷 صورتی</option>
-<option value="§5">🟣 بنفش</option>
+<option value="§e">🟡 زرد</option>
+
 
 </select>
 
-<br><br>   
+
+
+
+<select class="subStyle">
+
+
+<option value="">عادی</option>
+<option value="§l">ضخیم</option>
+<option value="§o">کج</option>
+<option value="§n">زیرخط</option>
+<option value="§m">خط خورده</option>
+
+
+</select>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<button onclick="addSubPart()">
+
+➕ اضافه کردن بخش Subpack
+
+</button>
+
+
+<br><br>
+
 
 <button onclick="addSubpack()">
-➕ اضافه کردن Subpack
+
+📂 ساخت Subpack
+
 </button>
+
+
+
 <div id="subpackList">
 
 </div>
-  </div>
-<footer>
 
-© PackZone MC 💙
 
-</footer>
-
+</div>
 <script src="../language.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+
 <script>
 
-function createUUID() {
 
-return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){
+function createUUID(){
 
-let r = Math.random() * 16 | 0;
+return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
 
-let v = c === "x" ? r : (r & 0x3 | 0x8);
+let r = Math.random()*16|0;
+
+let v = c=="x" ? r : (r&0x3|0x8);
 
 return v.toString(16);
 
@@ -298,75 +435,279 @@ return v.toString(16);
 }
 
 
+
 function generateUUID(){
 
-document.getElementById("headerUUID").value = createUUID();
+document.getElementById("headerUUID").value=createUUID();
 
-document.getElementById("moduleUUID").value = createUUID();
+document.getElementById("moduleUUID").value=createUUID();
 
 }
 
 
 generateUUID();
-let subpacks = [];
-let packIconFile = null;
+
+
+
+let subpacks=[];
+
+let packIconFile=null;
+
+
+
+// ساخت بخش جدید اسم پک
+
+function addNamePart(){
+
+let box=document.createElement("div");
+
+box.className="namePart";
+
+
+box.innerHTML=`
+
+<input class="partText" placeholder="متن">
+
+<select class="partColor">
+
+<option value="§f">⚪ سفید</option>
+<option value="§0">⚫ مشکی</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§5">🟣 بنفش</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§9">🔵 آبی</option>
+<option value="§a">🟢 سبز</option>
+<option value="§b">🔵 آبی روشن</option>
+<option value="§c">🔴 قرمز</option>
+<option value="§d">🩷 صورتی</option>
+<option value="§e">🟡 زرد</option>
+
+</select>
+
+
+<select class="partStyle">
+
+<option value="">عادی</option>
+<option value="§l">ضخیم</option>
+<option value="§o">کج</option>
+<option value="§n">زیرخط</option>
+<option value="§m">خط خورده</option>
+
+</select>
+
+`;
+
+
+document.getElementById("nameParts").appendChild(box);
+
+}
+
+
+
+
+
+// ساخت بخش جدید توضیحات
+
+
+function addDescPart(){
+
+
+let box=document.createElement("div");
+
+box.className="descPart";
+
+
+box.innerHTML=`
+
+<input class="descText" placeholder="متن">
+
+
+<select class="descColor">
+
+<option value="§f">⚪ سفید</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§5">🟣 بنفش</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§a">🟢 سبز</option>
+<option value="§b">🔵 آبی روشن</option>
+<option value="§c">🔴 قرمز</option>
+<option value="§e">🟡 زرد</option>
+
+</select>
+
+
+<select class="descStyle">
+
+<option value="">عادی</option>
+<option value="§l">ضخیم</option>
+<option value="§o">کج</option>
+<option value="§n">زیرخط</option>
+<option value="§m">خط خورده</option>
+
+</select>
+
+`;
+
+
+document.getElementById("descParts").appendChild(box);
+
+
+}
+
+
+
+
+// ساخت بخش Subpack
+
+
+function addSubPart(){
+
+
+let box=document.createElement("div");
+
+box.className="subPart";
+
+
+box.innerHTML=`
+
+<input class="subText" placeholder="متن">
+
+
+<select class="subColor">
+
+<option value="§f">⚪ سفید</option>
+<option value="§1">🔷 آبی تیره</option>
+<option value="§5">🟣 بنفش</option>
+<option value="§6">🟠 طلایی</option>
+<option value="§a">🟢 سبز</option>
+<option value="§b">🔵 آبی روشن</option>
+<option value="§c">🔴 قرمز</option>
+<option value="§e">🟡 زرد</option>
+
+</select>
+
+
+<select class="subStyle">
+
+<option value="">عادی</option>
+<option value="§l">ضخیم</option>
+<option value="§o">کج</option>
+<option value="§n">زیرخط</option>
+<option value="§m">خط خورده</option>
+
+</select>
+
+
+`;
+
+
+document.getElementById("subParts").appendChild(box);
+
+
+}
+
+function buildColoredText(container, textClass, colorClass, styleClass){
+
+let result="";
+
+let texts=document.querySelectorAll(container+" "+textClass);
+
+let colors=document.querySelectorAll(container+" "+colorClass);
+
+let styles=document.querySelectorAll(container+" "+styleClass);
+
+
+for(let i=0;i<texts.length;i++){
+
+if(texts[i].value.trim() !== ""){
+
+result += 
+colors[i].value +
+styles[i].value +
+texts[i].value;
+
+}
+
+}
+
+
+return result;
+
+}
+
+
+
+
 
 function addSubpack(){
 
-let folder = document.getElementById("subFolder").value;
 
-let name = document.getElementById("subName").value;
+let folder=document.getElementById("subFolder").value;
 
 
-if(folder === "" || name === ""){
+if(folder===""){
 
-alert("لطفا اسم پوشه و اسم نمایشی را وارد کنید");
+alert("اسم پوشه را وارد کنید");
 
 return;
 
 }
 
 
+
+let name=buildColoredText(
+
+"#subParts",
+".subText",
+".subColor",
+".subStyle"
+
+);
+
+
+
+if(name===""){
+
+alert("اسم Subpack را وارد کنید");
+
+return;
+
+}
+
+
+
 subpacks.push({
 
-folder: folder,
+folder:folder,
 
-name: name,
-
-customName: document.getElementById("customSubName").value,
-
-color: document.getElementById("subColor").value
+name:name
 
 });
+
 
 
 showSubpacks();
 
 
-document.getElementById("subFolder").value = "";
 
-document.getElementById("subName").value = "";
-let color = document.getElementById("subColor").value;
+document.getElementById("subFolder").value="";
+
+
 }
 
 
-function colorCode(text){
 
-return text
-.replace(/§b/g,'🔵')
-.replace(/§e/g,'🟡')
-.replace(/§a/g,'🟢')
-.replace(/§c/g,'🔴')
-.replace(/§d/g,'🩷')
-.replace(/§5/g,'🟣')
-.replace(/§f/g,'⚪');
 
-}
+
+
 function showSubpacks(){
 
-let list = document.getElementById("subpackList");
 
-list.innerHTML = "";
+let list=document.getElementById("subpackList");
+
+
+list.innerHTML="";
+
 
 
 subpacks.forEach((sub,index)=>{
@@ -376,11 +717,11 @@ list.innerHTML += `
 
 <div class="card">
 
-📁 پوشه: ${sub.folder}
+📁 ${sub.folder}
 
 <br>
 
-🎮 نام داخل بازی: ${colorCode(sub.customName || sub.name)}
+🎮 ${sub.name}
 
 <br><br>
 
@@ -390,14 +731,17 @@ list.innerHTML += `
 
 </button>
 
+
 </div>
 
 `;
+
 
 });
 
 
 }
+
 
 
 
@@ -410,156 +754,312 @@ showSubpacks();
 }
 
 
+
+
+
 function generateManifest(){
 
-let manifest = {
-    "format_version": 2,
-
-"header": {
-
-"name":
-document.getElementById("customName").value ||
-document.getElementById("nameColor").value +
-document.getElementById("nameStyle").value +
-document.getElementById("packName").value,
-
-"description":
-document.getElementById("customDescription").value ||
-document.getElementById("descColor").value +
-document.getElementById("descStyle").value +
-document.getElementById("description").value,
-    "uuid": document.getElementById("headerUUID").value,
-    "version": [1,0,0],
-    "min_engine_version": document.getElementById("mcVersion").value.split(".").map(Number)
-},
-
-"subpacks": subpacks.map(sub => ({
-    "folder_name": sub.folder,
-    "name": sub.customName || sub.name
-})),
-
-    "modules": [
-        {
-            "type": "resources",
-            "uuid": document.getElementById("moduleUUID").value,
-            "version": [1,0,0]
-        }
-    ]
-};
 
 
-let file = new Blob(
-    [JSON.stringify(manifest,null,4)],
-    {type:"application/json"}
+let packName=buildColoredText(
+
+"#nameParts",
+".partText",
+".partColor",
+".partStyle"
+
 );
 
 
-let link = document.createElement("a");
 
-link.href = URL.createObjectURL(file);
+let description=buildColoredText(
 
-link.download = "manifest.json";
+"#descParts",
+".descText",
+".descColor",
+".descStyle"
+
+);
+
+
+
+
+
+let manifest={
+
+
+"format_version":2,
+
+
+"header":{
+
+
+"name":packName,
+
+
+"description":description,
+
+
+"uuid":document.getElementById("headerUUID").value,
+
+
+"version":[1,0,0],
+
+
+"min_engine_version":
+document.getElementById("mcVersion").value
+.split(".")
+.map(Number)
+
+
+},
+
+
+
+"subpacks":subpacks.map(sub=>({
+
+
+"folder_name":sub.folder,
+
+
+"name":sub.name
+
+
+})),
+
+
+
+"modules":[{
+
+
+"type":"resources",
+
+
+"uuid":document.getElementById("moduleUUID").value,
+
+
+"version":[1,0,0]
+
+
+}]
+
+
+
+};
+
+
+
+
+let file=new Blob(
+
+[JSON.stringify(manifest,null,4)],
+
+{type:"application/json"}
+
+);
+
+
+
+let link=document.createElement("a");
+
+
+link.href=URL.createObjectURL(file);
+
+
+link.download="manifest.json";
+
 
 link.click();
 
+
+
 }
+
+
+
 
 function previewIcon(event){
 
-let file = event.target.files[0];
-packIconFile = file;
+
+let file=event.target.files[0];
+
+
+packIconFile=file;
+
+
+
 if(file){
-let reader = new FileReader();
 
-reader.onload = function(){
 
-let img = document.getElementById("iconPreview");
+let reader=new FileReader();
 
-img.src = reader.result;
 
-img.style.display = "block";
+
+reader.onload=function(){
+
+
+let img=document.getElementById("iconPreview");
+
+
+img.src=reader.result;
+
+
+img.style.display="block";
+
 
 }
+
+
 
 reader.readAsDataURL(file);
 
+
 }
+
 
 }
 function downloadPack(){
 
+
 let zip = new JSZip();
 
-let manifest = {
+
+
+let packName=buildColoredText(
+"#nameParts",
+".partText",
+".partColor",
+".partStyle"
+);
+
+
+
+let description=buildColoredText(
+"#descParts",
+".descText",
+".descColor",
+".descStyle"
+);
+
+
+
+
+let manifest={
+
+
 "format_version":2,
 
-"header":{
-"name":
-document.getElementById("customName").value ||
-document.getElementById("nameColor").value +
-document.getElementById("nameStyle").value +
-document.getElementById("packName").value,
 
-"description":
-document.getElementById("customDescription").value ||
-document.getElementById("descColor").value +
-document.getElementById("descStyle").value +
-document.getElementById("description").value,
+"header":{
+
+"name":packName,
+
+"description":description,
 
 "uuid":document.getElementById("headerUUID").value,
 
 "version":[1,0,0],
 
 "min_engine_version":
-document.getElementById("mcVersion").value.split(".").map(Number)
+document.getElementById("mcVersion").value
+.split(".")
+.map(Number)
+
 },
-"subpacks": subpacks.map(sub => ({
-    "folder_name": sub.folder,
-    "name": sub.customName || sub.name
+
+
+
+"subpacks":subpacks.map(sub=>({
+
+"folder_name":sub.folder,
+
+"name":sub.name
+
 })),
+
+
+
 "modules":[
+
 {
+
 "type":"resources",
+
 "uuid":document.getElementById("moduleUUID").value,
+
 "version":[1,0,0]
+
 }
+
 ]
+
 
 };
 
 
+
+
+
 zip.file(
+
 "manifest.json",
+
 JSON.stringify(manifest,null,4)
+
 );
+
+
 
 
 if(packIconFile){
 
+
 zip.file(
+
 "pack_icon.png",
+
 packIconFile
+
 );
 
+
 }
+
+
 
 
 zip.generateAsync({
+
 type:"blob"
+
 }).then(function(content){
+
+
 
 let link=document.createElement("a");
 
+
 link.href=URL.createObjectURL(content);
+
 
 link.download="PZMC-Pack.zip";
 
+
 link.click();
+
+
 
 });
 
+
+
 }
-  </script>
+
+
+
+</script>
+
+
 </body>
 
 </html>
