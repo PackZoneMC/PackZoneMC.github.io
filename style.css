@@ -258,3 +258,33 @@ box-shadow:0 0 20px #00aaff;
     top:auto;
 
 }
+.home-button{
+
+position:fixed;
+top:15px;
+right:15px;
+
+background:#102847;
+color:#7ec8ff;
+
+padding:8px 15px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+box-shadow:0 0 15px #008cff;
+
+z-index:1000;
+
+}
+
+
+.home-button:hover{
+
+background:#008cff;
+color:white;
+
+box-shadow:0 0 25px #00aaff;
+
+}
