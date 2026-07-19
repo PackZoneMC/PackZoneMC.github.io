@@ -12,143 +12,118 @@
 <style>
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#050b18;
-color:white;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#050b18;
+    color:white;
 }
 
 
-.builder{
-max-width:1000px;
-margin:auto;
-padding:25px;
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:25px;
 }
 
 
 h1{
-text-align:center;
-color:#7ec8ff;
-text-shadow:0 0 20px #008cff;
+    text-align:center;
+    color:#00aaff;
+    text-shadow:0 0 20px #008cff;
 }
 
 
-.box{
+.card{
 
-background:#0d2038;
-padding:25px;
-margin:25px 0;
-border-radius:20px;
-box-shadow:0 0 20px #002b55;
+    background:#0d2038;
+    padding:25px;
+    margin:20px 0;
+    border-radius:20px;
+    box-shadow:0 0 20px #002b55;
 
 }
 
 
 h2{
 
-color:#7ec8ff;
-text-shadow:0 0 10px #008cff;
+    color:#7ec8ff;
 
 }
-
 
 
 input,select{
 
-background:#050b18;
-color:white;
-
-border:1px solid #008cff;
-
-padding:12px;
-
-border-radius:12px;
-
-width:100%;
+    width:100%;
+    padding:12px;
+    background:#050b18;
+    color:white;
+    border:1px solid #008cff;
+    border-radius:12px;
 
 }
 
 
 
-.icon-preview{
+.icon-box{
 
-width:160px;
-height:160px;
-
-margin-top:20px;
-
-border-radius:20px;
-
-overflow:hidden;
-
-background:#02050a;
+    width:150px;
+    height:150px;
+    margin-top:15px;
+    background:#000;
+    border-radius:15px;
+    overflow:hidden;
 
 }
 
 
-.icon-preview img{
+.icon-box img{
 
-width:100%;
-height:100%;
-
-object-fit:cover;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 
 }
 
 
 
-.toolbar{
+.tools{
 
-display:flex;
-
-flex-wrap:wrap;
-
-gap:8px;
-
-margin-bottom:15px;
-
-}
-
-
-.toolbar button{
-
-background:#102847;
-
-color:white;
-
-border:none;
-
-padding:8px 12px;
-
-border-radius:10px;
-
-cursor:pointer;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:15px;
 
 }
 
 
 
-.toolbar button:hover{
+.tools button{
 
-background:#008cff;
+    border:none;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    color:white;
+    background:#102847;
 
 }
 
+
+.tools button:hover{
+
+    transform:scale(1.05);
+
+}
 
 
 .editor{
 
-min-height:80px;
-
-background:#050b18;
-
-border:1px solid #008cff;
-
-border-radius:15px;
-
-padding:15px;
-
-outline:none;
+    min-height:80px;
+    padding:15px;
+    background:#050b18;
+    border:1px solid #008cff;
+    border-radius:15px;
+    outline:none;
 
 }
 
@@ -156,24 +131,19 @@ outline:none;
 
 .preview{
 
-background:#111;
-
-padding:20px;
-
-border-radius:15px;
-
-text-align:center;
+    text-align:center;
+    background:#111;
+    padding:20px;
+    border-radius:15px;
 
 }
 
 
-
 .preview img{
 
-width:100px;
-height:100px;
-
-border-radius:15px;
+    width:100px;
+    height:100px;
+    border-radius:15px;
 
 }
 
@@ -181,15 +151,11 @@ border-radius:15px;
 
 pre{
 
-background:#02050a;
-
-padding:20px;
-
-border-radius:15px;
-
-overflow:auto;
-
-color:#7ec8ff;
+    background:#02050a;
+    color:#7ec8ff;
+    padding:20px;
+    border-radius:15px;
+    overflow:auto;
 
 }
 
@@ -197,26 +163,20 @@ color:#7ec8ff;
 
 .download button{
 
-background:#075ca8;
-
-color:white;
-
-border:none;
-
-padding:15px 25px;
-
-border-radius:15px;
-
-margin:5px;
-
-cursor:pointer;
+    background:#075ca8;
+    color:white;
+    border:none;
+    padding:15px 20px;
+    border-radius:15px;
+    cursor:pointer;
+    margin:5px;
 
 }
 
 
 .download button:hover{
 
-background:#008cff;
+    background:#008cff;
 
 }
 
@@ -229,24 +189,20 @@ background:#008cff;
 <body>
 
 
-<div class="builder">
+<div class="container">
 
 
 <h1>📦 Pack.mcmeta Builder</h1>
 
 
-
-<section class="box">
+<section class="card">
 
 <h2>🖼 Pack Icon</h2>
 
-<input 
-type="file"
-id="iconInput"
-accept="image/*">
+<input type="file" id="iconInput" accept="image/*">
 
 
-<div class="icon-preview">
+<div class="icon-box">
 
 <img id="iconPreview">
 
@@ -254,50 +210,20 @@ accept="image/*">
 
 
 </section>
-<!-- Pack Name -->
 
-<section class="box">
+
+
+<section class="card">
 
 <h2>📦 اسم پک</h2>
 
 
-<div class="toolbar">
-
-
-<button onclick="formatText('§0')">§0</button>
-<button onclick="formatText('§1')">§1</button>
-<button onclick="formatText('§2')">§2</button>
-<button onclick="formatText('§3')">§3</button>
-<button onclick="formatText('§4')">§4</button>
-<button onclick="formatText('§5')">§5</button>
-<button onclick="formatText('§6')">§6</button>
-<button onclick="formatText('§7')">§7</button>
-<button onclick="formatText('§8')">§8</button>
-<button onclick="formatText('§9')">§9</button>
-<button onclick="formatText('§a')">§a</button>
-<button onclick="formatText('§b')">§b</button>
-<button onclick="formatText('§c')">§c</button>
-<button onclick="formatText('§d')">§d</button>
-<button onclick="formatText('§e')">§e</button>
-<button onclick="formatText('§f')">§f</button>
-
-
-<button onclick="formatText('§l')"><b>B</b></button>
-<button onclick="formatText('§o')"><i>I</i></button>
-<button onclick="formatText('§n')"><u>U</u></button>
-<button onclick="formatText('§m')">S</button>
-<button onclick="formatText('§k')">✨</button>
-<button onclick="formatText('§r')">Reset</button>
-
+<div class="tools" id="nameTools">
 
 </div>
 
 
-
-<div 
-id="packName"
-class="editor"
-contenteditable="true">
+<div id="packName" class="editor" contenteditable="true">
 
 PZMC Pack
 
@@ -305,28 +231,14 @@ PZMC Pack
 
 
 </section>
+<section class="card">
 
-
-
-
-
-
-
-<!-- Version -->
-
-
-<section class="box">
-
-
-<h2>🎮 نسخه Minecraft Java</h2>
-
+<h2>🎮 نسخه Minecraft</h2>
 
 <select id="version">
 
-
 <option value="1">1.8 - 1.8.9</option>
-<option value="2">1.9 - 1.10.2</option>
-<option value="3">1.11 - 1.12.2</option>
+<option value="3">1.12.2</option>
 <option value="4">1.13 - 1.14.4</option>
 <option value="5">1.15 - 1.16.1</option>
 <option value="6">1.16.2 - 1.16.5</option>
@@ -338,7 +250,6 @@ PZMC Pack
 <option value="18">1.20.5 - 1.20.6</option>
 <option value="34">1.21+</option>
 
-
 </select>
 
 
@@ -346,58 +257,17 @@ PZMC Pack
 
 
 
+<section class="card">
+
+<h2>📝 توضیحات پک</h2>
 
 
-
-
-
-<!-- Description -->
-
-
-<section class="box">
-
-
-<h2>📝 Description</h2>
-
-
-
-<div class="toolbar">
-
-
-<button onclick="formatDescription('§0')">§0</button>
-<button onclick="formatDescription('§1')">§1</button>
-<button onclick="formatDescription('§2')">§2</button>
-<button onclick="formatDescription('§3')">§3</button>
-<button onclick="formatDescription('§4')">§4</button>
-<button onclick="formatDescription('§5')">§5</button>
-<button onclick="formatDescription('§6')">§6</button>
-<button onclick="formatDescription('§7')">§7</button>
-<button onclick="formatDescription('§8')">§8</button>
-<button onclick="formatDescription('§9')">§9</button>
-<button onclick="formatDescription('§a')">§a</button>
-<button onclick="formatDescription('§b')">§b</button>
-<button onclick="formatDescription('§c')">§c</button>
-<button onclick="formatDescription('§d')">§d</button>
-<button onclick="formatDescription('§e')">§e</button>
-<button onclick="formatDescription('§f')">§f</button>
-
-
-<button onclick="formatDescription('§l')">Bold</button>
-<button onclick="formatDescription('§o')">Italic</button>
-<button onclick="formatDescription('§n')">Underline</button>
-<button onclick="formatDescription('§m')">Strike</button>
-<button onclick="formatDescription('§k')">Magic</button>
-<button onclick="formatDescription('§r')">Reset</button>
-
+<div class="tools" id="descTools">
 
 </div>
 
 
-
-<div
-id="description"
-class="editor"
-contenteditable="true">
+<div id="description" class="editor" contenteditable="true">
 
 Official PackZone MC Pack
 
@@ -405,10 +275,11 @@ Official PackZone MC Pack
 
 
 </section>
-<!-- Preview -->
 
-<section class="box">
 
+
+
+<section class="card">
 
 <h2>👀 پیش نمایش</h2>
 
@@ -437,13 +308,7 @@ Official PackZone MC Pack
 
 
 
-
-
-<!-- JSON -->
-
-
-<section class="box">
-
+<section class="card">
 
 <h2>📄 pack.mcmeta</h2>
 
@@ -451,10 +316,10 @@ Official PackZone MC Pack
 <pre id="json">
 
 {
-  "pack": {
-    "pack_format": 1,
-    "description": "PackZone MC"
-  }
+ "pack":{
+  "pack_format":1,
+  "description":"PackZone MC"
+ }
 }
 
 </pre>
@@ -464,28 +329,16 @@ Official PackZone MC Pack
 
 
 
-
-
-
-
-<!-- Download -->
-
-
-<section class="box download">
+<section class="card download">
 
 
 <button onclick="downloadMcmeta()">
-
 📄 دانلود pack.mcmeta
-
 </button>
 
 
-
-<button onclick="downloadZip()">
-
+<button onclick="downloadPack()">
 📦 دانلود pack.mcmeta + pack.png
-
 </button>
 
 
@@ -493,17 +346,168 @@ Official PackZone MC Pack
 
 
 
-
-
 </div>
 
 
+<script>
+let iconData = "";
 
-// انتخاب آیکون
+
+/* رنگ ها */
+
+const colors = [
+
+["§0","#000000"],
+["§1","#0000aa"],
+["§2","#00aa00"],
+["§3","#00aaaa"],
+["§4","#aa0000"],
+["§5","#aa00aa"],
+["§6","#ffaa00"],
+["§7","#aaaaaa"],
+["§8","#555555"],
+["§9","#5555ff"],
+["§a","#55ff55"],
+["§b","#55ffff"],
+["§c","#ff5555"],
+["§d","#ff55ff"],
+["§e","#ffff55"],
+["§f","#ffffff"]
+
+];
 
 
-document.getElementById("iconInput")
-.addEventListener("change",function(e){
+
+function createTools(id,type){
+
+
+let box=document.getElementById(id);
+
+
+colors.forEach(function(c){
+
+
+let btn=document.createElement("button");
+
+btn.innerHTML=c[0];
+
+btn.style.background=c[1];
+
+
+btn.onclick=function(){
+
+insertCode(type,c[0]);
+
+};
+
+
+box.appendChild(btn);
+
+
+});
+
+
+
+let styles=[
+
+["B","§l"],
+["I","§o"],
+["U","§n"],
+["S","§m"],
+["✨","§k"],
+["Reset","§r"]
+
+];
+
+
+styles.forEach(function(s){
+
+
+let btn=document.createElement("button");
+
+btn.innerHTML=s[0];
+
+btn.onclick=function(){
+
+insertCode(type,s[1]);
+
+};
+
+
+box.appendChild(btn);
+
+
+});
+
+
+}
+
+
+
+createTools("nameTools","name");
+
+createTools("descTools","desc");
+
+
+
+
+
+let activeEditor = document.getElementById("packName");
+
+
+
+document.querySelectorAll(".editor").forEach(function(e){
+
+
+e.onclick=function(){
+
+activeEditor=this;
+
+}
+
+
+});
+
+
+
+
+
+function insertCode(type,code){
+
+
+if(type==="name"){
+
+activeEditor=document.getElementById("packName");
+
+}
+
+
+if(type==="desc"){
+
+activeEditor=document.getElementById("description");
+
+}
+
+
+
+activeEditor.innerHTML += code;
+
+activeEditor.focus();
+
+
+update();
+
+
+}
+
+
+
+
+
+/* آیکون */
+
+
+document.getElementById("iconInput").onchange=function(e){
 
 
 let file=e.target.files[0];
@@ -515,22 +519,18 @@ if(file){
 let reader=new FileReader();
 
 
-reader.onload=function(event){
+reader.onload=function(ev){
 
 
-iconBase64=event.target.result;
+iconData=ev.target.result;
 
 
-document.getElementById("iconPreview").src=iconBase64;
+document.getElementById("iconPreview").src=iconData;
+
+document.getElementById("previewIcon").src=iconData;
 
 
-document.getElementById("previewIcon").src=iconBase64;
-
-
-update();
-
-
-}
+};
 
 
 reader.readAsDataURL(file);
@@ -538,121 +538,35 @@ reader.readAsDataURL(file);
 
 }
 
-});
 
+};
+function getText(id){
 
-
-
-
-
-// انتخاب ادیتور
-
-
-document.getElementById("packName")
-.onclick=function(){
-
-currentEditor=this;
+return document.getElementById(id).innerText;
 
 }
 
 
 
-document.getElementById("description")
-.onclick=function(){
-
-currentEditor=this;
-
-}
-
-
-
-
-
-
-// اضافه کردن کد رنگ
-
-
-function formatText(code){
-
-
-if(!currentEditor){
-
-currentEditor=document.getElementById("packName");
-
-}
-
-
-insertCode(currentEditor,code);
-
-
-}
-
-
-
-function formatDescription(code){
-
-
-currentEditor=document.getElementById("description");
-
-
-insertCode(currentEditor,code);
-
-
-}
-
-
-
-
-function insertCode(editor,code){
-
-
-editor.innerHTML += code;
-
-
-editor.focus();
-
-
-update();
-
-
-}
-
-
-
-
-
-
-// آپدیت
 
 
 function update(){
 
 
+let name=getText("packName");
 
-let name =
-document.getElementById("packName").innerText;
+let desc=getText("description");
 
-
-
-let desc =
-document.getElementById("description").innerText;
-
-
-
-let format =
-document.getElementById("version").value;
-
-
+let format=document.getElementById("version").value;
 
 
 
 document.getElementById("previewName").innerText =
-name;
-
+name || "Pack Name";
 
 
 document.getElementById("previewDescription").innerText =
-desc;
+desc || "Description";
 
 
 
@@ -660,21 +574,15 @@ desc;
 
 let data={
 
-
 pack:{
-
 
 pack_format:Number(format),
 
-
 description:desc
-
 
 }
 
-
 };
-
 
 
 
@@ -709,33 +617,40 @@ document.getElementById("version")
 
 
 
-// دانلود mcmeta
 
 
 function downloadMcmeta(){
 
 
-let text=document.getElementById("json").textContent;
+let content=document.getElementById("json").textContent;
+
 
 
 let blob=new Blob(
-[text],
+
+[content],
+
 {
+
 type:"application/json"
+
 }
+
 );
 
 
-let a=document.createElement("a");
+
+let link=document.createElement("a");
 
 
-a.href=URL.createObjectURL(blob);
+link.href=URL.createObjectURL(blob);
 
 
-a.download="pack.mcmeta";
+link.download="pack.mcmeta";
 
 
-a.click();
+link.click();
+
 
 
 }
@@ -745,360 +660,22 @@ a.click();
 
 
 
-// ZIP فعلا مرحله بعد کامل میشه
+
+function downloadPack(){
 
 
-function downloadZip(){
-
-
-alert("بخش ZIP در مرحله بعد اضافه می‌شود");
-
-
-}
-
-
-
-</script>
-<script>
-
-let iconBase64 = "";
-
-
-// انتخاب آیکون
-
-document.getElementById("iconInput").onchange = function(e){
-
-let file = e.target.files[0];
-
-if(file){
-
-let reader = new FileReader();
-
-reader.onload = function(ev){
-
-iconBase64 = ev.target.result;
-
-document.getElementById("iconPreview").src = iconBase64;
-
-document.getElementById("previewIcon").src = iconBase64;
-
-update();
-
-}
-
-reader.readAsDataURL(file);
-
-}
-
-};
-
-
-
-
-// ادیتور فعال
-
-let activeEditor = null;
-
-
-document.querySelectorAll(".editor").forEach(function(editor){
-
-editor.onclick=function(){
-
-activeEditor=this;
-
-}
-
-});
-
-
-
-
-
-// اعمال کد روی متن انتخاب شده
-
-function applyCode(code){
-
-
-if(!activeEditor){
-
-activeEditor=document.getElementById("packName");
-
-}
-
-
-let selection = window.getSelection();
-
-
-if(selection.rangeCount){
-
-
-let range = selection.getRangeAt(0);
-
-
-if(!range.collapsed){
-
-
-let span=document.createElement("span");
-
-
-span.textContent = code + range.toString();
-
-
-range.deleteContents();
-
-
-range.insertNode(span);
+alert("دانلود ZIP در مرحله بعد اضافه می‌شود");
 
 
 }
 
-
-else{
-
-
-activeEditor.innerHTML += code;
-
-
-}
-
-
-}
 
 
 update();
 
 
-}
-
-
-
-
-
-
-
-// وصل کردن دکمه‌ها
-
-document.querySelectorAll(".toolbar button")
-.forEach(function(btn){
-
-
-btn.onclick=function(){
-
-
-let code=this.innerText;
-
-
-if(code==="Bold") code="§l";
-
-if(code==="Italic") code="§o";
-
-if(code==="Underline") code="§n";
-
-if(code==="Strike") code="§m";
-
-if(code==="Magic") code="§k";
-
-if(code==="Reset") code="§r";
-
-
-applyCode(code);
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-
-
-// تبدیل متن به خروجی Minecraft
-
-function convertMinecraftText(element){
-
-
-let result="";
-
-
-element.childNodes.forEach(function(node){
-
-
-if(node.nodeType===3){
-
-
-result += node.textContent;
-
-
-}
-
-
-else{
-
-
-result += node.textContent;
-
-
-}
-
-
-});
-
-
-return result;
-
-
-}
-
-
-
-
-
-
-
-
-function update(){
-
-
-let name =
-convertMinecraftText(
-document.getElementById("packName")
-);
-
-
-
-let desc =
-convertMinecraftText(
-document.getElementById("description")
-);
-
-
-
-let format =
-document.getElementById("version").value;
-
-
-
-
-
-document.getElementById("previewName").textContent =
-name || "Pack Name";
-
-
-
-document.getElementById("previewDescription").textContent =
-desc || "Description";
-
-
-
-
-
-let json={
-
-
-pack:{
-
-
-pack_format:Number(format),
-
-
-description:desc
-
-
-}
-
-
-};
-
-
-
-
-
-document.getElementById("json").textContent =
-JSON.stringify(json,null,2);
-
-
-}
-
-
-
-
-
-
-
-document.querySelectorAll(".editor")
-.forEach(function(e){
-
-e.addEventListener("input",update);
-
-});
-
-
-
-document.getElementById("version")
-.addEventListener("change",update);
-
-
-
-
-
-
-
-
-
-function downloadMcmeta(){
-
-
-let data =
-document.getElementById("json").textContent;
-
-
-
-let blob =
-new Blob(
-[data],
-{
-type:"application/json"
-}
-);
-
-
-
-let a=document.createElement("a");
-
-
-a.href=URL.createObjectURL(blob);
-
-
-a.download="pack.mcmeta";
-
-
-a.click();
-
-
-}
-
-
-
-
-
-
-
-function downloadZip(){
-
-
-alert("ZIP در مرحله بعد اضافه می‌شود");
-
-
-}
-
-
-
 </script>
+
 
 </body>
 
