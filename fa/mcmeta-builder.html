@@ -8,7 +8,220 @@
 
 <title>Pack.mcmeta Builder | PackZone MC</title>
 
-<link rel="stylesheet" href="../style.css">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050b18;
+color:white;
+}
+
+
+.builder{
+max-width:1000px;
+margin:auto;
+padding:25px;
+}
+
+
+h1{
+text-align:center;
+color:#7ec8ff;
+text-shadow:0 0 20px #008cff;
+}
+
+
+.box{
+
+background:#0d2038;
+padding:25px;
+margin:25px 0;
+border-radius:20px;
+box-shadow:0 0 20px #002b55;
+
+}
+
+
+h2{
+
+color:#7ec8ff;
+text-shadow:0 0 10px #008cff;
+
+}
+
+
+
+input,select{
+
+background:#050b18;
+color:white;
+
+border:1px solid #008cff;
+
+padding:12px;
+
+border-radius:12px;
+
+width:100%;
+
+}
+
+
+
+.icon-preview{
+
+width:160px;
+height:160px;
+
+margin-top:20px;
+
+border-radius:20px;
+
+overflow:hidden;
+
+background:#02050a;
+
+}
+
+
+.icon-preview img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+
+.toolbar{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:8px;
+
+margin-bottom:15px;
+
+}
+
+
+.toolbar button{
+
+background:#102847;
+
+color:white;
+
+border:none;
+
+padding:8px 12px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+
+
+.toolbar button:hover{
+
+background:#008cff;
+
+}
+
+
+
+.editor{
+
+min-height:80px;
+
+background:#050b18;
+
+border:1px solid #008cff;
+
+border-radius:15px;
+
+padding:15px;
+
+outline:none;
+
+}
+
+
+
+.preview{
+
+background:#111;
+
+padding:20px;
+
+border-radius:15px;
+
+text-align:center;
+
+}
+
+
+
+.preview img{
+
+width:100px;
+height:100px;
+
+border-radius:15px;
+
+}
+
+
+
+pre{
+
+background:#02050a;
+
+padding:20px;
+
+border-radius:15px;
+
+overflow:auto;
+
+color:#7ec8ff;
+
+}
+
+
+
+.download button{
+
+background:#075ca8;
+
+color:white;
+
+border:none;
+
+padding:15px 25px;
+
+border-radius:15px;
+
+margin:5px;
+
+cursor:pointer;
+
+}
+
+
+.download button:hover{
+
+background:#008cff;
+
+}
+
+
+</style>
 
 </head>
 
@@ -16,77 +229,79 @@
 <body>
 
 
-<div class="builder-page">
+<div class="builder">
 
 
 <h1>📦 Pack.mcmeta Builder</h1>
 
 
-<!-- Pack Icon -->
 
-<section class="builder-card">
+<section class="box">
 
-<h2>🖼 آیکون پک</h2>
+<h2>🖼 Pack Icon</h2>
 
 <input 
-type="file" 
-id="packIconInput" 
-accept="image/png,image/jpeg">
+type="file"
+id="iconInput"
+accept="image/*">
 
 
-<div class="icon-box">
+<div class="icon-preview">
 
-<img id="packIconPreview" src="" alt="">
+<img id="iconPreview">
 
 </div>
 
 
 </section>
-
-
-
 <!-- Pack Name -->
 
-<section class="builder-card">
-
+<section class="box">
 
 <h2>📦 اسم پک</h2>
 
 
-<div class="text-tools">
+<div class="toolbar">
 
 
-<button data-code="§0">§0</button>
-<button data-code="§1">§1</button>
-<button data-code="§2">§2</button>
-<button data-code="§3">§3</button>
-<button data-code="§4">§4</button>
-<button data-code="§5">§5</button>
-<button data-code="§6">§6</button>
-<button data-code="§7">§7</button>
-<button data-code="§8">§8</button>
-<button data-code="§9">§9</button>
-<button data-code="§a">§a</button>
-<button data-code="§b">§b</button>
-<button data-code="§c">§c</button>
-<button data-code="§d">§d</button>
-<button data-code="§e">§e</button>
-<button data-code="§f">§f</button>
+<button onclick="formatText('§0')">§0</button>
+<button onclick="formatText('§1')">§1</button>
+<button onclick="formatText('§2')">§2</button>
+<button onclick="formatText('§3')">§3</button>
+<button onclick="formatText('§4')">§4</button>
+<button onclick="formatText('§5')">§5</button>
+<button onclick="formatText('§6')">§6</button>
+<button onclick="formatText('§7')">§7</button>
+<button onclick="formatText('§8')">§8</button>
+<button onclick="formatText('§9')">§9</button>
+<button onclick="formatText('§a')">§a</button>
+<button onclick="formatText('§b')">§b</button>
+<button onclick="formatText('§c')">§c</button>
+<button onclick="formatText('§d')">§d</button>
+<button onclick="formatText('§e')">§e</button>
+<button onclick="formatText('§f')">§f</button>
 
 
-<button data-code="§l">B</button>
-<button data-code="§o">I</button>
-<button data-code="§n">U</button>
-<button data-code="§m">S</button>
-<button data-code="§k">✨</button>
-<button data-code="§r">Reset</button>
+<button onclick="formatText('§l')"><b>B</b></button>
+<button onclick="formatText('§o')"><i>I</i></button>
+<button onclick="formatText('§n')"><u>U</u></button>
+<button onclick="formatText('§m')">S</button>
+<button onclick="formatText('§k')">✨</button>
+<button onclick="formatText('§r')">Reset</button>
 
 
 </div>
 
 
-<textarea id="packNameInput"
-placeholder="اسم پک را بنویسید..."></textarea>
+
+<div 
+id="packName"
+class="editor"
+contenteditable="true">
+
+PZMC Pack
+
+</div>
 
 
 </section>
@@ -94,19 +309,24 @@ placeholder="اسم پک را بنویسید..."></textarea>
 
 
 
-<!-- Minecraft Version -->
 
 
-<section class="builder-card">
+
+<!-- Version -->
 
 
-<h2>🎮 نسخه ماینکرفت</h2>
+<section class="box">
 
 
-<select id="minecraftVersion">
+<h2>🎮 نسخه Minecraft Java</h2>
 
-<option value="1">1.8.9</option>
-<option value="3">1.12.2</option>
+
+<select id="version">
+
+
+<option value="1">1.8 - 1.8.9</option>
+<option value="2">1.9 - 1.10.2</option>
+<option value="3">1.11 - 1.12.2</option>
 <option value="4">1.13 - 1.14.4</option>
 <option value="5">1.15 - 1.16.1</option>
 <option value="6">1.16.2 - 1.16.5</option>
@@ -116,7 +336,8 @@ placeholder="اسم پک را بنویسید..."></textarea>
 <option value="12">1.19.3</option>
 <option value="15">1.20 - 1.20.1</option>
 <option value="18">1.20.5 - 1.20.6</option>
-<option value="34">1.21</option>
+<option value="34">1.21+</option>
+
 
 </select>
 
@@ -126,81 +347,85 @@ placeholder="اسم پک را بنویسید..."></textarea>
 
 
 
+
+
+
+
 <!-- Description -->
 
 
-<section class="builder-card">
+<section class="box">
 
 
-<h2>📝 توضیحات پک</h2>
+<h2>📝 Description</h2>
 
 
 
-<div class="text-tools">
+<div class="toolbar">
 
 
-<button data-code="§0">§0</button>
-<button data-code="§1">§1</button>
-<button data-code="§2">§2</button>
-<button data-code="§3">§3</button>
-<button data-code="§4">§4</button>
-<button data-code="§5">§5</button>
-<button data-code="§6">§6</button>
-<button data-code="§7">§7</button>
-<button data-code="§8">§8</button>
-<button data-code="§9">§9</button>
-<button data-code="§a">§a</button>
-<button data-code="§b">§b</button>
-<button data-code="§c">§c</button>
-<button data-code="§d">§d</button>
-<button data-code="§e">§e</button>
-<button data-code="§f">§f</button>
+<button onclick="formatDescription('§0')">§0</button>
+<button onclick="formatDescription('§1')">§1</button>
+<button onclick="formatDescription('§2')">§2</button>
+<button onclick="formatDescription('§3')">§3</button>
+<button onclick="formatDescription('§4')">§4</button>
+<button onclick="formatDescription('§5')">§5</button>
+<button onclick="formatDescription('§6')">§6</button>
+<button onclick="formatDescription('§7')">§7</button>
+<button onclick="formatDescription('§8')">§8</button>
+<button onclick="formatDescription('§9')">§9</button>
+<button onclick="formatDescription('§a')">§a</button>
+<button onclick="formatDescription('§b')">§b</button>
+<button onclick="formatDescription('§c')">§c</button>
+<button onclick="formatDescription('§d')">§d</button>
+<button onclick="formatDescription('§e')">§e</button>
+<button onclick="formatDescription('§f')">§f</button>
 
 
-<button data-code="§l">B</button>
-<button data-code="§o">I</button>
-<button data-code="§n">U</button>
-<button data-code="§m">S</button>
-<button data-code="§k">✨</button>
-<button data-code="§r">Reset</button>
+<button onclick="formatDescription('§l')">Bold</button>
+<button onclick="formatDescription('§o')">Italic</button>
+<button onclick="formatDescription('§n')">Underline</button>
+<button onclick="formatDescription('§m')">Strike</button>
+<button onclick="formatDescription('§k')">Magic</button>
+<button onclick="formatDescription('§r')">Reset</button>
 
 
 </div>
 
 
 
-<textarea id="descriptionInput"
-placeholder="توضیحات پک را بنویسید..."></textarea>
+<div
+id="description"
+class="editor"
+contenteditable="true">
 
+Official PackZone MC Pack
+
+</div>
 
 
 </section>
-
-
-
-
 <!-- Preview -->
 
-
-<section class="builder-card">
+<section class="box">
 
 
 <h2>👀 پیش نمایش</h2>
 
 
-<div id="minecraftPreview">
+<div class="preview">
 
 
 <img id="previewIcon">
 
 
 <h3 id="previewName">
-نام پک
+PZMC Pack
 </h3>
 
 
 <p id="previewDescription">
-توضیحات پک
+Official PackZone MC Pack
 </p>
 
 
@@ -213,16 +438,24 @@ placeholder="توضیحات پک را بنویسید..."></textarea>
 
 
 
+
 <!-- JSON -->
 
 
-<section class="builder-card">
+<section class="box">
 
 
 <h2>📄 pack.mcmeta</h2>
 
 
-<pre id="jsonPreview">
+<pre id="json">
+
+{
+  "pack": {
+    "pack_format": 1,
+    "description": "PackZone MC"
+  }
+}
 
 </pre>
 
@@ -233,20 +466,23 @@ placeholder="توضیحات پک را بنویسید..."></textarea>
 
 
 
+
+
 <!-- Download -->
 
 
-<section class="builder-card download-area">
+<section class="box download">
 
 
-<button id="downloadMcmeta">
+<button onclick="downloadMcmeta()">
 
 📄 دانلود pack.mcmeta
 
 </button>
 
 
-<button id="downloadZip">
+
+<button onclick="downloadZip()">
 
 📦 دانلود pack.mcmeta + pack.png
 
@@ -257,13 +493,626 @@ placeholder="توضیحات پک را بنویسید..."></textarea>
 
 
 
+
+
 </div>
 
 
 
-<script src="../script.js"></script>
 
+
+
+
+<script>
+
+
+let iconBase64 = "";
+
+let currentEditor = null;
+
+
+
+// انتخاب آیکون
+
+
+document.getElementById("iconInput")
+.addEventListener("change",function(e){
+
+
+let file=e.target.files[0];
+
+
+if(file){
+
+
+let reader=new FileReader();
+
+
+reader.onload=function(event){
+
+
+iconBase64=event.target.result;
+
+
+document.getElementById("iconPreview").src=iconBase64;
+
+
+document.getElementById("previewIcon").src=iconBase64;
+
+
+update();
+
+
+}
+
+
+reader.readAsDataURL(file);
+
+
+}
+
+});
+
+
+
+
+
+
+// انتخاب ادیتور
+
+
+document.getElementById("packName")
+.onclick=function(){
+
+currentEditor=this;
+
+}
+
+
+
+document.getElementById("description")
+.onclick=function(){
+
+currentEditor=this;
+
+}
+
+
+
+
+
+
+// اضافه کردن کد رنگ
+
+
+function formatText(code){
+
+
+if(!currentEditor){
+
+currentEditor=document.getElementById("packName");
+
+}
+
+
+insertCode(currentEditor,code);
+
+
+}
+
+
+
+function formatDescription(code){
+
+
+currentEditor=document.getElementById("description");
+
+
+insertCode(currentEditor,code);
+
+
+}
+
+
+
+
+function insertCode(editor,code){
+
+
+editor.innerHTML += code;
+
+
+editor.focus();
+
+
+update();
+
+
+}
+
+
+
+
+
+
+// آپدیت
+
+
+function update(){
+
+
+
+let name =
+document.getElementById("packName").innerText;
+
+
+
+let desc =
+document.getElementById("description").innerText;
+
+
+
+let format =
+document.getElementById("version").value;
+
+
+
+
+
+document.getElementById("previewName").innerText =
+name;
+
+
+
+document.getElementById("previewDescription").innerText =
+desc;
+
+
+
+
+
+let data={
+
+
+pack:{
+
+
+pack_format:Number(format),
+
+
+description:desc
+
+
+}
+
+
+};
+
+
+
+
+
+document.getElementById("json").textContent =
+JSON.stringify(data,null,2);
+
+
+
+}
+
+
+
+
+
+
+document.getElementById("packName")
+.addEventListener("input",update);
+
+
+
+document.getElementById("description")
+.addEventListener("input",update);
+
+
+
+document.getElementById("version")
+.addEventListener("change",update);
+
+
+
+
+
+
+// دانلود mcmeta
+
+
+function downloadMcmeta(){
+
+
+let text=document.getElementById("json").textContent;
+
+
+let blob=new Blob(
+[text],
+{
+type:"application/json"
+}
+);
+
+
+let a=document.createElement("a");
+
+
+a.href=URL.createObjectURL(blob);
+
+
+a.download="pack.mcmeta";
+
+
+a.click();
+
+
+}
+
+
+
+
+
+
+// ZIP فعلا مرحله بعد کامل میشه
+
+
+function downloadZip(){
+
+
+alert("بخش ZIP در مرحله بعد اضافه می‌شود");
+
+
+}
+
+
+
+</script>
+<script>
+
+let iconBase64 = "";
+
+
+// انتخاب آیکون
+
+document.getElementById("iconInput").onchange = function(e){
+
+let file = e.target.files[0];
+
+if(file){
+
+let reader = new FileReader();
+
+reader.onload = function(ev){
+
+iconBase64 = ev.target.result;
+
+document.getElementById("iconPreview").src = iconBase64;
+
+document.getElementById("previewIcon").src = iconBase64;
+
+update();
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+};
+
+
+
+
+// ادیتور فعال
+
+let activeEditor = null;
+
+
+document.querySelectorAll(".editor").forEach(function(editor){
+
+editor.onclick=function(){
+
+activeEditor=this;
+
+}
+
+});
+
+
+
+
+
+// اعمال کد روی متن انتخاب شده
+
+function applyCode(code){
+
+
+if(!activeEditor){
+
+activeEditor=document.getElementById("packName");
+
+}
+
+
+let selection = window.getSelection();
+
+
+if(selection.rangeCount){
+
+
+let range = selection.getRangeAt(0);
+
+
+if(!range.collapsed){
+
+
+let span=document.createElement("span");
+
+
+span.textContent = code + range.toString();
+
+
+range.deleteContents();
+
+
+range.insertNode(span);
+
+
+}
+
+
+else{
+
+
+activeEditor.innerHTML += code;
+
+
+}
+
+
+}
+
+
+update();
+
+
+}
+
+
+
+
+
+
+
+// وصل کردن دکمه‌ها
+
+document.querySelectorAll(".toolbar button")
+.forEach(function(btn){
+
+
+btn.onclick=function(){
+
+
+let code=this.innerText;
+
+
+if(code==="Bold") code="§l";
+
+if(code==="Italic") code="§o";
+
+if(code==="Underline") code="§n";
+
+if(code==="Strike") code="§m";
+
+if(code==="Magic") code="§k";
+
+if(code==="Reset") code="§r";
+
+
+applyCode(code);
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+// تبدیل متن به خروجی Minecraft
+
+function convertMinecraftText(element){
+
+
+let result="";
+
+
+element.childNodes.forEach(function(node){
+
+
+if(node.nodeType===3){
+
+
+result += node.textContent;
+
+
+}
+
+
+else{
+
+
+result += node.textContent;
+
+
+}
+
+
+});
+
+
+return result;
+
+
+}
+
+
+
+
+
+
+
+
+function update(){
+
+
+let name =
+convertMinecraftText(
+document.getElementById("packName")
+);
+
+
+
+let desc =
+convertMinecraftText(
+document.getElementById("description")
+);
+
+
+
+let format =
+document.getElementById("version").value;
+
+
+
+
+
+document.getElementById("previewName").textContent =
+name || "Pack Name";
+
+
+
+document.getElementById("previewDescription").textContent =
+desc || "Description";
+
+
+
+
+
+let json={
+
+
+pack:{
+
+
+pack_format:Number(format),
+
+
+description:desc
+
+
+}
+
+
+};
+
+
+
+
+
+document.getElementById("json").textContent =
+JSON.stringify(json,null,2);
+
+
+}
+
+
+
+
+
+
+
+document.querySelectorAll(".editor")
+.forEach(function(e){
+
+e.addEventListener("input",update);
+
+});
+
+
+
+document.getElementById("version")
+.addEventListener("change",update);
+
+
+
+
+
+
+
+
+
+function downloadMcmeta(){
+
+
+let data =
+document.getElementById("json").textContent;
+
+
+
+let blob =
+new Blob(
+[data],
+{
+type:"application/json"
+}
+);
+
+
+
+let a=document.createElement("a");
+
+
+a.href=URL.createObjectURL(blob);
+
+
+a.download="pack.mcmeta";
+
+
+a.click();
+
+
+}
+
+
+
+
+
+
+
+function downloadZip(){
+
+
+alert("ZIP در مرحله بعد اضافه می‌شود");
+
+
+}
+
+
+
+</script>
 
 </body>
 
-                                     </html>
+</html>
