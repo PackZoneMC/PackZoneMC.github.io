@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pack.mcmeta Builder | PackZone MC</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="builder-page">
+
+
+<h1>📦 Pack.mcmeta Builder</h1>
+
+
+<!-- Pack Icon -->
+
+<section class="builder-card">
+
+<h2>🖼 آیکون پک</h2>
+
+<input 
+type="file" 
+id="packIconInput" 
+accept="image/png,image/jpeg">
+
+
+<div class="icon-box">
+
+<img id="packIconPreview" src="" alt="">
+
+</div>
+
+
+</section>
+
+
+
+<!-- Pack Name -->
+
+<section class="builder-card">
+
+
+<h2>📦 اسم پک</h2>
+
+
+<div class="text-tools">
+
+
+<button data-code="§0">§0</button>
+<button data-code="§1">§1</button>
+<button data-code="§2">§2</button>
+<button data-code="§3">§3</button>
+<button data-code="§4">§4</button>
+<button data-code="§5">§5</button>
+<button data-code="§6">§6</button>
+<button data-code="§7">§7</button>
+<button data-code="§8">§8</button>
+<button data-code="§9">§9</button>
+<button data-code="§a">§a</button>
+<button data-code="§b">§b</button>
+<button data-code="§c">§c</button>
+<button data-code="§d">§d</button>
+<button data-code="§e">§e</button>
+<button data-code="§f">§f</button>
+
+
+<button data-code="§l">B</button>
+<button data-code="§o">I</button>
+<button data-code="§n">U</button>
+<button data-code="§m">S</button>
+<button data-code="§k">✨</button>
+<button data-code="§r">Reset</button>
+
+
+</div>
+
+
+<textarea id="packNameInput"
+placeholder="اسم پک را بنویسید..."></textarea>
+
+
+</section>
+
+
+
+
+<!-- Minecraft Version -->
+
+
+<section class="builder-card">
+
+
+<h2>🎮 نسخه ماینکرفت</h2>
+
+
+<select id="minecraftVersion">
+
+<option value="1">1.8.9</option>
+<option value="3">1.12.2</option>
+<option value="4">1.13 - 1.14.4</option>
+<option value="5">1.15 - 1.16.1</option>
+<option value="6">1.16.2 - 1.16.5</option>
+<option value="7">1.17 - 1.17.1</option>
+<option value="8">1.18 - 1.18.2</option>
+<option value="9">1.19</option>
+<option value="12">1.19.3</option>
+<option value="15">1.20 - 1.20.1</option>
+<option value="18">1.20.5 - 1.20.6</option>
+<option value="34">1.21</option>
+
+</select>
+
+
+</section>
+
+
+
+
+<!-- Description -->
+
+
+<section class="builder-card">
+
+
+<h2>📝 توضیحات پک</h2>
+
+
+
+<div class="text-tools">
+
+
+<button data-code="§0">§0</button>
+<button data-code="§1">§1</button>
+<button data-code="§2">§2</button>
+<button data-code="§3">§3</button>
+<button data-code="§4">§4</button>
+<button data-code="§5">§5</button>
+<button data-code="§6">§6</button>
+<button data-code="§7">§7</button>
+<button data-code="§8">§8</button>
+<button data-code="§9">§9</button>
+<button data-code="§a">§a</button>
+<button data-code="§b">§b</button>
+<button data-code="§c">§c</button>
+<button data-code="§d">§d</button>
+<button data-code="§e">§e</button>
+<button data-code="§f">§f</button>
+
+
+<button data-code="§l">B</button>
+<button data-code="§o">I</button>
+<button data-code="§n">U</button>
+<button data-code="§m">S</button>
+<button data-code="§k">✨</button>
+<button data-code="§r">Reset</button>
+
+
+</div>
+
+
+
+<textarea id="descriptionInput"
+placeholder="توضیحات پک را بنویسید..."></textarea>
+
+
+
+</section>
+
+
+
+
+<!-- Preview -->
+
+
+<section class="builder-card">
+
+
+<h2>👀 پیش نمایش</h2>
+
+
+<div id="minecraftPreview">
+
+
+<img id="previewIcon">
+
+
+<h3 id="previewName">
+نام پک
+</h3>
+
+
+<p id="previewDescription">
+توضیحات پک
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- JSON -->
+
+
+<section class="builder-card">
+
+
+<h2>📄 pack.mcmeta</h2>
+
+
+<pre id="jsonPreview">
+
+</pre>
+
+
+</section>
+
+
+
+
+
+<!-- Download -->
+
+
+<section class="builder-card download-area">
+
+
+<button id="downloadMcmeta">
+
+📄 دانلود pack.mcmeta
+
+</button>
+
+
+<button id="downloadZip">
+
+📦 دانلود pack.mcmeta + pack.png
+
+</button>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<script src="../script.js"></script>
+
+
+</body>
+
+                                     </html>
