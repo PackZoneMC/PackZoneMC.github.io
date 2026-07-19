@@ -292,3 +292,291 @@ padding:25px;
 color:#9ecfff;
 
 }
+/* =========================
+   Pack.mcmeta Builder
+========================= */
+
+
+.builder-page{
+
+max-width:1000px;
+margin:auto;
+padding:30px;
+
+}
+
+
+.builder-page h1{
+
+text-align:center;
+color:#7ec8ff;
+text-shadow:0 0 20px #008cff;
+
+}
+
+
+
+.builder-card{
+
+background:#0d2038;
+
+border-radius:20px;
+
+padding:25px;
+
+margin:25px 0;
+
+box-shadow:0 0 20px #002b55;
+
+}
+
+
+
+.builder-card h2{
+
+color:#7ec8ff;
+
+text-shadow:0 0 10px #008cff;
+
+}
+
+
+
+/* Icon */
+
+
+.icon-box{
+
+margin-top:20px;
+
+width:160px;
+height:160px;
+
+background:#081426;
+
+border-radius:20px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+}
+
+
+.icon-box img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+
+/* Textareas */
+
+
+.builder-card textarea{
+
+width:100%;
+
+min-height:100px;
+
+background:#050b18;
+
+color:white;
+
+border:1px solid #008cff;
+
+border-radius:15px;
+
+padding:15px;
+
+font-size:16px;
+
+resize:vertical;
+
+}
+
+
+
+/* Toolbar */
+
+
+.text-tools{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:8px;
+
+margin-bottom:15px;
+
+}
+
+
+
+.text-tools button{
+
+background:#102847;
+
+color:#7ec8ff;
+
+border:none;
+
+padding:8px 12px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+box-shadow:0 0 10px #0066ff;
+
+}
+
+
+
+.text-tools button:hover{
+
+background:#008cff;
+
+color:white;
+
+}
+
+
+
+/* Select */
+
+
+.builder-card select{
+
+background:#050b18;
+
+color:white;
+
+border:1px solid #008cff;
+
+padding:12px;
+
+border-radius:12px;
+
+width:100%;
+
+}
+
+
+
+/* Minecraft Preview */
+
+
+#minecraftPreview{
+
+background:#111;
+
+border-radius:15px;
+
+padding:20px;
+
+text-align:center;
+
+}
+
+
+#previewIcon{
+
+width:100px;
+
+height:100px;
+
+border-radius:15px;
+
+}
+
+
+
+#previewName{
+
+color:#7ec8ff;
+
+}
+
+
+
+#previewDescription{
+
+color:white;
+
+}
+
+
+
+/* JSON */
+
+
+#jsonPreview{
+
+background:#02050a;
+
+border-radius:15px;
+
+padding:20px;
+
+color:#7ec8ff;
+
+overflow:auto;
+
+}
+
+
+
+/* Download */
+
+
+.download-area{
+
+display:flex;
+
+gap:15px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+
+
+.download-area button{
+
+background:#075ca8;
+
+color:white;
+
+border:none;
+
+padding:15px 25px;
+
+border-radius:15px;
+
+cursor:pointer;
+
+font-size:16px;
+
+box-shadow:0 0 15px #008cff;
+
+}
+
+
+
+.download-area button:hover{
+
+background:#008cff;
+
+box-shadow:0 0 30px #00aaff;
+
+}
