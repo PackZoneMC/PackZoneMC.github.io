@@ -122,18 +122,9 @@
         <div class="card">
             <h2>⚡ ساخت و دانلود</h2>
             <br>
-            <button onclick="generateMcmeta()">📄 ساخت pack.mcmeta</button>
-            <br><br>
             <button onclick="downloadMcmeta()">⬇️ دانلود pack.mcmeta</button>
             <br><br>
-            <button onclick="downloadZip()">📦 دانلود + آیکون (ZIP)</button>
-        </div>
-
-        <!-- ===== کارت خروجی ===== -->
-        <div class="card">
-            <h2>📄 خروجی pack.mcmeta</h2>
-            <pre id="outputJson" style="background:#0a0a1a;padding:15px;border-radius:12px;color:#b0e0ff;min-height:80px;white-space:pre-wrap;word-break:break-all;">// منتظر ساخت...</pre>
-            <button onclick="copyOutput()">📋 کپی</button>
+            <button onclick="downloadZip()">📦 دانلود پک کامل (ZIP)</button>
         </div>
 
     </section>
@@ -216,6 +207,23 @@
             return result;
         }
 
+        // ===== گرفتن اسم پک (بدون کدهای رنگی) =====
+        function getCleanPackName() {
+            let name = buildColoredText("#nameParts", ".partText", ".partColor", ".partStyle");
+            if (!name) {
+                name = document.getElementById("packName").value;
+            }
+            // حذف کدهای رنگی §
+            name = name.replace(/§[0-9a-fk-or]/g, '');
+            // حذف فاصله‌های اضافی
+            name = name.trim();
+            // اگه خالی بود اسم پیش‌فرض
+            if (!name) name = "PackZone-Pack";
+            // تبدیل فاصله به خط تیره
+            name = name.replace(/\s+/g, '-');
+            return name;
+        }
+
         // ===== گرفتن pack_format برای جاوا =====
         function getPackFormat(version) {
             const map = {
@@ -259,13 +267,6 @@
             };
         }
 
-        // ===== نمایش خروجی =====
-        function generateMcmeta() {
-            let data = buildMcmeta();
-            let json = JSON.stringify(data, null, 4);
-            document.getElementById("outputJson").textContent = json;
-        }
-
         // ===== دانلود mcmeta =====
         function downloadMcmeta() {
             let data = buildMcmeta();
@@ -277,7 +278,7 @@
             link.click();
         }
 
-        // ===== دانلود ZIP =====
+        // ===== دانلود ZIP با اسم پک =====
         function downloadZip() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -291,10 +292,12 @@
                 return;
             }
 
+            let zipName = getCleanPackName() + ".zip";
+
             zip.generateAsync({ type: "blob" }).then(function(content) {
                 let link = document.createElement("a");
                 link.href = URL.createObjectURL(content);
-                link.download = "resource-pack.zip";
+                link.download = zipName;
                 link.click();
             });
         }
@@ -313,19 +316,8 @@
                 reader.readAsDataURL(file);
             }
         }
-
-        // ===== کپی =====
-        function copyOutput() {
-            let text = document.getElementById("outputJson").textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                alert("✅ کپی شد!");
-            });
-        }
-
-        // ===== اجرای اولیه =====
-        generateMcmeta();
     </script>
 
 </body>
 
-    </html>
+</html>
