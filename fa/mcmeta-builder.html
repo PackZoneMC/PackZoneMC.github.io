@@ -670,7 +670,51 @@ alert("دانلود ZIP در مرحله بعد اضافه می‌شود");
 }
 
 
+async function downloadPack(){
 
+    if(!iconData){
+
+        alert("اول آیکون پک را انتخاب کنید");
+        return;
+
+    }
+
+
+    let zip = new JSZip();
+
+
+    let mcmeta = document.getElementById("json").textContent;
+
+
+    zip.file("pack.mcmeta", mcmeta);
+
+
+    let imageData = iconData.split(",")[1];
+
+
+    zip.file(
+        "pack.png",
+        imageData,
+        {
+            base64:true
+        }
+    );
+
+
+    let content = await zip.generateAsync({
+        type:"blob"
+    });
+
+
+    let link=document.createElement("a");
+
+    link.href=URL.createObjectURL(content);
+
+    link.download="PackZoneMC_Pack.zip";
+
+    link.click();
+
+}
 update();
 
 
