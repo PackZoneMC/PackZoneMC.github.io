@@ -207,20 +207,31 @@
             return result;
         }
 
-        // ===== گرفتن اسم پک (بدون کدهای رنگی) =====
+        // ===== گرفتن اسم پک پاک (بدون کدهای رنگی) برای اسم فایل =====
         function getCleanPackName() {
+            // 1. اول اسم رنگی رو از بخش‌ها می‌گیریم
             let name = buildColoredText("#nameParts", ".partText", ".partColor", ".partStyle");
+            
+            // 2. اگه خالی بود از ورودی ساده می‌گیریم
             if (!name) {
                 name = document.getElementById("packName").value;
             }
-            // حذف کدهای رنگی §
+            
+            // 3. حذف کدهای رنگی §
             name = name.replace(/§[0-9a-fk-or]/g, '');
-            // حذف فاصله‌های اضافی
+            
+            // 4. حذف فاصله‌های اضافی
             name = name.trim();
-            // اگه خالی بود اسم پیش‌فرض
+            
+            // 5. اگه خالی بود اسم پیش‌فرض
             if (!name) name = "PackZone-Pack";
-            // تبدیل فاصله به خط تیره
+            
+            // 6. تبدیل فاصله به خط تیره (برای اسم فایل)
             name = name.replace(/\s+/g, '-');
+            
+            // 7. حذف کاراکترهای غیرمجاز در اسم فایل
+            name = name.replace(/[^a-zA-Z0-9\-_]/g, '');
+            
             return name;
         }
 
