@@ -6,23 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PackZone MC | Build McMeta</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        /* استایل بخش‌های رنگی */
-        .part-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-        .part-row input {
-            flex: 2;
-            min-width: 100px;
-        }
-        .part-row select {
-            flex: 1;
-            min-width: 80px;
-        }
-    </style>
 </head>
 
 <body>
@@ -44,14 +27,13 @@
         <div class="card">
             <h2>📦 Pack Info</h2>
 
-            <label>📛 Pack Name (simple)</label><br>
+            <label>📛 Pack Name (Simple)</label><br>
             <input type="text" id="packName" placeholder="e.g. PZMC Pack"><br><br>
 
             <h3>🎨 Colored Description</h3>
-            <p>Add each part separately with color & style</p>
-            
+            <p>Customize each part with color and style</p>
             <div id="descParts">
-                <div class="part-row">
+                <div class="descPart">
                     <input class="descText" placeholder="e.g. Made By">
                     <select class="descColor">
                         <option value="§f">⚪ White</option>
@@ -110,12 +92,11 @@
     <script>
         let packIconFile = null;
 
-        // ===== اضافه کردن بخش توضیحات =====
         function addDescPart() {
             let box = document.createElement("div");
-            box.className = "part-row";
+            box.className = "descPart";
             box.innerHTML = `
-                <input class="descText" placeholder="e.g. Text">
+                <input class="descText" placeholder="Text">
                 <select class="descColor">
                     <option value="§f">⚪ White</option>
                     <option value="§1">🔷 Dark Blue</option>
@@ -137,7 +118,6 @@
             document.getElementById("descParts").appendChild(box);
         }
 
-        // ===== ساخت متن رنگی =====
         function buildColoredText(container, textClass, colorClass, styleClass) {
             let result = "";
             let texts = document.querySelectorAll(container + " " + textClass);
@@ -152,7 +132,6 @@
             return result;
         }
 
-        // ===== گرفتن pack_format برای جاوا =====
         function getPackFormat(version) {
             const map = {
                 '1.8.9': 1,
@@ -167,7 +146,6 @@
             return map[version] || 1;
         }
 
-        // ===== ساخت pack.mcmeta =====
         function buildMcmeta() {
             let name = document.getElementById("packName").value.trim();
             let desc = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
@@ -186,7 +164,6 @@
             };
         }
 
-        // ===== گرفتن اسم پاک =====
         function getCleanPackName() {
             let name = document.getElementById("packName").value.trim();
             if (!name) name = "PackZone-Pack";
@@ -195,7 +172,6 @@
             return name;
         }
 
-        // ===== دانلود mcmeta =====
         function downloadMcmeta() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -206,7 +182,6 @@
             link.click();
         }
 
-        // ===== دانلود ZIP =====
         function downloadZip() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -230,7 +205,6 @@
             });
         }
 
-        // ===== پیش‌نمایش آیکون =====
         function previewIcon(event) {
             let file = event.target.files[0];
             packIconFile = file;
