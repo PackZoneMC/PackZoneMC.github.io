@@ -542,10 +542,12 @@ reader.readAsDataURL(file);
 };
 function getText(id){
 
-return document.getElementById(id).innerText;
+return document.getElementById(id).innerHTML
+.replace(/<div>/g,"\n")
+.replace(/<\/div>/g,"")
+.replace(/<br>/g,"\n");
 
 }
-
 
 
 
