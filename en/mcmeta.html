@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PackZone MC | Build McMeta</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* استایل بخش‌های رنگی */
+        .part-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .part-row input {
+            flex: 2;
+            min-width: 100px;
+        }
+        .part-row select {
+            flex: 1;
+            min-width: 80px;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,11 +44,34 @@
         <div class="card">
             <h2>📦 Pack Info</h2>
 
-            <label>📛 Pack Name</label><br>
+            <label>📛 Pack Name (simple)</label><br>
             <input type="text" id="packName" placeholder="e.g. PZMC Pack"><br><br>
 
-            <label>📝 Description</label><br>
-            <textarea id="description" rows="3" placeholder="Pack description"></textarea><br><br>
+            <h3>🎨 Colored Description</h3>
+            <p>Add each part separately with color & style</p>
+            
+            <div id="descParts">
+                <div class="part-row">
+                    <input class="descText" placeholder="e.g. Made By">
+                    <select class="descColor">
+                        <option value="§f">⚪ White</option>
+                        <option value="§b">🔵 Light Blue</option>
+                        <option value="§e">🟡 Yellow</option>
+                        <option value="§a">🟢 Green</option>
+                        <option value="§c">🔴 Red</option>
+                        <option value="§5">🟣 Purple</option>
+                    </select>
+                    <select class="descStyle">
+                        <option value="">Normal</option>
+                        <option value="§l">Bold</option>
+                        <option value="§o">Italic</option>
+                        <option value="§n">Underline</option>
+                        <option value="§m">Strikethrough</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="addDescPart()">➕ Add Part</button>
+            <br><br>
 
             <label>🎮 Minecraft Version (Java)</label><br>
             <select id="mcVersion">
@@ -48,7 +88,7 @@
 
         <div class="card">
             <h2>🖼 Pack Icon</h2>
-            <p>Choose your pack icon</p>
+            <p>Choose your pack icon (pack.png)</p>
             <input type="file" id="packIcon" accept="image/png" onchange="previewIcon(event)">
             <br><br>
             <img id="iconPreview" width="128" style="display:none; border-radius:15px;">
@@ -70,6 +110,49 @@
     <script>
         let packIconFile = null;
 
+        // ===== اضافه کردن بخش توضیحات =====
+        function addDescPart() {
+            let box = document.createElement("div");
+            box.className = "part-row";
+            box.innerHTML = `
+                <input class="descText" placeholder="e.g. Text">
+                <select class="descColor">
+                    <option value="§f">⚪ White</option>
+                    <option value="§1">🔷 Dark Blue</option>
+                    <option value="§5">🟣 Purple</option>
+                    <option value="§6">🟠 Gold</option>
+                    <option value="§a">🟢 Green</option>
+                    <option value="§b">🔵 Light Blue</option>
+                    <option value="§c">🔴 Red</option>
+                    <option value="§e">🟡 Yellow</option>
+                </select>
+                <select class="descStyle">
+                    <option value="">Normal</option>
+                    <option value="§l">Bold</option>
+                    <option value="§o">Italic</option>
+                    <option value="§n">Underline</option>
+                    <option value="§m">Strikethrough</option>
+                </select>
+            `;
+            document.getElementById("descParts").appendChild(box);
+        }
+
+        // ===== ساخت متن رنگی =====
+        function buildColoredText(container, textClass, colorClass, styleClass) {
+            let result = "";
+            let texts = document.querySelectorAll(container + " " + textClass);
+            let colors = document.querySelectorAll(container + " " + colorClass);
+            let styles = document.querySelectorAll(container + " " + styleClass);
+
+            for (let i = 0; i < texts.length; i++) {
+                if (texts[i].value.trim() !== "") {
+                    result += colors[i].value + styles[i].value + texts[i].value;
+                }
+            }
+            return result;
+        }
+
+        // ===== گرفتن pack_format برای جاوا =====
         function getPackFormat(version) {
             const map = {
                 '1.8.9': 1,
@@ -84,9 +167,10 @@
             return map[version] || 1;
         }
 
+        // ===== ساخت pack.mcmeta =====
         function buildMcmeta() {
             let name = document.getElementById("packName").value.trim();
-            let desc = document.getElementById("description").value.trim();
+            let desc = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
 
             if (!name) name = "PackZone Pack";
             if (!desc) desc = "Made by PackZone MC";
@@ -102,6 +186,7 @@
             };
         }
 
+        // ===== گرفتن اسم پاک =====
         function getCleanPackName() {
             let name = document.getElementById("packName").value.trim();
             if (!name) name = "PackZone-Pack";
@@ -110,6 +195,7 @@
             return name;
         }
 
+        // ===== دانلود mcmeta =====
         function downloadMcmeta() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -120,6 +206,7 @@
             link.click();
         }
 
+        // ===== دانلود ZIP =====
         function downloadZip() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -143,6 +230,7 @@
             });
         }
 
+        // ===== پیش‌نمایش آیکون =====
         function previewIcon(event) {
             let file = event.target.files[0];
             packIconFile = file;
