@@ -722,7 +722,12 @@ async function downloadPack(){
 
     link.href=URL.createObjectURL(content);
 
-    link.download="PackZoneMC_Pack.zip";
+    let packName = getText("packName")
+.replace(/§[0-9a-fk-or]/g,"")
+.replace(/[^a-zA-Z0-9 _-]/g,"")
+.trim();
+
+link.download = (packName || "ResourcePack") + ".zip";
 
     link.click();
 
