@@ -19,59 +19,19 @@
         <h1 class="main-logo">💙 PackZone MC</h1>
         <a href="index.html" class="home-button">🏠 خانه</a>
         <h2>📄 ساخت McMeta</h2>
-        <p>فایل pack.mcmeta رو با رنگ و فونت دلخواه برای جاوا بساز</p>
+        <p>فایل pack.mcmeta رو برای جاوا بساز</p>
     </section>
 
     <section class="menu-box">
 
-        <!-- ===== کارت اطلاعات پک ===== -->
         <div class="card">
             <h2>📦 اطلاعات پک</h2>
 
-            <!-- اسم پک -->
-            <label>📛 اسم پک</label><br>
+            <label>📛 اسم پک (ساده)</label><br>
             <input type="text" id="packName" placeholder="مثلا PZMC Pack"><br><br>
 
-            <h3>🎨 ساخت اسم رنگی</h3>
+            <h3>🎨 توضیحات رنگی</h3>
             <p>هر بخش رو جداگانه رنگ کن</p>
-            <div id="nameParts">
-                <div class="namePart">
-                    <input class="partText" placeholder="مثلا PZMC">
-                    <select class="partColor">
-                        <option value="§f">⚪ سفید</option>
-                        <option value="§0">⚫ مشکی</option>
-                        <option value="§1">🔷 آبی تیره</option>
-                        <option value="§2">🟢 سبز تیره</option>
-                        <option value="§3">🌊 فیروزه‌ای</option>
-                        <option value="§4">🔴 قرمز تیره</option>
-                        <option value="§5">🟣 بنفش</option>
-                        <option value="§6">🟠 طلایی</option>
-                        <option value="§7">⚙ خاکستری</option>
-                        <option value="§8">🩶 خاکستری تیره</option>
-                        <option value="§9">🔵 آبی</option>
-                        <option value="§a">🟢 سبز</option>
-                        <option value="§b">🔵 آبی روشن</option>
-                        <option value="§c">🔴 قرمز</option>
-                        <option value="§d">🩷 صورتی</option>
-                        <option value="§e">🟡 زرد</option>
-                    </select>
-                    <select class="partStyle">
-                        <option value="">عادی</option>
-                        <option value="§l">ضخیم</option>
-                        <option value="§o">کج</option>
-                        <option value="§n">زیرخط</option>
-                        <option value="§m">خط خورده</option>
-                    </select>
-                </div>
-            </div>
-            <button onclick="addNamePart()">➕ اضافه کردن بخش</button>
-            <br><br>
-
-            <!-- توضیحات -->
-            <h3>📝 توضیحات</h3>
-            <textarea id="description" rows="3" placeholder="توضیحات معمولی"></textarea>
-
-            <h3>🎨 ساخت توضیحات رنگی</h3>
             <div id="descParts">
                 <div class="descPart">
                     <input class="descText" placeholder="مثلا Made By">
@@ -95,7 +55,6 @@
             <button onclick="addDescPart()">➕ اضافه کردن بخش</button>
             <br><br>
 
-            <!-- نسخه جاوا -->
             <label>🎮 نسخه ماینکرفت (جاوا)</label><br>
             <select id="mcVersion">
                 <option value="1.8.9" selected>1.8.9 🔥 (محبوب PvP)</option>
@@ -109,7 +68,6 @@
             </select>
         </div>
 
-        <!-- ===== کارت آیکون ===== -->
         <div class="card">
             <h2>🖼 آیکون پک</h2>
             <p>آیکون pack.png رو انتخاب کن</p>
@@ -118,7 +76,6 @@
             <img id="iconPreview" width="128" style="display:none; border-radius:15px;">
         </div>
 
-        <!-- ===== کارت ساخت و دانلود ===== -->
         <div class="card">
             <h2>⚡ ساخت و دانلود</h2>
             <br>
@@ -135,37 +92,6 @@
     <script>
         let packIconFile = null;
 
-        // ===== اضافه کردن بخش اسم =====
-        function addNamePart() {
-            let box = document.createElement("div");
-            box.className = "namePart";
-            box.innerHTML = `
-                <input class="partText" placeholder="متن">
-                <select class="partColor">
-                    <option value="§f">⚪ سفید</option>
-                    <option value="§0">⚫ مشکی</option>
-                    <option value="§1">🔷 آبی تیره</option>
-                    <option value="§5">🟣 بنفش</option>
-                    <option value="§6">🟠 طلایی</option>
-                    <option value="§9">🔵 آبی</option>
-                    <option value="§a">🟢 سبز</option>
-                    <option value="§b">🔵 آبی روشن</option>
-                    <option value="§c">🔴 قرمز</option>
-                    <option value="§d">🩷 صورتی</option>
-                    <option value="§e">🟡 زرد</option>
-                </select>
-                <select class="partStyle">
-                    <option value="">عادی</option>
-                    <option value="§l">ضخیم</option>
-                    <option value="§o">کج</option>
-                    <option value="§n">زیرخط</option>
-                    <option value="§m">خط خورده</option>
-                </select>
-            `;
-            document.getElementById("nameParts").appendChild(box);
-        }
-
-        // ===== اضافه کردن بخش توضیحات =====
         function addDescPart() {
             let box = document.createElement("div");
             box.className = "descPart";
@@ -192,7 +118,6 @@
             document.getElementById("descParts").appendChild(box);
         }
 
-        // ===== ساخت متن رنگی =====
         function buildColoredText(container, textClass, colorClass, styleClass) {
             let result = "";
             let texts = document.querySelectorAll(container + " " + textClass);
@@ -207,35 +132,6 @@
             return result;
         }
 
-        // ===== گرفتن اسم پک پاک (بدون کدهای رنگی) برای اسم فایل =====
-        function getCleanPackName() {
-            // 1. اول اسم رنگی رو از بخش‌ها می‌گیریم
-            let name = buildColoredText("#nameParts", ".partText", ".partColor", ".partStyle");
-            
-            // 2. اگه خالی بود از ورودی ساده می‌گیریم
-            if (!name) {
-                name = document.getElementById("packName").value;
-            }
-            
-            // 3. حذف کدهای رنگی §
-            name = name.replace(/§[0-9a-fk-or]/g, '');
-            
-            // 4. حذف فاصله‌های اضافی
-            name = name.trim();
-            
-            // 5. اگه خالی بود اسم پیش‌فرض
-            if (!name) name = "PackZone-Pack";
-            
-            // 6. تبدیل فاصله به خط تیره (برای اسم فایل)
-            name = name.replace(/\s+/g, '-');
-            
-            // 7. حذف کاراکترهای غیرمجاز در اسم فایل
-            name = name.replace(/[^a-zA-Z0-9\-_]/g, '');
-            
-            return name;
-        }
-
-        // ===== گرفتن pack_format برای جاوا =====
         function getPackFormat(version) {
             const map = {
                 '1.8.9': 1,
@@ -250,22 +146,12 @@
             return map[version] || 1;
         }
 
-        // ===== ساخت pack.mcmeta =====
         function buildMcmeta() {
-            let name = buildColoredText("#nameParts", ".partText", ".partColor", ".partStyle");
+            let name = document.getElementById("packName").value.trim();
             let desc = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
 
-            if (!name) {
-                let plainName = document.getElementById("packName").value;
-                if (plainName) name = plainName;
-                else name = "PackZone Pack";
-            }
-
-            if (!desc) {
-                let plainDesc = document.getElementById("description").value;
-                if (plainDesc) desc = plainDesc;
-                else desc = "Made by PackZone MC";
-            }
+            if (!name) name = "PackZone Pack";
+            if (!desc) desc = "Made by PackZone MC";
 
             let version = document.getElementById("mcVersion").value;
             let pack_format = getPackFormat(version);
@@ -278,7 +164,14 @@
             };
         }
 
-        // ===== دانلود mcmeta =====
+        function getCleanPackName() {
+            let name = document.getElementById("packName").value.trim();
+            if (!name) name = "PackZone-Pack";
+            name = name.replace(/\s+/g, '-');
+            name = name.replace(/[^a-zA-Z0-9\-_]/g, '');
+            return name;
+        }
+
         function downloadMcmeta() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -289,7 +182,6 @@
             link.click();
         }
 
-        // ===== دانلود ZIP با اسم پک =====
         function downloadZip() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -313,7 +205,6 @@
             });
         }
 
-        // ===== پیش‌نمایش آیکون =====
         function previewIcon(event) {
             let file = event.target.files[0];
             packIconFile = file;
