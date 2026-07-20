@@ -558,22 +558,20 @@ let map = {
 "f":"#ffffff"
 };
 
+let color="#ffffff";
 
-text = text.replace(/§([0-9a-f])/g,function(match,color){
-
-return `<span style="color:${map[color]}">`;
-
+text=text.replace(/§([0-9a-f])/g,function(match,c){
+    color=map[c];
+    return `</span><span style="color:${color}">`;
 });
 
+text=text.replace(/§l/g,"<b>");
+text=text.replace(/§o/g,"<i>");
+text=text.replace(/§n/g,"<u>");
+text=text.replace(/§m/g,"<s>");
+text=text.replace(/§r/g,"</span></b></i></u></s>");
 
-text = text.replace(/§l/g,"<b>");
-text = text.replace(/§o/g,"<i>");
-text = text.replace(/§n/g,"<u>");
-text = text.replace(/§m/g,"<s>");
-text = text.replace(/§r/g,"</span></b></i></u></s>");
-
-
-return text;
+return `<span style="color:${color}">${text}</span>`;
 
 }
 function update(){
