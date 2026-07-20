@@ -468,36 +468,26 @@ activeEditor=this;
 
 });
 
-
-
-
-
 function insertCode(type,code){
 
-
 if(type==="name"){
-
-activeEditor=document.getElementById("packName");
-
+    activeEditor=document.getElementById("packName");
 }
-
 
 if(type==="desc"){
-
-activeEditor=document.getElementById("description");
-
+    activeEditor=document.getElementById("description");
 }
 
-
-
-activeEditor.innerHTML += code;
+activeEditor.innerText += code;
 
 activeEditor.focus();
 
 update();
 
-
 }
+
+
+
 
 
 
