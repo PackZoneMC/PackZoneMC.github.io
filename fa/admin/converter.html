@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v11.0</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v12.0</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
@@ -335,7 +335,12 @@
             text-decoration: none;
         }
         #fileInput {
-            display: none;
+            position: absolute;
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            z-index: -1;
         }
         @media (max-width: 640px) {
             .container { padding: 24px; }
@@ -363,13 +368,13 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۱۱.۰ · سبک و سریع</div>
+        <div class="badge">نسخه ۱۲.۰ · نهایی</div>
     </div>
 
     <div class="upload-zone" id="uploadZone">
         <span class="icon">📦</span>
         <p>فایل ZIP ریسورس پک جاوا را بکشید یا کلیک کنید</p>
-        <button class="file-select-btn" id="fileSelectBtn">📂 انتخاب فایل</button>
+        <button class="file-select-btn" id="fileSelectBtn" type="button">📂 انتخاب فایل</button>
         <input type="file" id="fileInput" accept=".zip,.jar">
         <div id="fileInfo" class="file-name"></div>
         <div id="fileSize" class="file-size"></div>
@@ -392,192 +397,174 @@
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v11.0 · سبک و بدون لگ
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v12.0
     </div>
 
 </div>
 
 <script>
-// ============================================================
-//  متغیرها و حالت
-// ============================================================
-let selectedFile = null;
-let isConverting = false;
+    // ============================================================
+    //  متغیرها و حالت
+    // ============================================================
+    let selectedFile = null;
+    let isConverting = false;
 
-// ============================================================
-//  المنت‌ها
-// ============================================================
-const uploadZone = document.getElementById('uploadZone');
-const fileInput = document.getElementById('fileInput');
-const fileSelectBtn = document.getElementById('fileSelectBtn');
-const fileInfo = document.getElementById('fileInfo');
-const fileSize = document.getElementById('fileSize');
-const convertBtn = document.getElementById('convertBtn');
-const statusBox = document.getElementById('statusBox');
-const logBox = document.getElementById('logBox');
-const downloadBtn = document.getElementById('downloadBtn');
+    // ============================================================
+    //  المنت‌ها
+    // ============================================================
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileSelectBtn = document.getElementById('fileSelectBtn');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileSize = document.getElementById('fileSize');
+    const convertBtn = document.getElementById('convertBtn');
+    const statusBox = document.getElementById('statusBox');
+    const logBox = document.getElementById('logBox');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-// ============================================================
-//  مدیریت آپلود (نسخه ۱۰۰% تضمینی)
-// ============================================================
-fileSelectBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    fileInput.click();
-});
-
-uploadZone.addEventListener('click', function(e) {
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN') {
-        fileInput.click();
-    }
-});
-
-fileInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        selectedFile = file;
-        const mb = (file.size / 1024 / 1024).toFixed(2);
-        fileInfo.textContent = `📎 ${file.name}`;
-        fileSize.textContent = `${mb} MB`;
-        statusBox.className = 'status-box idle';
-        statusBox.textContent = '✅ فایل آماده است!';
-        addLog(`📁 ${file.name} (${mb} MB)`);
-    }
-});
-
-// ===== درگ اند دراپ =====
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
-    uploadZone.addEventListener(ev, e => {
-        e.preventDefault();
+    // ============================================================
+    //  مدیریت آپلود (ساده و بی‌نقص)
+    // ============================================================
+    // 1. کلیک روی دکمه: مستقیماً فایل رو باز کن
+    fileSelectBtn.addEventListener('click', function(e) {
         e.stopPropagation();
+        fileInput.click();
     });
-});
-uploadZone.addEventListener('dragenter', () => uploadZone.classList.add('dragover'));
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', function(e) {
-    this.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        fileInput.files = files;
-        fileInput.dispatchEvent(new Event('change'));
-    }
-});
 
-// ============================================================
-//  توابع کمکی
-// ============================================================
-function addLog(msg) {
-    const time = new Date().toLocaleTimeString('fa-IR');
-    logBox.textContent += `[${time}] ${msg}\n`;
-    logBox.scrollTop = logBox.scrollHeight;
-}
-
-function setStatus(type, msg) {
-    statusBox.className = 'status-box ' + type;
-    statusBox.textContent = msg;
-}
-
-function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    // 2. کلیک روی کل باکس آپلود (به جز دکمه): فایل رو باز کن
+    uploadZone.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'BUTTON') {
+            fileInput.click();
+        }
     });
-}
 
-// ============================================================
-//  هسته کانورتر نسخه ۱۱.۰ - سبک و سریع
-// ============================================================
-async function startConversion() {
-    if (isConverting) return;
-    if (!selectedFile) {
-        alert('لطفاً یک فایل ZIP انتخاب کن!');
-        return;
+    // 3. وقتی فایل انتخاب شد
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            selectedFile = file;
+            const mb = (file.size / 1024 / 1024).toFixed(2);
+            fileInfo.textContent = `📎 ${file.name}`;
+            fileSize.textContent = `${mb} MB`;
+            statusBox.className = 'status-box idle';
+            statusBox.textContent = '✅ فایل آماده است!';
+            addLog(`📁 ${file.name} (${mb} MB)`);
+        }
+    });
+
+    // ===== درگ اند دراپ =====
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+        uploadZone.addEventListener(ev, e => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    });
+    uploadZone.addEventListener('dragenter', () => uploadZone.classList.add('dragover'));
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', function(e) {
+        this.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
+    });
+
+    // ============================================================
+    //  توابع کمکی
+    // ============================================================
+    function addLog(msg) {
+        const time = new Date().toLocaleTimeString('fa-IR');
+        logBox.textContent += `[${time}] ${msg}\n`;
+        logBox.scrollTop = logBox.scrollHeight;
     }
 
-    isConverting = true;
-    convertBtn.disabled = true;
-    convertBtn.textContent = '⏳ در حال پردازش...';
-    downloadBtn.style.display = 'none';
-    setStatus('loading', '⏳ در حال تبدیل...');
-    addLog('🔍 شروع تبدیل...');
+    function setStatus(type, msg) {
+        statusBox.className = 'status-box ' + type;
+        statusBox.textContent = msg;
+    }
 
-    try {
-        addLog('📂 خواندن فایل...');
-        const zip = await JSZip.loadAsync(selectedFile);
-        const newZip = new JSZip();
-        let changes = 0;
-        let processed = 0;
-        let totalFiles = Object.keys(zip.files).length;
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = Math.random() * 16 | 0;
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
 
-        // لیست فایل‌های ممنوعه
-        const exclude = ['pack.mcmeta', 'pack.png', '.DS_Store', 'Thumbs.db', '.git', '.gitignore'];
+    // ============================================================
+    //  هسته کانورتر نسخه ۱۲.۰ - نهایی و بی‌نقص
+    // ============================================================
+    async function startConversion() {
+        if (isConverting) return;
+        if (!selectedFile) {
+            alert('لطفاً یک فایل ZIP انتخاب کن!');
+            return;
+        }
 
-        // پردازش فایل‌ها
-        for (const [filename, file] of Object.entries(zip.files)) {
-            processed++;
-            if (processed % 50 === 0) {
-                setStatus('loading', `⏳ پردازش... ${Math.round(processed/totalFiles*100)}%`);
+        isConverting = true;
+        convertBtn.disabled = true;
+        convertBtn.textContent = '⏳ در حال پردازش...';
+        downloadBtn.style.display = 'none';
+        setStatus('loading', '⏳ در حال تبدیل...');
+        addLog('🔍 شروع تبدیل...');
+
+        try {
+            addLog('📂 خواندن فایل...');
+            const zip = await JSZip.loadAsync(selectedFile);
+            const newZip = new JSZip();
+            let changes = 0;
+            let processed = 0;
+            let totalFiles = Object.keys(zip.files).length;
+
+            // لیست فایل‌های ممنوعه
+            const exclude = ['pack.mcmeta', 'pack.png', '.DS_Store', 'Thumbs.db', '.git', '.gitignore'];
+
+            // پردازش فایل‌ها
+            for (const [filename, file] of Object.entries(zip.files)) {
+                processed++;
+                if (processed % 50 === 0) {
+                    setStatus('loading', `⏳ پردازش... ${Math.round(processed/totalFiles*100)}%`);
+                }
+
+                if (file.dir) {
+                    if (!exclude.includes(filename)) newZip.folder(filename);
+                    continue;
+                }
+
+                if (exclude.includes(filename)) {
+                    addLog(`🗑️ ${filename}`);
+                    continue;
+                }
+
+                // تبدیل انیمیشن‌ها
+                if (filename.endsWith('.mcmeta') && !filename.includes('pack.mcmeta')) {
+                    try {
+                        const content = await file.async('string');
+                        const json = JSON.parse(content);
+                        if (json.animation) {
+                            const data = new Blob([JSON.stringify({
+                                animation: {
+                                    frametime: json.animation.frametime || 1,
+                                    interpolate: json.animation.interpolate || false,
+                                    frames: json.animation.frames || []
+                                }
+                            }, null, 2)], { type: 'application/json' });
+                            newZip.file(filename, data);
+                            addLog(`🎬 ${filename}`);
+                            continue;
+                        }
+                    } catch(e) {}
+                }
+
+                // کپی فایل
+                const data = await file.async('blob');
+                newZip.file(filename, data);
             }
 
-            if (file.dir) {
-                if (!exclude.includes(filename)) newZip.folder(filename);
-                continue;
-            }
-
-            if (exclude.includes(filename)) {
-                addLog(`🗑️ ${filename}`);
-                continue;
-            }
-
-            // تبدیل انیمیشن‌ها
-            if (filename.endsWith('.mcmeta') && !filename.includes('pack.mcmeta')) {
+            // ساخت manifest.json
+            addLog('📄 manifest.json...');
+            let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
+            if (zip.files['pack.mcmeta']) {
                 try {
-                    const content = await file.async('string');
-                    const json = JSON.parse(content);
-                    if (json.animation) {
-                        const data = new Blob([JSON.stringify({
-                            animation: {
-                                frametime: json.animation.frametime || 1,
-                                interpolate: json.animation.interpolate || false,
-                                frames: json.animation.frames || []
-                            }
-                        }, null, 2)], { type: 'application/json' });
-                        newZip.file(filename, data);
-                        addLog(`🎬 ${filename}`);
-                        continue;
-                    }
-                } catch(e) {}
-            }
-
-            // کپی فایل
-            const data = await file.async('blob');
-            newZip.file(filename, data);
-        }
-
-        // ساخت manifest.json
-        addLog('📄 manifest.json...');
-        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
-        if (zip.files['pack.mcmeta']) {
-            try {
-                const mcmeta = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
-                if (mcmeta.pack?.name) packName = mcmeta.pack.name;
-            } catch(e) {}
-        }
-
-        newZip.file('manifest.json', JSON.stringify({
-            format_version: 2,
-            header: {
-                name: packName + ' (Bedrock)',
-                description: 'Converted by PackZoneMC v11.0',
-                uuid: generateUUID(),
-                version: [1, 0, 0],
-                min_engine_version: [1, 16, 0]
-            },
-            modules: [{ type: 'resources', uuid: generateUUID(), version: [1, 0, 0] }]
-        }, null, 2));
-        changes++;
-
-        // آیکون
-        if (!zip.files['pack_icon.png']) {
-            const icon = zip.files['pack.png'] || zip.files['icon.png'];
-            if (icon) {
-                newZip.file('pack_icon.png', await icon.async('blob'))    
+                    const mcmeta = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
+    
