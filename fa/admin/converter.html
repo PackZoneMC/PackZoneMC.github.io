@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v5.0</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v8.0</title>
     
-    <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     
@@ -120,7 +119,7 @@
         .upload-zone {
             border: 2px dashed rgba(255,255,255,0.08);
             border-radius: 20px;
-            padding: 55px 20px;
+            padding: 45px 20px 35px;
             text-align: center;
             background: rgba(255,255,255,0.02);
             transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -149,6 +148,7 @@
             color: #aaa;
             font-size: 16px;
             font-weight: 300;
+            margin-bottom: 15px;
         }
         .upload-zone .file-name {
             color: #4caf50;
@@ -161,14 +161,24 @@
             font-size: 13px;
             margin-top: 4px;
         }
-        .upload-zone input[type="file"] {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            right: 0;
-            opacity: 0;
+        .file-select-btn {
+            background: linear-gradient(135deg, #0f3460, #1a4a7a);
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(15,52,96,0.3);
+        }
+        .file-select-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(15,52,96,0.4);
+        }
+        .file-select-btn:active {
+            transform: scale(0.95);
         }
         .options-grid {
             display: grid;
@@ -322,6 +332,9 @@
             color: #666;
             text-decoration: none;
         }
+        #fileInput {
+            display: none;
+        }
         @media (max-width: 640px) {
             .container { padding: 24px; }
             .header { flex-direction: column; align-items: flex-start; }
@@ -348,12 +361,13 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۵.۰ · نهایی</div>
+        <div class="badge">نسخه ۸.۰ · نهایی</div>
     </div>
 
     <div class="upload-zone" id="uploadZone">
         <span class="icon">📦</span>
         <p>فایل ZIP ریسورس پک جاوا را بکشید یا کلیک کنید</p>
+        <button class="file-select-btn" id="fileSelectBtn">📂 انتخاب فایل</button>
         <input type="file" id="fileInput" accept=".zip,.jar">
         <div id="fileInfo" class="file-name"></div>
         <div id="fileSize" class="file-size"></div>
@@ -376,7 +390,7 @@
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v5.0
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v8.0 · دقیقاً مطابق خروجی MCPACK tree
     </div>
 
 </div>
@@ -393,6 +407,7 @@ let isConverting = false;
 // ============================================================
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
+const fileSelectBtn = document.getElementById('fileSelectBtn');
 const fileInfo = document.getElementById('fileInfo');
 const fileSize = document.getElementById('fileSize');
 const convertBtn = document.getElementById('convertBtn');
@@ -401,8 +416,19 @@ const logBox = document.getElementById('logBox');
 const downloadBtn = document.getElementById('downloadBtn');
 
 // ============================================================
-//  مدیریت آپلود (نسخه استاندارد و بدون باگ)
+//  مدیریت آپلود
 // ============================================================
+fileSelectBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    fileInput.click();
+});
+
+uploadZone.addEventListener('click', function(e) {
+    if (e.target.tagName !== 'BUTTON') {
+        fileInput.click();
+    }
+});
+
 fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
@@ -456,7 +482,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر نسخه ۵.۰ - نهایی و بدون تغییر
+//  هسته کانورتر نسخه ۸.۰ - دقیقاً مطابق خروجی MCPACK tree
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -470,7 +496,7 @@ async function startConversion() {
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
     setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل v5.0...');
+    addLog('🔍 شروع فرآیند تبدیل v8.0 - دقیقاً مطابق MCPACK tree...');
 
     try {
         addLog('📂 خواندن فایل ZIP...');
@@ -480,7 +506,6 @@ async function startConversion() {
         let processed = 0;
         let totalFiles = Object.keys(zip.files).length;
 
-        // تشخیص خودکار نسخه
         const hasPackMcmeta = !!zip.files['pack.mcmeta'];
         if (hasPackMcmeta) {
             addLog('✅ شناسایی: ریسورس پک جاوا');
@@ -488,7 +513,9 @@ async function startConversion() {
             addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
         }
 
-        // لیست فایل‌های ممنوعه
+        // ============================================================
+        //  لیست فایل‌های ممنوعه (فقط pack.mcmeta و pack.png و فایل‌های اضافی)
+        // ============================================================
         const excludeExact = [
             'pack.mcmeta', 'pack.png', '.bsPhotoVault', 
             '.hiddenphotocalculator', '.SHAREit', '.system_config',
@@ -500,7 +527,9 @@ async function startConversion() {
             /^cmpack_/, /^Coal_OP_/, /^com\.android\./, /^Compilation$/
         ];
 
-        // پردازش فایل‌ها
+        // ============================================================
+        //  پردازش فایل‌ها - بدون تغییر مسیر assets/ و textures/
+        // ============================================================
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
             if (processed % 20 === 0) {
@@ -526,45 +555,17 @@ async function startConversion() {
                 continue;
             }
 
-            // تبدیل assets به ساختار بدراک
-            if (filename.startsWith('assets/')) {
-                if (filename.startsWith('assets/minecraft/textures/')) {
-                    newName = filename.replace('assets/minecraft/textures/', 'textures/')
-                        .replace(/\/block\//g, '/blocks/')
-                        .replace(/\/item\//g, '/items/')
-                        .replace(/\/entity\//g, '/entities/')
-                        .replace(/\/gui\//g, '/gui/')
-                        .replace(/\/environment\//g, '/environment/');
-                    changes++;
-                } else if (filename.startsWith('assets/minecraft/font/')) {
-                    newName = filename.replace('assets/minecraft/font/', 'font/');
-                    changes++;
-                } else if (filename.startsWith('assets/minecraft/sounds/')) {
-                    newName = filename.replace('assets/minecraft/sounds/', 'sounds/');
-                    changes++;
-                } else if (filename.startsWith('assets/minecraft/lang/')) {
-                    newName = filename.replace('assets/minecraft/lang/', 'texts/');
-                    changes++;
-                } else if (filename.startsWith('assets/uidx/')) {
-                    newName = filename.replace('assets/uidx/', 'uidx/');
-                    changes++;
-                } else {
-                    addLog(`🗑️ حذف (assets ناشناخته): ${filename}`);
-                    continue;
-                }
-            }
+            // ============================================================
+            //  assets/ رو دست نمی‌زنیم! (همون مسیر نگه می‌داریم)
+            // ============================================================
+            // فقط فایل‌های pack.mcmeta و pack.png رو حذف کردیم
+            // بقیه فایل‌ها با همین مسیر کپی میشن
 
-            // ذخیره فایل
-            if (shouldInclude) {
-                const data = await file.async('blob');
-                newZip.file(newName, data);
-            }
-        }
-
-        // ساخت manifest.json
-        addLog('📄 ساخت manifest.json...');
-        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
-        if (zip.files['pack.mcmeta']) {
-            try {
-                const mcmeta = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
-                if (mcmeta.p
+            // ============================================================
+            //  فایل‌های .mcmeta (انیمیشن) - تبدیل به فرمت بدراک
+            // ============================================================
+            if (filename.endsWith('.mcmeta') && !filename.includes('pack.mcmeta')) {
+                try {
+                    const content = await file.async('string');
+                    const json = JSON.parse(content);
+                    if
