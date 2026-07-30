@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>🔒 پنل ادمین - PackZoneMC</title>
+    <title>PackZoneMC - کانورتر حرفه‌ای</title>
     
-    <!-- کتابخونه‌ها از CDN -->
+    <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     
     <style>
+        /* ===== RESET ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Tahoma', 'Segoe UI', sans-serif;
-            background: #0a0a1a;
-            color: #eee;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #0d0d1a;
+            color: #e0e0e0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,314 +24,319 @@
             padding: 20px;
         }
 
-        .container { 
-            max-width: 820px; 
-            width: 100%; 
-            margin: 0 auto; 
+        /* ===== کانتینر اصلی ===== */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #1a1a2e;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            border: 1px solid #2a2a4a;
         }
+
+        /* ===== هدر ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 25px;
-            background: #16213e;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border: 1px solid #0f3460;
+            margin-bottom: 30px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
-        .header h1 { 
-            color: #e94560; 
-            font-size: 24px;
+        .header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .header .subtitle {
+        .header span {
             color: #888;
+            font-size: 14px;
+        }
+        .badge {
+            background: #2a2a4a;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #aaa;
+            border: 1px solid #3a3a5a;
+        }
+
+        /* ===== باکس آپلود ===== */
+        .upload-zone {
+            border: 3px dashed #2a2a4a;
+            border-radius: 20px;
+            padding: 50px 20px;
+            text-align: center;
+            background: #12121f;
+            transition: 0.4s;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+        .upload-zone:hover {
+            border-color: #e94560;
+            background: #1a1a30;
+        }
+        .upload-zone.dragover {
+            border-color: #e94560;
+            background: #1f1f3a;
+        }
+        .upload-zone .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .upload-zone p {
+            color: #aaa;
+            font-size: 16px;
+        }
+        .upload-zone .file-name {
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .upload-zone .file-size {
+            color: #666;
             font-size: 13px;
         }
 
-        .converter-box {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #0f3460;
-        }
-        .upload-area {
-            border: 3px dashed #0f3460;
-            padding: 35px 20px;
-            border-radius: 15px;
-            text-align: center;
+        /* ===== گزینه‌های پیشرفته ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            background: #12121f;
+            padding: 20px;
+            border-radius: 16px;
             margin-bottom: 25px;
-            background: #0a0a1a;
-            transition: 0.3s;
-            cursor: pointer;
+            border: 1px solid #2a2a4a;
         }
-        .upload-area:hover { 
-            border-color: #e94560; 
-            background: #0f0f2a;
-        }
-        .upload-area.dragover {
-            border-color: #e94560;
-            background: #1a1a3e;
-        }
-        .upload-area p {
-            color: #aaa;
-            font-size: 15px;
-            margin-bottom: 12px;
-        }
-        .upload-area .file-name {
-            color: #4caf50;
-            font-weight: bold;
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        .select-btn {
-            background: #0f3460;
-            color: #fff;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .select-btn:hover { 
-            background: #1a4a7a; 
-            transform: scale(1.05);
-        }
-
-        .options {
-            background: #0a0a1a;
-            padding: 18px 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 1px solid #0f3460;
-        }
-        .options h3 { 
-            color: #e94560; 
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-        .options label {
-            display: block;
-            padding: 6px 0;
+        .options-grid label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #ccc;
-            cursor: pointer;
             font-size: 14px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 10px;
             transition: 0.3s;
         }
-        .options label:hover { color: #fff; }
-        .options input[type="checkbox"] {
-            margin-left: 10px;
-            width: 17px;
-            height: 17px;
-            cursor: pointer;
+        .options-grid label:hover {
+            background: #1a1a30;
+        }
+        .options-grid input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
             accent-color: #e94560;
-            vertical-align: middle;
+            cursor: pointer;
         }
 
+        /* ===== دکمه تبدیل ===== */
         .convert-btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: linear-gradient(135deg, #e94560, #c73652);
             color: #fff;
             border: none;
-            border-radius: 12px;
-            font-size: 19px;
+            border-radius: 16px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 18px;
+            transition: 0.4s;
+            margin-bottom: 20px;
         }
         .convert-btn:hover:not(:disabled) {
             transform: scale(1.02);
-            box-shadow: 0 0 35px rgba(233,69,96,0.3);
+            box-shadow: 0 0 40px rgba(233,69,96,0.4);
         }
-        .convert-btn:disabled { 
-            opacity: 0.5; 
+        .convert-btn:disabled {
+            opacity: 0.4;
             cursor: not-allowed;
-            transform: none !important;
+            transform: none;
         }
 
-        .status {
-            padding: 12px 16px;
-            border-radius: 10px;
-            margin-bottom: 12px;
+        /* ===== وضعیت و لاگ ===== */
+        .status-box {
+            background: #12121f;
+            padding: 14px 18px;
+            border-radius: 14px;
+            margin-bottom: 14px;
             font-weight: bold;
             text-align: center;
-            font-size: 15px;
-            min-height: 48px;
+            border: 1px solid #2a2a4a;
+            min-height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .status.success { background: #1a4a2a; color: #4caf50; }
-        .status.error { background: #4a1a1a; color: #f44336; }
-        .status.loading { background: #1a2a4a; color: #ff9800; }
-        .status.idle { background: transparent; color: #888; }
+        .status-box.idle { color: #888; }
+        .status-box.loading { color: #ff9800; background: #1a1a2a; }
+        .status-box.success { color: #4caf50; background: #0a1a1a; border-color: #2a5a2a; }
+        .status-box.error { color: #f44336; background: #1a0a0a; border-color: #5a2a2a; }
 
         .log-box {
-            background: #0a0a1a;
-            padding: 12px 15px;
-            border-radius: 10px;
-            max-height: 280px;
+            background: #0a0a15;
+            padding: 14px 18px;
+            border-radius: 14px;
+            max-height: 260px;
             overflow-y: auto;
             font-family: 'Courier New', monospace;
             font-size: 12px;
             white-space: pre-wrap;
             color: #aaa;
-            margin-bottom: 15px;
-            border: 1px solid #0f3460;
-            line-height: 1.6;
-            min-height: 60px;
+            border: 1px solid #1a1a30;
+            line-height: 1.7;
+            min-height: 70px;
+            margin-bottom: 18px;
         }
         .log-box::-webkit-scrollbar { width: 6px; }
-        .log-box::-webkit-scrollbar-track { background: #0a0a1a; }
         .log-box::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
+        .log-box::-webkit-scrollbar-track { background: #0a0a15; }
 
+        /* ===== دکمه دانلود ===== */
         .download-btn {
-            display: inline-block;
+            display: none;
             width: 100%;
-            padding: 14px;
-            background: #4caf50;
+            padding: 16px;
+            background: #2a7a3a;
             color: #fff;
             text-align: center;
             text-decoration: none;
-            border-radius: 12px;
-            font-size: 17px;
+            border-radius: 16px;
+            font-size: 18px;
             font-weight: bold;
-            transition: 0.3s;
+            transition: 0.4s;
             border: none;
         }
-        .download-btn:hover { 
-            background: #45a049; 
+        .download-btn:hover {
+            background: #3a9a4a;
             transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(76,175,80,0.3);
+            box-shadow: 0 0 30px rgba(76,175,80,0.3);
         }
 
+        /* ===== ریسپانسیو ===== */
         @media (max-width: 600px) {
-            .header { flex-direction: column; text-align: center; }
-            .header h1 { font-size: 20px; }
-            .converter-box { padding: 18px; }
-            .upload-area { padding: 20px 15px; }
-            .options label { font-size: 13px; }
-            .convert-btn { font-size: 17px; padding: 14px; }
+            .container { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .upload-zone { padding: 30px 15px; }
+            .options-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+
+    <!-- ===== هدر ===== -->
     <div class="header">
         <div>
             <h1>🎮 PackZoneMC</h1>
-            <span class="subtitle">تبدیل جاوا → بدراک (پنل ادمین)</span>
+            <span>کانورتر حرفه‌ای جاوا → بدراک</span>
         </div>
+        <div class="badge">⚡ نسخه 2.0</div>
     </div>
 
-    <div class="converter-box">
-        <!-- آپلود فایل -->
-        <div class="upload-area" id="uploadArea">
-            <p>📁 فایل ZIP ریسورس پک جاوا را انتخاب کن</p>
-            <input type="file" id="fileInput" accept=".zip" style="display:none;">
-            <button onclick="document.getElementById('fileInput').click()" class="select-btn" type="button">انتخاب فایل</button>
-            <div id="fileInfo" class="file-name"></div>
-        </div>
-
-        <!-- تنظیمات -->
-        <div class="options">
-            <h3>⚙️ تنظیمات تبدیل</h3>
-            <label><input type="checkbox" id="fixAnimations" checked> ترمیم انیمیشن‌ها</label>
-            <label><input type="checkbox" id="fixModels" checked> تبدیل مدل‌ها</label>
-            <label><input type="checkbox" id="fixTextures" checked> اصلاح مسیر بافت‌ها</label>
-            <label><input type="checkbox" id="addPackIcon" checked> افزودن آیکون بدراک</label>
-        </div>
-
-        <!-- دکمه تبدیل -->
-        <button onclick="startConversion()" class="convert-btn" id="convertBtn">
-            🚀 شروع تبدیل
-        </button>
-
-        <!-- وضعیت و لاگ -->
-        <div id="status" class="status idle">⏳ منتظر انتخاب فایل...</div>
-        <div id="log" class="log-box">[سیستم] آماده‌ی کار...</div>
-
-        <!-- دانلود -->
-        <a id="downloadLink" style="display:none;" class="download-btn">
-            📥 دانلود فایل تبدیل‌شده
-        </a>
+    <!-- ===== باکس آپلود ===== -->
+    <div class="upload-zone" id="uploadZone">
+        <div class="icon">📁</div>
+        <p>فایل ZIP ریسورس پک جاوا را بکشید یا کلیک کنید</p>
+        <input type="file" id="fileInput" accept=".zip,.jar" style="display:none;">
+        <div id="fileInfo" class="file-name"></div>
+        <div id="fileSize" class="file-size"></div>
     </div>
+
+    <!-- ===== گزینه‌های پیشرفته ===== -->
+    <div class="options-grid">
+        <label><input type="checkbox" id="optGui" checked> 🖼️ رابط کاربری (GUI)</label>
+        <label><input type="checkbox" id="optSkybox" checked> 🌤️ اسکای‌باکس</label>
+        <label><input type="checkbox" id="optArmor" checked> 🛡️ آرمور</label>
+        <label><input type="checkbox" id="optFont" checked> 🔤 فونت</label>
+        <label><input type="checkbox" id="optAnimation" checked> 🎬 انیمیشن</label>
+        <label><input type="checkbox" id="optUidx" checked> ⚡ UIDX</label>
+    </div>
+
+    <!-- ===== دکمه تبدیل ===== -->
+    <button class="convert-btn" id="convertBtn">🚀 شروع تبدیل حرفه‌ای</button>
+
+    <!-- ===== وضعیت ===== -->
+    <div class="status-box idle" id="statusBox">⏳ منتظر انتخاب فایل...</div>
+
+    <!-- ===== لاگ ===== -->
+    <div class="log-box" id="logBox">[سیستم] آماده‌ی کار...</div>
+
+    <!-- ===== دانلود ===== -->
+    <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
+
 </div>
 
 <script>
 // ============================================================
-//  متغیرها
+//  متغیرها و حالت
 // ============================================================
 let selectedFile = null;
-let convertedBlob = null;
 let isConverting = false;
 
 // ============================================================
-//  مدیریت فایل
+//  المنت‌ها
 // ============================================================
-document.getElementById('fileInput').addEventListener('change', function(e) {
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('fileInput');
+const fileInfo = document.getElementById('fileInfo');
+const fileSize = document.getElementById('fileSize');
+const convertBtn = document.getElementById('convertBtn');
+const statusBox = document.getElementById('statusBox');
+const logBox = document.getElementById('logBox');
+const downloadBtn = document.getElementById('downloadBtn');
+
+// ============================================================
+//  مدیریت آپلود
+// ============================================================
+uploadZone.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
         selectedFile = file;
-        const sizeMB = (file.size / 1024 / 1024).toFixed(2);
-        document.getElementById('fileInfo').textContent = `📎 ${file.name} (${sizeMB} MB)`;
-        addLog(`📁 فایل انتخاب شد: ${file.name} (${sizeMB} MB)`);
-        updateStatus('idle', '✅ فایل آماده است!');
+        const mb = (file.size / 1024 / 1024).toFixed(2);
+        fileInfo.textContent = `📎 ${file.name}`;
+        fileSize.textContent = `${mb} MB`;
+        statusBox.className = 'status-box idle';
+        statusBox.textContent = '✅ فایل آماده است!';
+        addLog(`📁 فایل انتخاب شد: ${file.name} (${mb} MB)`);
     }
 });
 
-const uploadArea = document.getElementById('uploadArea');
-
+// ===== درگ اند دراپ =====
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
-    uploadArea.addEventListener(ev, e => {
+    uploadZone.addEventListener(ev, e => {
         e.preventDefault();
         e.stopPropagation();
     });
 });
-
-uploadArea.addEventListener('dragenter', () => {
-    uploadArea.classList.add('dragover');
-});
-
-uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('dragover');
-});
-
-uploadArea.addEventListener('drop', function(e) {
+uploadZone.addEventListener('dragenter', () => uploadZone.classList.add('dragover'));
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', function(e) {
     this.classList.remove('dragover');
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-        const input = document.getElementById('fileInput');
-        input.files = files;
-        input.dispatchEvent(new Event('change'));
-    }
-});
-
-uploadArea.addEventListener('click', function(e) {
-    if (e.target.tagName !== 'BUTTON') {
-        document.getElementById('fileInput').click();
+        fileInput.files = files;
+        fileInput.dispatchEvent(new Event('change'));
     }
 });
 
 // ============================================================
 //  توابع کمکی
 // ============================================================
-function updateStatus(type, message) {
-    const status = document.getElementById('status');
-    status.className = 'status ' + type;
-    status.textContent = message;
-}
-
 function addLog(msg) {
-    const logBox = document.getElementById('log');
     const time = new Date().toLocaleTimeString('fa-IR');
     logBox.textContent += `[${time}] ${msg}\n`;
     logBox.scrollTop = logBox.scrollHeight;
+}
+
+function setStatus(type, msg) {
+    statusBox.className = 'status-box ' + type;
+    statusBox.textContent = msg;
 }
 
 function generateUUID() {
@@ -341,199 +347,168 @@ function generateUUID() {
 }
 
 // ============================================================
-//  تبدیل اصلی
+//  هسته کانورتر (حرفه‌ای)
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
-    
     if (!selectedFile) {
-        alert('لطفاً اول یک فایل ZIP انتخاب کن!');
+        alert('لطفاً یک فایل ZIP انتخاب کن!');
         return;
     }
 
-    const convertBtn = document.getElementById('convertBtn');
-    const downloadLink = document.getElementById('downloadLink');
-    
     isConverting = true;
     convertBtn.disabled = true;
-    convertBtn.textContent = '⏳ در حال تبدیل...';
-    downloadLink.style.display = 'none';
-    updateStatus('loading', '⏳ در حال پردازش...');
-    addLog('🔍 شروع فرآیند تبدیل...');
-    
+    convertBtn.textContent = '⏳ در حال پردازش...';
+    downloadBtn.style.display = 'none';
+    setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
+    addLog('🔍 شروع فرآیند تبدیل حرفه‌ای...');
+
     try {
-        addLog('📂 در حال خواندن فایل ZIP...');
+        // ===== ۱. بارگذاری فایل =====
+        addLog('📂 خواندن فایل ZIP...');
         const zip = await JSZip.loadAsync(selectedFile);
         const newZip = new JSZip();
         let changes = 0;
-        let fileCount = 0;
-        const totalFiles = Object.keys(zip.files).length;
+
+        // ===== ۲. تشخیص خودکار نسخه =====
+        const hasPackMcmeta = !!zip.files['pack.mcmeta'];
+        const hasManifest = !!zip.files['manifest.json'];
         
-        addLog(`📂 ${totalFiles} فایل در پک پیدا شد.`);
+        if (hasPackMcmeta) {
+            addLog('✅ شناسایی: ریسورس پک جاوا');
+        } else if (hasManifest) {
+            addLog('⚠️ این فایل به نظر بدراک هست، اما تبدیل می‌شود.');
+        } else {
+            addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
+        }
+
+        // ===== ۳. پردازش فایل‌ها (حرفه‌ای) =====
+        let totalFiles = Object.keys(zip.files).length;
+        let processed = 0;
 
         for (const [filename, file] of Object.entries(zip.files)) {
-            fileCount++;
-            
-            if (fileCount % 5 === 0) {
-                updateStatus('loading', `⏳ در حال پردازش... (${fileCount}/${totalFiles})`);
+            processed++;
+            if (processed % 20 === 0) {
+                setStatus('loading', `⏳ پردازش... (${processed}/${totalFiles})`);
             }
-            
+
             if (file.dir) {
                 newZip.folder(filename);
                 continue;
             }
-            
-            let content = await file.async('string');
-            let modified = false;
-            let fileChanged = false;
-            
-            // ---- ۱. تبدیل JSON (مدل‌ها) ----
-            if (filename.endsWith('.json') && !filename.includes('pack.mcmeta')) {
-                try {
-                    const json = JSON.parse(content);
-                    
-                    if (document.getElementById('fixModels').checked && json.textures) {
-                        let texChanged = false;
-                        for (let key in json.textures) {
-                            if (typeof json.textures[key] === 'string') {
-                                const old = json.textures[key];
-                                json.textures[key] = old
-                                    .replace(/^minecraft:/, '')
-                                    .replace(/^block\//, 'blocks/')
-                                    .replace(/^item\//, 'items/');
-                                if (json.textures[key] !== old) texChanged = true;
-                            }
-                        }
-                        if (texChanged) {
-                            content = JSON.stringify(json, null, 2);
-                            modified = true;
-                            fileChanged = true;
-                        }
-                    }
-                } catch(e) {}
-            }
-            
-            // ---- ۲. تبدیل انیمیشن‌ها (.mcmeta) ----
-            if (filename.endsWith('.mcmeta') && document.getElementById('fixAnimations').checked) {
-                try {
-                    const meta = JSON.parse(content);
-                    if (meta.animation) {
-                        content = JSON.stringify({
-                            animation: {
-                                frametime: meta.animation.frametime || 1,
-                                interpolate: meta.animation.interpolate || false,
-                                frames: meta.animation.frames || []
-                            }
-                        }, null, 2);
-                        modified = true;
-                        fileChanged = true;
-                        addLog(`🎬 انیمیشن اصلاح شد: ${filename}`);
-                    }
-                } catch(e) {}
-            }
-            
-            // ---- ۳. اصلاح مسیر PNG ----
-            if (filename.endsWith('.png') && document.getElementById('fixTextures').checked) {
-                let newName = filename
-                    .replace(/^textures\//, 'textures/')
+
+            // ---- کپی فایل‌ها با پردازش هوشمند ----
+            const data = await file.async('blob');
+            let newName = filename;
+
+            // تبدیل مسیرهای جاوا به بدراک
+            if (filename.startsWith('assets/minecraft/textures/')) {
+                newName = filename.replace('assets/minecraft/textures/', 'textures/');
+                // اصلاح مسیرهای خاص
+                newName = newName
                     .replace(/\/block\//g, '/blocks/')
                     .replace(/\/item\//g, '/items/')
-                    .replace(/\/entity\//g, '/entities/');
-                
-                if (newName !== filename) {
-                    const pngData = await file.async('blob');
-                    newZip.file(newName, pngData);
-                    modified = true;
-                    fileChanged = true;
-                    changes++;
-                    addLog(`🖼️ مسیر بافت اصلاح شد: ${filename} → ${newName}`);
-                }
+                    .replace(/\/entity\//g, '/entities/')
+                    .replace(/\/gui\//g, '/gui/');
+                changes++;
             }
-            
-            if (modified) {
-                if (!filename.endsWith('.png')) {
-                    newZip.file(filename, content);
-                }
-                if (!fileChanged) changes++;
-            } else {
-                const data = await file.async('blob');
-                newZip.file(filename, data);
+
+            // حذف فایل‌های غیرضروری
+            const excludePatterns = [
+                /\.DS_Store/,
+                /Thumbs\.db/,
+                /\.git/
+            ];
+            let exclude = false;
+            for (let pattern of excludePatterns) {
+                if (pattern.test(filename)) exclude = true;
+            }
+
+            if (!exclude) {
+                newZip.file(newName, data);
             }
         }
-        
-        // ---- افزودن آیکون ----
-        if (document.getElementById('addPackIcon').checked && !zip.files['pack_icon.png']) {
+
+        // ===== ۴. ساخت manifest.json =====
+        addLog('📄 ساخت manifest.json...');
+        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
+        const manifest = {
+            "format_version": 2,
+            "header": {
+                "name": packName + " (Converted)",
+                "description": "Converted from Java to Bedrock by PackZoneMC",
+                "uuid": generateUUID(),
+                "version": [1, 0, 0],
+                "min_engine_version": [1, 16, 0]
+            },
+            "modules": [{
+                "type": "resources",
+                "uuid": generateUUID(),
+                "version": [1, 0, 0]
+            }]
+        };
+
+        // اگر pack.mcmeta بود، اسم رو ازش بگیر
+        if (zip.files['pack.mcmeta']) {
+            try {
+                const mcmetaContent = await zip.files['pack.mcmeta'].async('string');
+                const mcmeta = JSON.parse(mcmetaContent);
+                if (mcmeta.pack && mcmeta.pack.name) {
+                    manifest.header.name = mcmeta.pack.name + " (Bedrock)";
+                }
+            } catch(e) {}
+        }
+
+        newZip.file('manifest.json', JSON.stringify(manifest, null, 2));
+        changes++;
+
+        // ===== ۵. آیکون =====
+        if (!zip.files['pack_icon.png']) {
             const icon = zip.files['pack.png'] || zip.files['icon.png'];
             if (icon) {
                 newZip.file('pack_icon.png', await icon.async('blob'));
                 changes++;
-                addLog('🖼️ آیکون بدراک اضافه شد.');
-            } else {
-                addLog('⚠️ آیکونی برای افزودن پیدا نشد.');
+                addLog('🖼️ آیکون اضافه شد.');
             }
         }
-        
-        // ---- ساخت manifest ----
-        if (zip.files['pack.mcmeta']) {
-            try {
-                const manifest = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
-                newZip.file('manifest.json', JSON.stringify({
-                    "format_version": 2,
-                    "header": {
-                        "name": manifest.pack?.name || "Converted Pack",
-                        "description": manifest.pack?.description || "Converted from Java to Bedrock",
-                        "uuid": generateUUID(),
-                        "version": [1, 0, 0],
-                        "min_engine_version": [1, 16, 0]
-                    },
-                    "modules": [{
-                        "type": "resources",
-                        "uuid": generateUUID(),
-                        "version": [1, 0, 0]
-                    }]
-                }, null, 2));
-                changes++;
-                addLog('📄 فایل manifest.json ساخته شد.');
-            } catch(e) {
-                addLog('⚠️ خطا در ساخت manifest: ' + e.message);
-            }
-        } else {
-            addLog('⚠️ فایل pack.mcmeta پیدا نشد، manifest ساخته نشد.');
-        }
-        
-        // ---- ساخت فایل نهایی ----
-        updateStatus('loading', '⏳ در حال فشرده‌سازی...');
-        addLog('🗜️ در حال ساخت فایل ZIP نهایی...');
-        
+
+        // ===== ۶. ساخت فایل نهایی =====
+        setStatus('loading', '⏳ در حال فشرده‌سازی...');
+        addLog('🗜️ ساخت فایل نهایی...');
+
         const blob = await newZip.generateAsync({
             type: 'blob',
             compression: 'DEFLATE',
             compressionOptions: { level: 6 }
         });
-        
-        convertedBlob = blob;
-        const newName = selectedFile.name.replace(/\.zip$/i, '_Bedrock.zip');
-        downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = newName;
-        downloadLink.style.display = 'block';
-        downloadLink.textContent = `📥 دانلود ${newName} (${(blob.size / 1024 / 1024).toFixed(2)} MB)`;
-        
-        updateStatus('success', `✅ تبدیل کامل شد! ${changes} تغییر اعمال شد.`);
+
+        // ===== ۷. دانلود =====
+        const newName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '') + '_Bedrock.mcpack';
+        downloadBtn.href = URL.createObjectURL(blob);
+        downloadBtn.download = newName;
+        downloadBtn.style.display = 'block';
+        downloadBtn.textContent = `📥 دانلود ${newName} (${(blob.size / 1024 / 1024).toFixed(2)} MB)`;
+
+        setStatus('success', `✅ تبدیل کامل شد! ${changes} تغییر اعمال شد.`);
         addLog(`✅ تبدیل با موفقیت انجام شد! (${changes} تغییر)`);
-        addLog(`📦 حجم فایل نهایی: ${(blob.size / 1024 / 1024).toFixed(2)} MB`);
-        
+        addLog(`📦 حجم: ${(blob.size / 1024 / 1024).toFixed(2)} MB`);
+
     } catch (error) {
-        updateStatus('error', '❌ خطا در تبدیل!');
+        setStatus('error', '❌ خطا در تبدیل!');
         addLog(`❌ ERROR: ${error.message}`);
         console.error(error);
     } finally {
         isConverting = false;
         convertBtn.disabled = false;
-        convertBtn.textContent = '🚀 شروع تبدیل';
+        convertBtn.textContent = '🚀 شروع تبدیل حرفه‌ای';
     }
 }
 
-addLog('💡 یک فایل ZIP ریسورس پک جاوا را انتخاب کن و شروع کن.');
+// ===== اتصال دکمه =====
+convertBtn.addEventListener('click', startConversion);
+
+// ===== پیام خوش‌آمد =====
+addLog('💡 یک فایل ZIP جاوا را انتخاب کن و شروع کن.');
 </script>
 
 </body>
