@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v2.1</title>
     
     <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -365,7 +365,7 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه 3.0 · پایدار</div>
+        <div class="badge">نسخه ۲.۱ · پایدار</div>
     </div>
 
     <!-- ===== باکس آپلود ===== -->
@@ -401,7 +401,7 @@
 
     <!-- ===== فوتر ===== -->
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a>
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v2.1
     </div>
 
 </div>
@@ -483,7 +483,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر (نسخه نهایی و حرفه‌ای)
+//  هسته کانورتر (نسخه ۲.۱ - نهایی و بدون باگ)
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -497,7 +497,7 @@ async function startConversion() {
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
     setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل حرفه‌ای...');
+    addLog('🔍 شروع فرآیند تبدیل حرفه‌ای v2.1...');
 
     try {
         // ===== ۱. بارگذاری فایل =====
@@ -506,7 +506,7 @@ async function startConversion() {
         const newZip = new JSZip();
         let changes = 0;
         let processed = 0;
-        const totalFiles = Object.keys(zip.files).length;
+        let totalFiles = Object.keys(zip.files).length;
 
         // ===== ۲. تشخیص خودکار نسخه =====
         const hasPackMcmeta = !!zip.files['pack.mcmeta'];
@@ -520,7 +520,36 @@ async function startConversion() {
             addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
         }
 
-        // ===== ۳. پردازش فایل‌ها (نسخه نهایی) =====
+        // ===== ۳. لیست فایل‌هایی که باید حذف بشن (نسخه قوی‌تر) =====
+        const excludeExact = [
+            'pack.mcmeta',
+            'pack.png',
+            '.bsPhotoVault',
+            '.hiddenphotocalculator',
+            '.SHAREit',
+            '.system_config'
+        ];
+
+        const excludePatterns = [
+            /^\./,
+            /^Amir$/,
+            /^Amirbeta$/,
+            /^Android$/,
+            /^Aref$/,
+            /^baraye sayt$/,
+            /^Barfi$/,
+            /^Best$/,
+            /^Bizixer$/,
+            /^cmpack_/,
+            /^Coal_OP_/,
+            /^com\.android\./,
+            /^Compilation$/,
+            /\.DS_Store/,
+            /Thumbs\.db/,
+            /\.git/
+        ];
+
+        // ===== ۴. پردازش فایل‌ها =====
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
             if (processed % 20 === 0) {
@@ -528,7 +557,19 @@ async function startConversion() {
             }
 
             if (file.dir) {
-                newZip.folder(filename);
+                // پوشه‌ها رو هم چک کن
+                let shouldIncludeDir = true;
+                for (let pattern of excludePatterns) {
+                    if (pattern.test(filename)) {
+                        shouldIncludeDir = false;
+                        break;
+                    }
+                }
+                if (excludeExact.includes(filename)) shouldIncludeDir = false;
+                
+                if (shouldIncludeDir) {
+                    newZip.folder(filename);
+                }
                 continue;
             }
 
@@ -536,48 +577,26 @@ async function startConversion() {
             let shouldInclude = true;
 
             // ---- حذف فایل‌های اضافی ----
-            const excludePatterns = [
-                /\.DS_Store/,
-                /Thumbs\.db/,
-                /\.git/,
-                /\.bsPhotoVault/,
-                /\.SHAREit/,
-                /\.hiddenphotocalculator/,
-                /\.system_config/
-            ];
+            if (excludeExact.includes(filename)) {
+                shouldInclude = false;
+                addLog(`🗑️ حذف: ${filename}`);
+                continue;
+            }
+            
             for (let pattern of excludePatterns) {
-                if (pattern.test(filename)) shouldInclude = false;
+                if (pattern.test(filename)) {
+                    shouldInclude = false;
+                    addLog(`🗑️ حذف: ${filename}`);
+                    break;
+                }
             }
 
-            // ---- حذف pack.mcmeta (جایگزین میشه) ----
-            if (filename === 'pack.mcmeta') shouldInclude = false;
-
-            // ---- حذف pack.png (جایگزین میشه با pack_icon.png) ----
-            if (filename === 'pack.png') shouldInclude = false;
+            if (!shouldInclude) continue;
 
             // ---- تبدیل assets به textures ----
             if (filename.startsWith('assets/')) {
-                // assets/minecraft/... → textures/...
+                // assets/minecraft/textures/ → textures/
                 if (filename.startsWith('assets/minecraft/textures/')) {
                     newName = filename.replace('assets/minecraft/textures/', 'textures/');
                     newName = newName
-                        .replace(/\/block\//g, '/blocks/')
-                        .replace(/\/item\//g, '/items/')
-                        .replace(/\/entity\//g, '/entities/')
-                        .replace(/\/gui\//g, '/gui/')
-                        .replace(/\/environment\//g, '/environment/');
-                    changes++;
-                } 
-                // assets/minecraft/font/ → font/
-                else if (filename.startsWith('assets/minecraft/font/')) {
-                    newName = filename.replace('assets/minecraft/font/', 'font/');
-                    changes++;
-                }
-                // assets/minecraft/sounds/ → sounds/ (اختیاری)
-                else if (filename.startsWith('assets/minecraft/sounds/')) {
-                    newName = filename.replace('assets/minecraft/sounds/', 'sounds/');
-                    changes++;
-                }
-                // assets/minecraft/lang/ → texts/ (اختیاری)
-                else if (filename.startsWith('assets/minecraft/lang/')) {
-                    newName = filename.rep
+                        .replace(/\/block
