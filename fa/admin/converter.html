@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v8.0</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v10.0</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
@@ -165,13 +165,15 @@
             background: linear-gradient(135deg, #0f3460, #1a4a7a);
             color: #fff;
             border: none;
-            padding: 12px 40px;
+            padding: 14px 50px;
             border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(15,52,96,0.3);
+            display: inline-block;
+            margin: 5px 0;
         }
         .file-select-btn:hover {
             transform: scale(1.05);
@@ -361,7 +363,7 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۸.۰ · نهایی</div>
+        <div class="badge">نسخه ۱۰.۰ · نهایی</div>
     </div>
 
     <div class="upload-zone" id="uploadZone">
@@ -390,7 +392,7 @@
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v8.0 · دقیقاً مطابق خروجی MCPACK tree
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v10.0 · دقیقاً مطابق MCPACK tree
     </div>
 
 </div>
@@ -416,7 +418,7 @@ const logBox = document.getElementById('logBox');
 const downloadBtn = document.getElementById('downloadBtn');
 
 // ============================================================
-//  مدیریت آپلود
+//  مدیریت آپلود (نسخه ۱۰۰% تضمینی)
 // ============================================================
 fileSelectBtn.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -424,7 +426,7 @@ fileSelectBtn.addEventListener('click', function(e) {
 });
 
 uploadZone.addEventListener('click', function(e) {
-    if (e.target.tagName !== 'BUTTON') {
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN') {
         fileInput.click();
     }
 });
@@ -482,7 +484,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر نسخه ۸.۰ - دقیقاً مطابق خروجی MCPACK tree
+//  هسته کانورتر نسخه ۱۰.۰ - دقیقاً مطابق MCPACK tree
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -496,7 +498,7 @@ async function startConversion() {
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
     setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل v8.0 - دقیقاً مطابق MCPACK tree...');
+    addLog('🔍 شروع فرآیند تبدیل v10.0 - دقیقاً مطابق MCPACK tree...');
 
     try {
         addLog('📂 خواندن فایل ZIP...');
@@ -528,7 +530,7 @@ async function startConversion() {
         ];
 
         // ============================================================
-        //  پردازش فایل‌ها - بدون تغییر مسیر assets/ و textures/
+        //  پردازش فایل‌ها - بدون تغییر مسیر
         // ============================================================
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
@@ -556,10 +558,9 @@ async function startConversion() {
             }
 
             // ============================================================
-            //  assets/ رو دست نمی‌زنیم! (همون مسیر نگه می‌داریم)
+            //  assets/ و textures/ و font/ رو دست نمی‌زنیم!
+            //  فقط pack.mcmeta و pack.png رو حذف کردیم
             // ============================================================
-            // فقط فایل‌های pack.mcmeta و pack.png رو حذف کردیم
-            // بقیه فایل‌ها با همین مسیر کپی میشن
 
             // ============================================================
             //  فایل‌های .mcmeta (انیمیشن) - تبدیل به فرمت بدراک
@@ -568,4 +569,4 @@ async function startConversion() {
                 try {
                     const content = await file.async('string');
                     const json = JSON.parse(content);
-                    if
+    
