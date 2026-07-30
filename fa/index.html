@@ -15,174 +15,174 @@
 
 <body>
 
-
-<div class="language-switch">
-
-<button onclick="changeLanguage('fa')">
-🇮🇷 FA
-</button>
-
-<button onclick="changeLanguage('en')">
-🇺🇸 EN
-</button>
-
+<!-- ===== پنل تغییر زبان ===== -->
+<div class="language-toggle" onclick="togglePanel()">
+    <span class="flag-icon">🇮🇷</span>
+    <span>فارسی</span>
+    <span class="arrow">▼</span>
 </div>
 
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 انتخاب زبان</div>
+    
+    <a href="../fa/index.html" class="lang-item active">
+        <span class="flag">🇮🇷</span>
+        <span class="lang-name">فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    
+    <a href="../en/index.html" class="lang-item">
+        <span class="flag">🇺🇸</span>
+        <span class="lang-name">English</span>
+        <span class="lang-code">EN</span>
+    </a>
+    
+    <hr class="divider">
+    
+    <div class="panel-title">🎨 انتخاب تم</div>
+    
+    <div class="theme-item" onclick="changeTheme('default')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
+        <span>پیش‌فرض (بنفش-آبی)</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('green')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
+        <span>سبز ماینکرفت</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('orange')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
+        <span>نارنجی-طلایی</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('blue')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
+        <span>آبی سلطنتی</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('pink')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
+        <span>صورتی-بنفش</span>
+    </div>
+    
+    <hr class="divider">
+    
+    <div class="panel-title">🔤 انتخاب فونت</div>
+    
+    <div class="theme-item" onclick="changeFont('vazirmatn')">
+        <span>📝 وزیرمتن</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeFont('iransans')">
+        <span>📝 ایران‌سنس</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeFont('shabnam')">
+        <span>📝 شبنم</span>
+    </div>
+</div>
 
-
+<!-- ===== هدر ===== -->
 <header>
-
-<h1 class="main-logo">
-💙 PackZone MC
-</h1>
-
+    <h1 class="main-logo">💙 PackZone MC</h1>
 </header>
 
-
-
+<!-- ===== Hero ===== -->
 <section class="hero">
-
-<h2>به PackZone MC خوش آمدید 💙</h2>
-
-<p>
-مرجع حرفه‌ای ریسورس پک‌های Minecraft برای Java و Bedrock
-</p>
-
+    <h2>به PackZone MC خوش آمدید 💙</h2>
+    <p>مرجع حرفه‌ای ریسورس پک‌های Minecraft برای Java و Bedrock</p>
 </section>
 
-
-
+<!-- ===== About ===== -->
 <section class="card about">
-
-<h2>📌 درباره PackZone MC</h2>
-
-<p>
-PackZone MC یک مجموعه برای ارائه ریسورس پک‌های حرفه‌ای،
-پک‌های PvP، تبدیل پک‌ها و ابزارهای کاربردی Minecraft است.
-هدف ما ساخت تجربه‌ای بهتر و ساده‌تر برای بازیکنان Minecraft می‌باشد.
-</p>
-
+    <h2>📌 درباره PackZone MC</h2>
+    <p>PackZone MC یک مجموعه برای ارائه ریسورس پک‌های حرفه‌ای،
+    پک‌های PvP، تبدیل پک‌ها و ابزارهای کاربردی Minecraft است.
+    هدف ما ساخت تجربه‌ای بهتر و ساده‌تر برای بازیکنان Minecraft می‌باشد.</p>
 </section>
 
-
-
+<!-- ===== Menu ===== -->
 <section class="menu-box">
 
+    <div class="card small-card">
+        <h3>📄 Manifest Builder</h3>
+        <p>ساخت فایل manifest.json بدون نیاز به کدنویسی</p>
+        <a href="manifest.html">ورود</a>
+    </div>
 
+    <div class="card small-card">
+        <h3>📦 Pack.mcmeta Builder</h3>
+        <p>ساخت فایل pack.mcmeta برای ریسورس پک‌های Minecraft Java</p>
+        <a href="mcmeta-builder.html">ورود</a>
+    </div>
 
-<div class="card small-card">
+    <div class="card small-card">
+        <h3>🟩 Bedrock Packs</h3>
+        <p>دانلود ریسورس پک‌های Minecraft Bedrock</p>
+        <a href="bedrock.html">مشاهده</a>
+    </div>
 
-<h3>📄 Manifest Builder</h3>
+    <div class="card small-card">
+        <h3>🟦 Java Packs</h3>
+        <p>مشاهده ریسورس پک‌های Minecraft Java</p>
+        <a href="java.html">مشاهده</a>
+    </div>
 
-<p>
-ساخت فایل manifest.json بدون نیاز به کدنویسی
-</p>
+    <div class="card small-card">
+        <h3>💎 MysMce Packs</h3>
+        <p>کالکشن پک‌های MysMce پورت شده برای Bedrock</p>
+        <a href="mysmce.html">مشاهده</a>
+    </div>
 
-<a href="manifest.html">
-ورود
-</a>
-
-</div>
-
-
-
-<div class="card small-card">
-
-<h3>📦 Pack.mcmeta Builder</h3>
-
-<p>
-ساخت فایل pack.mcmeta برای ریسورس پک‌های Minecraft Java
-</p>
-
-<a href="mcmeta-builder.html">
-ورود
-</a>
-
-</div>
-
-
-
-<div class="card small-card">
-
-<h3>🟩 Bedrock Packs</h3>
-
-<p>
-دانلود ریسورس پک‌های Minecraft Bedrock
-</p>
-
-<a href="bedrock.html">
-مشاهده
-</a>
-
-</div>
-
-
-
-<div class="card small-card">
-
-<h3>🟦 Java Packs</h3>
-
-<p>
-مشاهده ریسورس پک‌های Minecraft Java
-</p>
-
-<a href="java.html">
-مشاهده
-</a>
-
-</div>
-
-
-
-<div class="card small-card">
-
-<h3>💎 MysMce Packs</h3>
-
-<p>
-کالکشن پک‌های MysMce پورت شده برای Bedrock
-</p>
-
-<a href="mysmce.html">
-مشاهده
-</a>
-
-</div>
-
-
-<!-- ===== My Packs ===== -->
-<div class="card small-card">
-
-<h3>📦 My Packs</h3>
-
-<p>
-پک‌های اختصاصی ساخته‌شده توسط PackZone MC
-</p>
-
-<a href="my-packs.html">
-مشاهده
-</a>
-
-</div>
-
-
+    <div class="card small-card">
+        <h3>📦 My Packs</h3>
+        <p>پک‌های اختصاصی ساخته‌شده توسط PackZone MC</p>
+        <a href="my-packs.html">مشاهده</a>
+    </div>
 
 </section>
 
+<!-- ===== Footer ===== -->
+<footer>© PackZone MC 💙</footer>
 
+<!-- ===== اسکریپت ===== -->
+<script>
+    // ===== باز و بسته کردن پنل =====
+    function togglePanel() {
+        const panel = document.getElementById('languagePanel');
+        const toggle = document.querySelector('.language-toggle');
+        panel.classList.toggle('open');
+        toggle.classList.toggle('active');
+    }
 
+    // بستن پنل با کلیک بیرون
+    document.addEventListener('click', function(event) {
+        const panel = document.getElementById('languagePanel');
+        const toggle = document.querySelector('.language-toggle');
+        if (!toggle.contains(event.target) && !panel.contains(event.target)) {
+            panel.classList.remove('open');
+            toggle.classList.remove('active');
+        }
+    });
 
+    // ===== تغییر تم =====
+    function changeTheme(theme) {
+        // اینجا کد تغییر تم رو می‌نویسی
+        // فعلاً پیام نمایش میده
+        alert('تم "' + theme + '" انتخاب شد! (بعداً کاملش می‌کنم)');
+        document.getElementById('languagePanel').classList.remove('open');
+        document.querySelector('.language-toggle').classList.remove('active');
+    }
 
-<footer>
-
-© PackZone MC 💙
-
-</footer>
-
-
-
-<script src="../language.js"></script>
-
+    // ===== تغییر فونت =====
+    function changeFont(font) {
+        alert('فونت "' + font + '" انتخاب شد! (بعداً کاملش می‌کنم)');
+        document.getElementById('languagePanel').classList.remove('open');
+        document.querySelector('.language-toggle').classList.remove('active');
+    }
+</script>
 
 </body>
 
-</html>
+          </html>
