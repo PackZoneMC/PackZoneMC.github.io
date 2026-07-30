@@ -1,582 +1,708 @@
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#050b18;
-color:#fff;
+/* ========================================
+   PACKZONE MC - COMPLETE STYLE
+   ======================================== */
+
+/* ===== 1️⃣ تنظیمات تم (اینجا تغییر بده) ===== */
+:root {
+    /* ----- رنگ اصلی (Primary) ----- */
+    --primary: #008cff;
+    --primary-dark: #0066cc;
+    --primary-light: #33aaff;
+    --primary-gradient: linear-gradient(135deg, #008cff, #7b00ff);
+
+    /* ----- رنگ دوم (Secondary) ----- */
+    --secondary: #7b00ff;
+    --secondary-dark: #5500cc;
+    --secondary-light: #aa66ff;
+
+    /* ----- رنگ‌های پس‌زمینه ----- */
+    --bg-body: #050b18;
+    --bg-card: #0d2038;
+    --bg-hero: linear-gradient(180deg, #0b1f3a, #050b18);
+    --bg-dropdown: #0d2038;
+
+    /* ----- رنگ‌های متن ----- */
+    --text-light: #ffffff;
+    --text-muted: #9ecfff;
+    --text-primary: #7ec8ff;
+
+    /* ----- رنگ‌های حاشیه و سایه ----- */
+    --border-color: #008cff;
+    --shadow-color: #008cff;
+    --glow-color: #00aaff;
+
+    /* ----- فونت (اینجا عوض کن) ----- */
+    --font-family: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif;
+    --font-size-base: 16px;
 }
 
+/* ========================================
+   2️⃣ تم‌های آماده (کامنت‌ها رو بردار تا فعال بشن)
+   ======================================== */
 
-/* Hero */
+/* ------ تم سبز ماینکرفت ------ */
+/*
+:root {
+    --primary: #2D8A4E;
+    --primary-dark: #1A5C32;
+    --primary-light: #4CAF50;
+    --secondary: #7CFC00;
+    --secondary-dark: #5CB800;
+    --secondary-light: #A8FF60;
+    --border-color: #2D8A4E;
+    --shadow-color: #2D8A4E;
+    --glow-color: #4CAF50;
+    --bg-card: #0d1f0d;
+    --bg-hero: linear-gradient(180deg, #0d1f0d, #0a0a0a);
+    --text-primary: #7CFC00;
+}
+*/
 
-.hero{
-text-align:center;
-padding:70px 20px;
-background:linear-gradient(180deg,#0b1f3a,#050b18);
+/* ------ تم نارنجی-طلایی ------ */
+/*
+:root {
+    --primary: #FF6B00;
+    --primary-dark: #CC5500;
+    --primary-light: #FF8C33;
+    --secondary: #FFD700;
+    --secondary-dark: #CCA800;
+    --secondary-light: #FFE44D;
+    --border-color: #FF6B00;
+    --shadow-color: #FF6B00;
+    --glow-color: #FF8C33;
+    --bg-card: #1a0f00;
+    --bg-hero: linear-gradient(180deg, #1a0f00, #0a0a05);
+    --text-primary: #FFD700;
+}
+*/
+
+/* ------ تم آبی سلطنتی ------ */
+/*
+:root {
+    --primary: #0A2463;
+    --primary-dark: #061840;
+    --primary-light: #1A3F8A;
+    --secondary: #00B4D8;
+    --secondary-dark: #0088A8;
+    --secondary-light: #40D0F0;
+    --border-color: #0A2463;
+    --shadow-color: #0A2463;
+    --glow-color: #1A3F8A;
+    --bg-card: #080c1a;
+    --bg-hero: linear-gradient(180deg, #080c1a, #05080f);
+    --text-primary: #00B4D8;
+}
+*/
+
+/* ------ تم صورتی-بنفش ------ */
+/*
+:root {
+    --primary: #9B5DE5;
+    --primary-dark: #7A3DB8;
+    --primary-light: #B87FED;
+    --secondary: #F15BB5;
+    --secondary-dark: #C73E94;
+    --secondary-light: #F58CC8;
+    --border-color: #9B5DE5;
+    --shadow-color: #9B5DE5;
+    --glow-color: #B87FED;
+    --bg-card: #1a0f24;
+    --bg-hero: linear-gradient(180deg, #1a0f24, #0d0a14);
+    --text-primary: #F15BB5;
+}
+*/
+
+/* ------ تم طلایی-مشکی (لوکس) ------ */
+/*
+:root {
+    --primary: #F5B041;
+    --primary-dark: #D4881E;
+    --primary-light: #F7C56E;
+    --secondary: #1C1C1C;
+    --secondary-dark: #0D0D0D;
+    --secondary-light: #333333;
+    --border-color: #F5B041;
+    --shadow-color: #F5B041;
+    --glow-color: #F7C56E;
+    --bg-card: #1a1508;
+    --bg-hero: linear-gradient(180deg, #1a1508, #0a0a05);
+    --text-primary: #F5B041;
+}
+*/
+
+/* ------ تم یخی-آبی ------ */
+/*
+:root {
+    --primary: #00B4D8;
+    --primary-dark: #0088A8;
+    --primary-light: #40D0F0;
+    --secondary: #90E0EF;
+    --secondary-dark: #60C0D8;
+    --secondary-light: #B0E8F5;
+    --border-color: #00B4D8;
+    --shadow-color: #00B4D8;
+    --glow-color: #40D0F0;
+    --bg-card: #0a1a20;
+    --bg-hero: linear-gradient(180deg, #0a1a20, #050e12);
+    --text-primary: #90E0EF;
+}
+*/
+
+/* ========================================
+   3️⃣ تنظیمات فونت‌های مختلف
+   ======================================== */
+
+/* ------ فونت وزیرمتن (پیشفرض) ------ */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+
+/* ------ فونت ایران‌سنس (جایگزین) ------ */
+/* @import url('https://fonts.googleapis.com/css2?family=Iranian+Sans&display=swap'); */
+
+/* ------ فونت دختر کفش دوز (شیک) ------ */
+/* @import url('https://fonts.googleapis.com/css2?family=Shabnam&display=swap'); */
+
+/* ========================================
+   4️⃣ استایل‌های اصلی
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-.main-logo{
-color:#7ec8ff;
-font-size:40px;
-text-shadow:0 0 20px #008cff;
-margin:0;
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background: var(--bg-body);
+    color: var(--text-light);
+    min-height: 100vh;
+    padding: 20px;
+    transition: all 0.3s ease;
 }
 
-
-.hero h2{
-color:#7ec8ff;
-text-shadow:0 0 15px #008cff;
+/* ===== Hero ===== */
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+    background: var(--bg-hero);
 }
 
-
-
-/* Home Button */
-
-.home-button{
-
-display:inline-block;
-margin-top:15px;
-background:#102847;
-color:#7ec8ff;
-padding:10px 22px;
-border-radius:12px;
-text-decoration:none;
-box-shadow:0 0 15px #008cff;
-transition:.3s;
-
+.main-logo {
+    color: var(--text-primary);
+    font-size: 40px;
+    text-shadow: 0 0 20px var(--shadow-color);
+    margin: 0;
 }
 
-
-.home-button:hover{
-
-background:#008cff;
-color:white;
-box-shadow:0 0 25px #00aaff;
-
+.hero h2 {
+    color: var(--text-primary);
+    text-shadow: 0 0 15px var(--shadow-color);
 }
 
-
-
-/* Cards Container */
-
-.menu-box{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-padding:30px;
-
+/* ===== Home Button ===== */
+.home-button {
+    display: inline-block;
+    margin-top: 15px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 10px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: .3s;
 }
 
-
-
-/* Pack Card */
-
-.card{
-
-position:relative;
-
-background:#0d2038;
-
-padding:20px;
-
-border-radius:20px;
-
-text-align:center;
-
-overflow:hidden;
-
-z-index:1;
-
+.home-button:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 0 25px var(--glow-color);
 }
 
+/* ===== پنل تغییر زبان (Language Panel) ===== */
+
+/* دکمه بازکننده پنل */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    padding: 8px 16px 8px 12px;
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.language-toggle:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 0 30px var(--glow-color);
+}
+
+.language-toggle .flag-icon {
+    font-size: 24px;
+}
+
+.language-toggle .arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.language-toggle.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* پنل کشویی */
+.language-panel {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    z-index: 999;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 220px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.language-panel.open {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.language-panel .panel-title {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.language-panel .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.language-panel .lang-item:hover {
+    background: rgba(0, 140, 255, 0.2);
+}
+
+.language-panel .lang-item .flag {
+    font-size: 22px;
+}
+
+.language-panel .lang-item .lang-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.language-panel .lang-item .lang-code {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.language-panel .lang-item.active {
+    background: rgba(0, 140, 255, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+/* ===== تم و فونت در پنل ===== */
+.language-panel .divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 12px 0;
+}
+
+.language-panel .theme-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.language-panel .theme-item:hover {
+    background: rgba(0, 140, 255, 0.2);
+}
+
+.language-panel .theme-item .color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.language-panel .theme-item .color-dot.active {
+    border-color: white;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+/* ===== Cards ===== */
+.menu-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    position: relative;
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+}
 
 /* RGB Animated Border */
-
-.card::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-padding:2px;
-
-border-radius:20px;
-
-background:linear-gradient(
-90deg,
-#ff0000,
-#00ffff,
-#008cff,
-#7b00ff,
-#ff00aa,
-#ff0000
-);
-
-background-size:300% 300%;
-
-animation:rgbMove 5s linear infinite;
-
-z-index:-2;
-
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 20px;
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #00ffff,
+        var(--primary),
+        var(--secondary),
+        #ff00aa,
+        #ff0000
+    );
+    background-size: 300% 300%;
+    animation: rgbMove 5s linear infinite;
+    z-index: -2;
 }
 
-
-.card::after{
-
-content:"";
-
-position:absolute;
-
-inset:2px;
-
-background:#0d2038;
-
-border-radius:18px;
-
-z-index:-1;
-
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--bg-card);
+    border-radius: 18px;
+    z-index: -1;
 }
 
-
-
-@keyframes rgbMove{
-
-0%{
-background-position:0% 50%;
+@keyframes rgbMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-50%{
-background-position:100% 50%;
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px var(--shadow-color);
+    transition: .3s;
 }
 
-100%{
-background-position:0% 50%;
+.card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px var(--shadow-color);
 }
 
+.card h3 {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--shadow-color);
 }
 
-
-
-/* Card Hover */
-
-.card:hover{
-
-transform:translateY(-8px);
-
-box-shadow:0 0 30px #008cff;
-
-transition:.3s;
-
+.card p {
+    line-height: 1.8;
+    color: var(--text-muted);
 }
 
-
-
-/* Images */
-
-.card img{
-
-width:100%;
-
-max-width:300px;
-
-border-radius:15px;
-
-box-shadow:0 0 20px #008cff;
-
+.card a {
+    display: inline-block;
+    margin-top: 15px;
+    background: var(--primary-dark);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: .3s;
 }
 
-
-
-/* Text */
-
-.card h3{
-
-color:#7ec8ff;
-
-text-shadow:0 0 10px #008cff;
-
+.card a:hover {
+    background: var(--primary);
+    box-shadow: 0 0 30px var(--glow-color);
+    transform: scale(1.05);
 }
 
-
-.card p{
-
-line-height:1.8;
-
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--text-muted);
 }
 
-
-
-/* Download Button */
-
-.card a{
-
-display:inline-block;
-
-margin-top:15px;
-
-background:#075ca8;
-
-color:white;
-
-padding:12px 25px;
-
-border-radius:12px;
-
-text-decoration:none;
-
-box-shadow:0 0 15px #008cff;
-
-transition:.3s;
-
+/* ===== Language Box (صفحه انتخاب زبان) ===== */
+.language-box {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 50px 30px;
+    background: var(--bg-card);
+    border-radius: 24px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 50px var(--shadow-color);
 }
 
-
-.card a:hover{
-
-background:#008cff;
-
-box-shadow:0 0 30px #00aaff;
-
-transform:scale(1.05);
-
+.language-box h1 {
+    font-size: 2.8rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px var(--shadow-color);
 }
 
-
-
-/* Language Buttons */
-
-.language-switch{
-
-position:fixed;
-
-bottom:15px;
-
-right:15px;
-
+.language-box h2 {
+    color: var(--text-light);
+    margin: 20px 0;
 }
 
-
-.language-switch button{
-
-background:#102847;
-
-color:#7ec8ff;
-
-border:none;
-
-padding:8px 14px;
-
-margin:3px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-box-shadow:0 0 10px #0066ff;
-
+.language-box p {
+    color: var(--text-muted);
 }
 
-
-
-/* Footer */
-
-footer{
-
-text-align:center;
-
-padding:25px;
-
-color:#9ecfff;
-
-}
-/* =========================
-   Pack.mcmeta Builder
-========================= */
-
-
-.builder-page{
-
-max-width:1000px;
-margin:auto;
-padding:30px;
-
+.buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-
-.builder-page h1{
-
-text-align:center;
-color:#7ec8ff;
-text-shadow:0 0 20px #008cff;
-
+.buttons a {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px var(--shadow-color);
 }
 
-
-
-.builder-card{
-
-background:#0d2038;
-
-border-radius:20px;
-
-padding:25px;
-
-margin:25px 0;
-
-box-shadow:0 0 20px #002b55;
-
+.buttons a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 35px var(--glow-color);
 }
 
-
-
-.builder-card h2{
-
-color:#7ec8ff;
-
-text-shadow:0 0 10px #008cff;
-
+/* ===== Builder ===== */
+.builder-page {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
 }
 
-
-
-/* Icon */
-
-
-.icon-box{
-
-margin-top:20px;
-
-width:160px;
-height:160px;
-
-background:#081426;
-
-border-radius:20px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-overflow:hidden;
-
+.builder-page h1 {
+    text-align: center;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px var(--shadow-color);
 }
 
-
-.icon-box img{
-
-width:100%;
-height:100%;
-
-object-fit:cover;
-
+.builder-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 0 20px var(--shadow-color);
 }
 
-
-
-/* Textareas */
-
-
-.builder-card textarea{
-
-width:100%;
-
-min-height:100px;
-
-background:#050b18;
-
-color:white;
-
-border:1px solid #008cff;
-
-border-radius:15px;
-
-padding:15px;
-
-font-size:16px;
-
-resize:vertical;
-
+.builder-card h2 {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--shadow-color);
 }
 
-
-
-/* Toolbar */
-
-
-.text-tools{
-
-display:flex;
-
-flex-wrap:wrap;
-
-gap:8px;
-
-margin-bottom:15px;
-
+.icon-box {
+    margin-top: 20px;
+    width: 160px;
+    height: 160px;
+    background: var(--bg-body);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-
-
-.text-tools button{
-
-background:#102847;
-
-color:#7ec8ff;
-
-border:none;
-
-padding:8px 12px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-box-shadow:0 0 10px #0066ff;
-
+.icon-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-
-
-.text-tools button:hover{
-
-background:#008cff;
-
-color:white;
-
+.builder-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--bg-body);
+    color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 16px;
+    resize: vertical;
 }
 
-
-
-/* Select */
-
-
-.builder-card select{
-
-background:#050b18;
-
-color:white;
-
-border:1px solid #008cff;
-
-padding:12px;
-
-border-radius:12px;
-
-width:100%;
-
+.text-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
-
-
-/* Minecraft Preview */
-
-
-#minecraftPreview{
-
-background:#111;
-
-border-radius:15px;
-
-padding:20px;
-
-text-align:center;
-
+.text-tools button {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--shadow-color);
 }
 
-
-#previewIcon{
-
-width:100px;
-
-height:100px;
-
-border-radius:15px;
-
+.text-tools button:hover {
+    background: var(--primary);
+    color: white;
 }
 
-
-
-#previewName{
-
-color:#7ec8ff;
-
+.builder-card select {
+    background: var(--bg-body);
+    color: white;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
 }
 
-
-
-#previewDescription{
-
-color:white;
-
+#minecraftPreview {
+    background: var(--bg-body);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
 }
 
-
-
-/* JSON */
-
-
-#jsonPreview{
-
-background:#02050a;
-
-border-radius:15px;
-
-padding:20px;
-
-color:#7ec8ff;
-
-overflow:auto;
-
+#previewIcon {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
 }
 
-
-
-/* Download */
-
-
-.download-area{
-
-display:flex;
-
-gap:15px;
-
-justify-content:center;
-
-flex-wrap:wrap;
-
+#previewName {
+    color: var(--text-primary);
 }
 
-
-
-.download-area button{
-
-background:#075ca8;
-
-color:white;
-
-border:none;
-
-padding:15px 25px;
-
-border-radius:15px;
-
-cursor:pointer;
-
-font-size:16px;
-
-box-shadow:0 0 15px #008cff;
-
+#previewDescription {
+    color: white;
 }
 
-
-
-.download-area button:hover{
-
-background:#008cff;
-
-box-shadow:0 0 30px #00aaff;
-
+#jsonPreview {
+    background: var(--bg-body);
+    border-radius: 15px;
+    padding: 20px;
+    color: var(--text-primary);
+    overflow: auto;
 }
+
+.download-area {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.download-area button {
+    background: var(--primary-dark);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+.download-area button:hover {
+    background: var(--primary);
+    box-shadow: 0 0 30px var(--glow-color);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .main-logo {
+        font-size: 28px;
+    }
+    .hero h2 {
+        font-size: 18px;
+    }
+    .language-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .language-panel {
+        top: 60px;
+        right: 10px;
+        min-width: 180px;
+        padding: 15px;
+    }
+    .card {
+        padding: 15px;
+    }
+    .menu-box {
+        padding: 15px;
+        gap: 15px;
+    }
+    .language-box {
+        margin: 40px 15px;
+        padding: 30px 20px;
+    }
+    .language-box h1 {
+        font-size: 2rem;
+    }
+   }
