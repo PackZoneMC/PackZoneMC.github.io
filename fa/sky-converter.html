@@ -552,7 +552,7 @@
 
   <script>
     (function() {
-      // ==================== ثابت‌ها ====================
+      // ==================== CONSTANTS ====================
       const VALID_DIMENSIONS = [
         [1024, 1024],
         [2048, 1024],
@@ -564,10 +564,9 @@
         [8192, 4096]
       ];
 
-      // توان‌های معتبر ۲ برای خروجی
       const POWER_OF_TWO = [512, 1024, 2048, 4096];
 
-      // تبدیل‌های دقیق برای هر وجه Bedrock
+      // Transformations for each face to match Bedrock format
       const FACE_TRANSFORMS = {
         top:    { flipH: true,  flipV: false, rotation: 180 },
         bottom: { flipH: true,  flipV: false, rotation: 0   },
@@ -586,7 +585,7 @@
         { key: 'left',   index: 5 }
       ];
 
-      // ==================== DOM ====================
+      // ==================== DOM ELEMENTS ====================
       const dropZone = document.getElementById('dropZone');
       const fileInput = document.getElementById('fileInput');
       const previewPanel = document.getElementById('previewPanel');
@@ -603,12 +602,13 @@
       const infoText = document.getElementById('infoText');
       const convertBtn = document.getElementById('convertBtn');
 
+      // ==================== STATE ====================
       let currentImage = null;
       let currentFile = null;
       let imageWidth = 0;
       let imageHeight = 0;
 
-      // ==================== Utility ====================
+      // ==================== UTILITY FUNCTIONS ====================
       function isValidDimensions(w, h) {
         return VALID_DIMENSIONS.some(([vw, vh]) => vw === w && vh === h);
       }
@@ -616,7 +616,6 @@
       function getClosestPowerOfTwo(value) {
         let closest = POWER_OF_TWO[0];
         let minDiff = Math.abs(value - closest);
-        
         for (let i = 1; i < POWER_OF_TWO.length; i++) {
           const diff = Math.abs(value - POWER_OF_TWO[i]);
           if (diff < minDiff) {
@@ -630,7 +629,6 @@
       function getOutputFaceSize(W, H) {
         const isSquare = (W === H);
         let cellW, cellH;
-        
         if (isSquare) {
           cellW = Math.floor(W / 6);
           cellH = H;
@@ -638,9 +636,14 @@
           cellW = Math.floor(W / 4);
           cellH = Math.floor(H / 3);
         }
-        
         const minCell = Math.min(cellW, cellH);
         return getClosestPowerOfTwo(minCell);
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
       }
 
       function showError(msg) {
@@ -671,13 +674,7 @@
         infoAlert.classList.add('hidden');
       }
 
-      function formatFileSize(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(1) + ' MB';
-      }
-
-      // ==================== بارگذاری تصویر ====================
+      // ==================== IMAGE LOADING ====================
       function loadImageFromFile(file) {
         return new Promise((resolve, reject) => {
           if (!file || !file.type.startsWith('image/')) {
@@ -686,7 +683,6 @@
           const reader = new FileReader();
           reader.onload = (e) => {
             const img = new Image();
-            img.crossOrigin = 'Anonymous';
             img.onload = () => resolve(img);
             img.onerror = () => reject(new Error('بارگذاری تصویر با خطا مواجه شد.'));
             img.src = e.target.result;
@@ -715,12 +711,229 @@
           dimensionsBadge.textContent = `${imageWidth} × ${imageHeight}`;
           dimensionsBadge.className = `badge ${valid ? 'badge-valid' : 'badge-invalid'}`;
           
-          // نمایش ابعاد خروجی
           if (valid) {
             const outSize = getOutputFaceSize(imageWidth, imageHeight);
             outputBadge.textContent = `🎯 خروجی: ${outSize}×${outSize}`;
             outputBadge.className = 'badge badge-output';
             outputBadge.classList.remove('hidden');
-            showInfo(`ℹ️ خروجی هر ۶ وجه: ${outSize}×${outSize} پیکسل (توان ۲)`);
+            showInfo(`خروجی هر ۶ وجه: ${outSize}×${outSize} پیکسل (توان ۲)`);
           } else {
-            outputBadge
+            outputBadge.classList.add('hidden');
+            showErr            showError('ابعاد تصویر معتبر نیست! لطفاً یکی از ابعاد پشتیبانی‌شده را انتخاب کنید.');
+          }
+          
+          previewPanel.classList.remove('hidden');
+          convertBtn.disabled = !valid;
+        } catch (err) {
+          showError(err.message);
+          convertBtn.disabled = true;
+        }
+      }
+
+      // ==================== CUBEMAP EXTRACTION ====================
+      function getFaceRegions(W, H) {
+        const isSquare = (W === H);
+        let cellW, cellH;
+        let regions = {};
+
+        if (isSquare) {
+          // 6 faces in a row: left, front, right, back, top, bottom
+          cellW = Math.floor(W / 6);
+          cellH = H;
+          regions = {
+            left:   { sx: 0,          sy: 0, sw: cellW, sh: cellH },
+            front:  { sx: cellW,      sy: 0, sw: cellW, sh: cellH },
+            right:  { sx: cellW * 2,  sy: 0, sw: cellW, sh: cellH },
+            back:   { sx: cellW * 3,  sy: 0, sw: cellW, sh: cellH },
+            top:    { sx: cellW * 4,  sy: 0, sw: cellW, sh: cellH },
+            bottom: { sx: cellW * 5,  sy: 0, sw: cellW, sh: cellH }
+          };
+        } else {
+          // 4x3 grid
+          cellW = Math.floor(W / 4);
+          cellH = Math.floor(H / 3);
+          regions = {
+            top:    { sx: cellW,      sy: 0,          sw: cellW, sh: cellH },
+            bottom: { sx: cellW,      sy: cellH * 2,  sw: cellW, sh: cellH },
+            front:  { sx: cellW,      sy: cellH,      sw: cellW, sh: cellH },
+            right:  { sx: cellW * 2,  sy: cellH,      sw: cellW, sh: cellH },
+            back:   { sx: cellW * 3,  sy: cellH,      sw: cellW, sh: cellH },
+            left:   { sx: 0,          sy: cellH,      sw: cellW, sh: cellH }
+          };
+        }
+        return { regions, cellW, cellH };
+      }
+
+      function createFaceCanvas(mainCanvas, region, transform, faceSize) {
+        const { flipH, flipV, rotation } = transform;
+        
+        // Extract region from source
+        const srcCanvas = document.createElement('canvas');
+        srcCanvas.width = region.sw;
+        srcCanvas.height = region.sh;
+        const srcCtx = srcCanvas.getContext('2d');
+        srcCtx.drawImage(
+          mainCanvas,
+          region.sx, region.sy, region.sw, region.sh,
+          0, 0, region.sw, region.sh
+        );
+
+        // Destination canvas (square with power-of-two size)
+        const destCanvas = document.createElement('canvas');
+        destCanvas.width = faceSize;
+        destCanvas.height = faceSize;
+        const destCtx = destCanvas.getContext('2d');
+
+        destCtx.imageSmoothingEnabled = true;
+        destCtx.imageSmoothingQuality = 'high';
+
+        destCtx.save();
+        destCtx.translate(faceSize / 2, faceSize / 2);
+        
+        if (rotation && rotation !== 0) {
+          destCtx.rotate((rotation * Math.PI) / 180);
+        }
+        
+        const scaleX = flipH ? -1 : 1;
+        const scaleY = flipV ? -1 : 1;
+        destCtx.scale(scaleX, scaleY);
+        
+        // Draw and scale to square size
+        destCtx.drawImage(
+          srcCanvas,
+          0, 0, region.sw, region.sh,
+          -faceSize / 2, -faceSize / 2,
+          faceSize, faceSize
+        );
+        destCtx.restore();
+
+        return destCanvas;
+      }
+
+      // ==================== ZIP GENERATION ====================
+      async function generateZIP() {
+        if (!currentImage) {
+          showError('لطفاً ابتدا یک تصویر بارگذاری کنید.');
+          return;
+        }
+
+        if (!isValidDimensions(imageWidth, imageHeight)) {
+          showError('ابعاد تصویر برای تبدیل معتبر نیست.');
+          return;
+        }
+
+        // Disable button during processing
+        convertBtn.disabled = true;
+        const btnTextEl = convertBtn.querySelector('span:last-child');
+        const originalText = btnTextEl.textContent;
+        btnTextEl.textContent = '⏳ در حال پردازش...';
+        hideAlerts();
+        showInfo('🔄 در حال استخراج و تبدیل وجه‌ها...');
+
+        try {
+          const W = imageWidth;
+          const H = imageHeight;
+          const faceSize = getOutputFaceSize(W, H);
+          const { regions } = getFaceRegions(W, H);
+
+          // Create main canvas from image
+          const mainCanvas = document.createElement('canvas');
+          mainCanvas.width = W;
+          mainCanvas.height = H;
+          const mainCtx = mainCanvas.getContext('2d');
+          mainCtx.drawImage(currentImage, 0, 0, W, H);
+
+          // Create ZIP
+          const zip = new JSZip();
+
+          for (const item of FACE_ORDER_BEDROCK) {
+            const region = regions[item.key];
+            if (!region) {
+              console.warn(`Region for face "${item.key}" not found!`);
+              continue;
+            }
+            const transform = FACE_TRANSFORMS[item.key];
+            const faceCanvas = createFaceCanvas(mainCanvas, region, transform, faceSize);
+
+            const blob = await new Promise((resolve, reject) => {
+              faceCanvas.toBlob((b) => {
+                if (b) resolve(b);
+                else reject(new Error('ساخت تصویر ناموفق'));
+              }, 'image/png');
+            });
+
+            zip.file(`cubemap_${item.index}.png`, blob);
+          }
+
+          showInfo('📦 در حال ساخت فایل ZIP...');
+
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+          // Download
+          const url = URL.createObjectURL(zipBlob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'PZMC_cubemap_overworld.zip';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+          showSuccess(`✅ تبدیل با موفقیت انجام شد! ${faceSize}×${faceSize} - ۶ وجه`);
+        } catch (err) {
+          console.error('Error:', err);
+          showError('خطا در تولید Cubemap: ' + err.message);
+        } finally {
+          convertBtn.disabled = false;
+          btnTextEl.textContent = originalText;
+        }
+      }
+
+      // ==================== EVENT LISTENERS ====================
+      // Click on drop zone
+      dropZone.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      // Drag events
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+
+      dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          handleFile(files[0]);
+        }
+      });
+
+      // File input change
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          handleFile(e.target.files[0]);
+        }
+        e.target.value = '';
+      });
+
+      // Convert button
+      convertBtn.addEventListener('click', generateZIP);
+
+      // Global drag prevention
+      document.addEventListener('dragover', (e) => e.preventDefault());
+      document.addEventListener('drop', (e) => e.preventDefault());
+
+      console.log('✅ PZMC Cubemap Converter v2.1 loaded successfully!');
+      console.log('📐 Supported dimensions:', VALID_DIMENSIONS);
+      console.log('🎯 Power of two sizes:', POWER_OF_TWO);
+    })();
+  </script>
+</body>
+</html>
