@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -8,11 +9,11 @@
 
 <title>PackZone MC | تبدیل اسکای جاوا به بدراک</title>
 
+<!-- ===== style.css از پوشه اصلی ===== -->
 <link rel="stylesheet" href="../style.css">
 
 <style>
-
-/* ===== استایل اختصاصی ===== */
+/* ===== استایل‌های اختصاصی ===== */
 .converter-page {
     max-width: 950px;
     margin: auto;
@@ -34,7 +35,6 @@
     margin-bottom: 15px;
 }
 
-/* ===== بخش آپلود ===== */
 .upload-area {
     border: 3px dashed var(--border-color);
     border-radius: 20px;
@@ -91,7 +91,6 @@
     box-shadow: 0 0 35px var(--glow-color);
 }
 
-/* ===== پیش‌نمایش ===== */
 .preview-area {
     margin-top: 20px;
     text-align: center;
@@ -105,7 +104,6 @@
     box-shadow: 0 0 30px var(--shadow-color);
 }
 
-/* ===== اطلاعات تصویر ===== */
 .image-info {
     background: var(--bg-body);
     border-radius: 12px;
@@ -141,7 +139,6 @@
     color: #f44336;
 }
 
-/* ===== ۶ تکه اسکای ===== */
 .sky-slices {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -178,7 +175,6 @@
     margin-top: 2px;
 }
 
-/* ===== دکمه تبدیل ===== */
 .convert-btn {
     width: 100%;
     padding: 18px;
@@ -205,7 +201,6 @@
     transform: none;
 }
 
-/* ===== نتیجه ===== */
 .result-box {
     display: none;
     background: var(--bg-body);
@@ -246,7 +241,6 @@
     box-shadow: 0 0 35px var(--glow-color);
 }
 
-/* ===== ابعاد مجاز ===== */
 .valid-sizes {
     display: flex;
     flex-wrap: wrap;
@@ -270,20 +264,6 @@
     color: #4CAF50;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 600px) {
-    .converter-card {
-        padding: 15px;
-    }
-    .upload-area {
-        padding: 30px 15px;
-    }
-    .sky-slices {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* ===== دکمه خانه ===== */
 .home-button {
     display: inline-block;
     background: var(--bg-card);
@@ -310,7 +290,6 @@ header {
     margin-top: 15px;
 }
 
-/* ===== پنل زبان ===== */
 .language-toggle {
     position: fixed;
     top: 20px;
@@ -436,6 +415,84 @@ footer {
     padding: 25px;
     color: var(--text-muted);
 }
+
+@media (max-width: 600px) {
+    .converter-card {
+        padding: 15px;
+    }
+    .upload-area {
+        padding: 30px 15px;
+    }
+    .sky-slices {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== تم‌های سفارشی ===== */
+.theme-default {
+    --primary: #008cff;
+    --primary-dark: #0066cc;
+    --primary-light: #33aaff;
+    --secondary: #7b00ff;
+    --secondary-dark: #5500cc;
+    --secondary-light: #aa66ff;
+    --bg-card: #0d2038;
+    --border-color: #008cff;
+    --shadow-color: #008cff;
+    --text-primary: #7ec8ff;
+}
+
+.theme-green {
+    --primary: #2D8A4E;
+    --primary-dark: #1A5C32;
+    --primary-light: #4CAF50;
+    --secondary: #7CFC00;
+    --secondary-dark: #5CB800;
+    --secondary-light: #A8FF60;
+    --bg-card: #0d1f0d;
+    --border-color: #2D8A4E;
+    --shadow-color: #2D8A4E;
+    --text-primary: #7CFC00;
+}
+
+.theme-orange {
+    --primary: #FF6B00;
+    --primary-dark: #CC5500;
+    --primary-light: #FF8C33;
+    --secondary: #FFD700;
+    --secondary-dark: #CCA800;
+    --secondary-light: #FFE44D;
+    --bg-card: #1a0f00;
+    --border-color: #FF6B00;
+    --shadow-color: #FF6B00;
+    --text-primary: #FFD700;
+}
+
+.theme-blue {
+    --primary: #0A2463;
+    --primary-dark: #061840;
+    --primary-light: #1A3F8A;
+    --secondary: #00B4D8;
+    --secondary-dark: #0088A8;
+    --secondary-light: #40D0F0;
+    --bg-card: #080c1a;
+    --border-color: #0A2463;
+    --shadow-color: #0A2463;
+    --text-primary: #00B4D8;
+}
+
+.theme-pink {
+    --primary: #9B5DE5;
+    --primary-dark: #7A3DB8;
+    --primary-light: #B87FED;
+    --secondary: #F15BB5;
+    --secondary-dark: #C73E94;
+    --secondary-light: #F58CC8;
+    --bg-card: #1a0f24;
+    --border-color: #9B5DE5;
+    --shadow-color: #9B5DE5;
+    --text-primary: #F15BB5;
+}
 </style>
 
 </head>
@@ -453,7 +510,7 @@ footer {
 <div class="language-panel" id="languagePanel">
     <div class="panel-title">🌍 انتخاب زبان</div>
     
-    <a href="../fa/index.html" class="lang-item active">
+    <a href="index.html" class="lang-item active">
         <span class="flag">🇮🇷</span>
         <span class="lang-name">فارسی</span>
         <span class="lang-code">FA</span>
@@ -513,7 +570,7 @@ footer {
 
 <!-- ===== هدر ===== -->
 <header>
-    <a href="../fa/index.html" class="home-button">🏠 خانه</a>
+    <a href="index.html" class="home-button">🏠 خانه</a>
     <h1 class="main-logo">🌌 تبدیل اسکای جاوا به بدراک</h1>
 </header>
 
@@ -660,7 +717,7 @@ footer {
             </p>
             <div style="text-align:center;margin-top:15px;">
                 <button class="download-btn" onclick="downloadPack()">
-                    ⬇️ دانلود فایل .mcpack
+                    ⬇️ دانلود فایل PZMC_cubemap_overworld.zip
                 </button>
             </div>
             <p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:10px;">
@@ -712,15 +769,61 @@ footer {
     });
 
     function changeTheme(theme) {
-        alert('تم "' + theme + '" انتخاب شد!');
+        document.body.className = '';
+        document.body.classList.add('theme-' + theme);
+        localStorage.setItem('selectedTheme', theme);
         document.getElementById('languagePanel').classList.remove('open');
         document.querySelector('.language-toggle').classList.remove('active');
+        showToast('✅ تم با موفقیت تغییر کرد!');
     }
 
     function changeFont(font) {
-        alert('فونت "' + font + '" انتخاب شد!');
+        let fontFamily = '';
+        switch(font) {
+            case 'vazirmatn':
+                fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                break;
+            case 'iransans':
+                fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                break;
+            case 'shabnam':
+                fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                break;
+        }
+        document.body.style.fontFamily = fontFamily;
+        localStorage.setItem('selectedFont', font);
         document.getElementById('languagePanel').classList.remove('open');
         document.querySelector('.language-toggle').classList.remove('active');
+        showToast('✅ فونت با موفقیت تغییر کرد!');
+    }
+
+    function showToast(message) {
+        const oldToast = document.querySelector('.toast-message');
+        if (oldToast) oldToast.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d2038;
+            color: #7ec8ff;
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 1px solid #008cff;
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+            font-size: 1rem;
+            z-index: 9999;
+            animation: fadeInUp 0.3s ease;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
     }
 
     // ===== بررسی ابعاد =====
@@ -735,8 +838,6 @@ footer {
 
     // ===== محاسبه ابعاد تکه‌ها =====
     function getSliceDimensions(w, h) {
-        // عرض هر تکه = عرض عکس / 3
-        // ارتفاع هر تکه = ارتفاع عکس / 2
         const sliceW = Math.floor(w / 3);
         const sliceH = Math.floor(h / 2);
         return { sliceW, sliceH };
@@ -746,9 +847,141 @@ footer {
     function handleFile(file) {
         if (!file) return;
         
+        console.log('📂 فایل انتخاب شد:', file.name);
+        
         const img = new Image();
         img.onload = function() {
             const w = img.width;
             const h = img.height;
             
-          
+            console.log('📐 ابعاد:', w + '×' + h);
+            
+            if (!isValidSize(w, h)) {
+                alert(`❌ ابعاد تصویر پشتیبانی نمیشه!\nابعاد فعلی: ${w}×${h}\nابعاد مجاز:\n1024×1024, 2048×1024, 2048×1536, 3072×2048, 4096×2048, 4096×3072, 6144×4096, 8192×4096`);
+                return;
+            }
+
+            selectedFile = file;
+            imageData = {
+                img: img,
+                width: w,
+                height: h,
+                dataUrl: img.src
+            };
+
+            // نمایش پیش‌نمایش
+            const canvas = document.getElementById('previewCanvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            document.getElementById('previewArea').style.display = 'block';
+
+            // نمایش اطلاعات
+            document.getElementById('imageInfo').style.display = 'block';
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('imageDimensions').textContent = w + '×' + h;
+            document.getElementById('fileSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+            document.getElementById('statusText').textContent = '✅ معتبر';
+            document.getElementById('statusText').className = 'value valid';
+
+            const { sliceW, sliceH } = getSliceDimensions(w, h);
+            document.getElementById('sliceSize').textContent = sliceW + '×' + sliceH;
+
+            sliceImage(img, w, h, sliceW, sliceH);
+            
+            document.getElementById('slicesContainer').style.display = 'block';
+            document.getElementById('convertBtn').disabled = false;
+
+            if (!document.getElementById('packName').value) {
+                let name = file.name.replace(/\.[^.]+$/, '');
+                document.getElementById('packName').value = name + '_Sky';
+            }
+            
+            showToast('✅ عکس با موفقیت بارگذاری شد!');
+        };
+        img.onerror = function() {
+            alert('❌ خطا در بارگذاری عکس!');
+        };
+        img.src = URL.createObjectURL(file);
+    }
+
+    // ===== برش تصویر =====
+    function sliceImage(img, w, h, sliceW, sliceH) {
+        const slices = [
+            { id: 'sliceLeft', x: 0, y: 0, label: 'Left' },
+            { id: 'sliceUp', x: sliceW, y: 0, label: 'Up' },
+            { id: 'sliceRight', x: sliceW * 2, y: 0, label: 'Right' },
+            { id: 'sliceFront', x: 0, y: sliceH, label: 'Front' },
+            { id: 'sliceDown', x: sliceW, y: sliceH, label: 'Down' },
+            { id: 'sliceBack', x: sliceW * 2, y: sliceH, label: 'Back' }
+        ];
+
+        slices.forEach(s => {
+            const canvas = document.getElementById(s.id);
+            canvas.width = sliceW;
+            canvas.height = sliceH;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, s.x, s.y, sliceW, sliceH, 0, 0, sliceW, sliceH);
+            sliceData[s.id] = canvas.toDataURL('image/png');
+            const dimEl = document.getElementById('dim' + s.id.charAt(0).toUpperCase() + s.id.slice(1));
+            if (dimEl) {
+                dimEl.textContent = sliceW + '×' + sliceH;
+            }
+        });
+    }
+
+    // ===== درگ و دراپ =====
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFile(files[0]);
+        }
+    });
+
+    // ===== تبدیل به بدراک =====
+    function convertSky() {
+        if (!imageData) {
+            alert('❌ لطفاً ابتدا یک عکس انتخاب کنید!');
+            return;
+        }
+
+        const btn = document.getElementById('convertBtn');
+        btn.textContent = '⏳ در حال ساخت...';
+        btn.disabled = true;
+
+        const packName = 'PZMC_cubemap_overworld';  // ← اسم ثابت
+        const version = document.getElementById('bedrockVersion').value;
+
+        // ساخت محتوای فایل ZIP
+        const manifest = {
+            format_version: 2,
+            header: {
+                name: 'PZMC Cubemap Overworld',
+                description: '🌌 Sky converted from Java to Bedrock by PackZone MC',
+                uuid: generateUUID(),
+                version: [1, 0, 0],
+                min_engine_version: version.split('.').map(Number)
+            },
+            modules: [
+                {
+                    type: 'resources',
+                    uuid: generateUUID(),
+                    version: [1, 0, 0]
+                }
+            ]
+        };
+
+        // ساخت فایل زیپ با نام مشخص
+        const
