@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>PackZoneMC - کانورتر حرفه‌ای</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای</title>
     
     <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -15,24 +15,49 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #0d0d1a;
+            background: #0a0a0f;
             color: #e0e0e0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            background-image: 
+                radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(76,175,80,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(233,69,96,0.05) 0%, transparent 40%);
         }
 
         /* ===== کانتینر اصلی ===== */
         .container {
-            max-width: 900px;
+            max-width: 920px;
             width: 100%;
-            background: #1a1a2e;
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            border: 1px solid #2a2a4a;
+            background: rgba(20, 20, 40, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 45px;
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(233,69,96,0.03), transparent, rgba(76,175,80,0.02), transparent);
+            animation: rotateGlow 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* ===== هدر ===== */
@@ -40,96 +65,150 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             flex-wrap: wrap;
             gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e94560, #c73652);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 25px rgba(233,69,96,0.3);
         }
         .header h1 {
             font-size: 28px;
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, #e94560 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        .header span {
+        .header .subtitle {
             color: #888;
-            font-size: 14px;
+            font-size: 13px;
+            -webkit-text-fill-color: #888;
         }
         .badge {
-            background: #2a2a4a;
-            padding: 6px 18px;
+            background: rgba(233,69,96,0.15);
+            padding: 6px 20px;
             border-radius: 30px;
-            font-size: 13px;
-            color: #aaa;
-            border: 1px solid #3a3a5a;
+            font-size: 12px;
+            color: #e94560;
+            border: 1px solid rgba(233,69,96,0.2);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+        .badge::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         /* ===== باکس آپلود ===== */
         .upload-zone {
-            border: 3px dashed #2a2a4a;
+            border: 2px dashed rgba(255,255,255,0.08);
             border-radius: 20px;
-            padding: 50px 20px;
+            padding: 55px 20px;
             text-align: center;
-            background: #12121f;
-            transition: 0.4s;
+            background: rgba(255,255,255,0.02);
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
         .upload-zone:hover {
-            border-color: #e94560;
-            background: #1a1a30;
+            border-color: rgba(233,69,96,0.4);
+            background: rgba(233,69,96,0.05);
+            transform: translateY(-2px);
         }
         .upload-zone.dragover {
             border-color: #e94560;
-            background: #1f1f3a;
+            background: rgba(233,69,96,0.08);
+            transform: scale(1.01);
+            box-shadow: 0 0 60px rgba(233,69,96,0.05);
         }
         .upload-zone .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
+            font-size: 56px;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 8px 20px rgba(233,69,96,0.15));
         }
         .upload-zone p {
             color: #aaa;
             font-size: 16px;
+            font-weight: 300;
         }
         .upload-zone .file-name {
             color: #4caf50;
-            font-weight: bold;
-            margin-top: 10px;
+            font-weight: 700;
+            margin-top: 12px;
+            font-size: 16px;
         }
         .upload-zone .file-size {
             color: #666;
             font-size: 13px;
+            margin-top: 4px;
         }
 
         /* ===== گزینه‌های پیشرفته ===== */
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            background: #12121f;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 10px;
+            background: rgba(255,255,255,0.02);
+            padding: 20px 24px;
             border-radius: 16px;
-            margin-bottom: 25px;
-            border: 1px solid #2a2a4a;
+            margin-bottom: 28px;
+            border: 1px solid rgba(255,255,255,0.04);
+            position: relative;
+            z-index: 1;
         }
         .options-grid label {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #ccc;
+            color: #bbb;
             font-size: 14px;
             cursor: pointer;
             padding: 6px 10px;
             border-radius: 10px;
             transition: 0.3s;
+            font-weight: 400;
         }
         .options-grid label:hover {
-            background: #1a1a30;
+            color: #fff;
+            background: rgba(255,255,255,0.04);
         }
         .options-grid input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 17px;
+            height: 17px;
             accent-color: #e94560;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         /* ===== دکمه تبدیل ===== */
@@ -141,85 +220,134 @@
             border: none;
             border-radius: 16px;
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.4s;
-            margin-bottom: 20px;
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 30px rgba(233,69,96,0.25);
         }
         .convert-btn:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(233,69,96,0.4);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 15px 45px rgba(233,69,96,0.35);
+        }
+        .convert-btn:active:not(:disabled) {
+            transform: scale(0.98);
         }
         .convert-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         /* ===== وضعیت و لاگ ===== */
         .status-box {
-            background: #12121f;
-            padding: 14px 18px;
+            background: rgba(255,255,255,0.02);
+            padding: 14px 20px;
             border-radius: 14px;
             margin-bottom: 14px;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
-            border: 1px solid #2a2a4a;
+            border: 1px solid rgba(255,255,255,0.04);
             min-height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+            transition: 0.3s;
         }
         .status-box.idle { color: #888; }
-        .status-box.loading { color: #ff9800; background: #1a1a2a; }
-        .status-box.success { color: #4caf50; background: #0a1a1a; border-color: #2a5a2a; }
-        .status-box.error { color: #f44336; background: #1a0a0a; border-color: #5a2a2a; }
+        .status-box.loading { 
+            color: #ff9800; 
+            background: rgba(255,152,0,0.06);
+            border-color: rgba(255,152,0,0.1);
+        }
+        .status-box.success { 
+            color: #4caf50; 
+            background: rgba(76,175,80,0.06);
+            border-color: rgba(76,175,80,0.1);
+        }
+        .status-box.error { 
+            color: #f44336; 
+            background: rgba(244,67,54,0.06);
+            border-color: rgba(244,67,54,0.1);
+        }
 
         .log-box {
-            background: #0a0a15;
+            background: rgba(0,0,0,0.4);
             padding: 14px 18px;
             border-radius: 14px;
-            max-height: 260px;
+            max-height: 240px;
             overflow-y: auto;
-            font-family: 'Courier New', monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             font-size: 12px;
             white-space: pre-wrap;
-            color: #aaa;
-            border: 1px solid #1a1a30;
-            line-height: 1.7;
+            color: #999;
+            border: 1px solid rgba(255,255,255,0.04);
+            line-height: 1.8;
             min-height: 70px;
             margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
         }
-        .log-box::-webkit-scrollbar { width: 6px; }
+        .log-box::-webkit-scrollbar { width: 5px; }
         .log-box::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
-        .log-box::-webkit-scrollbar-track { background: #0a0a15; }
+        .log-box::-webkit-scrollbar-track { background: transparent; }
 
         /* ===== دکمه دانلود ===== */
         .download-btn {
             display: none;
             width: 100%;
             padding: 16px;
-            background: #2a7a3a;
+            background: linear-gradient(135deg, #2a7a3a, #3a9a4a);
             color: #fff;
             text-align: center;
             text-decoration: none;
             border-radius: 16px;
             font-size: 18px;
-            font-weight: bold;
-            transition: 0.4s;
+            font-weight: 700;
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 30px rgba(76,175,80,0.2);
         }
         .download-btn:hover {
-            background: #3a9a4a;
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(76,175,80,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 45px rgba(76,175,80,0.3);
+        }
+
+        /* ===== فوتر ===== */
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #444;
+            font-size: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .footer a {
+            color: #666;
+            text-decoration: none;
         }
 
         /* ===== ریسپانسیو ===== */
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
+        @media (max-width: 640px) {
+            .container { padding: 24px; }
+            .header { flex-direction: column; align-items: flex-start; }
             .header h1 { font-size: 22px; }
+            .logo-icon { width: 40px; height: 40px; font-size: 20px; }
             .upload-zone { padding: 30px 15px; }
+            .options-grid { grid-template-columns: 1fr 1fr; padding: 16px; }
+            .convert-btn { font-size: 17px; padding: 15px; }
+        }
+        @media (max-width: 420px) {
             .options-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -230,16 +358,19 @@
 
     <!-- ===== هدر ===== -->
     <div class="header">
-        <div>
-            <h1>🎮 PackZoneMC</h1>
-            <span>کانورتر حرفه‌ای جاوا → بدراک</span>
+        <div class="header-left">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>PackZoneMC</h1>
+                <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
+            </div>
         </div>
-        <div class="badge">⚡ نسخه 2.0</div>
+        <div class="badge">نسخه 3.0 · پایدار</div>
     </div>
 
     <!-- ===== باکس آپلود ===== -->
     <div class="upload-zone" id="uploadZone">
-        <div class="icon">📁</div>
+        <span class="icon">📦</span>
         <p>فایل ZIP ریسورس پک جاوا را بکشید یا کلیک کنید</p>
         <input type="file" id="fileInput" accept=".zip,.jar" style="display:none;">
         <div id="fileInfo" class="file-name"></div>
@@ -248,7 +379,7 @@
 
     <!-- ===== گزینه‌های پیشرفته ===== -->
     <div class="options-grid">
-        <label><input type="checkbox" id="optGui" checked> 🖼️ رابط کاربری (GUI)</label>
+        <label><input type="checkbox" id="optGui" checked> 🖼️ رابط کاربری</label>
         <label><input type="checkbox" id="optSkybox" checked> 🌤️ اسکای‌باکس</label>
         <label><input type="checkbox" id="optArmor" checked> 🛡️ آرمور</label>
         <label><input type="checkbox" id="optFont" checked> 🔤 فونت</label>
@@ -267,6 +398,11 @@
 
     <!-- ===== دانلود ===== -->
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
+
+    <!-- ===== فوتر ===== -->
+    <div class="footer">
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a>
+    </div>
 
 </div>
 
@@ -347,7 +483,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر (حرفه‌ای)
+//  هسته کانورتر (نسخه نهایی و حرفه‌ای)
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -369,6 +505,8 @@ async function startConversion() {
         const zip = await JSZip.loadAsync(selectedFile);
         const newZip = new JSZip();
         let changes = 0;
+        let processed = 0;
+        const totalFiles = Object.keys(zip.files).length;
 
         // ===== ۲. تشخیص خودکار نسخه =====
         const hasPackMcmeta = !!zip.files['pack.mcmeta'];
@@ -382,10 +520,7 @@ async function startConversion() {
             addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
         }
 
-        // ===== ۳. پردازش فایل‌ها (حرفه‌ای) =====
-        let totalFiles = Object.keys(zip.files).length;
-        let processed = 0;
-
+        // ===== ۳. پردازش فایل‌ها (نسخه نهایی) =====
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
             if (processed % 20 === 0) {
@@ -397,119 +532,52 @@ async function startConversion() {
                 continue;
             }
 
-            // ---- کپی فایل‌ها با پردازش هوشمند ----
-            const data = await file.async('blob');
             let newName = filename;
+            let shouldInclude = true;
 
-            // تبدیل مسیرهای جاوا به بدراک
-            if (filename.startsWith('assets/minecraft/textures/')) {
-                newName = filename.replace('assets/minecraft/textures/', 'textures/');
-                // اصلاح مسیرهای خاص
-                newName = newName
-                    .replace(/\/block\//g, '/blocks/')
-                    .replace(/\/item\//g, '/items/')
-                    .replace(/\/entity\//g, '/entities/')
-                    .replace(/\/gui\//g, '/gui/');
-                changes++;
-            }
-
-            // حذف فایل‌های غیرضروری
+            // ---- حذف فایل‌های اضافی ----
             const excludePatterns = [
                 /\.DS_Store/,
                 /Thumbs\.db/,
-                /\.git/
+                /\.git/,
+                /\.bsPhotoVault/,
+                /\.SHAREit/,
+                /\.hiddenphotocalculator/,
+                /\.system_config/
             ];
-            let exclude = false;
             for (let pattern of excludePatterns) {
-                if (pattern.test(filename)) exclude = true;
+                if (pattern.test(filename)) shouldInclude = false;
             }
 
-            if (!exclude) {
-                newZip.file(newName, data);
-            }
-        }
+            // ---- حذف pack.mcmeta (جایگزین میشه) ----
+            if (filename === 'pack.mcmeta') shouldInclude = false;
 
-        // ===== ۴. ساخت manifest.json =====
-        addLog('📄 ساخت manifest.json...');
-        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
-        const manifest = {
-            "format_version": 2,
-            "header": {
-                "name": packName + " (Converted)",
-                "description": "Converted from Java to Bedrock by PackZoneMC",
-                "uuid": generateUUID(),
-                "version": [1, 0, 0],
-                "min_engine_version": [1, 16, 0]
-            },
-            "modules": [{
-                "type": "resources",
-                "uuid": generateUUID(),
-                "version": [1, 0, 0]
-            }]
-        };
+            // ---- حذف pack.png (جایگزین میشه با pack_icon.png) ----
+            if (filename === 'pack.png') shouldInclude = false;
 
-        // اگر pack.mcmeta بود، اسم رو ازش بگیر
-        if (zip.files['pack.mcmeta']) {
-            try {
-                const mcmetaContent = await zip.files['pack.mcmeta'].async('string');
-                const mcmeta = JSON.parse(mcmetaContent);
-                if (mcmeta.pack && mcmeta.pack.name) {
-                    manifest.header.name = mcmeta.pack.name + " (Bedrock)";
+            // ---- تبدیل assets به textures ----
+            if (filename.startsWith('assets/')) {
+                // assets/minecraft/... → textures/...
+                if (filename.startsWith('assets/minecraft/textures/')) {
+                    newName = filename.replace('assets/minecraft/textures/', 'textures/');
+                    newName = newName
+                        .replace(/\/block\//g, '/blocks/')
+                        .replace(/\/item\//g, '/items/')
+                        .replace(/\/entity\//g, '/entities/')
+                        .replace(/\/gui\//g, '/gui/')
+                        .replace(/\/environment\//g, '/environment/');
+                    changes++;
+                } 
+                // assets/minecraft/font/ → font/
+                else if (filename.startsWith('assets/minecraft/font/')) {
+                    newName = filename.replace('assets/minecraft/font/', 'font/');
+                    changes++;
                 }
-            } catch(e) {}
-        }
-
-        newZip.file('manifest.json', JSON.stringify(manifest, null, 2));
-        changes++;
-
-        // ===== ۵. آیکون =====
-        if (!zip.files['pack_icon.png']) {
-            const icon = zip.files['pack.png'] || zip.files['icon.png'];
-            if (icon) {
-                newZip.file('pack_icon.png', await icon.async('blob'));
-                changes++;
-                addLog('🖼️ آیکون اضافه شد.');
-            }
-        }
-
-        // ===== ۶. ساخت فایل نهایی =====
-        setStatus('loading', '⏳ در حال فشرده‌سازی...');
-        addLog('🗜️ ساخت فایل نهایی...');
-
-        const blob = await newZip.generateAsync({
-            type: 'blob',
-            compression: 'DEFLATE',
-            compressionOptions: { level: 6 }
-        });
-
-        // ===== ۷. دانلود =====
-        const newName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '') + '_Bedrock.mcpack';
-        downloadBtn.href = URL.createObjectURL(blob);
-        downloadBtn.download = newName;
-        downloadBtn.style.display = 'block';
-        downloadBtn.textContent = `📥 دانلود ${newName} (${(blob.size / 1024 / 1024).toFixed(2)} MB)`;
-
-        setStatus('success', `✅ تبدیل کامل شد! ${changes} تغییر اعمال شد.`);
-        addLog(`✅ تبدیل با موفقیت انجام شد! (${changes} تغییر)`);
-        addLog(`📦 حجم: ${(blob.size / 1024 / 1024).toFixed(2)} MB`);
-
-    } catch (error) {
-        setStatus('error', '❌ خطا در تبدیل!');
-        addLog(`❌ ERROR: ${error.message}`);
-        console.error(error);
-    } finally {
-        isConverting = false;
-        convertBtn.disabled = false;
-        convertBtn.textContent = '🚀 شروع تبدیل حرفه‌ای';
-    }
-}
-
-// ===== اتصال دکمه =====
-convertBtn.addEventListener('click', startConversion);
-
-// ===== پیام خوش‌آمد =====
-addLog('💡 یک فایل ZIP جاوا را انتخاب کن و شروع کن.');
-</script>
-
-</body>
-</html>
+                // assets/minecraft/sounds/ → sounds/ (اختیاری)
+                else if (filename.startsWith('assets/minecraft/sounds/')) {
+                    newName = filename.replace('assets/minecraft/sounds/', 'sounds/');
+                    changes++;
+                }
+                // assets/minecraft/lang/ → texts/ (اختیاری)
+                else if (filename.startsWith('assets/minecraft/lang/')) {
+                    newName = filename.rep
