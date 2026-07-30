@@ -10,6 +10,74 @@
 
 <link rel="stylesheet" href="../style.css">
 
+<style>
+    /* ===== تم‌های سفارشی ===== */
+    .theme-default {
+        --primary: #008cff;
+        --primary-dark: #0066cc;
+        --primary-light: #33aaff;
+        --secondary: #7b00ff;
+        --secondary-dark: #5500cc;
+        --secondary-light: #aa66ff;
+        --bg-card: #0d2038;
+        --border-color: #008cff;
+        --shadow-color: #008cff;
+        --text-primary: #7ec8ff;
+    }
+    
+    .theme-green {
+        --primary: #2D8A4E;
+        --primary-dark: #1A5C32;
+        --primary-light: #4CAF50;
+        --secondary: #7CFC00;
+        --secondary-dark: #5CB800;
+        --secondary-light: #A8FF60;
+        --bg-card: #0d1f0d;
+        --border-color: #2D8A4E;
+        --shadow-color: #2D8A4E;
+        --text-primary: #7CFC00;
+    }
+    
+    .theme-orange {
+        --primary: #FF6B00;
+        --primary-dark: #CC5500;
+        --primary-light: #FF8C33;
+        --secondary: #FFD700;
+        --secondary-dark: #CCA800;
+        --secondary-light: #FFE44D;
+        --bg-card: #1a0f00;
+        --border-color: #FF6B00;
+        --shadow-color: #FF6B00;
+        --text-primary: #FFD700;
+    }
+    
+    .theme-blue {
+        --primary: #0A2463;
+        --primary-dark: #061840;
+        --primary-light: #1A3F8A;
+        --secondary: #00B4D8;
+        --secondary-dark: #0088A8;
+        --secondary-light: #40D0F0;
+        --bg-card: #080c1a;
+        --border-color: #0A2463;
+        --shadow-color: #0A2463;
+        --text-primary: #00B4D8;
+    }
+    
+    .theme-pink {
+        --primary: #9B5DE5;
+        --primary-dark: #7A3DB8;
+        --primary-light: #B87FED;
+        --secondary: #F15BB5;
+        --secondary-dark: #C73E94;
+        --secondary-light: #F58CC8;
+        --bg-card: #1a0f24;
+        --border-color: #9B5DE5;
+        --shadow-color: #9B5DE5;
+        --text-primary: #F15BB5;
+    }
+</style>
+
 </head>
 
 
@@ -141,11 +209,11 @@
         <a href="my-packs.html">مشاهده</a>
     </div>
 
-    <!-- =====新增 Sky Converter ===== -->
+    <!-- Sky Converter (لینک اصلاح شده) -->
     <div class="card small-card">
         <h3>🌌 Sky Converter</h3>
         <p>تبدیل اسکای جاوا به بدراک</p>
-        <a href="../sky-converter.html">ورود</a>
+        <a href="sky-converter.html">ورود</a>
     </div>
 
 </section>
@@ -175,17 +243,117 @@
 
     // ===== تغییر تم =====
     function changeTheme(theme) {
-        alert('تم "' + theme + '" انتخاب شد! (بعداً کاملش می‌کنم)');
+        // حذف تم قبلی
+        document.body.className = '';
+        // اضافه کردن تم جدید
+        document.body.classList.add('theme-' + theme);
+        
+        // ذخیره در localStorage
+        localStorage.setItem('selectedTheme', theme);
+        
+        // بستن پنل
         document.getElementById('languagePanel').classList.remove('open');
         document.querySelector('.language-toggle').classList.remove('active');
+        
+        // پیام موفقیت
+        showToast('✅ تم با موفقیت تغییر کرد!');
     }
 
     // ===== تغییر فونت =====
     function changeFont(font) {
-        alert('فونت "' + font + '" انتخاب شد! (بعداً کاملش می‌کنم)');
+        let fontFamily = '';
+        switch(font) {
+            case 'vazirmatn':
+                fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                break;
+            case 'iransans':
+                fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                break;
+            case 'shabnam':
+                fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                break;
+        }
+        
+        document.body.style.fontFamily = fontFamily;
+        
+        // ذخیره در localStorage
+        localStorage.setItem('selectedFont', font);
+        
+        // بستن پنل
         document.getElementById('languagePanel').classList.remove('open');
         document.querySelector('.language-toggle').classList.remove('active');
+        
+        // پیام موفقیت
+        showToast('✅ فونت با موفقیت تغییر کرد!');
     }
+
+    // ===== نمایش پیام =====
+    function showToast(message) {
+        // حذف پیام قبلی
+        const oldToast = document.querySelector('.toast-message');
+        if (oldToast) oldToast.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d2038;
+            color: #7ec8ff;
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 1px solid #008cff;
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+            font-size: 1rem;
+            z-index: 9999;
+            animation: fadeInUp 0.3s ease;
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
+    }
+
+    // ===== اضافه کردن انیمیشن =====
+    const styleAnim = document.createElement('style');
+    styleAnim.textContent = `
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+    `;
+    document.head.appendChild(styleAnim);
+
+    // ===== بارگذاری تم و فونت ذخیره‌شده =====
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('selectedTheme');
+        if (savedTheme) {
+            document.body.classList.add('theme-' + savedTheme);
+        }
+        
+        const savedFont = localStorage.getItem('selectedFont');
+        if (savedFont) {
+            let fontFamily = '';
+            switch(savedFont) {
+                case 'vazirmatn':
+                    fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                    break;
+                case 'iransans':
+                    fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                    break;
+                case 'shabnam':
+                    fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                    break;
+            }
+            document.body.style.fontFamily = fontFamily;
+        }
+    };
 </script>
 
 </body>
