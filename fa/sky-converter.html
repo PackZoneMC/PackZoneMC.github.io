@@ -1,575 +1,726 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Java Sky ➔ Bedrock Cubemap | PZMC</title>
-  <!-- کتابخانه JSZip برای ساخت ZIP در مرورگر -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PZMC Cubemap Converter v2.1 | Java ➜ Bedrock</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
+    :root {
+      --bg-primary: #0a0e14;
+      --bg-secondary: #131820;
+      --bg-card: #181f2a;
+      --accent: #7c3aed;
+      --accent-glow: #a78bfa;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --border: #1e293b;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+    }
+
     body {
-      background: #1a1e24;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
+      font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      direction: rtl;
+      color: var(--text-primary);
     }
-    .card {
-      max-width: 700px;
+
+    .container {
       width: 100%;
-      background: #232832;
-      border-radius: 32px;
-      padding: 28px 24px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
-      color: #e0e4ec;
-      transition: all 0.2s ease;
+      max-width: 720px;
+      position: relative;
     }
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 600;
+
+    .version-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #7c3aed, #3b82f6);
+      color: white;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5);
+      white-space: nowrap;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 28px 28px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 1px 0 rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), #3b82f6, var(--accent-glow), transparent);
+      opacity: 0.6;
+    }
+
+    .header {
       text-align: center;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #9b8eff, #6ecfff);
+      margin-bottom: 28px;
+      margin-top: 8px;
+    }
+
+    .logo-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.4));
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c4b5fd 0%, #93c5fd 50%, #6ee7b7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      margin-bottom: 4px;
+      line-height: 1.3;
     }
+
     .subtitle {
-      text-align: center;
-      color: #8a8f9c;
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-    }
-    .drop-zone {
-      border: 2px dashed #4b5263;
-      border-radius: 24px;
-      padding: 38px 20px;
-      text-align: center;
-      background: #1e2129;
-      transition: 0.25s ease;
-      cursor: pointer;
-      margin-bottom: 24px;
-      position: relative;
-    }
-    .drop-zone:hover, .drop-zone.dragover {
-      border-color: #6ecfff;
-      background: #252b36;
-      box-shadow: 0 0 18px rgba(110, 207, 255, 0.2);
-    }
-    .drop-zone.dragover {
-      transform: scale(1.01);
-    }
-    .drop-icon {
-      font-size: 2.8rem;
-      margin-bottom: 8px;
-    }
-    .drop-text {
-      font-weight: 500;
-      color: #b0b8c5;
-    }
-    .drop-hint {
-      font-size: 0.8rem;
-      color: #6b7280;
-      margin-top: 8px;
-    }
-    input[type="file"] {
-      display: none;
-    }
-    .preview-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: center;
-      background: #1e2129;
-      border-radius: 20px;
-      padding: 16px;
-      margin-bottom: 20px;
-      border: 1px solid #363c48;
-    }
-    .preview-img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      background: #0b0d12;
-      border-radius: 14px;
-      border: 1px solid #3a4050;
-    }
-    .file-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .file-name {
-      font-weight: 600;
-      word-break: break-word;
-      color: #f0f2f5;
-    }
-    .dimensions {
-      font-family: 'Fira Code', monospace;
-      background: #2d3340;
-      padding: 6px 12px;
-      border-radius: 20px;
-      display: inline-block;
+      color: var(--text-secondary);
       font-size: 0.9rem;
-      width: fit-content;
-    }
-    .valid {
-      color: #7ee0b8;
-      background: #1f4737;
-    }
-    .invalid {
-      color: #f9a8b8;
-      background: #4a2530;
-    }
-    .btn {
-      background: #3b82f6;
-      border: none;
-      color: white;
-      font-weight: 600;
-      padding: 14px 22px;
-      border-radius: 18px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.2s;
-      width: 100%;
+      font-weight: 400;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
+    }
+
+    .subtitle .arrow {
+      color: var(--accent-glow);
+      font-weight: 700;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 20px;
+      padding: 40px 20px;
+      text-align: center;
+      background: rgba(15, 23, 32, 0.6);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drop-zone::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--accent-glow);
+      background: rgba(20, 30, 44, 0.8);
+      box-shadow: 0 0 40px rgba(124, 58, 237, 0.15), 0 0 0 4px rgba(124, 58, 237, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .drop-zone:hover::after,
+    .drop-zone.drag-over::after {
+      opacity: 1;
+    }
+
+    .drop-zone.drag-over {
+      border-style: solid;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.2); }
+      50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.4); }
+    }
+
+    .drop-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .drop-text {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .drop-hint {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .drop-formats {
+      display: flex;
       gap: 8px;
-      background: linear-gradient(135deg, #4f7df3, #3b5ccc);
-      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.3);
-      letter-spacing: 0.4px;
+      justify-content: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
-    .btn:disabled {
-      opacity: 0.5;
-      pointer-events: none;
-      filter: grayscale(0.4);
+
+    .format-badge {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
     }
-    .btn:hover:not(:disabled) {
-      background: linear-gradient(135deg, #6089f7, #4468e0);
-      box-shadow: 0 10px 22px rgba(59, 130, 246, 0.5);
-    }
-    .error-message {
-      background: #482a32;
-      color: #ffb8c7;
-      padding: 12px 18px;
-      border-radius: 16px;
-      margin: 18px 0 10px;
-      font-size: 0.9rem;
-      border-left: 4px solid #f87171;
-    }
-    .success-message {
-      background: #1f4737;
-      color: #b0f0d0;
-      padding: 12px 18px;
-      border-radius: 16px;
-      margin: 10px 0;
-    }
-    .hidden {
+
+    input[type="file"] {
       display: none;
     }
-    .note {
-      font-size: 0.8rem;
-      color: #8e94a2;
-      margin-top: 14px;
+
+    .preview-panel {
+      background: rgba(15, 23, 32, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .preview-panel.hidden {
+      display: none;
+    }
+
+    .preview-img-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: #0a0e14;
+    }
+
+    .file-details {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .file-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      word-break: break-all;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .file-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: 'Vazirmatn', monospace;
+    }
+
+    .badge-dimensions {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+    }
+
+    .badge-valid {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    .badge-invalid {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .badge-size {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+    }
+
+    .badge-output {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fcd34d;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #6ee7b7;
+    }
+
+    .alert-info {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+    }
+
+    .alert.hidden {
+      display: none;
+    }
+
+    .btn-convert {
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 16px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-convert::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-convert:hover:not(:disabled) {
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-convert:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .btn-convert:active:not(:disabled) {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-convert:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(0.3);
+      box-shadow: none;
+    }
+
+    .btn-icon {
+      font-size: 1.3rem;
+    }
+
+    .footer-note {
       text-align: center;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note .zip-icon {
+      color: #f59e0b;
+    }
+
+    .dimensions-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+      justify-content: center;
+    }
+
+    .dim-chip {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      font-family: 'Vazirmatn', monospace;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 24px 16px 20px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .preview-panel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-<div class="card">
-  <h1>⛏️ PZMC Cubemap</h1>
-  <div class="subtitle">Java Sky ➔ Bedrock Cubemap (استاندارد)</div>
+  <div class="container">
+    <div class="version-badge">⚡ v2.1 — Power of 2 Output</div>
+    
+    <div class="card">
+      <div class="header">
+        <span class="logo-icon">🌌</span>
+        <h1>PZMC Cubemap</h1>
+        <div class="subtitle">
+          <span>Java Edition</span>
+          <span class="arrow">➜</span>
+          <span>Bedrock Edition</span>
+        </div>
+      </div>
 
-  <div id="dropZone" class="drop-zone">
-    <div class="drop-icon">🖼️</div>
-    <div class="drop-text">تصویر Sky جاوا را اینجا بکشید یا کلیک کنید</div>
-    <div class="drop-hint">PNG, JPG, WEBP • ابعاد مجاز ذکر شده</div>
-  </div>
-  <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp">
+      <div id="dropZone" class="drop-zone">
+        <span class="drop-icon">📥</span>
+        <div class="drop-text">تصویر Sky جاوا را اینجا رها کنید</div>
+        <div class="drop-hint">یا برای انتخاب کلیک کنید</div>
+        <div class="drop-formats">
+          <span class="format-badge">PNG</span>
+          <span class="format-badge">JPG</span>
+          <span class="format-badge">WEBP</span>
+        </div>
+        <div class="dimensions-grid">
+          <span class="dim-chip">1024²</span>
+          <span class="dim-chip">2048×1024</span>
+          <span class="dim-chip">2048×1536</span>
+          <span class="dim-chip">3072×2048</span>
+          <span class="dim-chip">4096×2048</span>
+          <span class="dim-chip">4096×3072</span>
+          <span class="dim-chip">6144×4096</span>
+          <span class="dim-chip">8192×4096</span>
+        </div>
+      </div>
 
-  <div id="previewBlock" class="preview-container hidden">
-    <img id="previewImage" class="preview-img" alt="پیش‌نمایش" src="">
-    <div class="file-info">
-      <span id="fileName" class="file-name"></span>
-      <span id="dimensionsBadge" class="dimensions"></span>
-      <span id="fileSize" style="color:#b0b8c5; font-size:0.9rem;"></span>
+      <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp">
+
+      <div id="previewPanel" class="preview-panel hidden">
+        <div class="preview-img-wrapper">
+          <img id="previewImage" class="preview-img" alt="پیش‌نمایش">
+        </div>
+        <div class="file-details">
+          <div id="fileName" class="file-name">—</div>
+          <div class="file-meta">
+            <span id="dimensionsBadge" class="badge badge-dimensions">—</span>
+            <span id="fileSizeBadge" class="badge badge-size">—</span>
+            <span id="outputBadge" class="badge badge-output hidden">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="errorAlert" class="alert alert-error hidden">
+        <span>❌</span>
+        <span id="errorText"></span>
+      </div>
+
+      <div id="successAlert" class="alert alert-success hidden">
+        <span>✅</span>
+        <span id="successText"></span>
+      </div>
+
+      <div id="infoAlert" class="alert alert-info hidden">
+        <span>ℹ️</span>
+        <span id="infoText"></span>
+      </div>
+
+      <button id="convertBtn" class="btn-convert" disabled>
+        <span class="btn-icon">⚡</span>
+        <span>دانلود Cubemap ZIP</span>
+      </button>
+
+      <div class="footer-note">
+        <span class="zip-icon">📦</span>
+        <span>PZMC_cubemap_overworld.zip</span>
+        <span>|</span>
+        <span>۶ فایل cubemap_0.png ~ cubemap_5.png</span>
+        <span>|</span>
+        <span>خروجی توان ۲</span>
+      </div>
     </div>
   </div>
 
-  <div id="errorBox" class="error-message hidden"></div>
-
-  <button id="convertBtn" class="btn" disabled>
-    <span>⚡</span> تبدیل به Cubemap و دانلود ZIP
-  </button>
-  <div class="note">خروجی: PZMC_cubemap_overworld.zip شامل ۶ فایل cubemap_0.png تا cubemap_5.png</div>
-</div>
-
-<script>
-  (function() {
-    // ---------- ابعاد مجاز ----------
-    const VALID_DIMENSIONS = [
-      [1024, 1024],
-      [2048, 1024],
-      [2048, 1536],
-      [3072, 2048],
-      [4096, 2048],
-      [4096, 3072],
-      [6144, 4096],
-      [8192, 4096]
-    ];
-
-    // عناصر DOM
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
-    const previewBlock = document.getElementById('previewBlock');
-    const previewImage = document.getElementById('previewImage');
-    const fileNameSpan = document.getElementById('fileName');
-    const dimensionsBadge = document.getElementById('dimensionsBadge');
-    const fileSizeSpan = document.getElementById('fileSize');
-    const errorBox = document.getElementById('errorBox');
-    const convertBtn = document.getElementById('convertBtn');
-
-    // وضعیت فعلی
-    let currentImage = null;        // HTMLImageElement
-    let currentFile = null;
-    let imageWidth = 0;
-    let imageHeight = 0;
-
-    // ---------- Utility: بررسی ابعاد ----------
-    function isValidDimensions(w, h) {
-      return VALID_DIMENSIONS.some(([vw, vh]) => vw === w && vh === h);
-    }
-
-    // نمایش خطا
-    function showError(msg) {
-      errorBox.textContent = msg;
-      errorBox.classList.remove('hidden');
-    }
-
-    function hideError() {
-      errorBox.classList.add('hidden');
-    }
-
-    // به‌روزرسانی UI بر اساس فایل انتخاب‌شده
-    function updateUIAfterLoad(img, file) {
-      currentImage = img;
-      currentFile = file;
-      imageWidth = img.naturalWidth;
-      imageHeight = img.naturalHeight;
-
-      // پیش‌نمایش
-      previewImage.src = img.src;
-      fileNameSpan.textContent = file.name;
-      fileSizeSpan.textContent = `حجم: ${(file.size / 1024).toFixed(1)} KB`;
-
-      const valid = isValidDimensions(imageWidth, imageHeight);
-      dimensionsBadge.textContent = `${imageWidth} × ${imageHeight}`;
-      dimensionsBadge.className = `dimensions ${valid ? 'valid' : 'invalid'}`;
-
-      previewBlock.classList.remove('hidden');
-
-      if (!valid) {
-        showError('❌ ابعاد تصویر معتبر نیست. ابعاد مجاز: 1024×1024, 2048×1024, 2048×1536, 3072×2048, 4096×2048, 4096×3072, 6144×4096, 8192×4096');
-        convertBtn.disabled = true;
-      } else {
-        hideError();
-        convertBtn.disabled = false;
-      }
-    }
-
-    // پردازش فایل (خواندن به صورت Image)
-    function processFile(file) {
-      if (!file) return;
-      if (!file.type.startsWith('image/')) {
-        showError('لطفاً یک فایل تصویری معتبر انتخاب کنید.');
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.onload = () => {
-          updateUIAfterLoad(img, file);
-        };
-        img.onerror = () => {
-          showError('بارگذاری تصویر با خطا مواجه شد.');
-          convertBtn.disabled = true;
-        };
-        img.src = e.target.result;
-      };
-      reader.onerror = () => {
-        showError('خواندن فایل ممکن نیست.');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // مدیریت انتخاب فایل
-    function handleFileSelect(file) {
-      if (!file) return;
-      hideError();
-      processFile(file);
-    }
-
-    // ---------- رویدادها ----------
-    dropZone.addEventListener('click', () => fileInput.click());
-
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-    dropZone.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-    });
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      const files = e.dataTransfer.files;
-      if (files.length > 0) {
-        fileInput.files = files; // همگام‌سازی
-        handleFileSelect(files[0]);
-      }
-    });
-
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) handleFileSelect(file);
-    });
-
-    // ---------- منطق اصلی تبدیل Java Sky به Bedrock Cubemap ----------
-    /*
-      ساختار استاندارد Java Sky (معمولاً یک تصویر مستطیلی):
-      صورت‌های آسمان در Java معمولاً به صورت یک شبکه 4×3 یا layout خاص چیده می‌شوند.
-      بر اساس استاندارد Bedrock Cubemap، ما به ۶ وجه مربعی نیاز داریم.
-      
-      نقشه‌برداری دقیق (Minecraft Java sky texture به Bedrock cubemap):
-      تصویر Java معمولاً با نسبت 2:1 (یا ابعاد خاص) ارائه می‌شود.
-      اما لیست ابعاد داده شده شامل مربع و مستطیل است.
-      تفسیر صحیح: 
-      - برای ابعاد مربعی (1024x1024): کل تصویر احتمالاً شامل ۶ وجه در یک چیدمان خاص است؟ 
-        ولی طبق استاندارد تبدیل واقعی، تصاویر sky جاوا غالباً یک تصویر مستطیلی هستند که شامل ۶ وجه می‌باشد.
-        چیدمان رایج Java sky texture (نسخه‌های قدیمی/منابع) به صورت 4×3 سلول (عرض 4، ارتفاع 3) است، 
-        اما سلول‌ها همگی استفاده نمی‌شوند. طرح استاندارد تبدیل Java به Bedrock:
-        
-        مختصات در تصویر Java (با عرض W و ارتفاع H):
-        معمولاً سلول‌ها به این صورت اند (بر اساس مستندات community):
-        - بالا (Top):     (1/4 W, 0) تا (2/4 W, 1/3 H)   -> یعنی سلول ردیف0، ستون1
-        - پایین (Bottom): (1/4 W, 2/3 H) تا (2/4 W, 3/3 H) -> ردیف2، ستون1
-        - جلو (Front):    (1/4 W, 1/3 H) تا (2/4 W, 2/3 H) -> ردیف1، ستون1
-        - راست (Right):   (2/4 W, 1/3 H) تا (3/4 W, 2/3 H) -> ردیف1، ستون2
-        - عقب (Back):     (3/4 W, 1/3 H) تا (4/4 W, 2/3 H) -> ردیف1، ستون3
-        - چپ (Left):      (0/4 W, 1/3 H) تا (1/4 W, 2/3 H) -> ردیف1، ستون0
-        
-        این دقیقا layout استاندارد Minecraft Java sky (مانند assets/minecraft/textures/environment/sky.png) است.
-        اما نکته: برای ابعاد مربعی 1024x1024، این الگو جواب نمی‌دهد (چون 4/3 نسبت دارد).
-        ولی برخی پک‌ها از ابعاد مربع استفاده می‌کنند. در آن حالت احتمالاً تمام ۶ وجه به صورت افقی یا عمودی چیده شده‌اند.
-        با توجه به لیست ابعاد مجاز که شامل 1024x1024 و 2048x1024 و ... است، باید انعطاف‌پذیر باشیم.
-        
-        رویکرد حرفه‌ای: 
-        اگر عرض و ارتفاع برابر باشند (مربع)، فرض می‌کنیم تصویر شامل ۶ وجه در یک ردیف 6×1 است (6 مستطیل افقی کنار هم).
-        اگر نسبت تصویر 2:1 باشد (عرض دو برابر ارتفاع، مانند 2048x1024, 4096x2048, 8192x4096): چیدمان استاندارد 4×3 بالا.
-        اگر نسبت 4:3 باشد (مانند 2048x1536, 4096x3072): باز هم 4×3.
-        اگر 3:2 باشد (3072x2048, 6144x4096): 4×3 نیز کار می‌کند (زیرا 3/2 = 1.5 و 4/3≈1.33، ممکن است کمی تنظیم نیاز باشد ولی طبق مستندات، 
-        ابعاد 3072x2048 و 6144x4096 هم در لیست هستند. ما با تقسیم پویا بر اساس 4 ستون و 3 ردیف عمل می‌کنیم.
-        اما برای دقت: 
-        سلول‌ها همیشه اندازه ثابت ندارند؛ ما عرض سلول = floor(W/4) و ارتفاع سلول = floor(H/3) می‌گیریم.
-        
-        تبدیل به Bedrock cubemap با نام‌های 0 تا 5:
-        Bedrock ترتیب مشخصی دارد (معمولاً):
-        0: پایین (Bottom)
-        1: بالا (Top)
-        2: شمال (North) = عقب (Back) ؟ توجه: در Bedrock محورها ممکن است متفاوت باشد.
-           بر اساس استاندارد تبدیل Java -> Bedrock:
-           cubemap_0.png = Bottom (پایین)
-           cubemap_1.png = Top (بالا)
-           cubemap_2.png = North (شمال) = Back در Java
-           cubemap_3.png = South (جنوب) = Front در Java
-           cubemap_4.png = East (شرق) = Right در Java
-           cubemap_5.png = West (غرب) = Left در Java
-           
-        همچنین نیاز به Rotate/Flip داریم:
-        - وجه بالا (Top): باید 180 درجه بچرخد و افقی flip شود؟ طبق آزمایش‌ها: 
-          Top: rotate 180° + flip horizontal? در بسیاری از تبدیل‌ها Top نیاز به چرخش 180 و flip افقی دارد.
-        - Bottom: rotate 180?
-        - Front/Back/Left/Right ممکن است flip عمودی یا افقی لازم داشته باشند.
-        
-        ما دقیقاً مطابق استاندارد عمل می‌کنیم:
-        برای هر وجه یک canvas جداگانه می‌سازیم، ناحیه مربوطه را برش می‌دهیم، تبدیل‌ها را اعمال می‌کنیم.
-    */
-
-    async function generateCubemapZIP() {
-      if (!currentImage || !isValidDimensions(imageWidth, imageHeight)) {
-        showError('تصویر معتبر بارگذاری نشده است.');
-        return;
-      }
-
-      const W = imageWidth;
-      const H = imageHeight;
-      
-      // تعیین نوع چیدمان بر اساس نسبت تصویر
-      // اگر مربع باشد (W === H) -> طرح 6×1 افقی
-      const isSquare = (W === H);
-      
-      let cellWidth, cellHeight;
-      let faceRegions = {}; // کلید: 'top','bottom','front','right','back','left'
-      
-      if (isSquare) {
-        // 6 وجه کنار هم به صورت افقی
-        cellWidth = Math.floor(W / 6);
-        cellHeight = H;
-        // ترتیب در تصویر (از چپ به راست): فرض می‌کنیم left, front, right, back, top, bottom 
-        // اما برای اطمینان از استاندارد، بهتر است بر اساس مستندات Java sky مربعی عمل کنیم.
-        // بسیاری از پک‌ها از چیدمان: left, right, top, bottom, front, back استفاده می‌کنند.
-        // ما یک نگاشت ایمن انتخاب می‌کنیم: left(0), front(1), right(2), back(3), top(4), bottom(5)
-        faceRegions = {
-          left:   { sx: 0, sy: 0, sw: cellWidth, sh: cellHeight },
-          front:  { sx: cellWidth, sy: 0, sw: cellWidth, sh: cellHeight },
-          right:  { sx: cellWidth*2, sy: 0, sw: cellWidth, sh: cellHeight },
-          back:   { sx: cellWidth*3, sy: 0, sw: cellWidth, sh: cellHeight },
-          top:    { sx: cellWidth*4, sy: 0, sw: cellWidth, sh: cellHeight },
-          bottom: { sx: cellWidth*5, sy: 0, sw: cellWidth, sh: cellHeight }
-        };
-      } else {
-        // طرح 4×3 (استاندارد)
-        cellWidth = Math.floor(W / 4);
-        cellHeight = Math.floor(H / 3);
-        
-        faceRegions = {
-          top:    { sx: cellWidth, sy: 0, sw: cellWidth, sh: cellHeight },
-          bottom: { sx: cellWidth, sy: cellHeight*2, sw: cellWidth, sh: cellHeight },
-          front:  { sx: cellWidth, sy: cellHeight, sw: cellWidth, sh: cellHeight },
-          right:  { sx: cellWidth*2, sy: cellHeight, sw: cellWidth, sh: cellHeight },
-          back:   { sx: cellWidth*3, sy: cellHeight, sw: cellWidth, sh: cellHeight },
-          left:   { sx: 0, sy: cellHeight, sw: cellWidth, sh: cellHeight }
-        };
-      }
-
-      // ابعاد خروجی هر وجه: مربع با اندازه cellWidth (یا cellHeight برای مربع بودن)
-      // در Bedrock هر وجه باید مربع باشد. ما از min(cellWidth, cellHeight) استفاده می‌کنیم یا مستقیماً cellWidth اگر مربع شد.
-      let faceSize;
-      if (isSquare) {
-        faceSize = Math.min(cellWidth, cellHeight);
-      } else {
-        faceSize = Math.min(cellWidth, cellHeight);
-      }
-      
-      // ساخت canvas اصلی برای استخراج نواحی
-      const mainCanvas = document.createElement('canvas');
-      mainCanvas.width = W;
-      mainCanvas.height = H;
-      const mainCtx = mainCanvas.getContext('2d');
-      mainCtx.drawImage(currentImage, 0, 0, W, H);
-
-      // تابع کمکی برای ایجاد وجه با تبدیل‌ها
-      function createFace(region, flipH, flipV, rotationDeg) {
-        const srcCanvas = document.createElement('canvas');
-        srcCanvas.width = region.sw;
-        srcCanvas.height = region.sh;
-        const srcCtx = srcCanvas.getContext('2d');
-        // کپی ناحیه
-        srcCtx.drawImage(mainCanvas, region.sx, region.sy, region.sw, region.sh, 0, 0, region.sw, region.sh);
-        
-        // canvas مقصد مربعی
-        const destCanvas = document.createElement('canvas');
-        destCanvas.width = faceSize;
-        destCanvas.height = faceSize;
-        const destCtx = destCanvas.getContext('2d');
-        
-        destCtx.save();
-        // انتقال به مرکز برای چرخش
-        destCtx.translate(faceSize/2, faceSize/2);
-        if (rotationDeg) {
-          destCtx.rotate(rotationDeg * Math.PI / 180);
-        }
-        // اعمال flip با scale
-        let scaleX = flipH ? -1 : 1;
-        let scaleY = flipV ? -1 : 1;
-        destCtx.scale(scaleX, scaleY);
-        // رسم تصویر منبع با مقیاس مناسب (پر کردن مربع)
-        destCtx.drawImage(srcCanvas, 0, 0, region.sw, region.sh, -faceSize/2, -faceSize/2, faceSize, faceSize);
-        destCtx.restore();
-        
-        return destCanvas;
-      }
-
-      // تعریف تبدیل‌های لازم برای هر وجه Bedrock (مطابق استاندارد تست شده)
-      // مقادیر flipH, flipV, rotation (درجه)
-      const transforms = {
-        top:    { flipH: true, flipV: false, rotation: 180 },  // چرخش 180 + flip افقی
-        bottom: { flipH: true, flipV: false, rotation: 0 },    // flip افقی
-        front:  { flipH: false, flipV: false, rotation: 0 },
-        right:  { flipH: false, flipV: false, rotation: 0 },
-        back:   { flipH: true, flipV: false, rotation: 0 },    // flip افقی برای back
-        left:   { flipH: false, flipV: false, rotation: 0 }
-      };
-
-      // تولید ۶ فایل با ترتیب Bedrock: 0:bottom, 1:top, 2:north(back), 3:south(front), 4:east(right), 5:west(left)
-      const faceOrder = [
-        { key: 'bottom', index: 0 },
-        { key: 'top', index: 1 },
-        { key: 'back', index: 2 },   // north
-        { key: 'front', index: 3 },  // south
-        { key: 'right', index: 4 },  // east
-        { key: 'left', index: 5 }    // west
+  <script>
+    (function() {
+      // ==================== ثابت‌ها ====================
+      const VALID_DIMENSIONS = [
+        [1024, 1024],
+        [2048, 1024],
+        [2048, 1536],
+        [3072, 2048],
+        [4096, 2048],
+        [4096, 3072],
+        [6144, 4096],
+        [8192, 4096]
       ];
 
-      const zip = new JSZip();
-      
-      for (let item of faceOrder) {
-        const region = faceRegions[item.key];
-        const t = transforms[item.key];
-        const faceCanvas = createFace(region, t.flipH, t.flipV, t.rotation);
-        
-        // تبدیل به blob PNG
-        const blob = await new Promise(resolve => faceCanvas.toBlob(resolve, 'image/png'));
-        if (!blob) {
-          throw new Error('ساخت تصویر وجه ناموفق بود.');
-        }
-        zip.file(`cubemap_${item.index}.png`, blob);
+      // توان‌های معتبر ۲ برای خروجی
+      const POWER_OF_TWO = [512, 1024, 2048, 4096];
+
+      // تبدیل‌های دقیق برای هر وجه Bedrock
+      const FACE_TRANSFORMS = {
+        top:    { flipH: true,  flipV: false, rotation: 180 },
+        bottom: { flipH: true,  flipV: false, rotation: 0   },
+        front:  { flipH: false, flipV: false, rotation: 0   },
+        right:  { flipH: false, flipV: false, rotation: 180 },
+        back:   { flipH: true,  flipV: false, rotation: 0   },
+        left:   { flipH: false, flipV: false, rotation: 180 }
+      };
+
+      const FACE_ORDER_BEDROCK = [
+        { key: 'bottom', index: 0 },
+        { key: 'top',    index: 1 },
+        { key: 'back',   index: 2 },
+        { key: 'front',  index: 3 },
+        { key: 'right',  index: 4 },
+        { key: 'left',   index: 5 }
+      ];
+
+      // ==================== DOM ====================
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+      const previewPanel = document.getElementById('previewPanel');
+      const previewImage = document.getElementById('previewImage');
+      const fileNameEl = document.getElementById('fileName');
+      const dimensionsBadge = document.getElementById('dimensionsBadge');
+      const fileSizeBadge = document.getElementById('fileSizeBadge');
+      const outputBadge = document.getElementById('outputBadge');
+      const errorAlert = document.getElementById('errorAlert');
+      const errorText = document.getElementById('errorText');
+      const successAlert = document.getElementById('successAlert');
+      const successText = document.getElementById('successText');
+      const infoAlert = document.getElementById('infoAlert');
+      const infoText = document.getElementById('infoText');
+      const convertBtn = document.getElementById('convertBtn');
+
+      let currentImage = null;
+      let currentFile = null;
+      let imageWidth = 0;
+      let imageHeight = 0;
+
+      // ==================== Utility ====================
+      function isValidDimensions(w, h) {
+        return VALID_DIMENSIONS.some(([vw, vh]) => vw === w && vh === h);
       }
 
-      // تولید ZIP
-      const content = await zip.generateAsync({ type: 'blob' });
-      // دانلود
-      const url = URL.createObjectURL(content);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'PZMC_cubemap_overworld.zip';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      // پیام موفقیت (بدون نمایش خطا)
-      const successDiv = document.createElement('div');
-      successDiv.className = 'success-message';
-      successDiv.textContent = '✅ فایل ZIP با موفقیت ساخته شد.';
-      document.querySelector('.card').appendChild(successDiv);
-      setTimeout(() => successDiv.remove(), 4000);
-    }
+      function getClosestPowerOfTwo(value) {
+        let closest = POWER_OF_TWO[0];
+        let minDiff = Math.abs(value - closest);
+        
+        for (let i = 1; i < POWER_OF_TWO.length; i++) {
+          const diff = Math.abs(value - POWER_OF_TWO[i]);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closest = POWER_OF_TWO[i];
+          }
+        }
+        return closest;
+      }
 
-    convertBtn.addEventListener('click', () => {
-      if (convertBtn.disabled) return;
-      generateCubemapZIP().catch(err => {
-        showError('خطا در تولید Cubemap: ' + err.message);
-      });
-    });
+      function getOutputFaceSize(W, H) {
+        const isSquare = (W === H);
+        let cellW, cellH;
+        
+        if (isSquare) {
+          cellW = Math.floor(W / 6);
+          cellH = H;
+        } else {
+          cellW = Math.floor(W / 4);
+          cellH = Math.floor(H / 3);
+        }
+        
+        const minCell = Math.min(cellW, cellH);
+        return getClosestPowerOfTwo(minCell);
+      }
 
-    // ریست اولیه
-    convertBtn.disabled = true;
-  })();
-</script>
-</body>
-</html>
+      function showError(msg) {
+        errorText.textContent = msg;
+        errorAlert.classList.remove('hidden');
+        successAlert.classList.add('hidden');
+        infoAlert.classList.add('hidden');
+      }
+
+      function showSuccess(msg) {
+        successText.textContent = msg;
+        successAlert.classList.remove('hidden');
+        errorAlert.classList.add('hidden');
+        infoAlert.classList.add('hidden');
+        setTimeout(() => successAlert.classList.add('hidden'), 5000);
+      }
+
+      function showInfo(msg) {
+        infoText.textContent = msg;
+        infoAlert.classList.remove('hidden');
+        errorAlert.classList.add('hidden');
+        successAlert.classList.add('hidden');
+      }
+
+      function hideAlerts() {
+        errorAlert.classList.add('hidden');
+        successAlert.classList.add('hidden');
+        infoAlert.classList.add('hidden');
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ==================== بارگذاری تصویر ====================
+      function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+          if (!file || !file.type.startsWith('image/')) {
+            return reject(new Error('فایل تصویری معتبر انتخاب نشده.'));
+          }
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error('بارگذاری تصویر با خطا مواجه شد.'));
+            img.src = e.target.result;
+          };
+          reader.onerror = () => reject(new Error('خواندن فایل ناموفق بود.'));
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function handleFile(file) {
+        hideAlerts();
+        if (!file) return;
+
+        try {
+          const img = await loadImageFromFile(file);
+          currentImage = img;
+          currentFile = file;
+          imageWidth = img.naturalWidth;
+          imageHeight = img.naturalHeight;
+
+          previewImage.src = img.src;
+          fileNameEl.textContent = file.name;
+          fileSizeBadge.textContent = formatFileSize(file.size);
+          
+          const valid = isValidDimensions(imageWidth, imageHeight);
+          dimensionsBadge.textContent = `${imageWidth} × ${imageHeight}`;
+          dimensionsBadge.className = `badge ${valid ? 'badge-valid' : 'badge-invalid'}`;
+          
+          // نمایش ابعاد خروجی
+          if (valid) {
+            const outSize = getOutputFaceSize(imageWidth, imageHeight);
+            outputBadge.textContent = `🎯 خروجی: ${outSize}×${outSize}`;
+            outputBadge.className = 'badge badge-output';
+            outputBadge.classList.remove('hidden');
+            showInfo(`ℹ️ خروجی هر ۶ وجه: ${outSize}×${outSize} پیکسل (توان ۲)`);
+          } else {
+            outputBadge
