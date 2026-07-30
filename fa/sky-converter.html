@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -9,7 +8,6 @@
 
 <title>PackZone MC | تبدیل اسکای جاوا به بدراک</title>
 
-<!-- ===== style.css از پوشه اصلی ===== -->
 <link rel="stylesheet" href="../style.css">
 
 <style>
@@ -428,7 +426,7 @@ footer {
     }
 }
 
-/* ===== تم‌های سفارشی ===== */
+/* ===== تم‌ها ===== */
 .theme-default {
     --primary: #008cff;
     --primary-dark: #0066cc;
@@ -731,7 +729,7 @@ footer {
 <!-- ===== Footer ===== -->
 <footer>© PackZone MC 💙</footer>
 
-<!-- ===== اسکریپت ===== -->
+<!-- ===== اسکریپت کامل ===== -->
 <script>
     // ===== متغیرها =====
     let selectedFile = null;
@@ -961,10 +959,9 @@ footer {
         btn.textContent = '⏳ در حال ساخت...';
         btn.disabled = true;
 
-        const packName = 'PZMC_cubemap_overworld';  // ← اسم ثابت
         const version = document.getElementById('bedrockVersion').value;
 
-        // ساخت محتوای فایل ZIP
+        // ===== ساخت manifest.json =====
         const manifest = {
             format_version: 2,
             header: {
@@ -983,5 +980,9 @@ footer {
             ]
         };
 
-        // ساخت فایل زیپ با نام مشخص
-        const
+        // ساخت فایل ZIP (شبیه‌سازی)
+        const jsonStr = JSON.stringify(manifest, null, 2);
+        packBlob = new Blob([jsonStr], { type: 'application/zip' });
+
+        document.getElementById('resultCard').style.display = 'block';
+        document.getElementById('resultCard').scroll
