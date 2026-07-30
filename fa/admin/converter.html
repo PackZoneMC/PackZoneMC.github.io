@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v10.0</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v11.0</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
@@ -284,7 +284,7 @@
             background: rgba(0,0,0,0.4);
             padding: 14px 18px;
             border-radius: 14px;
-            max-height: 240px;
+            max-height: 200px;
             overflow-y: auto;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 12px;
@@ -292,7 +292,7 @@
             color: #999;
             border: 1px solid rgba(255,255,255,0.04);
             line-height: 1.8;
-            min-height: 70px;
+            min-height: 60px;
             margin-bottom: 18px;
             position: relative;
             z-index: 1;
@@ -363,7 +363,7 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۱۰.۰ · نهایی</div>
+        <div class="badge">نسخه ۱۱.۰ · سبک و سریع</div>
     </div>
 
     <div class="upload-zone" id="uploadZone">
@@ -392,7 +392,7 @@
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v10.0 · دقیقاً مطابق MCPACK tree
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v11.0 · سبک و بدون لگ
     </div>
 
 </div>
@@ -440,7 +440,7 @@ fileInput.addEventListener('change', function(e) {
         fileSize.textContent = `${mb} MB`;
         statusBox.className = 'status-box idle';
         statusBox.textContent = '✅ فایل آماده است!';
-        addLog(`📁 فایل انتخاب شد: ${file.name} (${mb} MB)`);
+        addLog(`📁 ${file.name} (${mb} MB)`);
     }
 });
 
@@ -484,7 +484,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر نسخه ۱۰.۰ - دقیقاً مطابق MCPACK tree
+//  هسته کانورتر نسخه ۱۱.۰ - سبک و سریع
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -497,76 +497,87 @@ async function startConversion() {
     convertBtn.disabled = true;
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
-    setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل v10.0 - دقیقاً مطابق MCPACK tree...');
+    setStatus('loading', '⏳ در حال تبدیل...');
+    addLog('🔍 شروع تبدیل...');
 
     try {
-        addLog('📂 خواندن فایل ZIP...');
+        addLog('📂 خواندن فایل...');
         const zip = await JSZip.loadAsync(selectedFile);
         const newZip = new JSZip();
         let changes = 0;
         let processed = 0;
         let totalFiles = Object.keys(zip.files).length;
 
-        const hasPackMcmeta = !!zip.files['pack.mcmeta'];
-        if (hasPackMcmeta) {
-            addLog('✅ شناسایی: ریسورس پک جاوا');
-        } else {
-            addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
-        }
+        // لیست فایل‌های ممنوعه
+        const exclude = ['pack.mcmeta', 'pack.png', '.DS_Store', 'Thumbs.db', '.git', '.gitignore'];
 
-        // ============================================================
-        //  لیست فایل‌های ممنوعه (فقط pack.mcmeta و pack.png و فایل‌های اضافی)
-        // ============================================================
-        const excludeExact = [
-            'pack.mcmeta', 'pack.png', '.bsPhotoVault', 
-            '.hiddenphotocalculator', '.SHAREit', '.system_config',
-            '.DS_Store', 'Thumbs.db', '.git', '.gitignore'
-        ];
-        const excludePatterns = [
-            /^\./, /^Amir$/, /^Amirbeta$/, /^Android$/, /^Aref$/,
-            /^baraye sayt$/, /^Barfi$/, /^Best$/, /^Bizixer$/,
-            /^cmpack_/, /^Coal_OP_/, /^com\.android\./, /^Compilation$/
-        ];
-
-        // ============================================================
-        //  پردازش فایل‌ها - بدون تغییر مسیر
-        // ============================================================
+        // پردازش فایل‌ها
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
-            if (processed % 20 === 0) {
-                setStatus('loading', `⏳ پردازش... (${processed}/${totalFiles})`);
+            if (processed % 50 === 0) {
+                setStatus('loading', `⏳ پردازش... ${Math.round(processed/totalFiles*100)}%`);
             }
 
             if (file.dir) {
-                let shouldIncludeDir = true;
-                for (let pattern of excludePatterns) {
-                    if (pattern.test(filename)) { shouldIncludeDir = false; break; }
-                }
-                if (excludeExact.includes(filename)) shouldIncludeDir = false;
-                if (shouldIncludeDir) newZip.folder(filename);
+                if (!exclude.includes(filename)) newZip.folder(filename);
                 continue;
             }
 
-            let newName = filename;
-            let shouldInclude = true;
-
-            // حذف فایل‌های ممنوعه
-            if (excludeExact.includes(filename) || excludePatterns.some(p => p.test(filename))) {
-                addLog(`🗑️ حذف: ${filename}`);
+            if (exclude.includes(filename)) {
+                addLog(`🗑️ ${filename}`);
                 continue;
             }
 
-            // ============================================================
-            //  assets/ و textures/ و font/ رو دست نمی‌زنیم!
-            //  فقط pack.mcmeta و pack.png رو حذف کردیم
-            // ============================================================
-
-            // ============================================================
-            //  فایل‌های .mcmeta (انیمیشن) - تبدیل به فرمت بدراک
-            // ============================================================
+            // تبدیل انیمیشن‌ها
             if (filename.endsWith('.mcmeta') && !filename.includes('pack.mcmeta')) {
                 try {
                     const content = await file.async('string');
                     const json = JSON.parse(content);
-    
+                    if (json.animation) {
+                        const data = new Blob([JSON.stringify({
+                            animation: {
+                                frametime: json.animation.frametime || 1,
+                                interpolate: json.animation.interpolate || false,
+                                frames: json.animation.frames || []
+                            }
+                        }, null, 2)], { type: 'application/json' });
+                        newZip.file(filename, data);
+                        addLog(`🎬 ${filename}`);
+                        continue;
+                    }
+                } catch(e) {}
+            }
+
+            // کپی فایل
+            const data = await file.async('blob');
+            newZip.file(filename, data);
+        }
+
+        // ساخت manifest.json
+        addLog('📄 manifest.json...');
+        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
+        if (zip.files['pack.mcmeta']) {
+            try {
+                const mcmeta = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
+                if (mcmeta.pack?.name) packName = mcmeta.pack.name;
+            } catch(e) {}
+        }
+
+        newZip.file('manifest.json', JSON.stringify({
+            format_version: 2,
+            header: {
+                name: packName + ' (Bedrock)',
+                description: 'Converted by PackZoneMC v11.0',
+                uuid: generateUUID(),
+                version: [1, 0, 0],
+                min_engine_version: [1, 16, 0]
+            },
+            modules: [{ type: 'resources', uuid: generateUUID(), version: [1, 0, 0] }]
+        }, null, 2));
+        changes++;
+
+        // آیکون
+        if (!zip.files['pack_icon.png']) {
+            const icon = zip.files['pack.png'] || zip.files['icon.png'];
+            if (icon) {
+                newZip.file('pack_icon.png', await icon.async('blob'))    
