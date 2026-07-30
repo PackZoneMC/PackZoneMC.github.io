@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PackZone MC | تبدیل اسکای جاوا به بدراک</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+
+/* ===== استایل اختصاصی ===== */
+.converter-page {
+    max-width: 950px;
+    margin: auto;
+    padding: 20px;
+}
+
+.converter-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.converter-card h2 {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--shadow-color);
+    margin-bottom: 15px;
+}
+
+/* ===== بخش آپلود ===== */
+.upload-area {
+    border: 3px dashed var(--border-color);
+    border-radius: 20px;
+    padding: 50px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 140, 255, 0.05);
+}
+
+.upload-area:hover {
+    border-color: var(--secondary);
+    background: rgba(0, 140, 255, 0.1);
+}
+
+.upload-area.dragover {
+    border-color: var(--secondary);
+    background: rgba(0, 140, 255, 0.15);
+}
+
+.upload-area .icon {
+    font-size: 60px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.upload-area .sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.upload-btn {
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px var(--shadow-color);
+    border: none;
+}
+
+.upload-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px var(--glow-color);
+}
+
+/* ===== پیش‌نمایش ===== */
+.preview-area {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.preview-area canvas {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 30px var(--shadow-color);
+}
+
+/* ===== اطلاعات تصویر ===== */
+.image-info {
+    background: var(--bg-body);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.image-info .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.image-info .info-row:last-child {
+    border-bottom: none;
+}
+
+.image-info .label {
+    color: var(--text-muted);
+}
+
+.image-info .value {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.image-info .value.valid {
+    color: #4CAF50;
+}
+
+.image-info .value.invalid {
+    color: #f44336;
+}
+
+/* ===== ۶ تکه اسکای ===== */
+.sky-slices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sky-slice {
+    background: var(--bg-body);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sky-slice canvas {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+    background: #111;
+}
+
+.sky-slice .label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.sky-slice .dimension {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-primary);
+    margin-top: 2px;
+}
+
+/* ===== دکمه تبدیل ===== */
+.convert-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px var(--shadow-color);
+    margin-top: 15px;
+}
+
+.convert-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 50px var(--glow-color);
+}
+
+.convert-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== نتیجه ===== */
+.result-box {
+    display: none;
+    background: var(--bg-body);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 15px;
+    border: 2px solid #4CAF50;
+}
+
+.result-box.show {
+    display: block;
+}
+
+.result-box .success-icon {
+    font-size: 50px;
+    display: block;
+    text-align: center;
+}
+
+.download-btn {
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px var(--shadow-color);
+    margin: 10px auto;
+    border: none;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px var(--glow-color);
+}
+
+/* ===== ابعاد مجاز ===== */
+.valid-sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.valid-sizes .size-tag {
+    background: rgba(0, 140, 255, 0.15);
+    color: var(--text-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 140, 255, 0.2);
+}
+
+.valid-sizes .size-tag.popular {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .converter-card {
+        padding: 15px;
+    }
+    .upload-area {
+        padding: 30px 15px;
+    }
+    .sky-slices {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== دکمه خانه ===== */
+.home-button {
+    display: inline-block;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 10px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: .3s;
+}
+
+.home-button:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 0 25px var(--glow-color);
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+.main-logo {
+    margin-top: 15px;
+}
+
+/* ===== پنل زبان ===== */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    padding: 8px 16px 8px 12px;
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.language-toggle:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.language-panel {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    z-index: 999;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 220px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.language-panel.open {
+    display: block;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.language-panel .panel-title {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+}
+
+.language-panel .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.language-panel .lang-item:hover {
+    background: rgba(0,140,255,0.2);
+}
+
+.language-panel .lang-item .flag {
+    font-size: 22px;
+}
+
+.language-panel .lang-item .lang-code {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.language-panel .lang-item.active {
+    background: rgba(0,140,255,0.3);
+    border: 1px solid var(--border-color);
+}
+
+.language-panel .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 12px 0;
+}
+
+.language-panel .theme-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.language-panel .theme-item:hover {
+    background: rgba(0,140,255,0.2);
+}
+
+.language-panel .theme-item .color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--text-muted);
+}
+</style>
+
+</head>
+
+
+<body>
+
+<!-- ===== پنل تغییر زبان ===== -->
+<div class="language-toggle" onclick="togglePanel()">
+    <span class="flag-icon">🇮🇷</span>
+    <span>فارسی</span>
+    <span class="arrow">▼</span>
+</div>
+
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 انتخاب زبان</div>
+    
+    <a href="../fa/index.html" class="lang-item active">
+        <span class="flag">🇮🇷</span>
+        <span class="lang-name">فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    
+    <a href="../en/index.html" class="lang-item">
+        <span class="flag">🇺🇸</span>
+        <span class="lang-name">English</span>
+        <span class="lang-code">EN</span>
+    </a>
+    
+    <hr class="divider">
+    
+    <div class="panel-title">🎨 انتخاب تم</div>
+    
+    <div class="theme-item" onclick="changeTheme('default')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
+        <span>پیش‌فرض (بنفش-آبی)</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('green')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
+        <span>سبز ماینکرفت</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('orange')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
+        <span>نارنجی-طلایی</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('blue')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
+        <span>آبی سلطنتی</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeTheme('pink')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
+        <span>صورتی-بنفش</span>
+    </div>
+    
+    <hr class="divider">
+    
+    <div class="panel-title">🔤 انتخاب فونت</div>
+    
+    <div class="theme-item" onclick="changeFont('vazirmatn')">
+        <span>📝 وزیرمتن</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeFont('iransans')">
+        <span>📝 ایران‌سنس</span>
+    </div>
+    
+    <div class="theme-item" onclick="changeFont('shabnam')">
+        <span>📝 شبنم</span>
+    </div>
+</div>
+
+<!-- ===== هدر ===== -->
+<header>
+    <a href="../fa/index.html" class="home-button">🏠 خانه</a>
+    <h1 class="main-logo">🌌 تبدیل اسکای جاوا به بدراک</h1>
+</header>
+
+<!-- ===== صفحه اصلی ===== -->
+<section class="converter-page">
+
+    <!-- راهنما -->
+    <div class="converter-card">
+        <h2>📖 راهنما</h2>
+        <p style="color:var(--text-muted);line-height:2;">
+            یک عکس اسکای جاوا رو آپلود کن تا به‌صورت خودکار به <strong>۶ تکه</strong> تقسیم بشه و برای بدراک آماده بشه.
+        </p>
+        
+        <div class="valid-sizes">
+            <span class="size-tag">1024×1024</span>
+            <span class="size-tag">2048×1024</span>
+            <span class="size-tag">2048×1536</span>
+            <span class="size-tag popular">🌟 3072×2048</span>
+            <span class="size-tag">4096×2048</span>
+            <span class="size-tag">4096×3072</span>
+            <span class="size-tag">6144×4096</span>
+            <span class="size-tag">8192×4096</span>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">
+            ⚠️ فقط ابعاد بالا پشتیبانی میشن. هر عکس دیگه‌ای ارور میده!
+        </p>
+    </div>
+
+    <!-- آپلود -->
+    <div class="converter-card">
+        <h2>📤 آپلود اسکای جاوا</h2>
+        
+        <div class="upload-area" id="dropZone">
+            <span class="icon">☁️</span>
+            <p>عکس اسکای خود را اینجا بکشید و رها کنید</p>
+            <p class="sub">(پشتیبانی از PNG, JPG, WEBP)</p>
+            <label class="upload-btn">
+                📂 انتخاب عکس
+                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFile(this.files[0])">
+            </label>
+        </div>
+
+        <!-- پیش‌نمایش -->
+        <div class="preview-area" id="previewArea" style="display:none;">
+            <canvas id="previewCanvas"></canvas>
+        </div>
+
+        <!-- اطلاعات -->
+        <div class="image-info" id="imageInfo" style="display:none;">
+            <div class="info-row">
+                <span class="label">📎 نام فایل</span>
+                <span class="value" id="fileName">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">📐 ابعاد</span>
+                <span class="value" id="imageDimensions">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">📦 حجم</span>
+                <span class="value" id="fileSize">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">✅ وضعیت</span>
+                <span class="value" id="statusText">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">📏 اندازه هر تکه</span>
+                <span class="value" id="sliceSize">-</span>
+            </div>
+        </div>
+
+        <!-- ۶ تکه اسکای -->
+        <div id="slicesContainer" style="display:none;">
+            <h3 style="color:var(--text-primary);margin-top:20px;">🧩 تکه‌های اسکای (برای بدراک)</h3>
+            <div class="sky-slices" id="skySlices">
+                <div class="sky-slice">
+                    <canvas id="sliceUp"></canvas>
+                    <span class="label">⬆️ Up</span>
+                    <span class="dimension" id="dimUp">-</span>
+                </div>
+                <div class="sky-slice">
+                    <canvas id="sliceDown"></canvas>
+                    <span class="label">⬇️ Down</span>
+                    <span class="dimension" id="dimDown">-</span>
+                </div>
+                <div class="sky-slice">
+                    <canvas id="sliceLeft"></canvas>
+                    <span class="label">⬅️ Left</span>
+                    <span class="dimension" id="dimLeft">-</span>
+                </div>
+                <div class="sky-slice">
+                    <canvas id="sliceRight"></canvas>
+                    <span class="label">➡️ Right</span>
+                    <span class="dimension" id="dimRight">-</span>
+                </div>
+                <div class="sky-slice">
+                    <canvas id="sliceFront"></canvas>
+                    <span class="label">⬛ Front</span>
+                    <span class="dimension" id="dimFront">-</span>
+                </div>
+                <div class="sky-slice">
+                    <canvas id="sliceBack"></canvas>
+                    <span class="label">⬜ Back</span>
+                    <span class="dimension" id="dimBack">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- تنظیمات و تبدیل -->
+    <div class="converter-card">
+        <h2>⚙️ تنظیمات</h2>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+            <div>
+                <label style="color:var(--text-muted);display:block;margin-bottom:5px;">📐 نسخه بدراک</label>
+                <select id="bedrockVersion" style="width:100%;padding:10px;background:var(--bg-body);color:white;border:1px solid var(--border-color);border-radius:12px;">
+                    <option value="1.16.2">1.16.2+</option>
+                    <option value="1.17.0">1.17.0+</option>
+                    <option value="1.18.0">1.18.0+</option>
+                    <option value="1.19.0" selected>1.19.0+</option>
+                    <option value="1.20.0">1.20.0+</option>
+                    <option value="1.21.0">1.21.0+</option>
+                </select>
+            </div>
+            <div>
+                <label style="color:var(--text-muted);display:block;margin-bottom:5px;">🏷️ نام پک</label>
+                <input type="text" id="packName" placeholder="مثلاً: Sky Pack" style="width:100%;padding:10px;background:var(--bg-body);color:white;border:1px solid var(--border-color);border-radius:12px;">
+            </div>
+        </div>
+        
+        <button class="convert-btn" id="convertBtn" onclick="convertSky()" disabled>
+            🔄 تبدیل به بدراک
+        </button>
+    </div>
+
+    <!-- نتیجه -->
+    <div class="converter-card" id="resultCard" style="display:none;">
+        <h2>✅ تبدیل کامل شد!</h2>
+        <div class="result-box show">
+            <span class="success-icon">🎉</span>
+            <p style="text-align:center;color:var(--text-light);font-size:1.1rem;">
+                اسکای شما با موفقیت به بدراک تبدیل شد!
+            </p>
+            <div style="text-align:center;margin-top:15px;">
+                <button class="download-btn" onclick="downloadPack()">
+                    ⬇️ دانلود فایل .mcpack
+                </button>
+            </div>
+            <p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:10px;">
+                فایل را در پوشه resource_packs ماینکرفت بدراک قرار دهید
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>© PackZone MC 💙</footer>
+
+<!-- ===== اسکریپت ===== -->
+<script>
+    // ===== متغیرها =====
+    let selectedFile = null;
+    let imageData = null;
+    let sliceData = {};
+    let packBlob = null;
+
+    // ===== ابعاد مجاز =====
+    const VALID_SIZES = [
+        { w: 1024, h: 1024 },
+        { w: 2048, h: 1024 },
+        { w: 2048, h: 1536 },
+        { w: 3072, h: 2048 },
+        { w: 4096, h: 2048 },
+        { w: 4096, h: 3072 },
+        { w: 6144, h: 4096 },
+        { w: 8192, h: 4096 }
+    ];
+
+    // ===== پنل زبان =====
+    function togglePanel() {
+        const panel = document.getElementById('languagePanel');
+        const toggle = document.querySelector('.language-toggle');
+        panel.classList.toggle('open');
+        toggle.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+        const panel = document.getElementById('languagePanel');
+        const toggle = document.querySelector('.language-toggle');
+        if (!toggle.contains(event.target) && !panel.contains(event.target)) {
+            panel.classList.remove('open');
+            toggle.classList.remove('active');
+        }
+    });
+
+    function changeTheme(theme) {
+        alert('تم "' + theme + '" انتخاب شد!');
+        document.getElementById('languagePanel').classList.remove('open');
+        document.querySelector('.language-toggle').classList.remove('active');
+    }
+
+    function changeFont(font) {
+        alert('فونت "' + font + '" انتخاب شد!');
+        document.getElementById('languagePanel').classList.remove('open');
+        document.querySelector('.language-toggle').classList.remove('active');
+    }
+
+    // ===== بررسی ابعاد =====
+    function isValidSize(w, h) {
+        for (let size of VALID_SIZES) {
+            if (size.w === w && size.h === h) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // ===== محاسبه ابعاد تکه‌ها =====
+    function getSliceDimensions(w, h) {
+        // عرض هر تکه = عرض عکس / 3
+        // ارتفاع هر تکه = ارتفاع عکس / 2
+        const sliceW = Math.floor(w / 3);
+        const sliceH = Math.floor(h / 2);
+        return { sliceW, sliceH };
+    }
+
+    // ===== مدیریت فایل =====
+    function handleFile(file) {
+        if (!file) return;
+        
+        const img = new Image();
+        img.onload = function() {
+            const w = img.width;
+            const h = img.height;
+            
+          
