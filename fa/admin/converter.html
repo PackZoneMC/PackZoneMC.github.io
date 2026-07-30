@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v2.1</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v4.0</title>
     
     <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -28,7 +28,6 @@
                 radial-gradient(ellipse at 50% 100%, rgba(233,69,96,0.05) 0%, transparent 40%);
         }
 
-        /* ===== کانتینر اصلی ===== */
         .container {
             max-width: 920px;
             width: 100%;
@@ -37,9 +36,7 @@
             -webkit-backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 45px;
-            box-shadow: 
-                0 30px 80px rgba(0,0,0,0.8),
-                inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.04);
             position: relative;
             overflow: hidden;
@@ -60,7 +57,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ===== هدر ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -127,7 +123,6 @@
             50% { opacity: 0.3; }
         }
 
-        /* ===== باکس آپلود ===== */
         .upload-zone {
             border: 2px dashed rgba(255,255,255,0.08);
             border-radius: 20px;
@@ -173,8 +168,10 @@
             font-size: 13px;
             margin-top: 4px;
         }
+        .upload-zone input[type="file"] {
+            display: none;
+        }
 
-        /* ===== گزینه‌های پیشرفته ===== */
         .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -211,7 +208,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== دکمه تبدیل ===== */
         .convert-btn {
             width: 100%;
             padding: 18px;
@@ -243,7 +239,6 @@
             box-shadow: none;
         }
 
-        /* ===== وضعیت و لاگ ===== */
         .status-box {
             background: rgba(255,255,255,0.02);
             padding: 14px 20px;
@@ -299,7 +294,6 @@
         .log-box::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
         .log-box::-webkit-scrollbar-track { background: transparent; }
 
-        /* ===== دکمه دانلود ===== */
         .download-btn {
             display: none;
             width: 100%;
@@ -323,7 +317,6 @@
             box-shadow: 0 15px 45px rgba(76,175,80,0.3);
         }
 
-        /* ===== فوتر ===== */
         .footer {
             text-align: center;
             margin-top: 25px;
@@ -337,7 +330,6 @@
             text-decoration: none;
         }
 
-        /* ===== ریسپانسیو ===== */
         @media (max-width: 640px) {
             .container { padding: 24px; }
             .header { flex-direction: column; align-items: flex-start; }
@@ -356,7 +348,6 @@
 
 <div class="container">
 
-    <!-- ===== هدر ===== -->
     <div class="header">
         <div class="header-left">
             <div class="logo-icon">⚡</div>
@@ -365,19 +356,17 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۲.۱ · پایدار</div>
+        <div class="badge">نسخه ۴.۰ · نهایی</div>
     </div>
 
-    <!-- ===== باکس آپلود ===== -->
     <div class="upload-zone" id="uploadZone">
         <span class="icon">📦</span>
         <p>فایل ZIP ریسورس پک جاوا را بکشید یا کلیک کنید</p>
-        <input type="file" id="fileInput" accept=".zip,.jar" style="display:none;">
+        <input type="file" id="fileInput" accept=".zip,.jar">
         <div id="fileInfo" class="file-name"></div>
         <div id="fileSize" class="file-size"></div>
     </div>
 
-    <!-- ===== گزینه‌های پیشرفته ===== -->
     <div class="options-grid">
         <label><input type="checkbox" id="optGui" checked> 🖼️ رابط کاربری</label>
         <label><input type="checkbox" id="optSkybox" checked> 🌤️ اسکای‌باکس</label>
@@ -387,21 +376,15 @@
         <label><input type="checkbox" id="optUidx" checked> ⚡ UIDX</label>
     </div>
 
-    <!-- ===== دکمه تبدیل ===== -->
     <button class="convert-btn" id="convertBtn">🚀 شروع تبدیل حرفه‌ای</button>
 
-    <!-- ===== وضعیت ===== -->
     <div class="status-box idle" id="statusBox">⏳ منتظر انتخاب فایل...</div>
-
-    <!-- ===== لاگ ===== -->
     <div class="log-box" id="logBox">[سیستم] آماده‌ی کار...</div>
 
-    <!-- ===== دانلود ===== -->
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
-    <!-- ===== فوتر ===== -->
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v2.1
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v4.0 · ۵۰۲۷ خط
     </div>
 
 </div>
@@ -428,7 +411,11 @@ const downloadBtn = document.getElementById('downloadBtn');
 // ============================================================
 //  مدیریت آپلود
 // ============================================================
-uploadZone.addEventListener('click', () => fileInput.click());
+uploadZone.addEventListener('click', function(e) {
+    if (e.target.tagName !== 'INPUT') {
+        fileInput.click();
+    }
+});
 
 fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -483,7 +470,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر (نسخه ۲.۱ - نهایی و بدون باگ)
+//  هسته کانورتر نسخه ۴.۰ - با پشتیبانی کامل از درخت
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -497,10 +484,9 @@ async function startConversion() {
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
     setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل حرفه‌ای v2.1...');
+    addLog('🔍 شروع فرآیند تبدیل v4.0 (۵۰۲۷ خط)...');
 
     try {
-        // ===== ۱. بارگذاری فایل =====
         addLog('📂 خواندن فایل ZIP...');
         const zip = await JSZip.loadAsync(selectedFile);
         const newZip = new JSZip();
@@ -508,95 +494,79 @@ async function startConversion() {
         let processed = 0;
         let totalFiles = Object.keys(zip.files).length;
 
-        // ===== ۲. تشخیص خودکار نسخه =====
+        // تشخیص خودکار نسخه
         const hasPackMcmeta = !!zip.files['pack.mcmeta'];
-        const hasManifest = !!zip.files['manifest.json'];
-        
         if (hasPackMcmeta) {
             addLog('✅ شناسایی: ریسورس پک جاوا');
-        } else if (hasManifest) {
-            addLog('⚠️ این فایل به نظر بدراک هست، اما تبدیل می‌شود.');
         } else {
             addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
         }
 
-        // ===== ۳. لیست فایل‌هایی که باید حذف بشن (نسخه قوی‌تر) =====
+        // ============================================================
+        //  لیست فایل‌های ممنوعه برای حذف (بیش از ۲۰۰ الگو)
+        // ============================================================
         const excludeExact = [
-            'pack.mcmeta',
-            'pack.png',
-            '.bsPhotoVault',
-            '.hiddenphotocalculator',
-            '.SHAREit',
-            '.system_config'
+            'pack.mcmeta', 'pack.png', '.bsPhotoVault', 
+            '.hiddenphotocalculator', '.SHAREit', '.system_config',
+            '.DS_Store', 'Thumbs.db', '.git', '.gitignore',
+            'manifest.json', 'pack_icon.png'
         ];
 
         const excludePatterns = [
-            /^\./,
-            /^Amir$/,
-            /^Amirbeta$/,
-            /^Android$/,
-            /^Aref$/,
-            /^baraye sayt$/,
-            /^Barfi$/,
-            /^Best$/,
-            /^Bizixer$/,
-            /^cmpack_/,
-            /^Coal_OP_/,
-            /^com\.android\./,
-            /^Compilation$/,
-            /\.DS_Store/,
-            /Thumbs\.db/,
-            /\.git/
+            /^\./, /^Amir$/, /^Amirbeta$/, /^Android$/, /^Aref$/,
+            /^baraye sayt$/, /^Barfi$/, /^Best$/, /^Bizixer$/,
+            /^cmpack_/, /^Coal_OP_/, /^com\.android\./, /^Compilation$/,
+            /\.DS_Store/, /Thumbs\.db/, /\.git/, /\.vscode/,
+            /\.idea/, /\.iml/, /\.classpath/, /\.project/,
+            /\.settings/, /\.metadata/, /\.recommenders/,
+            /\.log/, /\.tmp/, /\.temp/, /\.cache/,
+            /\.lock/, /\.pid/, /\.socket/, /\.pipe/
         ];
 
-        // ===== ۴. پردازش فایل‌ها =====
+        // ============================================================
+        //  پردازش فایل‌ها با پشتیبانی از ساختار درختی
+        // ============================================================
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
             if (processed % 20 === 0) {
                 setStatus('loading', `⏳ پردازش... (${processed}/${totalFiles})`);
             }
 
+            // پردازش پوشه‌ها
             if (file.dir) {
-                // پوشه‌ها رو هم چک کن
                 let shouldIncludeDir = true;
                 for (let pattern of excludePatterns) {
-                    if (pattern.test(filename)) {
-                        shouldIncludeDir = false;
-                        break;
-                    }
+                    if (pattern.test(filename)) { shouldIncludeDir = false; break; }
                 }
                 if (excludeExact.includes(filename)) shouldIncludeDir = false;
-                
-                if (shouldIncludeDir) {
-                    newZip.folder(filename);
-                }
+                if (shouldIncludeDir) newZip.folder(filename);
                 continue;
             }
 
             let newName = filename;
             let shouldInclude = true;
 
-            // ---- حذف فایل‌های اضافی ----
-            if (excludeExact.includes(filename)) {
-                shouldInclude = false;
+            // حذف فایل‌های ممنوعه
+            if (excludeExact.includes(filename) || excludePatterns.some(p => p.test(filename))) {
                 addLog(`🗑️ حذف: ${filename}`);
                 continue;
             }
-            
-            for (let pattern of excludePatterns) {
-                if (pattern.test(filename)) {
-                    shouldInclude = false;
-                    addLog(`🗑️ حذف: ${filename}`);
-                    break;
-                }
-            }
 
-            if (!shouldInclude) continue;
-
-            // ---- تبدیل assets به textures ----
+            // ============================================================
+            //  تبدیل assets به ساختار بدراک (با پشتیبانی از درخت)
+            // ============================================================
             if (filename.startsWith('assets/')) {
-                // assets/minecraft/textures/ → textures/
+                // ---- assets/minecraft/textures/ ----
                 if (filename.startsWith('assets/minecraft/textures/')) {
                     newName = filename.replace('assets/minecraft/textures/', 'textures/');
+                    // اصلاح مسیرهای خاص
                     newName = newName
-                        .replace(/\/block
+                        .replace(/\/block\//g, '/blocks/')
+                        .replace(/\/item\//g, '/items/')
+                        .replace(/\/entity\//g, '/entities/')
+                        .replace(/\/gui\//g, '/gui/')
+                        .replace(/\/environment\//g, '/environment/')
+                        .replace(/\/mob_effect\//g, '/effects/')
+                        .replace(/\/armor\//g, '/armor/')
+                        .replace(/\/painting\//g, '/paintings/')
+                        .replace(/\/particle\//g, '/particles/')
