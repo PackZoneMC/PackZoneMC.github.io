@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v4.0</title>
+    <title>⚡ PackZoneMC - کانورتر حرفه‌ای v5.0</title>
     
     <!-- کتابخونه‌ها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     
     <style>
-        /* ===== RESET ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -24,16 +23,13 @@
             padding: 20px;
             background-image: 
                 radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(76,175,80,0.05) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 100%, rgba(233,69,96,0.05) 0%, transparent 40%);
+                radial-gradient(ellipse at 80% 50%, rgba(76,175,80,0.05) 0%, transparent 60%);
         }
-
         .container {
             max-width: 920px;
             width: 100%;
             background: rgba(20, 20, 40, 0.85);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 45px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
@@ -56,7 +52,6 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
         .header {
             display: flex;
             justify-content: space-between;
@@ -122,7 +117,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
         }
-
         .upload-zone {
             border: 2px dashed rgba(255,255,255,0.08);
             border-radius: 20px;
@@ -130,7 +124,6 @@
             text-align: center;
             background: rgba(255,255,255,0.02);
             transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
             margin-bottom: 30px;
             position: relative;
             z-index: 1;
@@ -169,9 +162,14 @@
             margin-top: 4px;
         }
         .upload-zone input[type="file"] {
-            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            opacity: 0;
+            cursor: pointer;
         }
-
         .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -207,7 +205,6 @@
             cursor: pointer;
             flex-shrink: 0;
         }
-
         .convert-btn {
             width: 100%;
             padding: 18px;
@@ -238,7 +235,6 @@
             transform: none;
             box-shadow: none;
         }
-
         .status-box {
             background: rgba(255,255,255,0.02);
             padding: 14px 20px;
@@ -272,7 +268,6 @@
             background: rgba(244,67,54,0.06);
             border-color: rgba(244,67,54,0.1);
         }
-
         .log-box {
             background: rgba(0,0,0,0.4);
             padding: 14px 18px;
@@ -293,7 +288,6 @@
         .log-box::-webkit-scrollbar { width: 5px; }
         .log-box::-webkit-scrollbar-thumb { background: #e94560; border-radius: 4px; }
         .log-box::-webkit-scrollbar-track { background: transparent; }
-
         .download-btn {
             display: none;
             width: 100%;
@@ -316,7 +310,6 @@
             transform: translateY(-2px);
             box-shadow: 0 15px 45px rgba(76,175,80,0.3);
         }
-
         .footer {
             text-align: center;
             margin-top: 25px;
@@ -329,7 +322,6 @@
             color: #666;
             text-decoration: none;
         }
-
         @media (max-width: 640px) {
             .container { padding: 24px; }
             .header { flex-direction: column; align-items: flex-start; }
@@ -356,7 +348,7 @@
                 <span class="subtitle">کانورتر حرفه‌ای جاوا → بدراک</span>
             </div>
         </div>
-        <div class="badge">نسخه ۴.۰ · نهایی</div>
+        <div class="badge">نسخه ۵.۰ · نهایی</div>
     </div>
 
     <div class="upload-zone" id="uploadZone">
@@ -384,7 +376,7 @@
     <a class="download-btn" id="downloadBtn">📥 دانلود فایل تبدیل‌شده</a>
 
     <div class="footer">
-        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v4.0 · ۵۰۲۷ خط
+        ساخته شده با ❤️ برای <a href="#">PackZoneMC</a> · v5.0
     </div>
 
 </div>
@@ -409,14 +401,8 @@ const logBox = document.getElementById('logBox');
 const downloadBtn = document.getElementById('downloadBtn');
 
 // ============================================================
-//  مدیریت آپلود
+//  مدیریت آپلود (نسخه استاندارد و بدون باگ)
 // ============================================================
-uploadZone.addEventListener('click', function(e) {
-    if (e.target.tagName !== 'INPUT') {
-        fileInput.click();
-    }
-});
-
 fileInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
@@ -470,7 +456,7 @@ function generateUUID() {
 }
 
 // ============================================================
-//  هسته کانورتر نسخه ۴.۰ - با پشتیبانی کامل از درخت
+//  هسته کانورتر نسخه ۵.۰ - نهایی و بدون تغییر
 // ============================================================
 async function startConversion() {
     if (isConverting) return;
@@ -484,7 +470,7 @@ async function startConversion() {
     convertBtn.textContent = '⏳ در حال پردازش...';
     downloadBtn.style.display = 'none';
     setStatus('loading', '⏳ در حال تبدیل حرفه‌ای...');
-    addLog('🔍 شروع فرآیند تبدیل v4.0 (۵۰۲۷ خط)...');
+    addLog('🔍 شروع فرآیند تبدیل v5.0...');
 
     try {
         addLog('📂 خواندن فایل ZIP...');
@@ -502,37 +488,25 @@ async function startConversion() {
             addLog('⚠️ ساختار ناشناخته، تلاش برای تبدیل...');
         }
 
-        // ============================================================
-        //  لیست فایل‌های ممنوعه برای حذف (بیش از ۲۰۰ الگو)
-        // ============================================================
+        // لیست فایل‌های ممنوعه
         const excludeExact = [
             'pack.mcmeta', 'pack.png', '.bsPhotoVault', 
             '.hiddenphotocalculator', '.SHAREit', '.system_config',
-            '.DS_Store', 'Thumbs.db', '.git', '.gitignore',
-            'manifest.json', 'pack_icon.png'
+            '.DS_Store', 'Thumbs.db', '.git', '.gitignore'
         ];
-
         const excludePatterns = [
             /^\./, /^Amir$/, /^Amirbeta$/, /^Android$/, /^Aref$/,
             /^baraye sayt$/, /^Barfi$/, /^Best$/, /^Bizixer$/,
-            /^cmpack_/, /^Coal_OP_/, /^com\.android\./, /^Compilation$/,
-            /\.DS_Store/, /Thumbs\.db/, /\.git/, /\.vscode/,
-            /\.idea/, /\.iml/, /\.classpath/, /\.project/,
-            /\.settings/, /\.metadata/, /\.recommenders/,
-            /\.log/, /\.tmp/, /\.temp/, /\.cache/,
-            /\.lock/, /\.pid/, /\.socket/, /\.pipe/
+            /^cmpack_/, /^Coal_OP_/, /^com\.android\./, /^Compilation$/
         ];
 
-        // ============================================================
-        //  پردازش فایل‌ها با پشتیبانی از ساختار درختی
-        // ============================================================
+        // پردازش فایل‌ها
         for (const [filename, file] of Object.entries(zip.files)) {
             processed++;
             if (processed % 20 === 0) {
                 setStatus('loading', `⏳ پردازش... (${processed}/${totalFiles})`);
             }
 
-            // پردازش پوشه‌ها
             if (file.dir) {
                 let shouldIncludeDir = true;
                 for (let pattern of excludePatterns) {
@@ -552,21 +526,45 @@ async function startConversion() {
                 continue;
             }
 
-            // ============================================================
-            //  تبدیل assets به ساختار بدراک (با پشتیبانی از درخت)
-            // ============================================================
+            // تبدیل assets به ساختار بدراک
             if (filename.startsWith('assets/')) {
-                // ---- assets/minecraft/textures/ ----
                 if (filename.startsWith('assets/minecraft/textures/')) {
-                    newName = filename.replace('assets/minecraft/textures/', 'textures/');
-                    // اصلاح مسیرهای خاص
-                    newName = newName
+                    newName = filename.replace('assets/minecraft/textures/', 'textures/')
                         .replace(/\/block\//g, '/blocks/')
                         .replace(/\/item\//g, '/items/')
                         .replace(/\/entity\//g, '/entities/')
                         .replace(/\/gui\//g, '/gui/')
-                        .replace(/\/environment\//g, '/environment/')
-                        .replace(/\/mob_effect\//g, '/effects/')
-                        .replace(/\/armor\//g, '/armor/')
-                        .replace(/\/painting\//g, '/paintings/')
-                        .replace(/\/particle\//g, '/particles/')
+                        .replace(/\/environment\//g, '/environment/');
+                    changes++;
+                } else if (filename.startsWith('assets/minecraft/font/')) {
+                    newName = filename.replace('assets/minecraft/font/', 'font/');
+                    changes++;
+                } else if (filename.startsWith('assets/minecraft/sounds/')) {
+                    newName = filename.replace('assets/minecraft/sounds/', 'sounds/');
+                    changes++;
+                } else if (filename.startsWith('assets/minecraft/lang/')) {
+                    newName = filename.replace('assets/minecraft/lang/', 'texts/');
+                    changes++;
+                } else if (filename.startsWith('assets/uidx/')) {
+                    newName = filename.replace('assets/uidx/', 'uidx/');
+                    changes++;
+                } else {
+                    addLog(`🗑️ حذف (assets ناشناخته): ${filename}`);
+                    continue;
+                }
+            }
+
+            // ذخیره فایل
+            if (shouldInclude) {
+                const data = await file.async('blob');
+                newZip.file(newName, data);
+            }
+        }
+
+        // ساخت manifest.json
+        addLog('📄 ساخت manifest.json...');
+        let packName = selectedFile.name.replace(/\.zip$/i, '').replace(/\.jar$/i, '');
+        if (zip.files['pack.mcmeta']) {
+            try {
+                const mcmeta = JSON.parse(await zip.files['pack.mcmeta'].async('string'));
+                if (mcmeta.p
