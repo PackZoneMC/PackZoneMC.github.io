@@ -2,31 +2,169 @@
    PACKZONE MC - COMPLETE STYLE
    ======================================== */
 
-/* ===== 1️⃣ تنظیمات تم ===== */
+/* ===== 1️⃣ تنظیمات تم (اینجا تغییر بده) ===== */
 :root {
+    /* ----- رنگ اصلی (Primary) ----- */
     --primary: #008cff;
     --primary-dark: #0066cc;
     --primary-light: #33aaff;
+    --primary-gradient: linear-gradient(135deg, #008cff, #7b00ff);
+
+    /* ----- رنگ دوم (Secondary) ----- */
     --secondary: #7b00ff;
     --secondary-dark: #5500cc;
     --secondary-light: #aa66ff;
+
+    /* ----- رنگ‌های پس‌زمینه ----- */
     --bg-body: #050b18;
     --bg-card: #0d2038;
     --bg-hero: linear-gradient(180deg, #0b1f3a, #050b18);
+    --bg-dropdown: #0d2038;
+
+    /* ----- رنگ‌های متن ----- */
     --text-light: #ffffff;
     --text-muted: #9ecfff;
     --text-primary: #7ec8ff;
+
+    /* ----- رنگ‌های حاشیه و سایه ----- */
     --border-color: #008cff;
     --shadow-color: #008cff;
     --glow-color: #00aaff;
+
+    /* ----- فونت (اینجا عوض کن) ----- */
     --font-family: 'Vazirmatn', 'Tahoma', 'Arial', sans-serif;
     --font-size-base: 16px;
 }
 
-/* ===== 2️⃣ فونت ===== */
+/* ========================================
+   2️⃣ تم‌های آماده (کامنت‌ها رو بردار تا فعال بشن)
+   ======================================== */
+
+/* ------ تم سبز ماینکرفت ------ */
+/*
+:root {
+    --primary: #2D8A4E;
+    --primary-dark: #1A5C32;
+    --primary-light: #4CAF50;
+    --secondary: #7CFC00;
+    --secondary-dark: #5CB800;
+    --secondary-light: #A8FF60;
+    --border-color: #2D8A4E;
+    --shadow-color: #2D8A4E;
+    --glow-color: #4CAF50;
+    --bg-card: #0d1f0d;
+    --bg-hero: linear-gradient(180deg, #0d1f0d, #0a0a0a);
+    --text-primary: #7CFC00;
+}
+*/
+
+/* ------ تم نارنجی-طلایی ------ */
+/*
+:root {
+    --primary: #FF6B00;
+    --primary-dark: #CC5500;
+    --primary-light: #FF8C33;
+    --secondary: #FFD700;
+    --secondary-dark: #CCA800;
+    --secondary-light: #FFE44D;
+    --border-color: #FF6B00;
+    --shadow-color: #FF6B00;
+    --glow-color: #FF8C33;
+    --bg-card: #1a0f00;
+    --bg-hero: linear-gradient(180deg, #1a0f00, #0a0a05);
+    --text-primary: #FFD700;
+}
+*/
+
+/* ------ تم آبی سلطنتی ------ */
+/*
+:root {
+    --primary: #0A2463;
+    --primary-dark: #061840;
+    --primary-light: #1A3F8A;
+    --secondary: #00B4D8;
+    --secondary-dark: #0088A8;
+    --secondary-light: #40D0F0;
+    --border-color: #0A2463;
+    --shadow-color: #0A2463;
+    --glow-color: #1A3F8A;
+    --bg-card: #080c1a;
+    --bg-hero: linear-gradient(180deg, #080c1a, #05080f);
+    --text-primary: #00B4D8;
+}
+*/
+
+/* ------ تم صورتی-بنفش ------ */
+/*
+:root {
+    --primary: #9B5DE5;
+    --primary-dark: #7A3DB8;
+    --primary-light: #B87FED;
+    --secondary: #F15BB5;
+    --secondary-dark: #C73E94;
+    --secondary-light: #F58CC8;
+    --border-color: #9B5DE5;
+    --shadow-color: #9B5DE5;
+    --glow-color: #B87FED;
+    --bg-card: #1a0f24;
+    --bg-hero: linear-gradient(180deg, #1a0f24, #0d0a14);
+    --text-primary: #F15BB5;
+}
+*/
+
+/* ------ تم طلایی-مشکی (لوکس) ------ */
+/*
+:root {
+    --primary: #F5B041;
+    --primary-dark: #D4881E;
+    --primary-light: #F7C56E;
+    --secondary: #1C1C1C;
+    --secondary-dark: #0D0D0D;
+    --secondary-light: #333333;
+    --border-color: #F5B041;
+    --shadow-color: #F5B041;
+    --glow-color: #F7C56E;
+    --bg-card: #1a1508;
+    --bg-hero: linear-gradient(180deg, #1a1508, #0a0a05);
+    --text-primary: #F5B041;
+}
+*/
+
+/* ------ تم یخی-آبی ------ */
+/*
+:root {
+    --primary: #00B4D8;
+    --primary-dark: #0088A8;
+    --primary-light: #40D0F0;
+    --secondary: #90E0EF;
+    --secondary-dark: #60C0D8;
+    --secondary-light: #B0E8F5;
+    --border-color: #00B4D8;
+    --shadow-color: #00B4D8;
+    --glow-color: #40D0F0;
+    --bg-card: #0a1a20;
+    --bg-hero: linear-gradient(180deg, #0a1a20, #050e12);
+    --text-primary: #90E0EF;
+}
+*/
+
+/* ========================================
+   3️⃣ تنظیمات فونت‌های مختلف
+   ======================================== */
+
+/* ------ فونت وزیرمتن (پیشفرض) ------ */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
 
-/* ===== 3️⃣ استایل‌های اصلی ===== */
+/* ------ فونت ایران‌سنس (جایگزین) ------ */
+/* @import url('https://fonts.googleapis.com/css2?family=Iranian+Sans&display=swap'); */
+
+/* ------ فونت دختر کفش دوز (شیک) ------ */
+/* @import url('https://fonts.googleapis.com/css2?family=Shabnam&display=swap'); */
+
+/* ========================================
+   4️⃣ استایل‌های اصلی
+   ======================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -81,7 +219,9 @@ body {
     box-shadow: 0 0 25px var(--glow-color);
 }
 
-/* ===== پنل تغییر زبان ===== */
+/* ===== پنل تغییر زبان (Language Panel) ===== */
+
+/* دکمه بازکننده پنل */
 .language-toggle {
     position: fixed;
     top: 20px;
@@ -120,6 +260,7 @@ body {
     transform: rotate(180deg);
 }
 
+/* پنل کشویی */
 .language-panel {
     position: fixed;
     top: 75px;
@@ -140,8 +281,14 @@ body {
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .language-panel .panel-title {
@@ -191,6 +338,7 @@ body {
     border: 1px solid var(--border-color);
 }
 
+/* ===== تم و فونت در پنل ===== */
 .language-panel .divider {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -222,28 +370,32 @@ body {
     flex-shrink: 0;
 }
 
+.language-panel .theme-item .color-dot.active {
+    border-color: white;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
 /* ===== Cards ===== */
 .menu-box {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 25px;
     padding: 30px;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .card {
     position: relative;
     background: var(--bg-card);
-    padding: 28px 24px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
     overflow: hidden;
     z-index: 1;
-    transition: all 0.3s ease;
 }
 
-/* ===== RGB Border ===== */
+/* RGB Animated Border */
 .card::before {
     content: "";
     position: absolute;
@@ -253,16 +405,14 @@ body {
     background: linear-gradient(
         90deg,
         #ff0000,
-        #ff7700,
-        #ffff00,
-        #00ff00,
-        #008cff,
-        #7b00ff,
+        #00ffff,
+        var(--primary),
+        var(--secondary),
         #ff00aa,
         #ff0000
     );
-    background-size: 400% 400%;
-    animation: rgbMove 4s linear infinite;
+    background-size: 300% 300%;
+    animation: rgbMove 5s linear infinite;
     z-index: -2;
 }
 
@@ -277,25 +427,31 @@ body {
 
 @keyframes rgbMove {
     0% { background-position: 0% 50%; }
-    100% { background-position: 400% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     box-shadow: 0 0 30px var(--shadow-color);
+    transition: .3s;
+}
+
+.card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px var(--shadow-color);
 }
 
 .card h3 {
     color: var(--text-primary);
     text-shadow: 0 0 10px var(--shadow-color);
-    font-size: 1.2rem;
-    margin-bottom: 8px;
 }
 
 .card p {
     line-height: 1.8;
     color: var(--text-muted);
-    font-size: 0.95rem;
 }
 
 .card a {
@@ -323,14 +479,200 @@ footer {
     color: var(--text-muted);
 }
 
+/* ===== Language Box (صفحه انتخاب زبان) ===== */
+.language-box {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 50px 30px;
+    background: var(--bg-card);
+    border-radius: 24px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 50px var(--shadow-color);
+}
+
+.language-box h1 {
+    font-size: 2.8rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px var(--shadow-color);
+}
+
+.language-box h2 {
+    color: var(--text-light);
+    margin: 20px 0;
+}
+
+.language-box p {
+    color: var(--text-muted);
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.buttons a {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.buttons a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 35px var(--glow-color);
+}
+
+/* ===== Builder ===== */
+.builder-page {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+}
+
+.builder-page h1 {
+    text-align: center;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px var(--shadow-color);
+}
+
+.builder-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.builder-card h2 {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--shadow-color);
+}
+
+.icon-box {
+    margin-top: 20px;
+    width: 160px;
+    height: 160px;
+    background: var(--bg-body);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.icon-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.builder-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--bg-body);
+    color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.text-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.text-tools button {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+.text-tools button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.builder-card select {
+    background: var(--bg-body);
+    color: white;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+}
+
+#minecraftPreview {
+    background: var(--bg-body);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+#previewIcon {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}
+
+#previewName {
+    color: var(--text-primary);
+}
+
+#previewDescription {
+    color: white;
+}
+
+#jsonPreview {
+    background: var(--bg-body);
+    border-radius: 15px;
+    padding: 20px;
+    color: var(--text-primary);
+    overflow: auto;
+}
+
+.download-area {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.download-area button {
+    background: var(--primary-dark);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+.download-area button:hover {
+    background: var(--primary);
+    box-shadow: 0 0 30px var(--glow-color);
+}
+
 /* ===== Responsive ===== */
-@media (max-width: 700px) {
-    .menu-box {
-        grid-template-columns: 1fr;
-        padding: 15px;
-        gap: 18px;
-    }
-    
+@media (max-width: 600px) {
     .main-logo {
         font-size: 28px;
     }
@@ -350,6 +692,17 @@ footer {
         padding: 15px;
     }
     .card {
-        padding: 20px 16px;
+        padding: 15px;
+    }
+    .menu-box {
+        padding: 15px;
+        gap: 15px;
+    }
+    .language-box {
+        margin: 40px 15px;
+        padding: 30px 20px;
+    }
+    .language-box h1 {
+        font-size: 2rem;
     }
    }
