@@ -1,5 +1,5 @@
 /* ========================================
-   PACKZONE MC - COMPLETE STYLE (نسخه جدید)
+   PACKZONE MC - COMPLETE STYLE
    ======================================== */
 
 /* ===== 1️⃣ تنظیمات تم ===== */
@@ -11,7 +11,7 @@
     --secondary-dark: #5500cc;
     --secondary-light: #aa66ff;
     --bg-body: #050b18;
-    --bg-card: rgba(13, 32, 56, 0.85);
+    --bg-card: #0d2038;
     --bg-hero: linear-gradient(180deg, #0b1f3a, #050b18);
     --text-light: #ffffff;
     --text-muted: #9ecfff;
@@ -88,7 +88,6 @@ body {
     right: 20px;
     z-index: 1000;
     background: var(--bg-card);
-    backdrop-filter: blur(10px);
     border: 2px solid var(--border-color);
     border-radius: 50px;
     padding: 8px 16px 8px 12px;
@@ -127,7 +126,6 @@ body {
     right: 20px;
     z-index: 999;
     background: var(--bg-card);
-    backdrop-filter: blur(15px);
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 20px;
@@ -224,7 +222,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ===== Cards - جدید با Glassmorphism ===== */
+/* ===== Cards ===== */
 .menu-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -237,75 +235,60 @@ body {
 .card {
     position: relative;
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     padding: 28px 24px;
-    border-radius: 24px;
+    border-radius: 20px;
     text-align: center;
     overflow: hidden;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
-/* ===== Border جدید با افکت نئون ===== */
+/* ===== RGB Border ===== */
 .card::before {
     content: "";
     position: absolute;
-    inset: -2px;
-    border-radius: 26px;
+    inset: 0;
     padding: 2px;
-    background: conic-gradient(
-        from 0deg,
-        var(--primary),
-        var(--secondary),
+    border-radius: 20px;
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ff7700,
+        #ffff00,
+        #00ff00,
+        #008cff,
+        #7b00ff,
         #ff00aa,
-        var(--primary-light),
-        var(--secondary-light),
-        var(--primary)
+        #ff0000
     );
     background-size: 400% 400%;
-    animation: rotateBorder 6s linear infinite;
+    animation: rgbMove 4s linear infinite;
     z-index: -2;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
 }
 
-@keyframes rotateBorder {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* ===== Glow پشت کارت ===== */
 .card::after {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    background: radial-gradient(circle at 50% 0%, rgba(0, 140, 255, 0.1), transparent 70%);
+    inset: 2px;
+    background: var(--bg-card);
+    border-radius: 18px;
     z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
 }
 
-.card:hover::after {
-    opacity: 1;
+@keyframes rgbMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(0, 140, 255, 0.2);
-    border-color: var(--border-color);
+    transform: translateY(-6px);
+    box-shadow: 0 0 30px var(--shadow-color);
 }
 
-/* ===== آیکون‌ها ===== */
 .card h3 {
     color: var(--text-primary);
     text-shadow: 0 0 10px var(--shadow-color);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
 }
 
@@ -313,48 +296,23 @@ body {
     line-height: 1.8;
     color: var(--text-muted);
     font-size: 0.95rem;
-    opacity: 0.85;
 }
 
-/* ===== دکمه با افکت موج ===== */
 .card a {
     display: inline-block;
     margin-top: 15px;
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+    background: var(--primary-dark);
     color: white;
-    padding: 12px 28px;
-    border-radius: 14px;
+    padding: 12px 25px;
+    border-radius: 12px;
     text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0, 140, 255, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-/* ===== افکت موج روی دکمه ===== */
-.card a::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 60%);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.5s ease;
-}
-
-.card a:hover::after {
-    opacity: 1;
-    transform: scale(1);
+    box-shadow: 0 0 15px var(--shadow-color);
+    transition: .3s;
 }
 
 .card a:hover {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    box-shadow: 0 8px 35px rgba(0, 140, 255, 0.4);
+    background: var(--primary);
+    box-shadow: 0 0 30px var(--glow-color);
     transform: scale(1.05);
 }
 
@@ -363,7 +321,6 @@ footer {
     text-align: center;
     padding: 25px;
     color: var(--text-muted);
-    opacity: 0.6;
 }
 
 /* ===== Responsive ===== */
@@ -394,21 +351,5 @@ footer {
     }
     .card {
         padding: 20px 16px;
-    }
-    .card h3 {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 400px) {
-    body {
-        padding: 10px;
-    }
-    .card {
-        padding: 16px 12px;
-    }
-    .card a {
-        padding: 10px 20px;
-        font-size: 0.85rem;
     }
    }
