@@ -8,8 +8,10 @@
 
     <title>PackZone MC | EN</title>
 
-    <!-- ===== GOOGLE FONTS ===== -->
+    <!-- ===== GOOGLE FONTS (همه فونت‌ها با لینک مستقیم) ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../style.css">
 
@@ -27,6 +29,20 @@
             color: #e0e8f0;
             min-height: 100vh;
             transition: all 0.3s ease;
+        }
+
+        /* ===== کلاس‌های فونت ===== */
+        .font-inter {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        }
+        .font-vazirmatn {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif !important;
+        }
+        .font-iransans {
+            font-family: 'Noto Sans Arabic', 'Tahoma', sans-serif !important;
+        }
+        .font-shabnam {
+            font-family: 'Shabnam', 'Tahoma', sans-serif !important;
         }
 
         /* ===== CUSTOM THEMES ===== */
@@ -288,9 +304,9 @@
             }
         }
 
-        /* ===== TOAST OVERRIDE ===== */
+        /* ===== TOAST ===== */
         .toast-message {
-            font-family: 'Inter', sans-serif !important;
+            font-family: inherit !important;
         }
     </style>
 
@@ -390,9 +406,10 @@
             Our goal is to create a better and simpler experience for Minecraft players.</p>
     </section>
 
-    <!-- ===== MENU ===== -->
+    <!-- ===== MENU (ترتیب درست) ===== -->
     <section class="menu-box">
 
+        <!-- ردیف ۱: کالکشن پک‌های میستی | مانیفست بیلدر -->
         <div class="card small-card">
             <h3>💎 MysMce Packs</h3>
             <p>Collection of MysMce packs ported to Bedrock</p>
@@ -405,6 +422,7 @@
             <a href="manifest.html">Start Building</a>
         </div>
 
+        <!-- ردیف ۲: پک‌های جاوا | پک‌های بدراک -->
         <div class="card small-card">
             <h3>🟦 Java Packs</h3>
             <p>Browse resource packs for Minecraft Java</p>
@@ -417,6 +435,7 @@
             <a href="bedrock.html">Download</a>
         </div>
 
+        <!-- ردیف ۳: مای پک‌ها | مک‌میتا بیلدر -->
         <div class="card small-card">
             <h3>📦 My Packs</h3>
             <p>Exclusive packs built by PackZone MC</p>
@@ -466,22 +485,29 @@
 
         // ===== CHANGE FONT =====
         function changeFont(font) {
-            let fontFamily = '';
+            // حذف کلاس‌های فونت قبلی
+            document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
+
+            let fontClass = '';
             switch (font) {
                 case 'inter':
-                    fontFamily = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+                    fontClass = 'font-inter';
                     break;
                 case 'vazirmatn':
-                    fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                    fontClass = 'font-vazirmatn';
                     break;
                 case 'iransans':
-                    fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                    fontClass = 'font-iransans';
                     break;
                 case 'shabnam':
-                    fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                    fontClass = 'font-shabnam';
                     break;
             }
-            document.body.style.fontFamily = fontFamily;
+
+            if (fontClass) {
+                document.body.classList.add(fontClass);
+            }
+
             localStorage.setItem('selectedFont', font);
             document.getElementById('languagePanel').classList.remove('open');
             document.querySelector('.language-toggle').classList.remove('active');
@@ -510,7 +536,7 @@
                 font-size: 1rem;
                 z-index: 9999;
                 animation: fadeInUp 0.3s ease;
-                font-family: inherit;
+                font-family: inherit !important;
             `;
             document.body.appendChild(toast);
 
@@ -533,33 +559,37 @@
 
         // ===== LOAD SAVED THEME & FONT =====
         window.onload = function() {
+            // تم
             const savedTheme = localStorage.getItem('selectedTheme');
             if (savedTheme) {
                 document.body.classList.add('theme-' + savedTheme);
             }
 
+            // فونت
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
-                let fontFamily = '';
+                let fontClass = '';
                 switch (savedFont) {
                     case 'inter':
-                        fontFamily = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+                        fontClass = 'font-inter';
                         break;
                     case 'vazirmatn':
-                        fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                        fontClass = 'font-vazirmatn';
                         break;
                     case 'iransans':
-                        fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                        fontClass = 'font-iransans';
                         break;
                     case 'shabnam':
-                        fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                        fontClass = 'font-shabnam';
                         break;
                 }
-                document.body.style.fontFamily = fontFamily;
+                if (fontClass) {
+                    document.body.classList.add(fontClass);
+                }
             }
         };
     </script>
 
 </body>
 
-</html>
+                </html>
