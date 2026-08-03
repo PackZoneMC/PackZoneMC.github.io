@@ -8,9 +8,27 @@
 
     <title>PackZone MC | EN</title>
 
+    <!-- ===== GOOGLE FONTS ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../style.css">
 
     <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0e1a;
+            color: #e0e8f0;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
         /* ===== CUSTOM THEMES ===== */
         .theme-default {
             --primary: #008cff;
@@ -23,6 +41,7 @@
             --border-color: #008cff;
             --shadow-color: #008cff;
             --text-primary: #7ec8ff;
+            --bg-body: #0a0e1a;
         }
 
         .theme-green {
@@ -36,6 +55,7 @@
             --border-color: #2D8A4E;
             --shadow-color: #2D8A4E;
             --text-primary: #7CFC00;
+            --bg-body: #0a120a;
         }
 
         .theme-orange {
@@ -49,6 +69,7 @@
             --border-color: #FF6B00;
             --shadow-color: #FF6B00;
             --text-primary: #FFD700;
+            --bg-body: #0f0a00;
         }
 
         .theme-blue {
@@ -62,6 +83,7 @@
             --border-color: #0A2463;
             --shadow-color: #0A2463;
             --text-primary: #00B4D8;
+            --bg-body: #05080f;
         }
 
         .theme-pink {
@@ -75,6 +97,200 @@
             --border-color: #9B5DE5;
             --shadow-color: #9B5DE5;
             --text-primary: #F15BB5;
+            --bg-body: #0f0a14;
+        }
+
+        body {
+            background: var(--bg-body, #0a0e1a);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            text-shadow: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 30px 20px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding: 25px 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 40px rgba(0, 140, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .about h2 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .about p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* ===== TWO-COLUMN GRID ===== */
+        .menu-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* ===== CARDS ===== */
+        .small-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .small-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .small-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-color);
+            box-shadow: 0 12px 48px rgba(0, 140, 255, 0.15);
+        }
+
+        .small-card:hover::before {
+            opacity: 1;
+        }
+
+        .small-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .small-card p {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .small-card a {
+            display: inline-block;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            letter-spacing: 0.3px;
+        }
+
+        .small-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 140, 255, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .menu-box {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px 30px;
+            }
+
+            .main-logo {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+
+            .small-card {
+                padding: 22px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .small-card h3 {
+                font-size: 1rem;
+            }
+            .small-card a {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ===== TOAST OVERRIDE ===== */
+        .toast-message {
+            font-family: 'Inter', sans-serif !important;
         }
     </style>
 
@@ -138,6 +354,10 @@
 
         <div class="panel-title">🔤 Choose Font</div>
 
+        <div class="theme-item" onclick="changeFont('inter')">
+            <span>📝 Inter (Modern)</span>
+        </div>
+
         <div class="theme-item" onclick="changeFont('vazirmatn')">
             <span>📝 Vazirmatn</span>
         </div>
@@ -174,41 +394,40 @@
     <section class="menu-box">
 
         <div class="card small-card">
+            <h3>💎 MysMce Packs</h3>
+            <p>Collection of MysMce packs ported to Bedrock</p>
+            <a href="mysmce.html">View Collection</a>
+        </div>
+
+        <div class="card small-card">
             <h3>📄 Manifest Builder</h3>
             <p>Build your manifest.json file without any coding</p>
-            <a href="manifest.html">Enter</a>
-        </div>
-
-        <div class="card small-card">
-            <h3>📦 Pack.mcmeta Builder</h3>
-            <p>Create pack.mcmeta files for Minecraft Java resource packs</p>
-            <a href="mcmeta-builder.html">Enter</a>
-        </div>
-
-        <div class="card small-card">
-            <h3>🟩 Bedrock Packs</h3>
-            <p>Download resource packs for Minecraft Bedrock</p>
-            <a href="bedrock.html">View</a>
+            <a href="manifest.html">Start Building</a>
         </div>
 
         <div class="card small-card">
             <h3>🟦 Java Packs</h3>
             <p>Browse resource packs for Minecraft Java</p>
-            <a href="java.html">View</a>
+            <a href="java.html">Browse Java</a>
         </div>
 
         <div class="card small-card">
-            <h3>💎 MysMce Packs</h3>
-            <p>Collection of MysMce packs ported to Bedrock</p>
-            <a href="mysmce.html">View</a>
+            <h3>🟩 Bedrock Packs</h3>
+            <p>Download resource packs for Minecraft Bedrock</p>
+            <a href="bedrock.html">Download</a>
         </div>
 
         <div class="card small-card">
             <h3>📦 My Packs</h3>
             <p>Exclusive packs built by PackZone MC</p>
-            <a href="my-packs.html">View</a>
+            <a href="my-packs.html">View Exclusives</a>
         </div>
 
+        <div class="card small-card">
+            <h3>📦 Pack.mcmeta Builder</h3>
+            <p>Create pack.mcmeta files for Java resource packs</p>
+            <a href="mcmeta-builder.html">Create</a>
+        </div>
 
     </section>
 
@@ -237,19 +456,11 @@
 
         // ===== CHANGE THEME =====
         function changeTheme(theme) {
-            // Remove previous theme
             document.body.className = '';
-            // Add new theme
             document.body.classList.add('theme-' + theme);
-
-            // Save to localStorage
             localStorage.setItem('selectedTheme', theme);
-
-            // Close panel
             document.getElementById('languagePanel').classList.remove('open');
             document.querySelector('.language-toggle').classList.remove('active');
-
-            // Success message
             showToast('✅ Theme changed successfully!');
         }
 
@@ -257,6 +468,9 @@
         function changeFont(font) {
             let fontFamily = '';
             switch (font) {
+                case 'inter':
+                    fontFamily = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+                    break;
                 case 'vazirmatn':
                     fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
                     break;
@@ -267,23 +481,15 @@
                     fontFamily = "'Shabnam', 'Tahoma', sans-serif";
                     break;
             }
-
             document.body.style.fontFamily = fontFamily;
-
-            // Save to localStorage
             localStorage.setItem('selectedFont', font);
-
-            // Close panel
             document.getElementById('languagePanel').classList.remove('open');
             document.querySelector('.language-toggle').classList.remove('active');
-
-            // Success message
             showToast('✅ Font changed successfully!');
         }
 
         // ===== SHOW TOAST =====
         function showToast(message) {
-            // Remove old toast
             const oldToast = document.querySelector('.toast-message');
             if (oldToast) oldToast.remove();
 
@@ -336,6 +542,9 @@
             if (savedFont) {
                 let fontFamily = '';
                 switch (savedFont) {
+                    case 'inter':
+                        fontFamily = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+                        break;
                     case 'vazirmatn':
                         fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
                         break;
