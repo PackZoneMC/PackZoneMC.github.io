@@ -14,7 +14,6 @@
             -webkit-touch-callout: none;
         }
 
-        /* قفل کامل صفحه در حالت fullscreen */
         html, body {
             width: 100%;
             height: 100%;
@@ -67,83 +66,86 @@
             background: rgba(255, 240, 245, 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border-radius: 48px;
-            padding: 30px 25px;
-            max-width: 500px;
-            width: 92%;
-            box-shadow: 0 25px 50px -8px rgba(200, 50, 80, 0.4);
+            border-radius: 40px;
+            padding: 20px 18px;
+            max-width: 480px;
+            width: 94%;
+            box-shadow: 0 20px 40px -8px rgba(200, 50, 80, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.6);
             text-align: center;
-            margin: 20px;
-            max-height: 95vh;
+            margin: 12px;
+            max-height: 96vh;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* اسکرول مخفی */
         .container::-webkit-scrollbar {
             width: 0px;
             background: transparent;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.6rem;
             color: #a02c5a;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             text-shadow: 0 2px 10px rgba(255, 100, 150, 0.3);
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #b3416e;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-weight: 300;
-            letter-spacing: 1px;
         }
 
         .question-box {
             background: rgba(255, 255, 255, 0.5);
-            border-radius: 30px;
-            padding: 18px 15px;
-            margin-bottom: 25px;
+            border-radius: 25px;
+            padding: 15px 12px;
+            margin-bottom: 15px;
             border: 1px solid rgba(255, 200, 220, 0.6);
             box-shadow: inset 0 2px 8px rgba(255, 200, 220, 0.3);
+            display: none;
+        }
+        .question-box.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
         }
 
         .question-text {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #4a1a2c;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .question-text .emoji {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 10px 22px;
             border-radius: 50px;
             border: none;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 6px 14px rgba(200, 60, 100, 0.25);
-            min-width: 85px;
-            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(200, 60, 100, 0.2);
+            min-width: 65px;
+            letter-spacing: 0.5px;
             touch-action: manipulation;
             position: relative;
         }
@@ -160,7 +162,7 @@
             background: #d1d1d1;
             color: #555;
             cursor: default;
-            opacity: 0.5;
+            opacity: 0.4;
             position: relative;
             pointer-events: none;
         }
@@ -170,33 +172,78 @@
             cursor: default;
         }
 
+        .number-options {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+        }
+        .num-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background: #f0f0f0;
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.4;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .num-btn.infinity {
+            width: 44px;
+            height: 44px;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #ff6b8a, #ee3b6b);
+            color: white;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 1;
+            border-color: #ee3b6b;
+            box-shadow: 0 4px 15px rgba(238, 59, 107, 0.4);
+        }
+        .num-btn.infinity:active {
+            transform: scale(0.9);
+        }
+        .num-btn.infinity.selected {
+            background: linear-gradient(135deg, #a02c5a, #7a1f42);
+            box-shadow: 0 0 20px rgba(160, 44, 90, 0.6);
+            transform: scale(1.1);
+        }
+
         .time-panel {
-            margin-top: 20px;
+            margin-top: 15px;
             background: rgba(255, 220, 235, 0.5);
-            border-radius: 40px;
-            padding: 18px 15px;
+            border-radius: 30px;
+            padding: 15px 12px;
             border: 1px solid #ffb0c8;
             display: none;
         }
 
         .time-panel label {
             display: block;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #6e2b45;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .time-panel input[type="time"] {
-            padding: 10px 16px;
-            border-radius: 40px;
+            padding: 8px 14px;
+            border-radius: 30px;
             border: 2px solid #ff8aa8;
             background: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #3d1a28;
             outline: none;
             width: 80%;
-            max-width: 200px;
+            max-width: 180px;
             text-align: center;
             font-weight: 600;
             -webkit-appearance: none;
@@ -208,16 +255,16 @@
         }
 
         .btn-send {
-            margin-top: 15px;
+            margin-top: 12px;
             background: linear-gradient(135deg, #a02c5a, #7a1f42);
             color: white;
-            padding: 14px 35px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            border-radius: 40px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 8px 18px rgba(160, 44, 90, 0.35);
+            box-shadow: 0 6px 16px rgba(160, 44, 90, 0.35);
             transition: all 0.2s ease;
             touch-action: manipulation;
         }
@@ -227,20 +274,20 @@
 
         .hidden-message {
             display: none;
-            margin-top: 15px;
-            font-size: 1rem;
+            margin-top: 12px;
+            font-size: 0.95rem;
             color: #a02c5a;
             background: #ffe2ec;
-            padding: 12px;
-            border-radius: 40px;
+            padding: 10px;
+            border-radius: 30px;
             border: 1px solid #ffb0c8;
         }
 
         .admin-section {
-            margin-top: 25px;
-            padding: 15px;
+            margin-top: 20px;
+            padding: 12px;
             background: rgba(200, 200, 200, 0.15);
-            border-radius: 40px;
+            border-radius: 30px;
             border: 1px dashed #b3416e;
             display: none;
         }
@@ -252,12 +299,12 @@
             background: none;
             border: none;
             color: #7a1f42;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-decoration: underline;
             cursor: pointer;
             opacity: 0.4;
             transition: 0.2s;
-            padding: 8px;
+            padding: 6px;
             touch-action: manipulation;
         }
         .admin-toggle:active {
@@ -266,44 +313,24 @@
 
         .admin-box {
             background: rgba(255, 255, 255, 0.7);
-            padding: 12px;
-            border-radius: 30px;
-            margin-top: 10px;
+            padding: 10px;
+            border-radius: 25px;
+            margin-top: 8px;
             text-align: right;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #2d111e;
-            max-height: 120px;
+            max-height: 100px;
             overflow-y: auto;
             border: 1px solid #f0b8cc;
         }
 
         .admin-box p {
-            margin: 5px 0;
+            margin: 4px 0;
             border-bottom: 1px solid #fcd0df;
-            padding: 4px 0;
+            padding: 3px 0;
             word-break: break-word;
         }
 
-        .secret-back {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.3);
-            font-size: 0.6rem;
-            padding: 5px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            z-index: 999;
-            touch-action: manipulation;
-            backdrop-filter: blur(4px);
-        }
-        .secret-back:active {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* هشدار قفل صفحه روی موبایل */
         .lock-overlay {
             display: none;
             position: fixed;
@@ -316,7 +343,7 @@
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-align: center;
             padding: 20px;
             backdrop-filter: blur(10px);
@@ -325,139 +352,236 @@
             display: flex;
         }
         .lock-overlay .emoji-big {
-            font-size: 4rem;
+            font-size: 3.5rem;
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+        .progress-dot.done {
+            background: #ee3b6b;
+            box-shadow: 0 0 10px rgba(238, 59, 107, 0.4);
+        }
+        .progress-dot.active {
+            background: #ff6b8a;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(255, 107, 138, 0.5);
+        }
+
+        .question-counter {
+            font-size: 0.75rem;
+            color: #b3416e;
+            margin-bottom: 8px;
+        }
+
+        .hint-text {
+            margin-top: 6px;
+            font-size: 0.65rem;
+            color: #b3416e;
+            opacity: 0.7;
         }
 
         @media (max-width: 480px) {
-            .container { padding: 20px 15px; margin: 10px; }
-            .question-text { font-size: 1.1rem; }
-            .btn { min-width: 70px; padding: 10px 16px; font-size: 0.95rem; }
-            h1 { font-size: 1.6rem; }
+            .container { padding: 15px 10px; margin: 8px; }
+            .question-text { font-size: 0.95rem; }
+            .btn { min-width: 55px; padding: 8px 12px; font-size: 0.8rem; }
+            h1 { font-size: 1.3rem; }
+            .num-btn { width: 30px; height: 30px; font-size: 0.75rem; }
+            .num-btn.infinity { width: 38px; height: 38px; font-size: 1.3rem; }
         }
 
         @media (max-width: 380px) {
-            .container { padding: 15px 10px; }
-            .question-text { font-size: 1rem; }
-            .btn { min-width: 60px; padding: 8px 12px; font-size: 0.85rem; }
+            .container { padding: 10px 6px; }
+            .question-text { font-size: 0.85rem; }
+            .btn { min-width: 45px; padding: 6px 8px; font-size: 0.7rem; }
+            .num-btn { width: 26px; height: 26px; font-size: 0.65rem; }
+            .num-btn.infinity { width: 32px; height: 32px; font-size: 1rem; }
         }
 
         ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
 <body>
-    <!-- لایه قفل برای موبایل (در صورت خروج) -->
-    <div class="lock-overlay" id="lockOverlay">
-        <div>
-            <span class="emoji-big">😈</span>
-            <p>نههه! فرار ممنوع!</p>
-            <p style="font-size:1rem; margin-top:10px;">اول جواب بده عزیزم!</p>
-            <button onclick="document.getElementById('lockOverlay').classList.remove('show')" 
-                    style="margin-top:20px; padding:12px 30px; border-radius:30px; border:none; background:#ff6b8a; color:white; font-size:1rem; cursor:pointer;">
-                برگشتم 🥺
-            </button>
+<div class="lock-overlay" id="lockOverlay">
+    <div>
+        <span class="emoji-big">😈</span>
+        <p>نههه! فرار ممنوع!</p>
+        <p style="font-size:0.9rem; margin-top:8px;">اول جواب بده عزیزم!</p>
+        <button onclick="document.getElementById('lockOverlay').classList.remove('show')" 
+                style="margin-top:15px; padding:10px 25px; border-radius:25px; border:none; background:#ff6b8a; color:white; font-size:0.9rem; cursor:pointer;">
+            برگشتم 🥺
+        </button>
+    </div>
+</div>
+
+<div class="heart-bg" id="heartBg"></div>
+
+<div class="container">
+    <h1>✨ سوالات عاشقانه ✨</h1>
+    <div class="subtitle">💕 فقط راستشو بگو 💕</div>
+
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-dot active" data-q="0"></div>
+        <div class="progress-dot" data-q="1"></div>
+        <div class="progress-dot" data-q="2"></div>
+        <div class="progress-dot" data-q="3"></div>
+        <div class="progress-dot" data-q="4"></div>
+        <div class="progress-dot" data-q="5"></div>
+    </div>
+    <div class="question-counter" id="questionCounter">سوال 1 از 6</div>
+
+    <!-- سوال 1 -->
+    <div class="question-box active" id="q1Box">
+        <div class="question-text">
+            <span class="emoji">🥰</span>
+            منو دوست داری؟
         </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" data-next="q2Box">آره ❤️</button>
+            <button class="btn btn-no runaway" id="q1No">نه 😤</button>
+        </div>
+        <div class="hint-text">نمی‌تونی نه بزنی 😜</div>
     </div>
 
-    <div class="heart-bg" id="heartBg"></div>
-
-    <div class="container">
-        <h1>✨ سوالات عاشقانه ✨</h1>
-        <div class="subtitle">💕 فقط راستشو بگو 💕</div>
-
-        <div class="question-box" id="q1Box">
-            <div class="question-text">
-                <span class="emoji">🥰</span>
-                منو دوست داری؟
-                <span class="emoji">👉🏻👈🏻</span>
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-yes" id="q1Yes">آره ❤️</button>
-                <button class="btn btn-no runaway" id="q1No">نه 😤</button>
-            </div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: #b3416e; opacity:0.7;">نمی‌تونی نه بزنی 😜</div>
+    <!-- سوال 2 -->
+    <div class="question-box" id="q2Box">
+        <div class="question-text">
+            <span class="emoji">😍</span>
+            چقدر دوسم داری کوچولووووو؟؟
         </div>
-
-        <div class="question-box" id="q2Box" style="display: none;">
-            <div class="question-text">
-                <span class="emoji">🌳🌸</span>
-                خب حالا که دوستم داری، میای بریم پارک؟ 
-                <span class="emoji">👉🏻👈🏻</span>
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-yes" id="q2Yes">آره حتماً! 💖</button>
-                <button class="btn btn-no" id="q2No">نه 😒</button>
-            </div>
-            <div style="margin-top: 8px; font-size: 0.75rem; color: #b3416e; opacity:0.7;">فقط آره معنی داره 😉</div>
+        <div class="number-options" id="numberOptions">
+            <button class="num-btn">1</button>
+            <button class="num-btn">2</button>
+            <button class="num-btn">3</button>
+            <button class="num-btn">4</button>
+            <button class="num-btn">5</button>
+            <button class="num-btn">6</button>
+            <button class="num-btn">7</button>
+            <button class="num-btn">8</button>
+            <button class="num-btn">9</button>
+            <button class="num-btn">10</button>
+            <button class="num-btn infinity" id="infinityBtn">♾️</button>
         </div>
-
-        <div class="time-panel" id="timePanel">
-            <label>⏰ چه ساعتی بیام دنبالت؟</label>
-            <input type="time" id="pickTime" value="18:00">
-            <br>
-            <button class="btn-send" id="sendTimeBtn">📨 بفرست برای عزیز دلم</button>
-            <div class="hidden-message" id="msgSent">🎀 ارسال شد! منتظرتم عزیزم 🎀</div>
-        </div>
-
-        <button class="admin-toggle" id="adminToggle">🔒 نمایش پیام‌های ادمین</button>
-        <div class="admin-section" id="adminSection">
-            <div style="font-weight:600; color:#6e2b45;">📩 پیام‌های دریافتی:</div>
-            <div class="admin-box" id="adminMessages">
-                <p style="color:#888;">هنوز پیامی نیست...</p>
-            </div>
-        </div>
+        <div class="hint-text">فقط ♾️ رو می‌تونی انتخاب کنی 😉</div>
     </div>
 
-    <button class="secret-back" id="secretBack">↩️ خروج</button>
+    <!-- سوال 3 -->
+    <div class="question-box" id="q3Box">
+        <div class="question-text">
+            <span class="emoji">🌹</span>
+            با من تا آخر عمر میای؟
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" data-next="q4Box">آره قربون 🥹</button>
+            <button class="btn btn-no">نه 😒</button>
+        </div>
+        <div class="hint-text">نه گفتن ممنوعه عزیزم 😘</div>
+    </div>
 
+    <!-- سوال 4 -->
+    <div class="question-box" id="q4Box">
+        <div class="question-text">
+            <span class="emoji">💫</span>
+            قراره چقدر برام بمونی؟
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" data-next="q5Box">تا ابد 🥰</button>
+            <button class="btn btn-no">تا یه مدت 🤔</button>
+        </div>
+        <div class="hint-text">فقط تا ابد معنی داره 😍</div>
+    </div>
+
+    <!-- سوال 5 -->
+    <div class="question-box" id="q5Box">
+        <div class="question-text">
+            <span class="emoji">🌅</span>
+            با من غروب رو تماشا میکنی؟
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" data-next="q6Box">آره عزیزم 💖</button>
+            <button class="btn btn-no">نه 🙄</button>
+        </div>
+        <div class="hint-text">نه گفتن ممنوعه 😉</div>
+    </div>
+
+    <!-- سوال 6 -->
+    <div class="question-box" id="q6Box">
+        <div class="question-text">
+            <span class="emoji">🌳</span>
+            خب الان که اینقدر دوستم داری جیگر، میای باهم بریم پارک؟
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-yes" data-next="timePanel">آره عزیزم 🥰</button>
+            <button class="btn btn-no">نه 😒</button>
+        </div>
+        <div class="hint-text">فقط آره معنی داره 😉</div>
+    </div>
+
+    <!-- پنل ساعت -->
+    <div class="time-panel" id="timePanel">
+        <label>⏰ چه ساعتی بیام دنبالت؟</label>
+        <input type="time" id="pickTime" value="18:00">
+        <br>
+        <button class="btn-send" id="sendTimeBtn">📨 بفرست برای عزیز دلم</button>
+        <div class="hidden-message" id="msgSent">🎀 ارسال شد! منتظرتم عزیزم 🎀</div>
+    </div>
+
+    <button class="admin-toggle" id="adminToggle">🔒 نمایش پیام‌های ادمین</button>
+    <div class="admin-section" id="adminSection">
+        <div style="font-weight:600; color:#6e2b45; font-size:0.85rem;">📩 پیام‌های دریافتی:</div>
+        <div class="admin-box" id="adminMessages">
+            <p style="color:#888;">هنوز پیامی نیست...</p>
+        </div>
+    </div>
+</div>
     <script>
         (function() {
-            // ========== قفل مطلق موبایل و دسکتاپ ==========
+            // ========== قفل مطلق ==========
             
-            // 1. جلوگیری از اسکرول و زوم
             document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
             document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
             document.addEventListener('gestureend', function(e) { e.preventDefault(); });
             
-            // 2. جلوگیری از حرکت صفحه با دو انگشت
             document.addEventListener('touchmove', function(e) {
-                if (e.target.closest('.container')) {
-                    // اجازه اسکرول داخل کانتینر
-                    return;
-                }
+                if (e.target.closest('.container')) return;
                 e.preventDefault();
             }, { passive: false });
 
-            // 3. غیرفعال کردن دکمه ضربدر
             window.addEventListener('beforeunload', function(e) {
                 e.preventDefault();
                 e.returnValue = 'صبر کن عزیزم! حتماً جواب بده 😉';
                 return 'صبر کن عزیزم! حتماً جواب بده 😉';
             });
 
-            // 4. قفل کردن تاریخچه (Back/Forward)
             window.addEventListener('popstate', function(e) {
                 history.pushState(null, null, window.location.href);
-                // نمایش لایه قفل
                 document.getElementById('lockOverlay').classList.add('show');
                 setTimeout(() => {
                     document.getElementById('lockOverlay').classList.remove('show');
                 }, 3000);
             });
             
-            // 5. پر کردن تاریخچه
             for(let i = 0; i < 10; i++) {
                 history.pushState(null, null, window.location.href);
             }
 
-            // 6. غیرفعال کردن کلیک راست
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 return false;
             });
 
-            // 7. غیرفعال کردن کلیدهای میانبر (دسکتاپ)
             document.addEventListener('keydown', function(e) {
                 const blockedKeys = ['F4', 'F5', 'F12', 'Escape', 'Backspace'];
                 if (blockedKeys.includes(e.key)) {
@@ -478,21 +602,11 @@
                     }, 2000);
                     return false;
                 }
-                if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-                    e.preventDefault();
-                    document.getElementById('lockOverlay').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('lockOverlay').classList.remove('show');
-                    }, 2000);
-                    return false;
-                }
-                // جلوگیری از Alt به تنهایی (باز کردن منوی مرورگر)
                 if (e.altKey) {
                     e.preventDefault();
                 }
             });
 
-            // 8. غیرفعال کردن خروج از تب
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden) {
                     document.getElementById('lockOverlay').classList.add('show');
@@ -502,7 +616,6 @@
                 }
             });
 
-            // 9. جلوگیری از کلیک روی لینک‌ها
             document.addEventListener('click', function(e) {
                 const target = e.target.closest('a');
                 if (target && target.href) {
@@ -515,18 +628,15 @@
                 }
             });
 
-            // 10. جلوگیری از drag
             document.addEventListener('dragstart', function(e) {
                 e.preventDefault();
                 return false;
             });
 
-            // 11. جلوگیری از دابل کلیک
             document.addEventListener('dblclick', function(e) {
                 e.preventDefault();
             });
 
-            // 12. برای موبایل: جلوگیری از خروج با کشیدن از لبه صفحه
             document.body.addEventListener('touchstart', function(e) {
                 const touch = e.touches[0];
                 if (touch.clientX < 10 || touch.clientX > window.innerWidth - 10) {
@@ -534,13 +644,6 @@
                 }
             }, { passive: false });
 
-            // 13. جلوگیری از پایین کشیدن صفحه (pull-to-refresh)
-            document.addEventListener('touchmove', function(e) {
-                if (e.target.closest('.container')) return;
-                e.preventDefault();
-            }, { passive: false });
-
-            // 14. درخواست fullscreen (برای موبایل)
             function requestFullscreen() {
                 const el = document.documentElement;
                 if (el.requestFullscreen) {
@@ -551,19 +654,13 @@
                     el.msRequestFullscreen();
                 }
             }
-            // تلاش برای fullscreen بعد از هر کلیک
-            document.addEventListener('click', function() {
-                requestFullscreen();
-            });
-            // و هنگام لود
+            document.addEventListener('click', function() { requestFullscreen(); });
             setTimeout(requestFullscreen, 1000);
 
-            // ========== ادامه کد اصلی ==========
-            
-            // قلب‌های پس‌زمینه
+            // ========== قلب‌های پس‌زمینه ==========
             const heartBg = document.getElementById('heartBg');
             const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '🌺'];
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 20; i++) {
                 const span = document.createElement('span');
                 span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
                 span.style.left = Math.random() * 100 + '%';
@@ -573,27 +670,33 @@
                 heartBg.appendChild(span);
             }
 
-            const q1Box = document.getElementById('q1Box');
-            const q2Box = document.getElementById('q2Box');
-            const timePanel = document.getElementById('timePanel');
-            const msgSent = document.getElementById('msgSent');
-
-            const q1Yes = document.getElementById('q1Yes');
+            // ========== عناصر ==========
             const q1No = document.getElementById('q1No');
-            const q2Yes = document.getElementById('q2Yes');
-            const q2No = document.getElementById('q2No');
-
+            const infinityBtn = document.getElementById('infinityBtn');
             const sendTimeBtn = document.getElementById('sendTimeBtn');
             const pickTime = document.getElementById('pickTime');
-
-            const adminSection = document.getElementById('adminSection');
             const adminToggle = document.getElementById('adminToggle');
+            const adminSection = document.getElementById('adminSection');
             const adminMessages = document.getElementById('adminMessages');
-            const secretBack = document.getElementById('secretBack');
             const lockOverlay = document.getElementById('lockOverlay');
+            const msgSent = document.getElementById('msgSent');
+            const progressDots = document.querySelectorAll('.progress-dot');
+            const questionCounter = document.getElementById('questionCounter');
 
+            let currentQuestion = 0;
+            const totalQuestions = 6;
             let messagesLog = [];
 
+            const questions = [
+                { id: 'q1Box', text: 'منو دوست داری؟' },
+                { id: 'q2Box', text: 'چقدر دوسم داری کوچولووووو؟؟' },
+                { id: 'q3Box', text: 'با من تا آخر عمر میای؟' },
+                { id: 'q4Box', text: 'قراره چقدر برام بمونی؟' },
+                { id: 'q5Box', text: 'با من غروب رو تماشا میکنی؟' },
+                { id: 'q6Box', text: 'میای باهم بریم پارک؟' }
+            ];
+
+            // ========== توابع ==========
             function saveMessages() {
                 localStorage.setItem('loveMessages', JSON.stringify(messagesLog));
             }
@@ -630,7 +733,52 @@
                 adminMessages.scrollTop = adminMessages.scrollHeight;
             }
 
-            // دکمه نه فراری
+            function updateProgress(index) {
+                progressDots.forEach((dot, i) => {
+                    dot.classList.remove('active', 'done');
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else if (i < index) {
+                        dot.classList.add('done');
+                    }
+                });
+                questionCounter.textContent = `سوال ${index + 1} از ${totalQuestions}`;
+            }
+
+            function showQuestion(index) {
+                document.querySelectorAll('.question-box').forEach(el => {
+                    el.classList.remove('active');
+                });
+                const target = document.getElementById(questions[index].id);
+                if (target) {
+                    target.classList.add('active');
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+                updateProgress(index);
+                currentQuestion = index;
+            }
+
+            function goToNextQuestion(nextId) {
+                const nextIndex = questions.findIndex(q => q.id === nextId);
+                if (nextIndex !== -1) {
+                    showQuestion(nextIndex);
+                } else if (nextId === 'timePanel') {
+                    document.querySelectorAll('.question-box').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.getElementById('timePanel').style.display = 'block';
+                    document.getElementById('timePanel').style.animation = 'fadeIn 0.4s ease';
+                    updateProgress(totalQuestions);
+                    questionCounter.textContent = '🎉 تموم شد!';
+                    setTimeout(() => {
+                        document.getElementById('timePanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 200);
+                }
+            }
+
+            // ========== دکمه نه فراری (سوال 1) ==========
             function moveNoButton() {
                 const btn = q1No;
                 const container = btn.parentElement;
@@ -667,51 +815,56 @@
                 }
             }, 300);
 
-            // سوال اول
-            q1Yes.addEventListener('click', function() {
-                q1Yes.disabled = true;
-                q1Yes.style.opacity = '0.6';
-                q1No.classList.add('disable-no');
-                q1No.style.pointerEvents = 'none';
+            // ========== دکمه‌های آره ==========
+            document.querySelectorAll('.btn-yes[data-next]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const nextId = this.getAttribute('data-next');
+                    const questionId = this.closest('.question-box').id;
+                    const questionText = questions.find(q => q.id === questionId)?.text || 'سوال';
+                    addAdminMessage(`💖 پاسخ: "آره" — ${questionText}`);
+                    
+                    const box = this.closest('.question-box');
+                    box.querySelectorAll('.btn-yes').forEach(b => {
+                        b.disabled = true;
+                        b.style.opacity = '0.4';
+                    });
+                    box.querySelectorAll('.btn-no').forEach(b => {
+                        b.classList.add('disable-no');
+                        b.style.pointerEvents = 'none';
+                    });
 
-                addAdminMessage('💖 به سوال اول پاسخ داد: "آره" (دوست دارم)');
+                    goToNextQuestion(nextId);
+                });
+            });
 
-                q1Box.style.opacity = '0.6';
-                q2Box.style.display = 'block';
-                q2Box.style.animation = 'fadeIn 0.5s ease';
+            // ========== دکمه بینهایت (سوال 2) ==========
+            infinityBtn.addEventListener('click', function() {
+                document.querySelectorAll('.num-btn').forEach(btn => {
+                    btn.style.opacity = '0.3';
+                });
+                this.classList.add('selected');
+                this.style.opacity = '1';
+                
+                addAdminMessage(`♾️ پاسخ: "بینهایت" — چقدر دوسم داری کوچولووووو؟؟`);
 
                 setTimeout(() => {
-                    q2Box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
+                    goToNextQuestion('q3Box');
+                }, 500);
             });
 
-            // سوال دوم
-            q2No.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('🥺 نه گفتن ممنوع! فقط آره...');
+            // ========== دکمه‌های نه غیرفعال ==========
+            document.querySelectorAll('.btn-no:not(.runaway)').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('🥺 نه گفتن ممنوع! فقط آره...');
+                });
+                btn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    alert('🥺 نه گفتن ممنوع! فقط آره...');
+                });
             });
 
-            q2No.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                alert('🥺 نه گفتن ممنوع! فقط آره...');
-            });
-
-            q2Yes.addEventListener('click', function() {
-                q2Yes.disabled = true;
-                q2Yes.style.opacity = '0.6';
-                q2No.classList.add('disable-no');
-                q2No.style.pointerEvents = 'none';
-
-                addAdminMessage('💖 به سوال دوم پاسخ داد: "آره" (میاد پارک)');
-
-                timePanel.style.display = 'block';
-                timePanel.style.animation = 'fadeIn 0.6s ease';
-                setTimeout(() => {
-                    timePanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            });
-
-            // ارسال ساعت
+            // ========== ارسال ساعت ==========
             sendTimeBtn.addEventListener('click', function() {
                 const timeValue = pickTime.value;
                 if (!timeValue) {
@@ -723,9 +876,9 @@
 
                 addAdminMessage(`⏰ ساعت انتخابی: ${timeValue}`);
 
-                sendTimeBtn.disabled = true;
-                sendTimeBtn.style.opacity = '0.6';
-                sendTimeBtn.textContent = '✅ ارسال شد';
+                this.disabled = true;
+                this.style.opacity = '0.6';
+                this.textContent = '✅ ارسال شد';
                 pickTime.disabled = true;
 
                 setTimeout(() => {
@@ -733,35 +886,28 @@
                 }, 300);
             });
 
-            // نمایش ادمین
+            // ========== نمایش ادمین ==========
             adminToggle.addEventListener('click', function() {
                 adminSection.classList.toggle('show-admin');
-                adminToggle.textContent = adminSection.classList.contains('show-admin') 
+                this.textContent = adminSection.classList.contains('show-admin') 
                     ? '🔒 مخفی کردن پیام‌ها' 
                     : '🔒 نمایش پیام‌های ادمین';
             });
 
-            // خروج مخفی
-            secretBack.addEventListener('click', function() {
-                if (confirm('میخوای بری بیرون؟ مطمئنی؟ 🥺')) {
-                    // رها کردن قفل برای خروج
-                    window.removeEventListener('beforeunload', function() {});
-                    window.location.href = '../index.html';
-                }
-            });
-
+            // ========== مقداردهی اولیه ==========
             loadMessages();
+            showQuestion(0);
 
             const styleSheet = document.createElement("style");
             styleSheet.textContent = `
                 @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
+                    from { opacity: 0; transform: translateY(15px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
             `;
             document.head.appendChild(styleSheet);
 
-            console.log('❤️ قفل مطلق فعال شد! هیچ راه فراری نیست!');
+            console.log('❤️ ۶ سوال عاشقانه با قفل مطلق!');
         })();
     </script>
 </body>
