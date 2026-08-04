@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>💖 سوالات عاشقانه 💖</title>
     <style>
-        /* Reset و فونت زیبا */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +25,6 @@
             touch-action: none;
         }
 
-        /* قلب‌های پس‌زمینه */
         .heart-bg {
             position: fixed;
             top: 0;
@@ -51,7 +49,6 @@
             100% { transform: translateY(-10vh) rotate(720deg) scale(1.2); opacity: 0; }
         }
 
-        /* کانتینر اصلی */
         .container {
             position: relative;
             z-index: 10;
@@ -84,7 +81,6 @@
             letter-spacing: 1px;
         }
 
-        /* سوالات */
         .question-box {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 30px;
@@ -148,13 +144,11 @@
             pointer-events: none;
         }
 
-        /* دکمه نه فراری برای سوال اول (فقط روی موبایل با تاچ) */
         .btn-no.runaway {
             pointer-events: auto;
             cursor: default;
         }
 
-        /* پنل ساعت */
         .time-panel {
             margin-top: 20px;
             background: rgba(255, 220, 235, 0.5);
@@ -210,7 +204,6 @@
             transform: scale(0.95);
         }
 
-        /* پیام ارسال شد */
         .hidden-message {
             display: none;
             margin-top: 15px;
@@ -222,7 +215,6 @@
             border: 1px solid #ffb0c8;
         }
 
-        /* بخش ادمین (مخفی) */
         .admin-section {
             margin-top: 25px;
             padding: 15px;
@@ -271,7 +263,6 @@
             word-break: break-word;
         }
 
-        /* دکمه برگشت مخفی (برای خروج از صفحه) */
         .secret-back {
             position: fixed;
             bottom: 10px;
@@ -290,7 +281,6 @@
             background: rgba(255,255,255,0.3);
         }
 
-        /* ریسپانسیو برای موبایل */
         @media (max-width: 480px) {
             .container { padding: 20px 15px; margin: 10px; }
             .question-text { font-size: 1.1rem; }
@@ -310,15 +300,12 @@
     </style>
 </head>
 <body>
-
-    <!-- قلب‌های شناور پس‌زمینه -->
     <div class="heart-bg" id="heartBg"></div>
 
     <div class="container">
         <h1>✨ سوالات عاشقانه ✨</h1>
         <div class="subtitle">💕 فقط راستشو بگو 💕</div>
 
-        <!-- سوال اول -->
         <div class="question-box" id="q1Box">
             <div class="question-text">
                 <span class="emoji">🥰</span>
@@ -332,7 +319,6 @@
             <div style="margin-top: 8px; font-size: 0.75rem; color: #b3416e; opacity:0.7;">نمی‌تونی نه بزنی 😜</div>
         </div>
 
-        <!-- سوال دوم -->
         <div class="question-box" id="q2Box" style="display: none;">
             <div class="question-text">
                 <span class="emoji">🌳🌸</span>
@@ -346,7 +332,6 @@
             <div style="margin-top: 8px; font-size: 0.75rem; color: #b3416e; opacity:0.7;">فقط آره معنی داره 😉</div>
         </div>
 
-        <!-- پنل انتخاب ساعت -->
         <div class="time-panel" id="timePanel">
             <label>⏰ چه ساعتی بیام دنبالت؟</label>
             <input type="time" id="pickTime" value="18:00">
@@ -355,7 +340,6 @@
             <div class="hidden-message" id="msgSent">🎀 ارسال شد! منتظرتم عزیزم 🎀</div>
         </div>
 
-        <!-- بخش ادمین (مخفی) -->
         <button class="admin-toggle" id="adminToggle">🔒 نمایش پیام‌های ادمین</button>
         <div class="admin-section" id="adminSection">
             <div style="font-weight:600; color:#6e2b45;">📩 پیام‌های دریافتی:</div>
@@ -365,12 +349,11 @@
         </div>
     </div>
 
-    <!-- دکمه مخفی برای برگشت به صفحه اصلی (فقط خودت میدونی) -->
     <button class="secret-back" id="secretBack">↩️ خروج</button>
 
     <script>
         (function() {
-            // ---------- قلب‌های پس‌زمینه ----------
+            // قلب‌های پس‌زمینه
             const heartBg = document.getElementById('heartBg');
             const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '🌺'];
             for (let i = 0; i < 25; i++) {
@@ -383,7 +366,6 @@
                 heartBg.appendChild(span);
             }
 
-            // ---------- عناصر ----------
             const q1Box = document.getElementById('q1Box');
             const q2Box = document.getElementById('q2Box');
             const timePanel = document.getElementById('timePanel');
@@ -402,13 +384,29 @@
             const adminMessages = document.getElementById('adminMessages');
             const secretBack = document.getElementById('secretBack');
 
-            // ذخیره پیام‌ها
             let messagesLog = [];
 
-            // ---------- تابع افزودن پیام به ادمین ----------
+            // ذخیره پیام‌ها در localStorage (برای دسترسی ادمین)
+            function saveMessages() {
+                localStorage.setItem('loveMessages', JSON.stringify(messagesLog));
+            }
+
+            function loadMessages() {
+                const saved = localStorage.getItem('loveMessages');
+                if (saved) {
+                    try {
+                        messagesLog = JSON.parse(saved);
+                    } catch(e) {
+                        messagesLog = [];
+                    }
+                }
+                renderAdminMessages();
+            }
+
             function addAdminMessage(text) {
                 const timestamp = new Date().toLocaleString('fa-IR');
                 messagesLog.push({ time: timestamp, text: text });
+                saveMessages();
                 renderAdminMessages();
             }
 
@@ -425,9 +423,7 @@
                 adminMessages.scrollTop = adminMessages.scrollHeight;
             }
 
-            // ---------- دکمه نه فراری (سوال اول) برای موبایل ----------
-            let noBtnX = 0, noBtnY = 0;
-
+            // دکمه نه فراری
             function moveNoButton() {
                 const btn = q1No;
                 const container = btn.parentElement;
@@ -443,11 +439,8 @@
                 btn.style.position = 'relative';
                 btn.style.left = newX + 'px';
                 btn.style.top = newY + 'px';
-                noBtnX = newX;
-                noBtnY = newY;
             }
 
-            // برای موبایل: وقتی لمس میشه فرار کنه
             q1No.addEventListener('touchstart', function(e) {
                 e.preventDefault();
                 if (!q1No.classList.contains('disable-no')) {
@@ -455,21 +448,19 @@
                 }
             });
 
-            // برای دسکتاپ: وقتی موس میره روش
             q1No.addEventListener('mouseenter', function() {
                 if (!q1No.classList.contains('disable-no')) {
                     moveNoButton();
                 }
             });
 
-            // موقع لود اولیه
             setTimeout(() => {
                 if (!q1No.classList.contains('disable-no')) {
                     moveNoButton();
                 }
             }, 300);
 
-            // ---------- کلیک روی آره سوال اول ----------
+            // سوال اول
             q1Yes.addEventListener('click', function() {
                 q1Yes.disabled = true;
                 q1Yes.style.opacity = '0.6';
@@ -487,7 +478,7 @@
                 }, 300);
             });
 
-            // ---------- سوال دوم: نه غیرفعال ----------
+            // سوال دوم
             q2No.addEventListener('click', function(e) {
                 e.preventDefault();
                 alert('🥺 نه گفتن ممنوع! فقط آره...');
@@ -498,7 +489,6 @@
                 alert('🥺 نه گفتن ممنوع! فقط آره...');
             });
 
-            // ---------- کلیک روی آره سوال دوم ----------
             q2Yes.addEventListener('click', function() {
                 q2Yes.disabled = true;
                 q2Yes.style.opacity = '0.6';
@@ -514,7 +504,7 @@
                 }, 300);
             });
 
-            // ---------- ارسال ساعت ----------
+            // ارسال ساعت
             sendTimeBtn.addEventListener('click', function() {
                 const timeValue = pickTime.value;
                 if (!timeValue) {
@@ -536,7 +526,7 @@
                 }, 300);
             });
 
-            // ---------- نمایش/مخفی کردن ادمین ----------
+            // نمایش ادمین
             adminToggle.addEventListener('click', function() {
                 adminSection.classList.toggle('show-admin');
                 adminToggle.textContent = adminSection.classList.contains('show-admin') 
@@ -544,14 +534,17 @@
                     : '🔒 نمایش پیام‌های ادمین';
             });
 
-            // ---------- دکمه مخفی برای برگشت ----------
+            // خروج مخفی
             secretBack.addEventListener('click', function() {
                 if (confirm('میخوای بری بیرون؟ مطمئنی؟ 🥺')) {
-                    window.location.href = '../index.html'; // یا آدرس صفحه اصلی
+                    window.location.href = '../index.html';
                 }
             });
 
-            // ---------- جلوگیری از خروج (هک) ----------
+            // بارگذاری پیام‌های ذخیره شده
+            loadMessages();
+
+            // جلوگیری از خروج
             window.addEventListener('popstate', function(e) {
                 history.pushState(null, null, window.location.href);
             });
@@ -589,14 +582,12 @@
                 }
             });
 
-            // جلوگیری از بسته شدن تب
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden) {
                     alert('🙈 کجا داری میری؟! بیا برگرد!');
                 }
             });
 
-            // ---------- استایل انیمیشن ----------
             const styleSheet = document.createElement("style");
             styleSheet.textContent = `
                 @keyframes fadeIn {
@@ -609,6 +600,5 @@
             console.log('❤️ همه چیز آماده! عشق بازی شروع شد!');
         })();
     </script>
-
 </body>
 </html>
