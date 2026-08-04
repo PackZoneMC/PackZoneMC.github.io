@@ -1,194 +1,275 @@
 // ========================================
-// PACKZONE MC - AUTH SYSTEM
+// PACKZONE MC - MAIN SCRIPT (با مدیریت کاربر)
 // ========================================
 
 console.log('💙 PackZone MC Loaded!');
 
-// ===== ثبت‌نام =====
+// ===== اجرا وقتی صفحه کامل لود شد =====
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ===== ثبت‌نام =====
-    const signupForm = document.getElementById('signupForm');
-    if (signupForm) {
-        signupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('fullname').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirm = document.getElementById('confirmPassword').value;
-
-            // ===== اعتبارسنجی =====
-            if (!name || name.length < 3) {
-                showToast('❌ نام کامل باید حداقل ۳ کاراکتر باشد', 'error');
-                return;
-            }
-
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                showToast('❌ لطفاً یک ایمیل معتبر وارد کنید (مثال: name@domain.com)', 'error');
-                return;
-            }
-
-            if (password.length < 6) {
-                showToast('❌ رمز عبور باید حداقل ۶ کاراکتر باشد', 'error');
-                return;
-            }
-
-            if (password !== confirm) {
-                showToast('❌ رمز عبور و تکرار آن مطابقت ندارند', 'error');
-                return;
-            }
-
-            // ===== ذخیره در localStorage =====
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-
-            if (users.find(u => u.email === email)) {
-                showToast('❌ این ایمیل قبلاً ثبت شده است. لطفاً با ایمیل دیگری ثبت‌نام کنید.', 'error');
-                return;
-            }
-
-            users.push({
-                name: name,
-                email: email,
-                password: password,
-                createdAt: new Date().toLocaleDateString('fa-IR')
-            });
-
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-            showToast('✅ ثبت‌نام با موفقیت انجام شد! خوش آمدید ' + name + ' 🎉', 'success');
-
-            // پاک کردن فرم
-            signupForm.reset();
-
-            // بعد از ۲ ثانیه بره به صفحه ورود
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
-        });
-    }
-
-    // ===== ورود =====
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPass').value;
-
-            if (!email || !password) {
-                showToast('❌ لطفاً همه فیلدها را پر کنید', 'error');
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (!user) {
-                showToast('❌ ایمیل یا رمز عبور اشتباه است. لطفاً دوباره تلاش کنید.', 'error');
-                return;
-            }
-
-            // ذخیره کاربر جاری
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-            showToast('✅ ورود با موفقیت انجام شد! خوش آمدید ' + user.name + ' 🎉', 'success');
-
-            setTimeout(() => {
-                window.location.href = 'profile.html';
-            }, 1500);
-        });
-    }
-
-    // ===== خروج =====
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-            localStorage.removeItem('pzmc_current_user');
-            showToast('👋 شما با موفقیت خارج شدید', 'info');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        });
-    }
-
-    // ===== بررسی وضعیت کاربر =====
+    // ===== گرفتن کاربر از localStorage =====
     const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+    // ===== پیدا کردن جای دکمه‌ها در هدر =====
+    const header = document.querySelector('.custom-header') || document.querySelector('.header') || document.querySelector('header');
+    if (!header) return;
+
+    // ===== پیدا کردن منوی ناوبری =====
+    let nav = header.querySelector('.custom-nav') || header.querySelector('.nav') || header.querySelector('nav');
+
+    // اگه منو وجود نداشت، خودمون می‌سازیم
+    if (!nav) {
+        nav = document.createElement('nav');
+        nav.className = 'custom-nav';
+        header.appendChild(nav);
+    }
+
+    // ===== حذف دکمه‌های قدیمی =====
+    nav.innerHTML = '';
+
+    // ===== ساخت دکمه‌ها بر اساس وضعیت کاربر =====
     if (currentUser) {
-        const userNameDisplay = document.getElementById('userNameDisplay');
-        if (userNameDisplay) {
-            userNameDisplay.textContent = currentUser.name;
-        }
+        // ===== کاربر وارد شده =====
+
+        // ۱. عکس پروفایل (آواتار)
+        const avatarImg = document.createElement('img');
+        const savedAvatar = localStorage.getItem('pzmc_avatar_' + currentUser.email);
+        avatarImg.src = savedAvatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.name) + '&background=008cff&color=fff&size=40';
+        avatarImg.alt = 'پروفایل';
+        avatarImg.style.cssText = `
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid #008cff;
+            object-fit: cover;
+            cursor: pointer;
+            transition: 0.3s;
+        `;
+        avatarImg.onmouseover = function() { this.style.borderColor = '#7b00ff'; };
+        avatarImg.onmouseout = function() { this.style.borderColor = '#008cff'; };
+        avatarImg.onclick = function() {
+            window.location.href = 'profile.html';
+        };
+
+        // ۲. نام کاربری
+        const userName = document.createElement('span');
+        userName.textContent = currentUser.name || 'کاربر';
+        userName.style.cssText = `
+            color: #7ec8ff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+        `;
+        userName.onclick = function() {
+            window.location.href = 'profile.html';
+        };
+        userName.onmouseover = function() { this.style.color = '#008cff'; };
+        userName.onmouseout = function() { this.style.color = '#7ec8ff'; };
+
+        // ۳. دکمه خروج
+        const logoutBtn = document.createElement('button');
+        logoutBtn.textContent = '🚪 خروج';
+        logoutBtn.style.cssText = `
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            font-family: inherit;
+        `;
+        logoutBtn.onmouseover = function() {
+            this.style.background = '#ff1744';
+            this.style.color = '#fff';
+        };
+        logoutBtn.onmouseout = function() {
+            this.style.background = 'rgba(255, 23, 68, 0.15)';
+            this.style.color = '#ff1744';
+        };
+        logoutBtn.onclick = function() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                alert('👋 شما با موفقیت خارج شدید');
+                window.location.reload();
+            }
+        };
+
+        // ===== اضافه کردن به منو =====
+        nav.appendChild(avatarImg);
+        nav.appendChild(userName);
+        nav.appendChild(logoutBtn);
+
+        // مخفی کردن دکمه‌های ثبت‌نام و ورود از جای دیگه (اگه باشن)
+        document.querySelectorAll('.btn-signup, .btn-login, a[href="signup.html"], a[href="login.html"]').forEach(el => {
+            if (el.closest('nav') || el.closest('.custom-nav')) return;
+            el.style.display = 'none';
+        });
+
+    } else {
+        // ===== کاربر وارد نشده =====
+
+        // ۱. دکمه ثبت‌نام
+        const signupBtn = document.createElement('a');
+        signupBtn.href = 'signup.html';
+        signupBtn.textContent = '📝 ثبت‌نام';
+        signupBtn.className = 'btn-signup';
+        signupBtn.style.cssText = `
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #008cff, #7b00ff);
+            border-radius: 12px;
+            transition: 0.3s;
+            font-family: inherit;
+        `;
+        signupBtn.onmouseover = function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 0 30px rgba(0, 140, 255, 0.3)';
+        };
+        signupBtn.onmouseout = function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'none';
+        };
+
+        // ۲. دکمه ورود
+        const loginBtn = document.createElement('a');
+        loginBtn.href = 'login.html';
+        loginBtn.textContent = '🔐 ورود';
+        loginBtn.className = 'btn-login';
+        loginBtn.style.cssText = `
+            color: #9ecfff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: 0.3s;
+            font-family: inherit;
+        `;
+        loginBtn.onmouseover = function() { this.style.color = '#7ec8ff'; };
+        loginBtn.onmouseout = function() { this.style.color = '#9ecfff'; };
+
+        // ===== اضافه کردن به منو =====
+        nav.appendChild(signupBtn);
+        nav.appendChild(loginBtn);
     }
 });
 
-// ===== تابع نمایش پیام (Toast) =====
-function showToast(message, type = 'info') {
-    const oldToast = document.querySelector('.toast');
+// ===== تابع خروج (برای استفاده در جاهای دیگه) =====
+function logoutUser() {
+    if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+        localStorage.removeItem('pzmc_current_user');
+        alert('👋 شما با موفقیت خارج شدید');
+        window.location.reload();
+    }
+}
+
+// ===== بقیه توابع (تم، فونت، toast) =====
+
+// ===== CHANGE THEME =====
+function changeTheme(theme) {
+    document.body.className = '';
+    document.body.classList.add('theme-' + theme);
+    localStorage.setItem('selectedTheme', theme);
+    showToast('✅ تم با موفقیت تغییر کرد!');
+}
+
+// ===== CHANGE FONT =====
+function changeFont(font) {
+    document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
+    let fontClass = '';
+    switch (font) {
+        case 'inter':
+            fontClass = 'font-inter';
+            break;
+        case 'vazirmatn':
+            fontClass = 'font-vazirmatn';
+            break;
+        case 'iransans':
+            fontClass = 'font-iransans';
+            break;
+        case 'shabnam':
+            fontClass = 'font-shabnam';
+            break;
+    }
+    if (fontClass) {
+        document.body.classList.add(fontClass);
+    }
+    localStorage.setItem('selectedFont', font);
+    showToast('✅ فونت با موفقیت تغییر کرد!');
+}
+
+// ===== SHOW TOAST =====
+function showToast(message) {
+    const oldToast = document.querySelector('.toast-message');
     if (oldToast) oldToast.remove();
 
     const toast = document.createElement('div');
-    toast.className = 'toast';
-
-    // رنگ‌های مختلف
-    const colors = {
-        success: '#00c853',
-        error: '#ff1744',
-        info: '#008cff'
-    };
-
+    toast.className = 'toast-message';
+    toast.textContent = message;
     toast.style.cssText = `
         position: fixed;
-        top: 80px;
+        bottom: 30px;
         left: 50%;
         transform: translateX(-50%);
         background: #0d2038;
-        color: #fff;
-        padding: 16px 32px;
-        border-radius: 16px;
-        border: 2px solid ${colors[type] || colors.info};
-        box-shadow: 0 0 50px rgba(0, 140, 255, 0.15);
+        color: #7ec8ff;
+        padding: 15px 30px;
+        border-radius: 15px;
+        border: 1px solid #008cff;
+        box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
         font-size: 1rem;
         z-index: 9999;
-        animation: fadeInDown 0.4s ease;
-        font-family: 'Inter', sans-serif;
-        max-width: 90%;
-        text-align: center;
-        direction: rtl;
+        animation: fadeInUp 0.3s ease;
+        font-family: inherit !important;
     `;
-
-    toast.textContent = message;
     document.body.appendChild(toast);
 
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transition = 'opacity 0.5s ease';
         setTimeout(() => toast.remove(), 500);
-    }, 3500);
+    }, 2000);
 }
 
-// ===== اضافه کردن انیمیشن =====
+// ===== ADD ANIMATION =====
 const styleAnim = document.createElement('style');
 styleAnim.textContent = `
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 `;
 document.head.appendChild(styleAnim);
 
-// ===== تغییر تم (برای آینده) =====
-function changeTheme(theme) {
-    document.body.className = '';
-    document.body.classList.add('theme-' + theme);
-    localStorage.setItem('pzmc_theme', theme);
-    showToast('🎨 تم با موفقیت تغییر کرد!', 'success');
-}
-
-// ===== بارگذاری تم ذخیره‌شده =====
+// ===== LOAD SAVED THEME & FONT =====
 window.onload = function() {
-    const savedTheme = localStorage.getItem('pzmc_theme');
+    const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme) {
         document.body.classList.add('theme-' + savedTheme);
+    }
+    const savedFont = localStorage.getItem('selectedFont');
+    if (savedFont) {
+        let fontClass = '';
+        switch (savedFont) {
+            case 'inter':
+                fontClass = 'font-inter';
+                break;
+            case 'vazirmatn':
+                fontClass = 'font-vazirmatn';
+                break;
+            case 'iransans':
+                fontClass = 'font-iransans';
+                break;
+            case 'shabnam':
+                fontClass = 'font-shabnam';
+                break;
+        }
+        if (fontClass) {
+            document.body.classList.add(fontClass);
+        }
     }
 };
