@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | PackZone MC</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../src/css/style.css">
 </head>
+
 <body>
 
     <header class="header">
-        <div class="logo">💙 PackZone MC</div>
+        <div class="logo">
+            💙 PackZone MC
+        </div>
+
         <nav class="nav">
             <a href="index.html">Home</a>
             <a href="signup.html" class="active">Sign Up</a>
@@ -21,29 +27,66 @@
     </header>
 
     <main class="auth-container">
+
         <section class="auth-box">
+
             <h1>📝 Sign Up</h1>
+
             <form id="signupForm">
+
                 <div class="form-group">
                     <label for="fullname">Full Name</label>
-                    <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    <input
+                        type="text"
+                        id="fullname"
+                        name="fullname"
+                        placeholder="Enter your full name"
+                        required>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@email.com"
+                        required>
                 </div>
+
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required>
                 </div>
+
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Re-enter your password"
+                        required>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Account</button>
+
+                <button type="submit" class="btn btn-primary">
+                    Create Account
+                </button>
+
             </form>
-            <p class="auth-footer">Already have an account? <a href="login.html">Login</a></p>
+
+            <p class="auth-footer">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
         </section>
+
     </main>
 
     <footer class="footer">
@@ -51,5 +94,6 @@
     </footer>
 
     <script src="../src/js/main.js"></script>
+
 </body>
 </html>
