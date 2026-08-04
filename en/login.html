@@ -10,12 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* ===== BODY ===== */
         body {
             font-family: 'Inter', sans-serif;
             background: #0a0e1a;
@@ -23,6 +25,7 @@
             min-height: 100vh;
         }
 
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -52,6 +55,7 @@
             color: #008cff;
         }
 
+        /* ===== AUTH CONTAINER ===== */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -60,6 +64,7 @@
             padding: 30px 20px;
         }
 
+        /* ===== AUTH BOX ===== */
         .auth-box {
             background: #0d2038;
             padding: 35px 30px;
@@ -77,6 +82,7 @@
             margin-bottom: 25px;
         }
 
+        /* ===== FORM GROUP ===== */
         .form-group {
             margin-bottom: 16px;
         }
@@ -108,6 +114,7 @@
             color: rgba(255, 255, 255, 0.2);
         }
 
+        /* ===== PRIMARY BUTTON ===== */
         .btn-primary {
             width: 100%;
             padding: 14px;
@@ -126,6 +133,7 @@
             box-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
         }
 
+        /* ===== GOOGLE BUTTON ===== */
         .btn-google {
             width: 100%;
             padding: 12px;
@@ -148,6 +156,7 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
+        /* ===== PHONE BUTTON ===== */
         .btn-phone {
             width: 100%;
             padding: 12px;
@@ -166,6 +175,7 @@
             box-shadow: 0 0 20px rgba(0, 200, 83, 0.3);
         }
 
+        /* ===== DIVIDER ===== */
         .divider {
             display: flex;
             align-items: center;
@@ -186,6 +196,7 @@
             font-size: 0.85rem;
         }
 
+        /* ===== FOOTER TEXT ===== */
         .auth-footer {
             text-align: center;
             margin-top: 18px;
@@ -203,6 +214,7 @@
             text-decoration: underline;
         }
 
+        /* ===== PHONE SECTION ===== */
         .phone-section {
             display: none;
             margin-top: 15px;
@@ -222,6 +234,7 @@
             margin-bottom: 12px;
         }
 
+        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 20px;
@@ -229,6 +242,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
@@ -260,6 +274,7 @@
 
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header class="header">
         <div class="logo">💙 PackZone MC</div>
         <nav class="nav">
@@ -269,6 +284,7 @@
         </nav>
     </header>
 
+    <!-- ===== MAIN ===== -->
     <main class="auth-container">
         <section class="auth-box">
             <h1>🔐 Login</h1>
@@ -324,10 +340,12 @@
         </section>
     </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <p>© PackZone MC</p>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
     <script>
         // ============================================================
         // ===== Login with Email & Password =====
