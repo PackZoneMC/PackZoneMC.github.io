@@ -126,6 +126,66 @@
             box-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
         }
 
+        .btn-google {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #fff;
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-google:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-phone {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #00c853, #009624);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-phone:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 18px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
         .auth-footer {
             text-align: center;
             margin-top: 18px;
@@ -141,6 +201,25 @@
 
         .auth-footer a:hover {
             text-decoration: underline;
+        }
+
+        .phone-section {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .phone-section.open {
+            display: block;
+        }
+
+        .phone-section h3 {
+            color: #7ec8ff;
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 12px;
         }
 
         .footer {
@@ -169,7 +248,9 @@
                 padding: 10px 14px;
                 font-size: 0.95rem;
             }
-            .btn-primary {
+            .btn-primary,
+            .btn-google,
+            .btn-phone {
                 padding: 12px;
                 font-size: 0.95rem;
             }
@@ -191,6 +272,8 @@
     <main class="auth-container">
         <section class="auth-box">
             <h1>🔐 ورود</h1>
+
+            <!-- ===== فرم ورود با ایمیل ===== -->
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginEmail">ایمیل</label>
@@ -202,6 +285,41 @@
                 </div>
                 <button type="submit" class="btn-primary">ورود</button>
             </form>
+
+            <!-- ===== خط جداکننده ===== -->
+            <div class="divider">
+                <span>یا</span>
+            </div>
+
+            <!-- ===== دکمه‌های ورود با گوگل و شماره ===== -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+
+                <button onclick="loginWithGoogle()" class="btn-google">
+                    <img src="https://www.google.com/favicon.ico" style="width:20px;height:20px;">
+                    ورود با گوگل
+                </button>
+
+                <button onclick="togglePhoneSection()" class="btn-phone">
+                    📱 ورود با شماره تلفن
+                </button>
+
+            </div>
+
+            <!-- ===== بخش ورود با شماره تلفن ===== -->
+            <div class="phone-section" id="phoneSection">
+                <h3>📱 ورود با شماره تلفن</h3>
+                <div class="form-group">
+                    <label for="phoneNumber">شماره تلفن</label>
+                    <input type="tel" id="phoneNumber" placeholder="09xxxxxxxxx">
+                </div>
+                <div class="form-group" id="codeGroup" style="display:none;">
+                    <label for="phoneCode">کد تایید</label>
+                    <input type="text" id="phoneCode" placeholder="کد ۶ رقمی">
+                </div>
+                <button onclick="sendPhoneCode()" class="btn-primary" id="sendCodeBtn">ارسال کد</button>
+                <button onclick="verifyPhoneCode()" class="btn-primary" id="verifyCodeBtn" style="display:none;">تایید کد</button>
+            </div>
+
             <p class="auth-footer">عضو نیستی؟ <a href="signup.html">ثبت‌نام</a></p>
         </section>
     </main>
@@ -211,6 +329,9 @@
     </footer>
 
     <script>
+        // ============================================================
+        // ===== ورود با ایمیل و رمز =====
+        // ============================================================
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -234,6 +355,94 @@
             alert('✅ ورود با موفقیت انجام شد! خوش آمدید ' + user.name);
             window.location.href = 'profile.html';
         });
+
+        // ============================================================
+        // ===== ورود با گوگل (شبیه‌سازی) =====
+        // ============================================================
+        function loginWithGoogle() {
+            const googleUser = {
+                name: 'کاربر گوگل',
+                email: 'google_user_' + Date.now() + '@gmail.com',
+                password: 'google_login',
+                createdAt: new Date().toLocaleDateString('fa-IR')
+            };
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const existingUser = users.find(u => u.email === googleUser.email);
+
+            if (!existingUser) {
+                users.push(googleUser);
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+            }
+
+            localStorage.setItem('pzmc_current_user', JSON.stringify(googleUser));
+            alert('✅ ورود با گوگل موفقیت‌آمیز بود! خوش آمدید ' + googleUser.name);
+            window.location.href = 'profile.html';
+        }
+
+        // ============================================================
+        // ===== ورود با شماره تلفن =====
+        // ============================================================
+        let phoneData = { phone: '', code: '' };
+
+        function togglePhoneSection() {
+            const section = document.getElementById('phoneSection');
+            section.classList.toggle('open');
+        }
+
+        function sendPhoneCode() {
+            const phone = document.getElementById('phoneNumber').value.trim();
+
+            if (!phone || phone.length < 11) {
+                alert('❌ لطفاً شماره تلفن معتبر وارد کنید');
+                return;
+            }
+
+            phoneData.phone = phone;
+            phoneData.code = Math.floor(100000 + Math.random() * 900000).toString();
+
+            console.log('📱 کد تایید:', phoneData.code);
+
+            alert('📱 کد تایید به شماره ' + phone + ' ارسال شد! (کد: ' + phoneData.code + ')');
+
+            document.getElementById('codeGroup').style.display = 'block';
+            document.getElementById('sendCodeBtn').style.display = 'none';
+            document.getElementById('verifyCodeBtn').style.display = 'block';
+        }
+
+        function verifyPhoneCode() {
+            const enteredCode = document.getElementById('phoneCode').value.trim();
+
+            if (!enteredCode) {
+                alert('❌ لطفاً کد تایید را وارد کنید');
+                return;
+            }
+
+            if (enteredCode !== phoneData.code) {
+                alert('❌ کد تایید اشتباه است');
+                return;
+            }
+
+            const phoneUser = {
+                name: 'کاربر تلفن همراه',
+                email: 'phone_' + phoneData.phone + '@temp.com',
+                phone: phoneData.phone,
+                password: 'phone_login_' + phoneData.code,
+                createdAt: new Date().toLocaleDateString('fa-IR')
+            };
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const existingUser = users.find(u => u.phone === phoneData.phone);
+
+            if (!existingUser) {
+                users.push(phoneUser);
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+            }
+
+            localStorage.setItem('pzmc_current_user', JSON.stringify(phoneUser));
+            alert('✅ ورود با شماره تلفن موفقیت‌آمیز بود! خوش آمدید');
+            window.location.href = 'profile.html';
+        }
     </script>
 
 </body>
