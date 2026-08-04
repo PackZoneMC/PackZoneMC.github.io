@@ -8,7 +8,7 @@
 
     <title>PackZone MC | FA</title>
 
-    <!-- ===== GOOGLE FONTS (همه فونت‌ها با لینک مستقیم) ===== -->
+    <!-- ===== GOOGLE FONTS ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -120,21 +120,59 @@
             background: var(--bg-body, #0a0e1a);
         }
 
-        /* ===== HEADER ===== */
-        header {
-            text-align: center;
-            padding: 40px 20px 20px;
+        /* ===== HEADER NEW ===== */
+        .custom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(13, 32, 56, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color, #008cff);
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
-        .main-logo {
-            font-size: 2.8rem;
+        .custom-logo {
+            font-size: 1.8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary, #008cff), var(--secondary, #7b00ff));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-            text-shadow: none;
+        }
+
+        .custom-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-signup {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #008cff, #7b00ff);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .btn-signup:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+        }
+
+        .btn-login {
+            color: #9ecfff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: #7ec8ff;
         }
 
         /* ===== HERO ===== */
@@ -275,20 +313,22 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
+            .custom-header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 16px;
+            }
             .menu-box {
                 grid-template-columns: 1fr;
                 gap: 18px;
                 padding: 0 16px 30px;
             }
-
-            .main-logo {
-                font-size: 2rem;
+            .custom-logo {
+                font-size: 1.4rem;
             }
-
             .hero h2 {
                 font-size: 1.6rem;
             }
-
             .small-card {
                 padding: 22px 18px;
             }
@@ -300,6 +340,19 @@
             }
             .small-card a {
                 padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+            .custom-nav {
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .btn-signup {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .btn-login {
+                padding: 6px 10px;
                 font-size: 0.8rem;
             }
         }
@@ -387,9 +440,13 @@
         </div>
     </div>
 
-    <!-- ===== HEADER ===== -->
-    <header>
-        <h1 class="main-logo">💙 PackZone MC</h1>
+    <!-- ===== HEADER جدید با دکمه ساخت حساب ===== -->
+    <header class="custom-header">
+        <div class="custom-logo">💙 PackZone MC</div>
+        <nav class="custom-nav">
+            <a href="signup.html" class="btn-signup">ساخت حساب</a>
+            <a href="login.html" class="btn-login">ورود</a>
+        </nav>
     </header>
 
     <!-- ===== HERO ===== -->
@@ -409,7 +466,7 @@
     <!-- ===== MENU ===== -->
     <section class="menu-box">
 
-        <!-- ردیف ۱: کالکشن پک‌های میستی | مانیفست بیلدر -->
+        <!-- ردیف ۱ -->
         <div class="card small-card">
             <h3>💎 پک‌های MysMce</h3>
             <p>مجموعه پک‌های MysMce که به بدراک منتقل شده‌اند</p>
@@ -422,7 +479,7 @@
             <a href="manifest.html">شروع ساخت</a>
         </div>
 
-        <!-- ردیف ۲: پک‌های جاوا | پک‌های بدراک -->
+        <!-- ردیف ۲ -->
         <div class="card small-card">
             <h3>🟦 پک‌های جاوا</h3>
             <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
@@ -435,7 +492,7 @@
             <a href="bedrock.html">دانلود</a>
         </div>
 
-        <!-- ردیف ۳: پک‌های من | مک‌میتا بیلدر -->
+        <!-- ردیف ۳ -->
         <div class="card small-card">
             <h3>📦 پک‌های من</h3>
             <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
@@ -485,29 +542,17 @@
 
         // ===== CHANGE FONT =====
         function changeFont(font) {
-            // حذف کلاس‌های فونت قبلی
             document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
-
             let fontClass = '';
             switch (font) {
-                case 'inter':
-                    fontClass = 'font-inter';
-                    break;
-                case 'vazirmatn':
-                    fontClass = 'font-vazirmatn';
-                    break;
-                case 'iransans':
-                    fontClass = 'font-iransans';
-                    break;
-                case 'shabnam':
-                    fontClass = 'font-shabnam';
-                    break;
+                case 'inter': fontClass = 'font-inter'; break;
+                case 'vazirmatn': fontClass = 'font-vazirmatn'; break;
+                case 'iransans': fontClass = 'font-iransans'; break;
+                case 'shabnam': fontClass = 'font-shabnam'; break;
             }
-
             if (fontClass) {
                 document.body.classList.add(fontClass);
             }
-
             localStorage.setItem('selectedFont', font);
             document.getElementById('languagePanel').classList.remove('open');
             document.querySelector('.language-toggle').classList.remove('active');
@@ -559,29 +604,18 @@
 
         // ===== LOAD SAVED THEME & FONT =====
         window.onload = function() {
-            // تم
             const savedTheme = localStorage.getItem('selectedTheme');
             if (savedTheme) {
                 document.body.classList.add('theme-' + savedTheme);
             }
-
-            // فونت
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
                 let fontClass = '';
                 switch (savedFont) {
-                    case 'inter':
-                        fontClass = 'font-inter';
-                        break;
-                    case 'vazirmatn':
-                        fontClass = 'font-vazirmatn';
-                        break;
-                    case 'iransans':
-                        fontClass = 'font-iransans';
-                        break;
-                    case 'shabnam':
-                        fontClass = 'font-shabnam';
-                        break;
+                    case 'inter': fontClass = 'font-inter'; break;
+                    case 'vazirmatn': fontClass = 'font-vazirmatn'; break;
+                    case 'iransans': fontClass = 'font-iransans'; break;
+                    case 'shabnam': fontClass = 'font-shabnam'; break;
                 }
                 if (fontClass) {
                     document.body.classList.add(fontClass);
@@ -592,4 +626,4 @@
 
 </body>
 
-    </html>
+</html>
