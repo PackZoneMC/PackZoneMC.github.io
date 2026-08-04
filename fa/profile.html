@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', 'Vazirmatn', sans-serif;
             background: #0a0e1a;
             color: #fff;
             min-height: 100vh;
@@ -41,19 +41,55 @@
             color: #7ec8ff;
         }
 
-        .nav a {
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
             color: #9ecfff;
             text-decoration: none;
             font-weight: 500;
-            margin: 0 10px;
             transition: 0.3s;
         }
 
-        .nav a:hover {
-            color: #008cff;
+        .nav-links a:hover {
+            color: #7ec8ff;
         }
 
-        /* ===== پروفایل ===== */
+        .nav-links .btn-dashboard {
+            background: linear-gradient(135deg, #008cff, #6c3cff);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .nav-links .btn-dashboard:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
+        }
+
+        .nav-links .logout-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .nav-links .logout-btn:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        /* ===== PROFILE ===== */
         .profile-container {
             display: flex;
             justify-content: center;
@@ -79,7 +115,6 @@
             margin-bottom: 25px;
         }
 
-        /* ===== آواتار ===== */
         .profile-avatar {
             text-align: center;
             margin-bottom: 25px;
@@ -116,7 +151,6 @@
             display: none;
         }
 
-        /* ===== اطلاعات ===== */
         .profile-info {
             margin-bottom: 20px;
         }
@@ -135,7 +169,6 @@
             font-weight: 500;
         }
 
-        /* ===== علاقه‌مندی‌ها ===== */
         .favorites-section {
             margin: 20px 0;
             padding: 16px;
@@ -193,7 +226,6 @@
             color: #fff;
         }
 
-        /* ===== دکمه‌ها ===== */
         .profile-actions {
             display: flex;
             flex-direction: column;
@@ -245,7 +277,16 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* ===== مدال ===== */
+        .btn-dashboard-link {
+            background: linear-gradient(135deg, #00c853, #009624);
+            color: #fff;
+        }
+
+        .btn-dashboard-link:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -304,7 +345,6 @@
             flex: 1;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 20px;
@@ -318,9 +358,9 @@
                 flex-direction: column;
                 padding: 12px 16px;
             }
-            .nav a {
-                margin: 0 6px;
-                font-size: 0.85rem;
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .profile-box {
                 padding: 25px 18px;
@@ -348,22 +388,19 @@
 
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="header">
+    <!-- ===== HEADER با لینک داشبورد ===== -->
+    <header class="header" id="mainHeader">
         <div class="logo">💙 PackZone MC</div>
-        <nav class="nav">
-            <a href="index.html">خانه</a>
-            <a href="signup.html">ثبت‌نام</a>
-            <a href="login.html" class="active">پروفایل</a>
+        <nav class="nav-links" id="navLinks">
+            <!-- توسط JS پر میشه -->
         </nav>
     </header>
 
-    <!-- ===== P ROFILE ===== -->
+    <!-- ===== PROFILE ===== -->
     <main class="profile-container">
         <section class="profile-box">
             <h1>👤 پروفایل</h1>
 
-            <!-- ===== AVATAR ===== -->
             <div class="profile-avatar">
                 <img id="profileAvatar" src="" alt="آواتار">
                 <label class="avatar-upload-btn" title="آپلود عکس پروفایل">
@@ -378,7 +415,6 @@
                 <p>تاریخ عضویت <span id="profileDate">---</span></p>
             </div>
 
-            <!-- ===== FAVORITES ===== -->
             <div class="favorites-section">
                 <h2>⭐ علاقه‌مندی‌ها</h2>
                 <div id="favoritesList">
@@ -389,7 +425,7 @@
             <div class="profile-actions">
                 <button class="btn btn-primary" onclick="openEditModal()">✏️ ویرایش نام</button>
                 <button class="btn btn-primary" onclick="openPasswordModal()">🔑 تغییر رمز</button>
-                <button class="btn btn-danger" onclick="logoutUser()">🚪 خروج از حساب</button>
+                <a href="dashboard.html" class="btn btn-dashboard-link">📊 رفتن به داشبورد</a>
             </div>
         </section>
     </main>
@@ -426,9 +462,9 @@
 
     <script>
         // ============================================================
-        // ۱. بارگذاری اطلاعات کاربر
+        // ۱. بررسی کاربر و هدر
         // ============================================================
-        function loadProfile() {
+        function checkUser() {
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
 
             if (!user) {
@@ -437,11 +473,39 @@
                 return;
             }
 
+            // ===== هدر =====
+            const nav = document.getElementById('navLinks');
+            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
+
+            nav.innerHTML = `
+                <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
+                <span style="color:#7ec8ff;font-weight:600;">${user.name}</span>
+                <button class="logout-btn" onclick="logoutUser()">🚪 خروج</button>
+            `;
+
+            // ===== پروفایل =====
+            loadProfile(user);
+        }
+
+        // ============================================================
+        // ۲. خروج
+        // ============================================================
+        function logoutUser() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                alert('👋 شما با موفقیت خارج شدید');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================================
+        // ۳. بارگذاری پروفایل
+        // ============================================================
+        function loadProfile(user) {
             document.getElementById('profileName').textContent = user.name || '---';
             document.getElementById('profileEmail').textContent = user.email || '---';
             document.getElementById('profileDate').textContent = user.createdAt || '---';
 
-            // آواتار
             const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
             if (savedAvatar) {
                 document.getElementById('profileAvatar').src = savedAvatar;
@@ -450,12 +514,11 @@
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=008cff&color=fff&size=100`;
             }
 
-            // بارگذاری علاقه‌مندی‌ها
             loadFavorites();
         }
 
         // ============================================================
-        // ۲. آپلود عکس
+        // ۴. آپلود عکس
         // ============================================================
         document.getElementById('avatarInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -485,7 +548,7 @@
         });
 
         // ============================================================
-        // ۳. مدال‌ها
+        // ۵. مدال‌ها
         // ============================================================
         function openEditModal() {
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
@@ -504,7 +567,7 @@
         }
 
         // ============================================================
-        // ۴. ذخیره نام
+        // ۶. ذخیره نام
         // ============================================================
         function saveName() {
             const newName = document.getElementById('editNameInput').value.trim();
@@ -527,12 +590,12 @@
 
                 alert('✅ نام با موفقیت تغییر کرد!');
                 closeModal('editModal');
-                loadProfile();
+                checkUser();
             }
         }
 
         // ============================================================
-        // ۵. ذخیره رمز
+        // ۷. ذخیره رمز
         // ============================================================
         function savePassword() {
             const newPass = document.getElementById('newPassInput').value;
@@ -564,21 +627,17 @@
         }
 
         // ============================================================
-        // ۶. خروج
+        // ۸. علاقه‌مندی‌ها
         // ============================================================
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                alert('👋 شما با موفقیت خارج شدید');
-                window.location.href = 'index.html';
+        function loadFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                container.innerHTML = '<p class="empty-msg">❌ لطفاً وارد شوید</p>';
+                return;
             }
-        }
 
-        // ============================================================
-        // ۷. بارگذاری
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', loadProfile);
-    </script>
-
-</body>
-</html>
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+        
