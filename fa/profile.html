@@ -638,3 +638,70 @@
                 container.innerHTML = '<p class="empty-msg">❌ لطفاً وارد شوید</p>';
                 return;
             }
+
+                        let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) {
+                container.innerHTML = '<p class="empty-msg">❌ کاربر پیدا نشد</p>';
+                return;
+            }
+
+            const favorites = users[index].favorites || [];
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="empty-msg">⭐ شما هیچ پکی ذخیره نکرده‌اید</p>';
+                return;
+            }
+
+            let html = '';
+            favorites.forEach(pack => {
+                html += `
+                    <div class="favorite-item">
+                        <span>⭐ ${pack}</span>
+                        <button class="remove-btn" onclick="removeFavorite('${pack}')">حذف</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // ۹. حذف پک
+        // ============================================================
+        function removeFavorite(packName) {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                alert('❌ لطفاً اول وارد شوید');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) return;
+
+            if (!users[index].favorites) return;
+
+            const packIndex = users[index].favorites.indexOf(packName);
+            if (packIndex === -1) return;
+
+            users[index].favorites.splice(packIndex, 1);
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+            user.favorites = users[index].favorites;
+            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+
+            alert('🗑️ پک "' + packName + '" از علاقه‌مندی‌ها حذف شد');
+            loadFavorites();
+        }
+
+        // ============================================================
+        // ۱۰. بارگذاری صفحه
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', checkUser);
+    </script>
+
+</body>
+</html>
