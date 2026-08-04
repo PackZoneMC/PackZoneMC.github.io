@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | PackZone MC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            background: #0d2038;
+            border-bottom: 2px solid #008cff;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #7ec8ff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #9ecfff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #7ec8ff;
+        }
+
+        .nav-links .btn-dashboard {
+            background: linear-gradient(135deg, #008cff, #6c3cff);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .nav-links .btn-dashboard:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
+        }
+
+        .nav-links .logout-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .nav-links .logout-btn:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        /* ===== PROFILE ===== */
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 75vh;
+            padding: 30px 20px;
+        }
+
+        .profile-box {
+            background: #0d2038;
+            padding: 35px 30px;
+            border-radius: 20px;
+            border: 1px solid #008cff;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(0, 140, 255, 0.06);
+        }
+
+        .profile-box h1 {
+            text-align: center;
+            color: #7ec8ff;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #008cff;
+            object-fit: cover;
+        }
+
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            background: linear-gradient(135deg, #008cff, #7b00ff);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-upload-btn input {
+            display: none;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+        }
+
+        .profile-info p {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #9ecfff;
+            font-size: 0.95rem;
+        }
+
+        .profile-info p span {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .favorites-section {
+            margin: 20px 0;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .favorites-section h2 {
+            color: #7ec8ff;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .favorites-section .empty-msg {
+            color: #9ecfff;
+            text-align: center;
+            padding: 10px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .favorite-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+
+        .favorite-item span {
+            color: #7ec8ff;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .favorite-item .remove-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .favorite-item .remove-btn:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #008cff, #6c3cff);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff1744, #d50000);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 23, 68, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #9ecfff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-dashboard-link {
+            background: linear-gradient(135deg, #00c853, #009624);
+            color: #fff;
+        }
+
+        .btn-dashboard-link:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0d2038;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #008cff;
+            max-width: 380px;
+            width: 90%;
+        }
+
+        .modal-box h2 {
+            color: #7ec8ff;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #061220;
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+            outline: none;
+        }
+
+        .modal-box input:focus {
+            border-color: #008cff;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .profile-box {
+                padding: 25px 18px;
+            }
+            .profile-box h1 {
+                font-size: 1.4rem;
+            }
+            .profile-info p {
+                font-size: 0.85rem;
+                flex-direction: column;
+                gap: 3px;
+            }
+            .profile-avatar img {
+                width: 80px;
+                height: 80px;
+            }
+            .avatar-upload-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="mainHeader">
+        <div class="logo">💙 PackZone MC</div>
+        <nav class="nav-links" id="navLinks">
+            <!-- Filled by JS -->
+        </nav>
+    </header>
+
+    <!-- ===== PROFILE ===== -->
+    <main class="profile-container">
+        <section class="profile-box">
+            <h1>👤 Profile</h1>
+
+            <div class="profile-avatar">
+                <img id="profileAvatar" src="" alt="Avatar">
+                <label class="avatar-upload-btn" title="Upload Profile Picture">
+                    📷
+                    <input type="file" id="avatarInput" accept="image/*">
+                </label>
+            </div>
+
+            <div class="profile-info">
+                <p>Username <span id="profileName">---</span></p>
+                <p>Email <span id="profileEmail">---</span></p>
+                <p>Member Since <span id="profileDate">---</span></p>
+            </div>
+
+            <div class="favorites-section">
+                <h2>⭐ Favorites</h2>
+                <div id="favoritesList">
+                    <p class="empty-msg">Loading...</p>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn btn-primary" onclick="openEditModal()">✏️ Edit Name</button>
+                <button class="btn btn-primary" onclick="openPasswordModal()">🔑 Change Password</button>
+                <a href="dashboard.html" class="btn btn-dashboard-link">📊 Go to Dashboard</a>
+            </div>
+        </section>
+    </main>
+        <!-- ===== MODALS ===== -->
+    <div class="modal" id="editModal">
+        <div class="modal-box">
+            <h2>✏️ Edit Name</h2>
+            <input type="text" id="editNameInput" placeholder="New Name">
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="saveName()">Save</button>
+                <button class="btn btn-secondary" onclick="closeModal('editModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="passwordModal">
+        <div class="modal-box">
+            <h2>🔑 Change Password</h2>
+            <input type="password" id="newPassInput" placeholder="New Password">
+            <input type="password" id="confirmPassInput" placeholder="Confirm New Password">
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="savePassword()">Save</button>
+                <button class="btn btn-secondary" onclick="closeModal('passwordModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© PackZone MC</p>
+    </footer>
+
+    <script src="../src/js/main.js"></script>
+
+    <script>
+        // ============================================================
+        // 1. Check User & Header
+        // ============================================================
+        function checkUser() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            if (!user) {
+                alert('❌ You are not logged in!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // ===== Header =====
+            const nav = document.getElementById('navLinks');
+            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
+
+            nav.innerHTML = `
+                <a href="dashboard.html" class="btn-dashboard">📊 Dashboard</a>
+                <span style="color:#7ec8ff;font-weight:600;">${user.name}</span>
+                <button class="logout-btn" onclick="logoutUser()">🚪 Logout</button>
+            `;
+
+            // ===== Profile =====
+            loadProfile(user);
+        }
+
+        // ============================================================
+        // 2. Logout
+        // ============================================================
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('pzmc_current_user');
+                alert('👋 You have been logged out');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================================
+        // 3. Load Profile
+        // ============================================================
+        function loadProfile(user) {
+            document.getElementById('profileName').textContent = user.name || '---';
+            document.getElementById('profileEmail').textContent = user.email || '---';
+            document.getElementById('profileDate').textContent = user.createdAt || '---';
+
+            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
+            if (savedAvatar) {
+                document.getElementById('profileAvatar').src = savedAvatar;
+            } else {
+                document.getElementById('profileAvatar').src =
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=008cff&color=fff&size=100`;
+            }
+
+            loadFavorites();
+        }
+
+        // ============================================================
+        // 4. Upload Avatar
+        // ============================================================
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert('❌ Please select an image');
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ Image size must be less than 2MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imageData = event.target.result;
+                document.getElementById('profileAvatar').src = imageData;
+                const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+                if (user) {
+                    localStorage.setItem('pzmc_avatar_' + user.email, imageData);
+                }
+                alert('✅ Profile picture uploaded successfully!');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // ============================================================
+        // 5. Modals
+        // ============================================================
+        function openEditModal() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (user) {
+                document.getElementById('editNameInput').value = user.name || '';
+            }
+            document.getElementById('editModal').classList.add('open');
+        }
+
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        // ============================================================
+        // 6. Save Name
+        // ============================================================
+        function saveName() {
+            const newName = document.getElementById('editNameInput').value.trim();
+
+            if (!newName || newName.length < 3) {
+                alert('❌ Name must be at least 3 characters');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            const index = users.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) {
+                users[index].name = newName;
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+                currentUser.name = newName;
+                localStorage.setItem('pzmc_current_user', JSON.stringify(currentUser));
+
+                alert('✅ Name changed successfully!');
+                closeModal('editModal');
+                checkUser();
+            }
+        }
+
+        // ============================================================
+        // 7. Save Password
+        // ============================================================
+        function savePassword() {
+            const newPass = document.getElementById('newPassInput').value;
+            const confirmPass = document.getElementById('confirmPassInput').value;
+
+            if (newPass.length < 6) {
+                alert('❌ Password must be at least 6 characters');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('❌ Passwords do not match');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            const index = users.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) {
+                users[index].password = newPass;
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+                alert('✅ Password changed successfully!');
+                closeModal('passwordModal');
+                document.getElementById('newPassInput').value = '';
+                document.getElementById('confirmPassInput').value = '';
+            }
+        }
+
+        // ============================================================
+        // 8. Favorites
+        // ============================================================
+        function loadFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                container.innerHTML = '<p class="empty-msg">❌ Please login</p>';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) {
+                container.innerHTML = '<p class="empty-msg">❌ User not found</p>';
+                return;
+            }
+
+            const favorites = users[index].favorites || [];
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="empty-msg">⭐ You have no saved packs</p>';
+                return;
+            }
+
+            let html = '';
+            favorites.forEach(pack => {
+                html += `
+                    <div class="favorite-item">
+                        <span>⭐ ${pack}</span>
+                        <button class="remove-btn" onclick="removeFavorite('${pack}')">Remove</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // 9. Remove Favorite
+        // ============================================================
+        function removeFavorite(packName) {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                alert('❌ Please login first');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) return;
+
+            if (!users[index].favorites) return;
+
+            const packIndex = users[index].favorites.indexOf(packName);
+            if (packIndex === -1) return;
+
+            users[index].favorites.splice(packIndex, 1);
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+            user.favorites = users[index].favorites;
+            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+
+            alert('🗑️ Pack "' + packName + '" removed from favorites');
+            loadFavorites();
+        }
+
+        // ============================================================
+        // 10. Page Load
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', checkUser);
+    </script>
+
+</body>
+</html>
