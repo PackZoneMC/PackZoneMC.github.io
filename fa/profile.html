@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل | PackZone MC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../src/css/style.css">
+
+    <style>
+        /* ===== استایل پروفایل ===== */
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 20px;
+            background: radial-gradient(ellipse at center, #0d2038, #050b18);
+        }
+
+        .profile-box {
+            background: rgba(13, 32, 56, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 45px 40px;
+            border-radius: 28px;
+            border: 1px solid rgba(0, 140, 255, 0.25);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-box::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 30px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, #008cff, #7b00ff, #ff00aa, #008cff);
+            background-size: 400% 400%;
+            animation: rotateBorder 6s linear infinite;
+            z-index: -1;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        @keyframes rotateBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        .profile-box h1 {
+            text-align: center;
+            color: #7ec8ff;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        /* ===== آواتار ===== */
+        .profile-avatar {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #008cff;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .profile-avatar img:hover {
+            border-color: #7b00ff;
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+        }
+
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            background: linear-gradient(135deg, #008cff, #7b00ff);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-upload-btn:hover {
+            transform: translateX(50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.4);
+        }
+
+        .avatar-upload-btn input {
+            display: none;
+        }
+
+        /* ===== اطلاعات ===== */
+        .profile-info {
+            margin-bottom: 20px;
+        }
+
+        .profile-info p {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #9ecfff;
+            font-size: 1rem;
+        }
+
+        .profile-info p span {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* ===== دکمه‌ها ===== */
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #008cff, #6c3cff);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(0, 140, 255, 0.35);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff1744, #d50000);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(255, 23, 68, 0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #9ecfff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== هدر ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(13, 32, 56, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 140, 255, 0.15);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #7ec8ff;
+        }
+
+        .nav a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            margin: 0 12px;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: #7ec8ff;
+        }
+
+        .nav a.active {
+            border-bottom: 2px solid #008cff;
+            padding-bottom: 4px;
+        }
+
+        /* ===== فوتر ===== */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* ===== مدال‌ها ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0d2038;
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid #008cff;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-box h2 {
+            color: #7ec8ff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #061220;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .modal-box input:focus {
+            border-color: #008cff;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .profile-box {
+                padding: 30px 20px;
+            }
+            .profile-box h1 {
+                font-size: 1.6rem;
+            }
+            .profile-info p {
+                font-size: 0.9rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .profile-avatar img {
+                width: 90px;
+                height: 90px;
+            }
+            .avatar-upload-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="logo">💙 PackZone MC</div>
+        <nav class="nav">
+            <a href="index.html">خانه</a>
+            <a href="signup.html">ثبت‌نام</a>
+            <a href="login.html" class="active">پروفایل</a>
+        </nav>
+    </header>
+
+    <!-- ===== پروفایل ===== -->
+    <main class="profile-container">
+        <section class="profile-box">
+            <h1>👤 پروفایل</h1>
+
+            <!-- ===== آواتار با قابلیت آپلود ===== -->
+            <div class="profile-avatar">
+                <img id="profileAvatar" src="" alt="آواتار">
+                <label class="avatar-upload-btn" title="آپلود عکس پروفایل">
+                    📷
+                    <input type="file" id="avatarInput" accept="image/*">
+                </label>
+            </div>
+
+            <div class="profile-info">
+                <p>نام کاربری <span id="profileName">---</span></p>
+                <p>ایمیل <span id="profileEmail">---</span></p>
+                <p>تاریخ عضویت <span id="profileDate">---</span></p>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn btn-primary" onclick="openEditModal()">✏️ ویرایش نام</button>
+                <button class="btn btn-primary" onclick="openPasswordModal()">🔑 تغییر رمز</button>
+                <button class="btn btn-danger" onclick="logoutUser()">🚪 خروج از حساب</button>
+                <a href="favorites.html" class="btn btn-secondary">⭐ علاقه‌مندی‌ها</a>
+                <a href="my-reviews.html" class="btn btn-secondary">💬 نظرات من</a>
+            </div>
+
+            <div class="profile-footer">
+                <p>به PackZone MC خوش آمدید 🎮</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== مدال ویرایش نام ===== -->
+    <div class="modal" id="editModal">
+        <div class="modal-box">
+            <h2>✏️ ویرایش نام</h2>
+            <input type="text" id="editNameInput" placeholder="نام جدید">
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="saveName()">ذخیره</button>
+                <button class="btn btn-secondary" onclick="closeModal('editModal')">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مدال تغییر رمز ===== -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-box">
+            <h2>🔑 تغییر رمز</h2>
+            <input type="password" id="newPassInput" placeholder="رمز جدید">
+            <input type="password" id="confirmPassInput" placeholder="تکرار رمز جدید">
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="savePassword()">ذخیره</button>
+                <button class="btn btn-secondary" onclick="closeModal('passwordModal')">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© PackZone MC</p>
+    </footer>
+
+    <script src="../src/js/main.js"></script>
+
+    <script>
+        // ============================================================
+        // ۱. بارگذاری اطلاعات کاربر
+        // ============================================================
+        function loadProfile() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            if (!user) {
+                alert('❌ شما وارد حساب خود نشده‌اید!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('profileName').textContent = user.name || '---';
+            document.getElementById('profileEmail').textContent = user.email || '---';
+            document.getElementById('profileDate').textContent = user.createdAt || '---';
+
+            // ===== آواتار =====
+            // ۱. اگر کاربر قبلاً عکس آپلود کرده، از localStorage می‌خونیم
+            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
+            if (savedAvatar) {
+                document.getElementById('profileAvatar').src = savedAvatar;
+            } else {
+                // ۲. اگر عکس نداشت، از ui-avatars استفاده می‌کنیم
+                const avatarUrl =
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=008cff&color=fff&size=120`;
+                document.getElementById('profileAvatar').src = avatarUrl;
+            }
+        }
+
+        // ============================================================
+        // ۲. آپلود عکس پروفایل
+        // ============================================================
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // بررسی اینکه عکس باشه
+            if (!file.type.startsWith('image/')) {
+                alert('❌ لطفاً یک عکس انتخاب کنید');
+                return;
+            }
+
+            // بررسی حجم (حداکثر ۲ مگابایت)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ حجم عکس نباید بیشتر از ۲ مگابایت باشد');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imageData = event.target.result;
+
+                // نمایش عکس
+                document.getElementById('profileAvatar').src = imageData;
+
+                // ذخیره در localStorage با ایمیل کاربر
+                const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+                if (user) {
+                    localStorage.setItem('pzmc_avatar_' + user.email, imageData);
+                }
+
+                alert('✅ عکس پروفایل با موفقیت آپلود شد!');
+            };
+
+            reader.onerror = function() {
+                alert('❌ خطا در خواندن عکس');
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        // ============================================================
+        // ۳. باز و بسته کردن مدال‌ها
+        // ============================================================
+        function openEditModal() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (user) {
+                document.getElementById('editNameInput').value = user.name || '';
+            }
+            document.getElementById('editModal').classList.add('open');
+        }
+
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        // ============================================================
+        // ۴. ذخیره نام جدید
+        // ============================================================
+        function saveName() {
+            const newName = document.getElementById('editNameInput').value.trim();
+
+            if (!newName || newName.length < 3) {
+                alert('❌ نام باید حداقل ۳ کاراکتر باشد');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            const index = users.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) {
+                users[index].name = newName;
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+                currentUser.name = newName;
+                localStorage.setItem('pzmc_current_user', JSON.stringify(currentUser));
+
+                alert('✅ نام با موفقیت تغییر کرد!');
+                closeModal('editModal');
+                loadProfile();
+            }
+        }
+
+        // ============================================================
+        // ۵. ذخیره رمز جدید
+        // ============================================================
+        function savePassword() {
+            const newPass = document.getElementById('newPassInput').value;
+            const confirmPass = document.getElementById('confirmPassInput').value;
+
+            if (newPass.length < 6) {
+                alert('❌ رمز عبور باید حداقل ۶ کاراکتر باشد');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('❌ رمز عبور و تکرار آن مطابقت ندارند');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            const index = users.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) {
+                users[index].password = newPass;
+                localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+                alert('✅ رمز عبور با موفقیت تغییر کرد!');
+                closeModal('passwordModal');
+                document.getElementById('newPassInput').value = '';
+                document.getElementById('confirmPassInput').value = '';
+            }
+        }
+
+        // ============================================================
+        // ۶. خروج از حساب
+        // ============================================================
+        function logoutUser() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                alert('👋 شما با موفقیت خارج شدید');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================================
+        // ۷. بارگذاری پروفایل هنگام باز شدن صفحه
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+
+</body>
+              </html>
