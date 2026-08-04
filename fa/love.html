@@ -98,18 +98,23 @@
             font-weight: 300;
         }
 
+        /* ===== سوال باکس با حاشیه صورتی rgb ===== */
         .question-box {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 25px;
-            padding: 15px 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 200, 220, 0.6);
-            box-shadow: inset 0 2px 8px rgba(255, 200, 220, 0.3);
+            padding: 18px 14px;
+            margin-bottom: 16px;
+            border: 3px solid rgb(255, 150, 180);
+            box-shadow: 0 0 20px rgba(255, 100, 150, 0.2), inset 0 0 20px rgba(255, 150, 180, 0.1);
             display: none;
+            transition: all 0.3s ease;
         }
         .question-box.active {
             display: block;
             animation: fadeIn 0.4s ease;
+        }
+        .question-box:hover {
+            box-shadow: 0 0 30px rgba(255, 100, 150, 0.3), inset 0 0 30px rgba(255, 150, 180, 0.15);
         }
 
         .question-text {
@@ -217,45 +222,60 @@
             transform: scale(1.1);
         }
 
+        /* ===== پنل ساعت با دکمه‌های ساعتی ===== */
         .time-panel {
             margin-top: 15px;
             background: rgba(255, 220, 235, 0.5);
             border-radius: 30px;
-            padding: 15px 12px;
-            border: 1px solid #ffb0c8;
+            padding: 18px 14px;
+            border: 3px solid rgb(255, 150, 180);
+            box-shadow: 0 0 20px rgba(255, 100, 150, 0.2);
             display: none;
         }
-
         .time-panel label {
             display: block;
             font-size: 1rem;
             color: #6e2b45;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
-        .time-panel input[type="time"] {
-            padding: 8px 14px;
-            border-radius: 30px;
+        .time-grid {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .time-btn {
+            padding: 8px 16px;
+            border-radius: 25px;
             border: 2px solid #ff8aa8;
             background: white;
-            font-size: 1.1rem;
-            color: #3d1a28;
-            outline: none;
-            width: 80%;
-            max-width: 180px;
-            text-align: center;
+            color: #4a1a2c;
+            font-size: 0.95rem;
             font-weight: 600;
-            -webkit-appearance: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 55px;
         }
-
-        .time-panel input[type="time"]:focus {
-            border-color: #d43f6b;
-            box-shadow: 0 0 0 3px rgba(212, 63, 107, 0.2);
+        .time-btn:active {
+            transform: scale(0.93);
+        }
+        .time-btn.selected {
+            background: linear-gradient(135deg, #ff6b8a, #ee3b6b);
+            color: white;
+            border-color: #ee3b6b;
+            box-shadow: 0 4px 15px rgba(238, 59, 107, 0.4);
+        }
+        .time-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-send {
-            margin-top: 12px;
+            margin-top: 8px;
             background: linear-gradient(135deg, #a02c5a, #7a1f42);
             color: white;
             padding: 12px 30px;
@@ -270,6 +290,10 @@
         }
         .btn-send:active {
             transform: scale(0.95);
+        }
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .hidden-message {
@@ -400,6 +424,7 @@
             h1 { font-size: 1.3rem; }
             .num-btn { width: 30px; height: 30px; font-size: 0.75rem; }
             .num-btn.infinity { width: 38px; height: 38px; font-size: 1.3rem; }
+            .time-btn { padding: 6px 12px; font-size: 0.8rem; min-width: 45px; }
         }
 
         @media (max-width: 380px) {
@@ -408,6 +433,7 @@
             .btn { min-width: 45px; padding: 6px 8px; font-size: 0.7rem; }
             .num-btn { width: 26px; height: 26px; font-size: 0.65rem; }
             .num-btn.infinity { width: 32px; height: 32px; font-size: 1rem; }
+            .time-btn { padding: 5px 8px; font-size: 0.7rem; min-width: 38px; }
         }
 
         ::-webkit-scrollbar { width: 0px; background: transparent; }
@@ -529,15 +555,26 @@
         <div class="hint-text">فقط آره معنی داره 😉</div>
     </div>
 
-    <!-- پنل ساعت -->
+    <!-- ===== پنل ساعت با دکمه‌های ساعتی ===== -->
     <div class="time-panel" id="timePanel">
         <label>⏰ چه ساعتی بیام دنبالت؟</label>
-        <input type="time" id="pickTime" value="18:00">
-        <br>
+        <div class="time-grid" id="timeGrid">
+            <button class="time-btn" data-time="12:00">۱۲:۰۰</button>
+            <button class="time-btn" data-time="13:00">۱۳:۰۰</button>
+            <button class="time-btn" data-time="14:00">۱۴:۰۰</button>
+            <button class="time-btn" data-time="15:00">۱۵:۰۰</button>
+            <button class="time-btn" data-time="16:00">۱۶:۰۰</button>
+            <button class="time-btn" data-time="17:00">۱۷:۰۰</button>
+            <button class="time-btn" data-time="18:00">۱۸:۰۰</button>
+            <button class="time-btn" data-time="19:00">۱۹:۰۰</button>
+            <button class="time-btn" data-time="20:00">۲۰:۰۰</button>
+            <button class="time-btn" data-time="21:00">۲۱:۰۰</button>
+        </div>
         <button class="btn-send" id="sendTimeBtn">📨 بفرست برای عزیز دلم</button>
         <div class="hidden-message" id="msgSent">🎀 ارسال شد! منتظرتم عزیزم 🎀</div>
     </div>
 
+    <!-- پنل ادمین ساده -->
     <button class="admin-toggle" id="adminToggle">🔒 نمایش پیام‌های ادمین</button>
     <div class="admin-section" id="adminSection">
         <div style="font-weight:600; color:#6e2b45; font-size:0.85rem;">📩 پیام‌های دریافتی:</div>
@@ -546,369 +583,394 @@
         </div>
     </div>
 </div>
-    <script>
-        (function() {
-            // ========== قفل مطلق ==========
-            
-            document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
-            document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
-            document.addEventListener('gestureend', function(e) { e.preventDefault(); });
-            
-            document.addEventListener('touchmove', function(e) {
-                if (e.target.closest('.container')) return;
-                e.preventDefault();
-            }, { passive: false });
+<script>
+    (function() {
+        // ========== قفل مطلق با اجازه به input ==========
+        
+        document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+        document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+        document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (e.target.closest('.container')) return;
+            e.preventDefault();
+        }, { passive: false });
 
-            window.addEventListener('beforeunload', function(e) {
-                e.preventDefault();
-                e.returnValue = 'صبر کن عزیزم! حتماً جواب بده 😉';
-                return 'صبر کن عزیزم! حتماً جواب بده 😉';
-            });
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = 'صبر کن عزیزم! حتماً جواب بده 😉';
+            return 'صبر کن عزیزم! حتماً جواب بده 😉';
+        });
 
-            window.addEventListener('popstate', function(e) {
-                history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function(e) {
+            history.pushState(null, null, window.location.href);
+            document.getElementById('lockOverlay').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('lockOverlay').classList.remove('show');
+            }, 3000);
+        });
+        
+        for(let i = 0; i < 10; i++) {
+            history.pushState(null, null, window.location.href);
+        }
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // اجازه تایپ در input ها
+            if (e.target.matches('input, textarea, [contenteditable]')) {
+                return;
+            }
+            
+            const blockedKeys = ['F4', 'F5', 'F12', 'Escape', 'Backspace'];
+            if (blockedKeys.includes(e.key)) {
+                e.preventDefault();
+                document.getElementById('lockOverlay').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('lockOverlay').classList.remove('show');
+                }, 2000);
+                return false;
+            }
+            if ((e.ctrlKey && e.key === 'w') || (e.ctrlKey && e.key === 'W') ||
+                (e.ctrlKey && e.key === 'r') || (e.ctrlKey && e.key === 'R') ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))) {
+                e.preventDefault();
+                document.getElementById('lockOverlay').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('lockOverlay').classList.remove('show');
+                }, 2000);
+                return false;
+            }
+            if (e.altKey) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
                 document.getElementById('lockOverlay').classList.add('show');
                 setTimeout(() => {
                     document.getElementById('lockOverlay').classList.remove('show');
                 }, 3000);
-            });
-            
-            for(let i = 0; i < 10; i++) {
-                history.pushState(null, null, window.location.href);
             }
+        });
 
-            document.addEventListener('contextmenu', function(e) {
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('a');
+            if (target && target.href) {
                 e.preventDefault();
+                document.getElementById('lockOverlay').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('lockOverlay').classList.remove('show');
+                }, 2000);
                 return false;
-            });
+            }
+        });
 
-            document.addEventListener('keydown', function(e) {
-                const blockedKeys = ['F4', 'F5', 'F12', 'Escape', 'Backspace'];
-                if (blockedKeys.includes(e.key)) {
-                    e.preventDefault();
-                    document.getElementById('lockOverlay').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('lockOverlay').classList.remove('show');
-                    }, 2000);
-                    return false;
-                }
-                if ((e.ctrlKey && e.key === 'w') || (e.ctrlKey && e.key === 'W') ||
-                    (e.ctrlKey && e.key === 'r') || (e.ctrlKey && e.key === 'R') ||
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))) {
-                    e.preventDefault();
-                    document.getElementById('lockOverlay').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('lockOverlay').classList.remove('show');
-                    }, 2000);
-                    return false;
-                }
-                if (e.altKey) {
-                    e.preventDefault();
-                }
-            });
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
 
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    document.getElementById('lockOverlay').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('lockOverlay').classList.remove('show');
-                    }, 3000);
-                }
-            });
+        document.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+        });
 
-            document.addEventListener('click', function(e) {
-                const target = e.target.closest('a');
-                if (target && target.href) {
-                    e.preventDefault();
-                    document.getElementById('lockOverlay').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('lockOverlay').classList.remove('show');
-                    }, 2000);
-                    return false;
-                }
-            });
-
-            document.addEventListener('dragstart', function(e) {
+        document.body.addEventListener('touchstart', function(e) {
+            const touch = e.touches[0];
+            if (touch.clientX < 10 || touch.clientX > window.innerWidth - 10) {
                 e.preventDefault();
-                return false;
+            }
+        }, { passive: false });
+
+        function requestFullscreen() {
+            const el = document.documentElement;
+            if (el.requestFullscreen) {
+                el.requestFullscreen().catch(() => {});
+            } else if (el.webkitRequestFullscreen) {
+                el.webkitRequestFullscreen();
+            } else if (el.msRequestFullscreen) {
+                el.msRequestFullscreen();
+            }
+        }
+        document.addEventListener('click', function() { requestFullscreen(); });
+        setTimeout(requestFullscreen, 1000);
+
+        // ========== قلب‌های پس‌زمینه ==========
+        const heartBg = document.getElementById('heartBg');
+        const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '🌺'];
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.fontSize = (1.5 + Math.random() * 3) + 'rem';
+            span.style.animationDuration = (10 + Math.random() * 18) + 's';
+            span.style.animationDelay = (Math.random() * 10) + 's';
+            heartBg.appendChild(span);
+        }
+
+        // ========== عناصر ==========
+        const q1No = document.getElementById('q1No');
+        const infinityBtn = document.getElementById('infinityBtn');
+        const sendTimeBtn = document.getElementById('sendTimeBtn');
+        const adminToggle = document.getElementById('adminToggle');
+        const adminSection = document.getElementById('adminSection');
+        const adminMessages = document.getElementById('adminMessages');
+        const lockOverlay = document.getElementById('lockOverlay');
+        const msgSent = document.getElementById('msgSent');
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const questionCounter = document.getElementById('questionCounter');
+        const timeBtns = document.querySelectorAll('.time-btn');
+
+        let currentQuestion = 0;
+        const totalQuestions = 6;
+        let messagesLog = [];
+        let selectedTime = null;
+
+        const questions = [
+            { id: 'q1Box', text: 'منو دوست داری؟' },
+            { id: 'q2Box', text: 'چقدر دوسم داری کوچولووووو؟؟' },
+            { id: 'q3Box', text: 'با من تا آخر عمر میای؟' },
+            { id: 'q4Box', text: 'قراره چقدر برام بمونی؟' },
+            { id: 'q5Box', text: 'با من غروب رو تماشا میکنی؟' },
+            { id: 'q6Box', text: 'میای باهم بریم پارک؟' }
+        ];
+
+        // ========== توابع ==========
+        function saveMessages() {
+            localStorage.setItem('loveMessages', JSON.stringify(messagesLog));
+        }
+
+        function loadMessages() {
+            const saved = localStorage.getItem('loveMessages');
+            if (saved) {
+                try {
+                    messagesLog = JSON.parse(saved);
+                } catch(e) {
+                    messagesLog = [];
+                }
+            }
+            renderAdminMessages();
+        }
+
+        function addAdminMessage(text) {
+            const timestamp = new Date().toLocaleString('fa-IR');
+            messagesLog.push({ time: timestamp, text: text });
+            saveMessages();
+            renderAdminMessages();
+        }
+
+        function renderAdminMessages() {
+            if (messagesLog.length === 0) {
+                adminMessages.innerHTML = `<p style="color:#888;">هنوز پیامی نیست...</p>`;
+                return;
+            }
+            let html = '';
+            messagesLog.forEach(msg => {
+                html += `<p>🕒 ${msg.time} — ${msg.text}</p>`;
             });
+            adminMessages.innerHTML = html;
+            adminMessages.scrollTop = adminMessages.scrollHeight;
+        }
 
-            document.addEventListener('dblclick', function(e) {
-                e.preventDefault();
+        function updateProgress(index) {
+            progressDots.forEach((dot, i) => {
+                dot.classList.remove('active', 'done');
+                if (i === index) {
+                    dot.classList.add('active');
+                } else if (i < index) {
+                    dot.classList.add('done');
+                }
             });
+            questionCounter.textContent = `سوال ${index + 1} از ${totalQuestions}`;
+        }
 
-            document.body.addEventListener('touchstart', function(e) {
-                const touch = e.touches[0];
-                if (touch.clientX < 10 || touch.clientX > window.innerWidth - 10) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            function requestFullscreen() {
-                const el = document.documentElement;
-                if (el.requestFullscreen) {
-                    el.requestFullscreen().catch(() => {});
-                } else if (el.webkitRequestFullscreen) {
-                    el.webkitRequestFullscreen();
-                } else if (el.msRequestFullscreen) {
-                    el.msRequestFullscreen();
-                }
+        function showQuestion(index) {
+            document.querySelectorAll('.question-box').forEach(el => {
+                el.classList.remove('active');
+            });
+            const target = document.getElementById(questions[index].id);
+            if (target) {
+                target.classList.add('active');
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             }
-            document.addEventListener('click', function() { requestFullscreen(); });
-            setTimeout(requestFullscreen, 1000);
+            updateProgress(index);
+            currentQuestion = index;
+        }
 
-            // ========== قلب‌های پس‌زمینه ==========
-            const heartBg = document.getElementById('heartBg');
-            const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '🌺'];
-            for (let i = 0; i < 20; i++) {
-                const span = document.createElement('span');
-                span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-                span.style.left = Math.random() * 100 + '%';
-                span.style.fontSize = (1.5 + Math.random() * 3) + 'rem';
-                span.style.animationDuration = (10 + Math.random() * 18) + 's';
-                span.style.animationDelay = (Math.random() * 10) + 's';
-                heartBg.appendChild(span);
-            }
-
-            // ========== عناصر ==========
-            const q1No = document.getElementById('q1No');
-            const infinityBtn = document.getElementById('infinityBtn');
-            const sendTimeBtn = document.getElementById('sendTimeBtn');
-            const pickTime = document.getElementById('pickTime');
-            const adminToggle = document.getElementById('adminToggle');
-            const adminSection = document.getElementById('adminSection');
-            const adminMessages = document.getElementById('adminMessages');
-            const lockOverlay = document.getElementById('lockOverlay');
-            const msgSent = document.getElementById('msgSent');
-            const progressDots = document.querySelectorAll('.progress-dot');
-            const questionCounter = document.getElementById('questionCounter');
-
-            let currentQuestion = 0;
-            const totalQuestions = 6;
-            let messagesLog = [];
-
-            const questions = [
-                { id: 'q1Box', text: 'منو دوست داری؟' },
-                { id: 'q2Box', text: 'چقدر دوسم داری کوچولووووو؟؟' },
-                { id: 'q3Box', text: 'با من تا آخر عمر میای؟' },
-                { id: 'q4Box', text: 'قراره چقدر برام بمونی؟' },
-                { id: 'q5Box', text: 'با من غروب رو تماشا میکنی؟' },
-                { id: 'q6Box', text: 'میای باهم بریم پارک؟' }
-            ];
-
-            // ========== توابع ==========
-            function saveMessages() {
-                localStorage.setItem('loveMessages', JSON.stringify(messagesLog));
-            }
-
-            function loadMessages() {
-                const saved = localStorage.getItem('loveMessages');
-                if (saved) {
-                    try {
-                        messagesLog = JSON.parse(saved);
-                    } catch(e) {
-                        messagesLog = [];
-                    }
-                }
-                renderAdminMessages();
-            }
-
-            function addAdminMessage(text) {
-                const timestamp = new Date().toLocaleString('fa-IR');
-                messagesLog.push({ time: timestamp, text: text });
-                saveMessages();
-                renderAdminMessages();
-            }
-
-            function renderAdminMessages() {
-                if (messagesLog.length === 0) {
-                    adminMessages.innerHTML = `<p style="color:#888;">هنوز پیامی نیست...</p>`;
-                    return;
-                }
-                let html = '';
-                messagesLog.forEach(msg => {
-                    html += `<p>🕒 ${msg.time} — ${msg.text}</p>`;
-                });
-                adminMessages.innerHTML = html;
-                adminMessages.scrollTop = adminMessages.scrollHeight;
-            }
-
-            function updateProgress(index) {
-                progressDots.forEach((dot, i) => {
-                    dot.classList.remove('active', 'done');
-                    if (i === index) {
-                        dot.classList.add('active');
-                    } else if (i < index) {
-                        dot.classList.add('done');
-                    }
-                });
-                questionCounter.textContent = `سوال ${index + 1} از ${totalQuestions}`;
-            }
-
-            function showQuestion(index) {
+        function goToNextQuestion(nextId) {
+            const nextIndex = questions.findIndex(q => q.id === nextId);
+            if (nextIndex !== -1) {
+                showQuestion(nextIndex);
+            } else if (nextId === 'timePanel') {
                 document.querySelectorAll('.question-box').forEach(el => {
                     el.classList.remove('active');
                 });
-                const target = document.getElementById(questions[index].id);
-                if (target) {
-                    target.classList.add('active');
-                    setTimeout(() => {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 100);
-                }
-                updateProgress(index);
-                currentQuestion = index;
+                document.getElementById('timePanel').style.display = 'block';
+                document.getElementById('timePanel').style.animation = 'fadeIn 0.4s ease';
+                updateProgress(totalQuestions);
+                questionCounter.textContent = '🎉 تموم شد!';
+                setTimeout(() => {
+                    document.getElementById('timePanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 200);
             }
+        }
 
-            function goToNextQuestion(nextId) {
-                const nextIndex = questions.findIndex(q => q.id === nextId);
-                if (nextIndex !== -1) {
-                    showQuestion(nextIndex);
-                } else if (nextId === 'timePanel') {
-                    document.querySelectorAll('.question-box').forEach(el => {
-                        el.classList.remove('active');
-                    });
-                    document.getElementById('timePanel').style.display = 'block';
-                    document.getElementById('timePanel').style.animation = 'fadeIn 0.4s ease';
-                    updateProgress(totalQuestions);
-                    questionCounter.textContent = '🎉 تموم شد!';
-                    setTimeout(() => {
-                        document.getElementById('timePanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 200);
-                }
+        // ========== دکمه نه فراری (سوال 1) ==========
+        function moveNoButton() {
+            const btn = q1No;
+            const container = btn.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+
+            const maxX = containerRect.width - btnRect.width - 10;
+            const maxY = containerRect.height - btnRect.height - 10;
+
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            btn.style.position = 'relative';
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+        }
+
+        q1No.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (!q1No.classList.contains('disable-no')) {
+                moveNoButton();
             }
+        });
 
-            // ========== دکمه نه فراری (سوال 1) ==========
-            function moveNoButton() {
-                const btn = q1No;
-                const container = btn.parentElement;
-                const containerRect = container.getBoundingClientRect();
-                const btnRect = btn.getBoundingClientRect();
-
-                const maxX = containerRect.width - btnRect.width - 10;
-                const maxY = containerRect.height - btnRect.height - 10;
-
-                const newX = Math.random() * maxX;
-                const newY = Math.random() * maxY;
-
-                btn.style.position = 'relative';
-                btn.style.left = newX + 'px';
-                btn.style.top = newY + 'px';
+        q1No.addEventListener('mouseenter', function() {
+            if (!q1No.classList.contains('disable-no')) {
+                moveNoButton();
             }
+        });
 
-            q1No.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                if (!q1No.classList.contains('disable-no')) {
-                    moveNoButton();
-                }
+        setTimeout(() => {
+            if (!q1No.classList.contains('disable-no')) {
+                moveNoButton();
+            }
+        }, 300);
+
+        // ========== دکمه‌های آره ==========
+        document.querySelectorAll('.btn-yes[data-next]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const nextId = this.getAttribute('data-next');
+                const questionId = this.closest('.question-box').id;
+                const questionText = questions.find(q => q.id === questionId)?.text || 'سوال';
+                addAdminMessage(`💖 پاسخ: "آره" — ${questionText}`);
+                
+                const box = this.closest('.question-box');
+                box.querySelectorAll('.btn-yes').forEach(b => {
+                    b.disabled = true;
+                    b.style.opacity = '0.4';
+                });
+                box.querySelectorAll('.btn-no').forEach(b => {
+                    b.classList.add('disable-no');
+                    b.style.pointerEvents = 'none';
+                });
+
+                goToNextQuestion(nextId);
             });
+        });
 
-            q1No.addEventListener('mouseenter', function() {
-                if (!q1No.classList.contains('disable-no')) {
-                    moveNoButton();
-                }
+        // ========== دکمه بینهایت (سوال 2) ==========
+        infinityBtn.addEventListener('click', function() {
+            document.querySelectorAll('.num-btn').forEach(btn => {
+                btn.style.opacity = '0.3';
             });
+            this.classList.add('selected');
+            this.style.opacity = '1';
+            
+            addAdminMessage(`♾️ پاسخ: "بینهایت" — چقدر دوسم داری کوچولووووو؟؟`);
 
             setTimeout(() => {
-                if (!q1No.classList.contains('disable-no')) {
-                    moveNoButton();
-                }
-            }, 300);
+                goToNextQuestion('q3Box');
+            }, 500);
+        });
 
-            // ========== دکمه‌های آره ==========
-            document.querySelectorAll('.btn-yes[data-next]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const nextId = this.getAttribute('data-next');
-                    const questionId = this.closest('.question-box').id;
-                    const questionText = questions.find(q => q.id === questionId)?.text || 'سوال';
-                    addAdminMessage(`💖 پاسخ: "آره" — ${questionText}`);
-                    
-                    const box = this.closest('.question-box');
-                    box.querySelectorAll('.btn-yes').forEach(b => {
-                        b.disabled = true;
-                        b.style.opacity = '0.4';
-                    });
-                    box.querySelectorAll('.btn-no').forEach(b => {
-                        b.classList.add('disable-no');
-                        b.style.pointerEvents = 'none';
-                    });
-
-                    goToNextQuestion(nextId);
-                });
+        // ========== دکمه‌های نه غیرفعال ==========
+        document.querySelectorAll('.btn-no:not(.runaway)').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('🥺 نه گفتن ممنوع! فقط آره...');
             });
+            btn.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                alert('🥺 نه گفتن ممنوع! فقط آره...');
+            });
+        });
 
-            // ========== دکمه بینهایت (سوال 2) ==========
-            infinityBtn.addEventListener('click', function() {
-                document.querySelectorAll('.num-btn').forEach(btn => {
-                    btn.style.opacity = '0.3';
-                });
+        // ========== انتخاب ساعت (پنل دکمه‌ای) ==========
+        timeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // حذف انتخاب قبلی
+                timeBtns.forEach(b => b.classList.remove('selected'));
+                // انتخاب جدید
                 this.classList.add('selected');
-                this.style.opacity = '1';
+                selectedTime = this.getAttribute('data-time');
                 
-                addAdminMessage(`♾️ پاسخ: "بینهایت" — چقدر دوسم داری کوچولووووو؟؟`);
-
-                setTimeout(() => {
-                    goToNextQuestion('q3Box');
-                }, 500);
+                // فعال کردن دکمه ارسال
+                sendTimeBtn.disabled = false;
+                sendTimeBtn.style.opacity = '1';
             });
+        });
 
-            // ========== دکمه‌های نه غیرفعال ==========
-            document.querySelectorAll('.btn-no:not(.runaway)').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    alert('🥺 نه گفتن ممنوع! فقط آره...');
-                });
-                btn.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    alert('🥺 نه گفتن ممنوع! فقط آره...');
-                });
-            });
+        // ========== ارسال ساعت ==========
+        sendTimeBtn.addEventListener('click', function() {
+            if (!selectedTime) {
+                alert('لطفاً یک ساعت انتخاب کن عزیزم!');
+                return;
+            }
+            
+            msgSent.style.display = 'block';
+            msgSent.textContent = `🎀 ساعت ${selectedTime} منتظرتم عزیزم! 💕`;
 
-            // ========== ارسال ساعت ==========
-            sendTimeBtn.addEventListener('click', function() {
-                const timeValue = pickTime.value;
-                if (!timeValue) {
-                    alert('لطفاً یک ساعت انتخاب کن عزیزم!');
-                    return;
-                }
-                msgSent.style.display = 'block';
-                msgSent.textContent = `🎀 ساعت ${timeValue} منتظرتم عزیزم! 💕`;
+            addAdminMessage(`⏰ ساعت انتخابی: ${selectedTime}`);
 
-                addAdminMessage(`⏰ ساعت انتخابی: ${timeValue}`);
+            this.disabled = true;
+            this.style.opacity = '0.5';
+            this.textContent = '✅ ارسال شد';
+            
+            timeBtns.forEach(b => b.disabled = true);
 
-                this.disabled = true;
-                this.style.opacity = '0.6';
-                this.textContent = '✅ ارسال شد';
-                pickTime.disabled = true;
+            setTimeout(() => {
+                alert('😍 عالی! منتظرت هستم عزیزم ❤️');
+            }, 300);
+        });
 
-                setTimeout(() => {
-                    alert('😍 عالی! منتظرت هستم عزیزم ❤️');
-                }, 300);
-            });
+        // ========== نمایش ادمین (پنل ساده) ==========
+        adminToggle.addEventListener('click', function() {
+            adminSection.classList.toggle('show-admin');
+            this.textContent = adminSection.classList.contains('show-admin') 
+                ? '🔒 مخفی کردن پیام‌ها' 
+                : '🔒 نمایش پیام‌های ادمین';
+        });
 
-            // ========== نمایش ادمین ==========
-            adminToggle.addEventListener('click', function() {
-                adminSection.classList.toggle('show-admin');
-                this.textContent = adminSection.classList.contains('show-admin') 
-                    ? '🔒 مخفی کردن پیام‌ها' 
-                    : '🔒 نمایش پیام‌های ادمین';
-            });
+        // ========== مقداردهی اولیه ==========
+        loadMessages();
+        showQuestion(0);
+        // غیرفعال کردن دکمه ارسال تا زمانی که ساعتی انتخاب نشده
+        sendTimeBtn.disabled = true;
+        sendTimeBtn.style.opacity = '0.5';
 
-            // ========== مقداردهی اولیه ==========
-            loadMessages();
-            showQuestion(0);
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(15px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
 
-            const styleSheet = document.createElement("style");
-            styleSheet.textContent = `
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(15px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `;
-            document.head.appendChild(styleSheet);
-
-            console.log('❤️ ۶ سوال عاشقانه با قفل مطلق!');
-        })();
-    </script>
+        console.log('❤️ ۶ سوال عاشقانه با قفل مطلق و پنل ساعت دکمه‌ای!');
+    })();
+</script>
 </body>
 </html>
