@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد | PackZone MC</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Vazirmatn', sans-serif;
+            background: #0a0e1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            background: #0d2038;
+            border-bottom: 2px solid #008cff;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #7ec8ff;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-left img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #008cff;
+            object-fit: cover;
+        }
+
+        .header-left .user-name {
+            color: #7ec8ff;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        /* ===== DASHBOARD ===== */
+        .dashboard-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-container h1 {
+            color: #7ec8ff;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* ===== CARDS ===== */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dash-card {
+            background: #0d2038;
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.3s;
+        }
+
+        .dash-card:hover {
+            border-color: #008cff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 140, 255, 0.08);
+        }
+
+        .dash-card h3 {
+            color: #7ec8ff;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .dash-card p {
+            color: #9ecfff;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .dash-card a {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #008cff, #6c3cff);
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .dash-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
+        }
+
+        /* ===== FAVORITES ===== */
+        .favorites-section {
+            margin-top: 30px;
+            background: #0d2038;
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .favorites-section h2 {
+            color: #7ec8ff;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .favorite-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+
+        .favorite-item span {
+            color: #7ec8ff;
+            font-weight: 500;
+        }
+
+        .favorite-item .remove-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .favorite-item .remove-btn:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        .empty-msg {
+            color: #9ecfff;
+            opacity: 0.5;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-container h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="mainHeader">
+        <div class="logo">💙 PackZone MC</div>
+        <div class="header-left" id="userInfo">
+            <!-- توسط JS پر میشه -->
+        </div>
+    </header>
+
+    <!-- ===== DASHBOARD ===== -->
+    <main class="dashboard-container">
+        <h1>👤 داشبورد کاربر</h1>
+
+        <div class="dash-grid">
+
+            <div class="dash-card">
+                <h3>📋 پروفایل</h3>
+                <p>مشاهده و ویرایش اطلاعات شخصی</p>
+                <a href="profile.html">رفتن به پروفایل</a>
+            </div>
+
+            <div class="dash-card">
+                <h3>⭐ علاقه‌مندی‌ها</h3>
+                <p>پک‌هایی که ذخیره کرده‌اید</p>
+                <a href="favorites.html">مشاهده</a>
+            </div>
+
+            <div class="dash-card">
+                <h3>📦 پک‌های من</h3>
+                <p>پک‌هایی که آپلود کرده‌اید</p>
+                <a href="my-packs.html">مشاهده</a>
+            </div>
+
+            <div class="dash-card">
+                <h3>💬 نظرات من</h3>
+                <p>نظراتی که نوشته‌اید</p>
+                <a href="my-reviews.html">مشاهده</a>
+            </div>
+
+        </div>
+
+        <!-- ===== FAVORITES ===== -->
+        <div class="favorites-section">
+            <h2>⭐ پک‌های ذخیره‌شده</h2>
+            <div id="favoritesList">
+                <p class="empty-msg">در حال بارگذاری...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../src/js/main.js"></script>
+
+    <script>
+        // ============================================================
+        // ۱. بررسی وضعیت کاربر
+        // ============================================================
+        function checkUser() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            if (!user) {
+                alert('❌ شما وارد حساب خود نشده‌اید!');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // نمایش اطلاعات کاربر در هدر
+            const userInfo = document.getElementById('userInfo');
+            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
+
+            userInfo.innerHTML = `
+                <img src="${savedAvatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=008cff&color=fff&size=40'}" alt="آواتار">
+                <span class="user-name">${user.name}</span>
+                <button class="logout-btn" onclick="logoutUser()">🚪 خروج</button>
+            `;
+
+            // بارگذاری علاقه‌مندی‌ها
+            loadFavorites();
+        }
+
+        // ============================================================
+        // ۲. خروج
+        // ============================================================
+        function logoutUser() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                alert('👋 شما با موفقیت خارج شدید');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================================
+        // ۳. بارگذاری علاقه‌مندی‌ها
+        // ============================================================
+        function loadFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                container.innerHTML = '<p class="empty-msg">❌ لطفاً وارد شوید</p>';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) {
+                container.innerHTML = '<p class="empty-msg">❌ کاربر پیدا نشد</p>';
+                return;
+            }
+
+            const favorites = users[index].favorites || [];
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="empty-msg">⭐ شما هیچ پکی ذخیره نکرده‌اید</p>';
+                return;
+            }
+
+            let html = '';
+            favorites.forEach(pack => {
+                html += `
+                    <div class="favorite-item">
+                        <span>⭐ ${pack}</span>
+                        <button class="remove-btn" onclick="removeFavorite('${pack}')">حذف</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // ۴. حذف پک از علاقه‌مندی‌ها
+        // ============================================================
+        function removeFavorite(packName) {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                alert('❌ لطفاً اول وارد شوید');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+
+            if (index === -1) return;
+
+            if (!users[index].favorites) return;
+
+            const packIndex = users[index].favorites.indexOf(packName);
+            if (packIndex === -1) return;
+
+            users[index].favorites.splice(packIndex, 1);
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+            user.favorites = users[index].favorites;
+            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+
+            alert('🗑️ پک "' + packName + '" از علاقه‌مندی‌ها حذف شد');
+            loadFavorites();
+        }
+
+        // ============================================================
+        // ۵. بارگذاری صفحه
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', checkUser);
+    </script>
+
+</body>
+</html>
