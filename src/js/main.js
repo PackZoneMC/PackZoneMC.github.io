@@ -1,5 +1,5 @@
 // ========================================
-// PACKZONE MC - MAIN SCRIPT (با مدیریت کاربر + ذخیره پک)
+// PACKZONE MC - MAIN SCRIPT (نسخه نهایی)
 // ========================================
 
 console.log('💙 PackZone MC Loaded!');
@@ -10,28 +10,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== گرفتن کاربر از localStorage =====
     const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
 
-    // ===== پیدا کردن جای دکمه‌ها در هدر =====
+    // ===== پیدا کردن هدر =====
     const header = document.querySelector('.custom-header') || document.querySelector('.header') || document.querySelector('header');
     if (!header) return;
 
-    // ===== پیدا کردن منوی ناوبری =====
+    // ===== پیدا کردن یا ساخت منو =====
     let nav = header.querySelector('.custom-nav') || header.querySelector('.nav') || header.querySelector('nav');
 
-    // اگه منو وجود نداشت، خودمون می‌سازیم
+    // اگه منو وجود نداشت، بسازش
     if (!nav) {
         nav = document.createElement('nav');
         nav.className = 'custom-nav';
         header.appendChild(nav);
     }
 
-    // ===== حذف دکمه‌های قدیمی =====
+    // ===== خالی کردن منو =====
     nav.innerHTML = '';
 
-    // ===== ساخت دکمه‌ها بر اساس وضعیت کاربر =====
+    // ============================================================
+    // ===== کاربر وارد شده =====
+    // ============================================================
     if (currentUser) {
-        // ===== کاربر وارد شده =====
 
-        // ۱. عکس پروفایل (آواتار)
+        // ۱. عکس پروفایل
         const avatarImg = document.createElement('img');
         const savedAvatar = localStorage.getItem('pzmc_avatar_' + currentUser.email);
         avatarImg.src = savedAvatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.name) + '&background=008cff&color=fff&size=40';
@@ -45,8 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cursor: pointer;
             transition: 0.3s;
         `;
-        avatarImg.onmouseover = function() { this.style.borderColor = '#7b00ff'; };
-        avatarImg.onmouseout = function() { this.style.borderColor = '#008cff'; };
         avatarImg.onclick = function() {
             window.location.href = 'profile.html';
         };
@@ -64,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         userName.onclick = function() {
             window.location.href = 'profile.html';
         };
-        userName.onmouseover = function() { this.style.color = '#008cff'; };
-        userName.onmouseout = function() { this.style.color = '#7ec8ff'; };
 
         // ۳. دکمه خروج
         const logoutBtn = document.createElement('button');
@@ -93,8 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
         logoutBtn.onclick = function() {
             if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
                 localStorage.removeItem('pzmc_current_user');
-                alert('👋 شما با موفقیت خارج شدید');
-                window.location.reload();
+                showToast('👋 شما با موفقیت خارج شدید');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             }
         };
 
@@ -103,14 +102,18 @@ document.addEventListener('DOMContentLoaded', function() {
         nav.appendChild(userName);
         nav.appendChild(logoutBtn);
 
-        // مخفی کردن دکمه‌های ثبت‌نام و ورود از جای دیگه (اگه باشن)
+        // مخفی کردن دکمه‌های ثبت‌نام و ورود از هدر دستی (اگه باشن)
         document.querySelectorAll('.btn-signup, .btn-login, a[href="signup.html"], a[href="login.html"]').forEach(el => {
-            if (el.closest('nav') || el.closest('.custom-nav')) return;
-            el.style.display = 'none';
+            // اگه توی منوی ناوبری نباشن، مخفی کن
+            if (!el.closest('nav') && !el.closest('.custom-nav')) {
+                el.style.display = 'none';
+            }
         });
 
+    // ============================================================
+    // ===== کاربر وارد نشده =====
+    // ============================================================
     } else {
-        // ===== کاربر وارد نشده =====
 
         // ۱. دکمه ثبت‌نام
         const signupBtn = document.createElement('a');
@@ -159,14 +162,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// ===== توابع ذخیره پک در علاقه‌مندی‌ها =====
+// ===== توابع ذخیره پک =====
 // ============================================================
 
-// ===== افزودن پک به علاقه‌مندی‌ها =====
 function addFavorite(packName) {
     const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    
     if (!user) {
         showToast('❌ لطفاً اول وارد حساب خود شوید');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
         return;
     }
 
@@ -183,20 +189,18 @@ function addFavorite(packName) {
     }
 
     if (users[index].favorites.includes(packName)) {
-        showToast('⚠️ این پک قبلاً به علاقه‌مندی‌ها اضافه شده است');
+        showToast('⚠️ این پک قبلاً ذخیره شده است');
         return;
     }
 
     users[index].favorites.push(packName);
     localStorage.setItem('pzmc_users', JSON.stringify(users));
 
-    // به‌روزرسانی کاربر جاری
     user.favorites = users[index].favorites;
     localStorage.setItem('pzmc_current_user', JSON.stringify(user));
 
-    showToast('✅ پک "' + packName + '" با موفقیت به علاقه‌مندی‌ها اضافه شد! ⭐');
+    showToast('✅ پک "' + packName + '" ذخیره شد! ⭐');
 
-    // به‌روزرسانی دکمه (اگه دکمه وجود داشته باشه)
     const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
     if (btn) {
         btn.textContent = '⭐ ذخیره شد';
@@ -205,42 +209,31 @@ function addFavorite(packName) {
     }
 }
 
-// ===== حذف پک از علاقه‌مندی‌ها =====
 function removeFavorite(packName) {
     const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
     if (!user) {
-        showToast('❌ لطفاً اول وارد حساب خود شوید');
+        showToast('❌ لطفاً اول وارد شوید');
         return;
     }
 
     let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
     const index = users.findIndex(u => u.email === user.email);
 
-    if (index === -1) {
-        showToast('❌ کاربر پیدا نشد');
-        return;
-    }
+    if (index === -1) return;
 
-    if (!users[index].favorites) {
-        users[index].favorites = [];
-    }
+    if (!users[index].favorites) return;
 
     const packIndex = users[index].favorites.indexOf(packName);
-    if (packIndex === -1) {
-        showToast('⚠️ این پک در علاقه‌مندی‌های شما وجود ندارد');
-        return;
-    }
+    if (packIndex === -1) return;
 
     users[index].favorites.splice(packIndex, 1);
     localStorage.setItem('pzmc_users', JSON.stringify(users));
 
-    // به‌روزرسانی کاربر جاری
     user.favorites = users[index].favorites;
     localStorage.setItem('pzmc_current_user', JSON.stringify(user));
 
-    showToast('🗑️ پک "' + packName + '" از علاقه‌مندی‌ها حذف شد');
+    showToast('🗑️ پک "' + packName + '" حذف شد');
 
-    // به‌روزرسانی دکمه (اگه دکمه وجود داشته باشه)
     const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
     if (btn) {
         btn.textContent = '⭐ ذخیره';
@@ -248,20 +241,18 @@ function removeFavorite(packName) {
         btn.disabled = false;
     }
 
-    // اگه توی صفحه favorites هستیم، لیست رو دوباره بارگذاری کن
-    if (window.location.pathname.includes('favorites.html')) {
+    if (window.location.pathname.includes('profile.html')) {
         loadFavorites();
     }
 }
 
-// ===== بارگذاری لیست علاقه‌مندی‌ها (برای صفحه favorites.html) =====
 function loadFavorites() {
     const container = document.getElementById('favoritesList');
     if (!container) return;
 
     const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
     if (!user) {
-        container.innerHTML = '<p style="color:#9ecfff;">❌ لطفاً اول وارد حساب خود شوید</p>';
+        container.innerHTML = '<p class="empty-msg">❌ لطفاً وارد شوید</p>';
         return;
     }
 
@@ -269,23 +260,23 @@ function loadFavorites() {
     const index = users.findIndex(u => u.email === user.email);
 
     if (index === -1) {
-        container.innerHTML = '<p style="color:#9ecfff;">❌ کاربر پیدا نشد</p>';
+        container.innerHTML = '<p class="empty-msg">❌ کاربر پیدا نشد</p>';
         return;
     }
 
     const favorites = users[index].favorites || [];
 
     if (favorites.length === 0) {
-        container.innerHTML = '<p style="color:#9ecfff;">⭐ شما هنوز هیچ پکی را ذخیره نکرده‌اید</p>';
+        container.innerHTML = '<p class="empty-msg">⭐ شما هیچ پکی ذخیره نکرده‌اید</p>';
         return;
     }
 
-    let html = '<div style="display:flex;flex-direction:column;gap:12px;">';
+    let html = '<div style="display:flex;flex-direction:column;gap:8px;">';
     favorites.forEach(pack => {
         html += `
-            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:12px 16px;border-radius:12px;">
-                <span style="color:#7ec8ff;font-weight:600;">⭐ ${pack}</span>
-                <button onclick="removeFavorite('${pack}')" style="background:rgba(255,23,68,0.15);color:#ff1744;border:1px solid #ff1744;padding:6px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;">حذف</button>
+            <div class="favorite-item">
+                <span>⭐ ${pack}</span>
+                <button class="remove-btn" onclick="removeFavorite('${pack}')">حذف</button>
             </div>
         `;
     });
@@ -294,54 +285,48 @@ function loadFavorites() {
     container.innerHTML = html;
 }
 
-// ===== خروج =====
+// ============================================================
+// ===== توابع خروج و تغییرات =====
+// ============================================================
+
 function logoutUser() {
     if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
         localStorage.removeItem('pzmc_current_user');
-        alert('👋 شما با موفقیت خارج شدید');
-        window.location.reload();
+        showToast('👋 شما با موفقیت خارج شدید');
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 }
 
-// ===== بقیه توابع (تم، فونت، toast) =====
+// ============================================================
+// ===== توابع تم، فونت و Toast =====
+// ============================================================
 
-// ===== CHANGE THEME =====
 function changeTheme(theme) {
     document.body.className = '';
     document.body.classList.add('theme-' + theme);
     localStorage.setItem('selectedTheme', theme);
-    showToast('✅ تم با موفقیت تغییر کرد!');
+    showToast('✅ تم تغییر کرد!');
 }
 
-// ===== CHANGE FONT =====
 function changeFont(font) {
     document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
     let fontClass = '';
     switch (font) {
-        case 'inter':
-            fontClass = 'font-inter';
-            break;
-        case 'vazirmatn':
-            fontClass = 'font-vazirmatn';
-            break;
-        case 'iransans':
-            fontClass = 'font-iransans';
-            break;
-        case 'shabnam':
-            fontClass = 'font-shabnam';
-            break;
+        case 'inter': fontClass = 'font-inter'; break;
+        case 'vazirmatn': fontClass = 'font-vazirmatn'; break;
+        case 'iransans': fontClass = 'font-iransans'; break;
+        case 'shabnam': fontClass = 'font-shabnam'; break;
     }
-    if (fontClass) {
-        document.body.classList.add(fontClass);
-    }
+    if (fontClass) document.body.classList.add(fontClass);
     localStorage.setItem('selectedFont', font);
-    showToast('✅ فونت با موفقیت تغییر کرد!');
+    showToast('✅ فونت تغییر کرد!');
 }
 
-// ===== SHOW TOAST =====
 function showToast(message) {
-    const oldToast = document.querySelector('.toast-message');
-    if (oldToast) oldToast.remove();
+    const old = document.querySelector('.toast-message');
+    if (old) old.remove();
 
     const toast = document.createElement('div');
     toast.className = 'toast-message';
@@ -360,70 +345,39 @@ function showToast(message) {
         font-size: 1rem;
         z-index: 9999;
         animation: fadeInUp 0.3s ease;
-        font-family: inherit !important;
+        font-family: inherit;
     `;
     document.body.appendChild(toast);
-
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transition = 'opacity 0.5s ease';
         setTimeout(() => toast.remove(), 500);
-    }, 2000);
+    }, 2500);
 }
 
-// ===== ADD ANIMATION =====
-const styleAnim = document.createElement('style');
-styleAnim.textContent = `
+// ===== انیمیشن =====
+const style = document.createElement('style');
+style.textContent = `
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateX(-50%) translateY(20px); }
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 `;
-document.head.appendChild(styleAnim);
+document.head.appendChild(style);
 
-// ===== LOAD SAVED THEME & FONT =====
+// ===== بارگذاری تم و فونت ذخیره‌شده =====
 window.onload = function() {
     const savedTheme = localStorage.getItem('selectedTheme');
-    if (savedTheme) {
-        document.body.classList.add('theme-' + savedTheme);
-    }
+    if (savedTheme) document.body.classList.add('theme-' + savedTheme);
+
     const savedFont = localStorage.getItem('selectedFont');
     if (savedFont) {
-        let fontClass = '';
-        switch (savedFont) {
-            case 'inter':
-                fontClass = 'font-inter';
-                break;
-            case 'vazirmatn':
-                fontClass = 'font-vazirmatn';
-                break;
-            case 'iransans':
-                fontClass = 'font-iransans';
-                break;
-            case 'shabnam':
-                fontClass = 'font-shabnam';
-                break;
-        }
-        if (fontClass) {
-            document.body.classList.add(fontClass);
-        }
-    }
-
-    // ===== چک کردن وضعیت دکمه‌های ذخیره =====
-    const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-    if (user) {
-        let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-        const index = users.findIndex(u => u.email === user.email);
-        if (index !== -1) {
-            const favorites = users[index].favorites || [];
-            document.querySelectorAll('.fav-btn[data-pack]').forEach(btn => {
-                const packName = btn.getAttribute('data-pack');
-                if (favorites.includes(packName)) {
-                    btn.textContent = '⭐ ذخیره شد';
-                    btn.classList.add('saved');
-                    btn.disabled = true;
-                }
-            });
-        }
+        const map = {
+            inter: 'font-inter',
+            vazirmatn: 'font-vazirmatn',
+            iransans: 'font-iransans',
+            shabnam: 'font-shabnam'
+        };
+        if (map[savedFont]) document.body.classList.add(map[savedFont]);
     }
 };
