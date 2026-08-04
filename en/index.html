@@ -8,7 +8,7 @@
 
     <title>PackZone MC | EN</title>
 
-    <!-- ===== GOOGLE FONTS (همه فونت‌ها با لینک مستقیم) ===== -->
+    <!-- ===== GOOGLE FONTS ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../style.css">
 
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -24,28 +23,26 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
             background: #0a0e1a;
             color: #e0e8f0;
             min-height: 100vh;
             transition: all 0.3s ease;
         }
 
-        /* ===== کلاس‌های فونت ===== */
         .font-inter {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            font-family: 'Inter', sans-serif !important;
         }
         .font-vazirmatn {
-            font-family: 'Vazirmatn', 'Tahoma', sans-serif !important;
+            font-family: 'Vazirmatn', sans-serif !important;
         }
         .font-iransans {
-            font-family: 'Noto Sans Arabic', 'Tahoma', sans-serif !important;
+            font-family: 'Noto Sans Arabic', sans-serif !important;
         }
         .font-shabnam {
-            font-family: 'Shabnam', 'Tahoma', sans-serif !important;
+            font-family: 'Shabnam', sans-serif !important;
         }
 
-        /* ===== CUSTOM THEMES ===== */
         .theme-default {
             --primary: #008cff;
             --primary-dark: #0066cc;
@@ -121,20 +118,110 @@
         }
 
         /* ===== HEADER ===== */
-        header {
-            text-align: center;
-            padding: 40px 20px 20px;
+        .custom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(13, 32, 56, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color, #008cff);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .main-logo {
-            font-size: 2.8rem;
+        .custom-logo {
+            font-size: 1.8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary, #008cff), var(--secondary, #7b00ff));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-            text-shadow: none;
+        }
+
+        .custom-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-signup {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #008cff, #7b00ff);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .btn-signup:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+        }
+
+        .btn-login {
+            color: #9ecfff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: #7ec8ff;
+        }
+
+        .btn-dashboard {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 18px;
+            background: linear-gradient(135deg, #00c853, #009624);
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-dashboard:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
+        }
+
+        .btn-logout {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-logout:hover {
+            background: #ff1744;
+            color: #fff;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #008cff;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .user-name {
+            color: #7ec8ff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
         }
 
         /* ===== HERO ===== */
@@ -167,7 +254,6 @@
             border-radius: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 0 40px rgba(0, 140, 255, 0.08);
-            transition: all 0.3s ease;
         }
 
         .about h2 {
@@ -181,7 +267,7 @@
             opacity: 0.9;
         }
 
-        /* ===== TWO-COLUMN GRID ===== */
+        /* ===== GRID ===== */
         .menu-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -199,9 +285,10 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: default;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .small-card::before {
@@ -241,6 +328,14 @@
             opacity: 0.75;
             line-height: 1.6;
             margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .small-card a {
@@ -253,13 +348,114 @@
             border-radius: 12px;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: none;
-            letter-spacing: 0.3px;
+            flex: 1;
+            text-align: center;
         }
 
         .small-card a:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 24px rgba(0, 140, 255, 0.3);
+        }
+
+        /* ===== LANGUAGE TOGGLE ===== */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #0d2038;
+            border: 2px solid #008cff;
+            border-radius: 50px;
+            padding: 8px 16px;
+            color: #7ec8ff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.3);
+        }
+
+        .language-toggle:hover {
+            background: #008cff;
+            color: #fff;
+        }
+
+        .language-panel {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            z-index: 999;
+            background: #0d2038;
+            border: 1px solid #008cff;
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 220px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+
+        .language-panel.open {
+            display: block;
+        }
+
+        .language-panel .panel-title {
+            color: #9ecfff;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .language-panel .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-panel .lang-item:hover {
+            background: rgba(0, 140, 255, 0.2);
+        }
+
+        .language-panel .lang-item.active {
+            background: rgba(0, 140, 255, 0.3);
+            border: 1px solid #008cff;
+        }
+
+        .language-panel .divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 12px 0;
+        }
+
+        .language-panel .theme-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .language-panel .theme-item:hover {
+            background: rgba(0, 140, 255, 0.2);
+        }
+
+        .language-panel .theme-item .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
         }
 
         /* ===== FOOTER ===== */
@@ -275,22 +471,41 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
+            .custom-header {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
             .menu-box {
                 grid-template-columns: 1fr;
                 gap: 18px;
                 padding: 0 16px 30px;
             }
-
-            .main-logo {
-                font-size: 2rem;
+            .custom-logo {
+                font-size: 1.4rem;
             }
-
             .hero h2 {
                 font-size: 1.6rem;
             }
-
             .small-card {
                 padding: 22px 18px;
+            }
+            .card-actions {
+                flex-direction: column;
+            }
+            .custom-nav {
+                gap: 8px;
+                justify-content: center;
+            }
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .language-panel {
+                top: 60px;
+                right: 10px;
+                min-width: 180px;
             }
         }
 
@@ -302,9 +517,16 @@
                 padding: 8px 20px;
                 font-size: 0.8rem;
             }
+            .btn-signup {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .btn-login {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
         }
 
-        /* ===== TOAST ===== */
         .toast-message {
             font-family: inherit !important;
         }
@@ -324,78 +546,65 @@
 
     <div class="language-panel" id="languagePanel">
         <div class="panel-title">🌍 Choose Language</div>
-
         <a href="../fa/index.html" class="lang-item">
             <span class="flag">🇮🇷</span>
             <span class="lang-name">فارسی</span>
             <span class="lang-code">FA</span>
         </a>
-
         <a href="../en/index.html" class="lang-item active">
             <span class="flag">🇺🇸</span>
             <span class="lang-name">English</span>
             <span class="lang-code">EN</span>
         </a>
-
         <hr class="divider">
-
         <div class="panel-title">🎨 Choose Theme</div>
-
         <div class="theme-item" onclick="changeTheme('default')">
             <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
             <span>Default (Purple-Blue)</span>
         </div>
-
         <div class="theme-item" onclick="changeTheme('green')">
             <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
             <span>Minecraft Green</span>
         </div>
-
         <div class="theme-item" onclick="changeTheme('orange')">
             <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
             <span>Orange-Gold</span>
         </div>
-
         <div class="theme-item" onclick="changeTheme('blue')">
             <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
             <span>Royal Blue</span>
         </div>
-
         <div class="theme-item" onclick="changeTheme('pink')">
             <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
             <span>Pink-Purple</span>
         </div>
-
         <hr class="divider">
-
         <div class="panel-title">🔤 Choose Font</div>
-
         <div class="theme-item" onclick="changeFont('inter')">
             <span>📝 Inter (Modern)</span>
         </div>
-
         <div class="theme-item" onclick="changeFont('vazirmatn')">
             <span>📝 Vazirmatn</span>
         </div>
-
         <div class="theme-item" onclick="changeFont('iransans')">
             <span>📝 Iranian Sans</span>
         </div>
-
         <div class="theme-item" onclick="changeFont('shabnam')">
             <span>📝 Shabnam</span>
         </div>
     </div>
-
-    <!-- ===== HEADER ===== -->
-    <header>
-        <h1 class="main-logo">💙 PackZone MC</h1>
+        <!-- ===== HEADER ===== -->
+    <header class="custom-header">
+        <div class="custom-logo">💙 PackZone MC</div>
+        <nav class="custom-nav" id="mainNav">
+            <!-- Filled by JS -->
+        </nav>
     </header>
 
     <!-- ===== HERO ===== -->
     <section class="hero">
         <h2>Welcome to PackZone MC 💙</h2>
-        <p>Professional resource pack hub for Minecraft Java & Bedrock</p>
+        <p>Professional resource pack hub for Minecraft Java &amp; Bedrock</p>
     </section>
 
     <!-- ===== ABOUT ===== -->
@@ -406,12 +615,12 @@
             Our goal is to create a better and simpler experience for Minecraft players.</p>
     </section>
 
-    <!-- ===== MENU (ترتیب درست) ===== -->
+    <!-- ===== MENU with new names ===== -->
     <section class="menu-box">
 
-        <!-- ردیف ۱: کالکشن پک‌های میستی | مانیفست بیلدر -->
+        <!-- Row 1 -->
         <div class="card small-card">
-            <h3>💎 MysMce Packs</h3>
+            <h3>🎮 MysMce Packs for Bedrock</h3>
             <p>Collection of MysMce packs ported to Bedrock</p>
             <a href="mysmce.html">View Collection</a>
         </div>
@@ -422,20 +631,20 @@
             <a href="manifest.html">Start Building</a>
         </div>
 
-        <!-- ردیف ۲: پک‌های جاوا | پک‌های بدراک -->
+        <!-- Row 2 -->
         <div class="card small-card">
-            <h3>🟦 Java Packs</h3>
+            <h3>🟦 Java Edition Packs</h3>
             <p>Browse resource packs for Minecraft Java</p>
             <a href="java.html">Browse Java</a>
         </div>
 
         <div class="card small-card">
-            <h3>🟩 Bedrock Packs</h3>
+            <h3>🟩 Bedrock Edition Packs</h3>
             <p>Download resource packs for Minecraft Bedrock</p>
             <a href="bedrock.html">Download</a>
         </div>
 
-        <!-- ردیف ۳: مای پک‌ها | مک‌میتا بیلدر -->
+        <!-- Row 3 -->
         <div class="card small-card">
             <h3>📦 My Packs</h3>
             <p>Exclusive packs built by PackZone MC</p>
@@ -443,7 +652,7 @@
         </div>
 
         <div class="card small-card">
-            <h3>📦 Pack.mcmeta Builder</h3>
+            <h3>📦 pack.mcmeta Builder</h3>
             <p>Create pack.mcmeta files for Java resource packs</p>
             <a href="mcmeta-builder.html">Create</a>
         </div>
@@ -455,39 +664,37 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script>
-        // ===== TOGGLE PANEL =====
+        // ============================================================
+        // ===== 1. Language Panel Functions =====
+        // ============================================================
+
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
-            const toggle = document.querySelector('.language-toggle');
             panel.classList.toggle('open');
-            toggle.classList.toggle('active');
         }
 
-        // Close panel when clicking outside
         document.addEventListener('click', function(event) {
             const panel = document.getElementById('languagePanel');
             const toggle = document.querySelector('.language-toggle');
             if (!toggle.contains(event.target) && !panel.contains(event.target)) {
                 panel.classList.remove('open');
-                toggle.classList.remove('active');
             }
         });
 
-        // ===== CHANGE THEME =====
+        // ============================================================
+        // ===== 2. Theme & Font Change =====
+        // ============================================================
+
         function changeTheme(theme) {
             document.body.className = '';
             document.body.classList.add('theme-' + theme);
             localStorage.setItem('selectedTheme', theme);
             document.getElementById('languagePanel').classList.remove('open');
-            document.querySelector('.language-toggle').classList.remove('active');
             showToast('✅ Theme changed successfully!');
         }
 
-        // ===== CHANGE FONT =====
         function changeFont(font) {
-            // حذف کلاس‌های فونت قبلی
             document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
-
             let fontClass = '';
             switch (font) {
                 case 'inter':
@@ -503,22 +710,19 @@
                     fontClass = 'font-shabnam';
                     break;
             }
-
-            if (fontClass) {
-                document.body.classList.add(fontClass);
-            }
-
+            if (fontClass) document.body.classList.add(fontClass);
             localStorage.setItem('selectedFont', font);
             document.getElementById('languagePanel').classList.remove('open');
-            document.querySelector('.language-toggle').classList.remove('active');
             showToast('✅ Font changed successfully!');
         }
 
-        // ===== SHOW TOAST =====
-        function showToast(message) {
-            const oldToast = document.querySelector('.toast-message');
-            if (oldToast) oldToast.remove();
+        // ============================================================
+        // ===== 3. Toast =====
+        // ============================================================
 
+        function showToast(message) {
+            const old = document.querySelector('.toast-message');
+            if (old) old.remove();
             const toast = document.createElement('div');
             toast.className = 'toast-message';
             toast.textContent = message;
@@ -539,7 +743,6 @@
                 font-family: inherit !important;
             `;
             document.body.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.5s ease';
@@ -547,7 +750,6 @@
             }, 2000);
         }
 
-        // ===== ADD ANIMATION =====
         const styleAnim = document.createElement('style');
         styleAnim.textContent = `
             @keyframes fadeInUp {
@@ -557,39 +759,69 @@
         `;
         document.head.appendChild(styleAnim);
 
-        // ===== LOAD SAVED THEME & FONT =====
-        window.onload = function() {
-            // تم
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme) {
-                document.body.classList.add('theme-' + savedTheme);
-            }
+        // ============================================================
+        // ===== 4. Header Management =====
+        // ============================================================
 
-            // فونت
+        function updateHeader() {
+            const nav = document.getElementById('mainNav');
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=008cff&color=fff&size=40';
+
+                nav.innerHTML = `
+                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
+                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name}</span>
+                    <a href="dashboard.html" class="btn-dashboard">📊 Dashboard</a>
+                    <button class="btn-logout" onclick="logoutUser()">🚪 Logout</button>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <a href="signup.html" class="btn-signup">📝 Sign Up</a>
+                    <a href="login.html" class="btn-login">🔐 Login</a>
+                `;
+            }
+        }
+
+        // ============================================================
+        // ===== 5. Logout =====
+        // ============================================================
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('pzmc_current_user');
+                showToast('👋 You have been logged out');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }
+
+        // ============================================================
+        // ===== 6. Page Load =====
+        // ============================================================
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) document.body.classList.add('theme-' + savedTheme);
+
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
-                let fontClass = '';
-                switch (savedFont) {
-                    case 'inter':
-                        fontClass = 'font-inter';
-                        break;
-                    case 'vazirmatn':
-                        fontClass = 'font-vazirmatn';
-                        break;
-                    case 'iransans':
-                        fontClass = 'font-iransans';
-                        break;
-                    case 'shabnam':
-                        fontClass = 'font-shabnam';
-                        break;
-                }
-                if (fontClass) {
-                    document.body.classList.add(fontClass);
-                }
+                const map = {
+                    inter: 'font-inter',
+                    vazirmatn: 'font-vazirmatn',
+                    iransans: 'font-iransans',
+                    shabnam: 'font-shabnam'
+                };
+                if (map[savedFont]) document.body.classList.add(map[savedFont]);
             }
+
+            updateHeader();
         };
     </script>
 
 </body>
 
-                </html>
+</html>
