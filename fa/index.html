@@ -3,353 +3,593 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PackZone MC | فارسی</title>
+    <title>PackZone MC | FA</title>
 
-<link rel="stylesheet" href="../style.css">
+    <!-- ===== GOOGLE FONTS (همه فونت‌ها با لینک مستقیم) ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-    /* ===== تم‌های سفارشی ===== */
-    .theme-default {
-        --primary: #008cff;
-        --primary-dark: #0066cc;
-        --primary-light: #33aaff;
-        --secondary: #7b00ff;
-        --secondary-dark: #5500cc;
-        --secondary-light: #aa66ff;
-        --bg-card: #0d2038;
-        --border-color: #008cff;
-        --shadow-color: #008cff;
-        --text-primary: #7ec8ff;
-    }
-    
-    .theme-green {
-        --primary: #2D8A4E;
-        --primary-dark: #1A5C32;
-        --primary-light: #4CAF50;
-        --secondary: #7CFC00;
-        --secondary-dark: #5CB800;
-        --secondary-light: #A8FF60;
-        --bg-card: #0d1f0d;
-        --border-color: #2D8A4E;
-        --shadow-color: #2D8A4E;
-        --text-primary: #7CFC00;
-    }
-    
-    .theme-orange {
-        --primary: #FF6B00;
-        --primary-dark: #CC5500;
-        --primary-light: #FF8C33;
-        --secondary: #FFD700;
-        --secondary-dark: #CCA800;
-        --secondary-light: #FFE44D;
-        --bg-card: #1a0f00;
-        --border-color: #FF6B00;
-        --shadow-color: #FF6B00;
-        --text-primary: #FFD700;
-    }
-    
-    .theme-blue {
-        --primary: #0A2463;
-        --primary-dark: #061840;
-        --primary-light: #1A3F8A;
-        --secondary: #00B4D8;
-        --secondary-dark: #0088A8;
-        --secondary-light: #40D0F0;
-        --bg-card: #080c1a;
-        --border-color: #0A2463;
-        --shadow-color: #0A2463;
-        --text-primary: #00B4D8;
-    }
-    
-    .theme-pink {
-        --primary: #9B5DE5;
-        --primary-dark: #7A3DB8;
-        --primary-light: #B87FED;
-        --secondary: #F15BB5;
-        --secondary-dark: #C73E94;
-        --secondary-light: #F58CC8;
-        --bg-card: #1a0f24;
-        --border-color: #9B5DE5;
-        --shadow-color: #9B5DE5;
-        --text-primary: #F15BB5;
-    }
-</style>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0e1a;
+            color: #e0e8f0;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== کلاس‌های فونت ===== */
+        .font-inter {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        }
+        .font-vazirmatn {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif !important;
+        }
+        .font-iransans {
+            font-family: 'Noto Sans Arabic', 'Tahoma', sans-serif !important;
+        }
+        .font-shabnam {
+            font-family: 'Shabnam', 'Tahoma', sans-serif !important;
+        }
+
+        /* ===== CUSTOM THEMES ===== */
+        .theme-default {
+            --primary: #008cff;
+            --primary-dark: #0066cc;
+            --primary-light: #33aaff;
+            --secondary: #7b00ff;
+            --secondary-dark: #5500cc;
+            --secondary-light: #aa66ff;
+            --bg-card: #0d2038;
+            --border-color: #008cff;
+            --shadow-color: #008cff;
+            --text-primary: #7ec8ff;
+            --bg-body: #0a0e1a;
+        }
+
+        .theme-green {
+            --primary: #2D8A4E;
+            --primary-dark: #1A5C32;
+            --primary-light: #4CAF50;
+            --secondary: #7CFC00;
+            --secondary-dark: #5CB800;
+            --secondary-light: #A8FF60;
+            --bg-card: #0d1f0d;
+            --border-color: #2D8A4E;
+            --shadow-color: #2D8A4E;
+            --text-primary: #7CFC00;
+            --bg-body: #0a120a;
+        }
+
+        .theme-orange {
+            --primary: #FF6B00;
+            --primary-dark: #CC5500;
+            --primary-light: #FF8C33;
+            --secondary: #FFD700;
+            --secondary-dark: #CCA800;
+            --secondary-light: #FFE44D;
+            --bg-card: #1a0f00;
+            --border-color: #FF6B00;
+            --shadow-color: #FF6B00;
+            --text-primary: #FFD700;
+            --bg-body: #0f0a00;
+        }
+
+        .theme-blue {
+            --primary: #0A2463;
+            --primary-dark: #061840;
+            --primary-light: #1A3F8A;
+            --secondary: #00B4D8;
+            --secondary-dark: #0088A8;
+            --secondary-light: #40D0F0;
+            --bg-card: #080c1a;
+            --border-color: #0A2463;
+            --shadow-color: #0A2463;
+            --text-primary: #00B4D8;
+            --bg-body: #05080f;
+        }
+
+        .theme-pink {
+            --primary: #9B5DE5;
+            --primary-dark: #7A3DB8;
+            --primary-light: #B87FED;
+            --secondary: #F15BB5;
+            --secondary-dark: #C73E94;
+            --secondary-light: #F58CC8;
+            --bg-card: #1a0f24;
+            --border-color: #9B5DE5;
+            --shadow-color: #9B5DE5;
+            --text-primary: #F15BB5;
+            --bg-body: #0f0a14;
+        }
+
+        body {
+            background: var(--bg-body, #0a0e1a);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            text-shadow: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 30px 20px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding: 25px 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 40px rgba(0, 140, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .about h2 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .about p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* ===== TWO-COLUMN GRID ===== */
+        .menu-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* ===== CARDS ===== */
+        .small-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .small-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .small-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-color);
+            box-shadow: 0 12px 48px rgba(0, 140, 255, 0.15);
+        }
+
+        .small-card:hover::before {
+            opacity: 1;
+        }
+
+        .small-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .small-card p {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .small-card a {
+            display: inline-block;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            letter-spacing: 0.3px;
+        }
+
+        .small-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 140, 255, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .menu-box {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px 30px;
+            }
+
+            .main-logo {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+
+            .small-card {
+                padding: 22px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .small-card h3 {
+                font-size: 1rem;
+            }
+            .small-card a {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ===== TOAST ===== */
+        .toast-message {
+            font-family: inherit !important;
+        }
+    </style>
 
 </head>
 
 
 <body>
 
-<!-- ===== پنل تغییر زبان ===== -->
-<div class="language-toggle" onclick="togglePanel()">
-    <span class="flag-icon">🇮🇷</span>
-    <span>فارسی</span>
-    <span class="arrow">▼</span>
-</div>
-
-<div class="language-panel" id="languagePanel">
-    <div class="panel-title">🌍 انتخاب زبان</div>
-    
-    <a href="../fa/index.html" class="lang-item active">
-        <span class="flag">🇮🇷</span>
-        <span class="lang-name">فارسی</span>
-        <span class="lang-code">FA</span>
-    </a>
-    
-    <a href="../en/index.html" class="lang-item">
-        <span class="flag">🇺🇸</span>
-        <span class="lang-name">English</span>
-        <span class="lang-code">EN</span>
-    </a>
-    
-    <hr class="divider">
-    
-    <div class="panel-title">🎨 انتخاب تم</div>
-    
-    <div class="theme-item" onclick="changeTheme('default')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
-        <span>پیش‌فرض (بنفش-آبی)</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeTheme('green')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
-        <span>سبز ماینکرفت</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeTheme('orange')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
-        <span>نارنجی-طلایی</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeTheme('blue')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
-        <span>آبی سلطنتی</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeTheme('pink')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
-        <span>صورتی-بنفش</span>
-    </div>
-    
-    <hr class="divider">
-    
-    <div class="panel-title">🔤 انتخاب فونت</div>
-    
-    <div class="theme-item" onclick="changeFont('vazirmatn')">
-        <span>📝 وزیرمتن</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeFont('iransans')">
-        <span>📝 ایران‌سنس</span>
-    </div>
-    
-    <div class="theme-item" onclick="changeFont('shabnam')">
-        <span>📝 شبنم</span>
-    </div>
-</div>
-
-<!-- ===== هدر ===== -->
-<header>
-    <h1 class="main-logo">💙 PackZone MC</h1>
-</header>
-
-<!-- ===== Hero ===== -->
-<section class="hero">
-    <h2>به PackZone MC خوش آمدید 💙</h2>
-    <p>مرجع حرفه‌ای ریسورس پک‌های Minecraft برای Java و Bedrock</p>
-</section>
-
-<!-- ===== About ===== -->
-<section class="card about">
-    <h2>📌 درباره PackZone MC</h2>
-    <p>PackZone MC یک مجموعه برای ارائه ریسورس پک‌های حرفه‌ای،
-    پک‌های PvP، تبدیل پک‌ها و ابزارهای کاربردی Minecraft است.
-    هدف ما ساخت تجربه‌ای بهتر و ساده‌تر برای بازیکنان Minecraft می‌باشد.</p>
-</section>
-
-<!-- ===== Menu ===== -->
-<section class="menu-box">
-
-    <div class="card small-card">
-        <h3>📄 Manifest Builder</h3>
-        <p>ساخت فایل manifest.json بدون نیاز به کدنویسی</p>
-        <a href="manifest.html">ورود</a>
+    <!-- ===== LANGUAGE SWITCH PANEL ===== -->
+    <div class="language-toggle" onclick="togglePanel()">
+        <span class="flag-icon">🇮🇷</span>
+        <span>فارسی</span>
+        <span class="arrow">▼</span>
     </div>
 
-    <div class="card small-card">
-        <h3>📦 Pack.mcmeta Builder</h3>
-        <p>ساخت فایل pack.mcmeta برای ریسورس پک‌های Minecraft Java</p>
-        <a href="mcmeta-builder.html">ورود</a>
+    <div class="language-panel" id="languagePanel">
+        <div class="panel-title">🌍 انتخاب زبان</div>
+
+        <a href="../fa/index.html" class="lang-item active">
+            <span class="flag">🇮🇷</span>
+            <span class="lang-name">فارسی</span>
+            <span class="lang-code">FA</span>
+        </a>
+
+        <a href="../en/index.html" class="lang-item">
+            <span class="flag">🇺🇸</span>
+            <span class="lang-name">English</span>
+            <span class="lang-code">EN</span>
+        </a>
+
+        <hr class="divider">
+
+        <div class="panel-title">🎨 انتخاب تم</div>
+
+        <div class="theme-item" onclick="changeTheme('default')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
+            <span>پیش‌فرض (بنفش-آبی)</span>
+        </div>
+
+        <div class="theme-item" onclick="changeTheme('green')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
+            <span>سبز ماینکرفت</span>
+        </div>
+
+        <div class="theme-item" onclick="changeTheme('orange')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
+            <span>نارنجی-طلایی</span>
+        </div>
+
+        <div class="theme-item" onclick="changeTheme('blue')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
+            <span>سلطنتی آبی</span>
+        </div>
+
+        <div class="theme-item" onclick="changeTheme('pink')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
+            <span>صورتی-بنفش</span>
+        </div>
+
+        <hr class="divider">
+
+        <div class="panel-title">🔤 انتخاب فونت</div>
+
+        <div class="theme-item" onclick="changeFont('inter')">
+            <span>📝 اینتر (مدرن)</span>
+        </div>
+
+        <div class="theme-item" onclick="changeFont('vazirmatn')">
+            <span>📝 وزیرمتن</span>
+        </div>
+
+        <div class="theme-item" onclick="changeFont('iransans')">
+            <span>📝 ایران‌سنس</span>
+        </div>
+
+        <div class="theme-item" onclick="changeFont('shabnam')">
+            <span>📝 شبنم</span>
+        </div>
     </div>
 
-    <div class="card small-card">
-        <h3>🟩 Bedrock Packs</h3>
-        <p>دانلود ریسورس پک‌های Minecraft Bedrock</p>
-        <a href="bedrock.html">مشاهده</a>
-    </div>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <h1 class="main-logo">💙 PackZone MC</h1>
+    </header>
 
-    <div class="card small-card">
-        <h3>🟦 Java Packs</h3>
-        <p>مشاهده ریسورس پک‌های Minecraft Java</p>
-        <a href="java.html">مشاهده</a>
-    </div>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <h2>به PackZone MC خوش آمدید 💙</h2>
+        <p>مرکز تخصصی پک‌های منبع برای ماینکرفت جاوا و بدراک</p>
+    </section>
 
-    <div class="card small-card">
-        <h3>💎 MysMce Packs</h3>
-        <p>کالکشن پک‌های MysMce پورت شده برای Bedrock</p>
-        <a href="mysmce.html">مشاهده</a>
-    </div>
+    <!-- ===== ABOUT ===== -->
+    <section class="card about">
+        <h2>📌 درباره PackZone MC</h2>
+        <p>PackZone MC مجموعه‌ای است که به ارائه پک‌های منبع حرفه‌ای،
+            پک‌های PvP، تبدیل پک‌ها و ابزارهای مفید ماینکرفت اختصاص دارد.
+            هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
+    </section>
 
-    <div class="card small-card">
-        <h3>📦 My Packs</h3>
-        <p>پک‌های اختصاصی ساخته‌شده توسط PackZone MC</p>
-        <a href="my-packs.html">مشاهده</a>
-    </div>
+    <!-- ===== MENU ===== -->
+    <section class="menu-box">
 
+        <!-- ردیف ۱: کالکشن پک‌های میستی | مانیفست بیلدر -->
+        <div class="card small-card">
+            <h3>💎 پک‌های MysMce</h3>
+            <p>مجموعه پک‌های MysMce که به بدراک منتقل شده‌اند</p>
+            <a href="mysmce.html">مشاهده مجموعه</a>
+        </div>
 
-</section>
+        <div class="card small-card">
+            <h3>📄 مانیفست بیلدر</h3>
+            <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
+            <a href="manifest.html">شروع ساخت</a>
+        </div>
 
-<!-- ===== Footer ===== -->
-<footer>© PackZone MC 💙</footer>
+        <!-- ردیف ۲: پک‌های جاوا | پک‌های بدراک -->
+        <div class="card small-card">
+            <h3>🟦 پک‌های جاوا</h3>
+            <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
+            <a href="java.html">مرور جاوا</a>
+        </div>
 
-<!-- ===== اسکریپت ===== -->
-<script>
-    // ===== باز و بسته کردن پنل =====
-    function togglePanel() {
-        const panel = document.getElementById('languagePanel');
-        const toggle = document.querySelector('.language-toggle');
-        panel.classList.toggle('open');
-        toggle.classList.toggle('active');
-    }
+        <div class="card small-card">
+            <h3>🟩 پک‌های بدراک</h3>
+            <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
+            <a href="bedrock.html">دانلود</a>
+        </div>
 
-    // بستن پنل با کلیک بیرون
-    document.addEventListener('click', function(event) {
-        const panel = document.getElementById('languagePanel');
-        const toggle = document.querySelector('.language-toggle');
-        if (!toggle.contains(event.target) && !panel.contains(event.target)) {
-            panel.classList.remove('open');
-            toggle.classList.remove('active');
+        <!-- ردیف ۳: پک‌های من | مک‌میتا بیلدر -->
+        <div class="card small-card">
+            <h3>📦 پک‌های من</h3>
+            <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
+            <a href="my-packs.html">مشاهده اختصاصی‌ها</a>
+        </div>
+
+        <div class="card small-card">
+            <h3>📦 پک‌مک‌میتا بیلدر</h3>
+            <p>فایل pack.mcmeta را برای پک‌های جاوا بسازید</p>
+            <a href="mcmeta-builder.html">ساخت</a>
+        </div>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>© PackZone MC 💙</footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== TOGGLE PANEL =====
+        function togglePanel() {
+            const panel = document.getElementById('languagePanel');
+            const toggle = document.querySelector('.language-toggle');
+            panel.classList.toggle('open');
+            toggle.classList.toggle('active');
         }
-    });
 
-    // ===== تغییر تم =====
-    function changeTheme(theme) {
-        // حذف تم قبلی
-        document.body.className = '';
-        // اضافه کردن تم جدید
-        document.body.classList.add('theme-' + theme);
-        
-        // ذخیره در localStorage
-        localStorage.setItem('selectedTheme', theme);
-        
-        // بستن پنل
-        document.getElementById('languagePanel').classList.remove('open');
-        document.querySelector('.language-toggle').classList.remove('active');
-        
-        // پیام موفقیت
-        showToast('✅ تم با موفقیت تغییر کرد!');
-    }
+        // Close panel when clicking outside
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('languagePanel');
+            const toggle = document.querySelector('.language-toggle');
+            if (!toggle.contains(event.target) && !panel.contains(event.target)) {
+                panel.classList.remove('open');
+                toggle.classList.remove('active');
+            }
+        });
 
-    // ===== تغییر فونت =====
-    function changeFont(font) {
-        let fontFamily = '';
-        switch(font) {
-            case 'vazirmatn':
-                fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
-                break;
-            case 'iransans':
-                fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
-                break;
-            case 'shabnam':
-                fontFamily = "'Shabnam', 'Tahoma', sans-serif";
-                break;
+        // ===== CHANGE THEME =====
+        function changeTheme(theme) {
+            document.body.className = '';
+            document.body.classList.add('theme-' + theme);
+            localStorage.setItem('selectedTheme', theme);
+            document.getElementById('languagePanel').classList.remove('open');
+            document.querySelector('.language-toggle').classList.remove('active');
+            showToast('✅ تم با موفقیت تغییر کرد!');
         }
-        
-        document.body.style.fontFamily = fontFamily;
-        
-        // ذخیره در localStorage
-        localStorage.setItem('selectedFont', font);
-        
-        // بستن پنل
-        document.getElementById('languagePanel').classList.remove('open');
-        document.querySelector('.language-toggle').classList.remove('active');
-        
-        // پیام موفقیت
-        showToast('✅ فونت با موفقیت تغییر کرد!');
-    }
 
-    // ===== نمایش پیام =====
-    function showToast(message) {
-        // حذف پیام قبلی
-        const oldToast = document.querySelector('.toast-message');
-        if (oldToast) oldToast.remove();
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        toast.textContent = message;
-        toast.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0d2038;
-            color: #7ec8ff;
-            padding: 15px 30px;
-            border-radius: 15px;
-            border: 1px solid #008cff;
-            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
-            font-size: 1rem;
-            z-index: 9999;
-            animation: fadeInUp 0.3s ease;
-        `;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => toast.remove(), 500);
-        }, 2000);
-    }
+        // ===== CHANGE FONT =====
+        function changeFont(font) {
+            // حذف کلاس‌های فونت قبلی
+            document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
 
-    // ===== اضافه کردن انیمیشن =====
-    const styleAnim = document.createElement('style');
-    styleAnim.textContent = `
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-    `;
-    document.head.appendChild(styleAnim);
-
-    // ===== بارگذاری تم و فونت ذخیره‌شده =====
-    window.onload = function() {
-        const savedTheme = localStorage.getItem('selectedTheme');
-        if (savedTheme) {
-            document.body.classList.add('theme-' + savedTheme);
-        }
-        
-        const savedFont = localStorage.getItem('selectedFont');
-        if (savedFont) {
-            let fontFamily = '';
-            switch(savedFont) {
+            let fontClass = '';
+            switch (font) {
+                case 'inter':
+                    fontClass = 'font-inter';
+                    break;
                 case 'vazirmatn':
-                    fontFamily = "'Vazirmatn', 'Tahoma', sans-serif";
+                    fontClass = 'font-vazirmatn';
                     break;
                 case 'iransans':
-                    fontFamily = "'Iranian Sans', 'Tahoma', sans-serif";
+                    fontClass = 'font-iransans';
                     break;
                 case 'shabnam':
-                    fontFamily = "'Shabnam', 'Tahoma', sans-serif";
+                    fontClass = 'font-shabnam';
                     break;
             }
-            document.body.style.fontFamily = fontFamily;
+
+            if (fontClass) {
+                document.body.classList.add(fontClass);
+            }
+
+            localStorage.setItem('selectedFont', font);
+            document.getElementById('languagePanel').classList.remove('open');
+            document.querySelector('.language-toggle').classList.remove('active');
+            showToast('✅ فونت با موفقیت تغییر کرد!');
         }
-    };
-</script>
+
+        // ===== SHOW TOAST =====
+        function showToast(message) {
+            const oldToast = document.querySelector('.toast-message');
+            if (oldToast) oldToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #0d2038;
+                color: #7ec8ff;
+                padding: 15px 30px;
+                border-radius: 15px;
+                border: 1px solid #008cff;
+                box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+                font-size: 1rem;
+                z-index: 9999;
+                animation: fadeInUp 0.3s ease;
+                font-family: inherit !important;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 2000);
+        }
+
+        // ===== ADD ANIMATION =====
+        const styleAnim = document.createElement('style');
+        styleAnim.textContent = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(styleAnim);
+
+        // ===== LOAD SAVED THEME & FONT =====
+        window.onload = function() {
+            // تم
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.classList.add('theme-' + savedTheme);
+            }
+
+            // فونت
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                let fontClass = '';
+                switch (savedFont) {
+                    case 'inter':
+                        fontClass = 'font-inter';
+                        break;
+                    case 'vazirmatn':
+                        fontClass = 'font-vazirmatn';
+                        break;
+                    case 'iransans':
+                        fontClass = 'font-iransans';
+                        break;
+                    case 'shabnam':
+                        fontClass = 'font-shabnam';
+                        break;
+                }
+                if (fontClass) {
+                    document.body.classList.add(fontClass);
+                }
+            }
+        };
+    </script>
 
 </body>
 
-</html>
+    </html>
