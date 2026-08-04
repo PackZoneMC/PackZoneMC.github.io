@@ -29,7 +29,7 @@
             padding: 45px 40px;
             border-radius: 28px;
             border: 1px solid rgba(0, 140, 255, 0.25);
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -62,6 +62,14 @@
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 30px;
+        }
+
+        .profile-box h2 {
+            color: #7ec8ff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 25px 0 15px;
+            text-align: center;
         }
 
         /* ===== آواتار ===== */
@@ -130,6 +138,60 @@
         .profile-info p span {
             color: #fff;
             font-weight: 500;
+        }
+
+        /* ===== علاقه‌مندی‌ها ===== */
+        .favorites-section {
+            margin: 20px 0;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .favorites-section .empty-msg {
+            color: #9ecfff;
+            text-align: center;
+            padding: 12px;
+            opacity: 0.6;
+        }
+
+        .favorite-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .favorite-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .favorite-item span {
+            color: #7ec8ff;
+            font-weight: 500;
+        }
+
+        .favorite-item .remove-btn {
+            background: rgba(255, 23, 68, 0.15);
+            color: #ff1744;
+            border: 1px solid #ff1744;
+            padding: 4px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .favorite-item .remove-btn:hover {
+            background: #ff1744;
+            color: #fff;
         }
 
         /* ===== دکمه‌ها ===== */
@@ -348,15 +410,21 @@
                 <p>تاریخ عضویت <span id="profileDate">---</span></p>
             </div>
 
+            <!-- ===== علاقه‌مندی‌ها ===== -->
+            <div class="favorites-section">
+                <h2>⭐ علاقه‌مندی‌ها</h2>
+                <div id="favoritesList">
+                    <p class="empty-msg">در حال بارگذاری...</p>
+                </div>
+            </div>
+
             <div class="profile-actions">
                 <button class="btn btn-primary" onclick="openEditModal()">✏️ ویرایش نام</button>
                 <button class="btn btn-primary" onclick="openPasswordModal()">🔑 تغییر رمز</button>
                 <button class="btn btn-danger" onclick="logoutUser()">🚪 خروج از حساب</button>
-                <a href="favorites.html" class="btn btn-secondary">⭐ علاقه‌مندی‌ها</a>
-                <a href="my-reviews.html" class="btn btn-secondary">💬 نظرات من</a>
             </div>
 
-            <div class="profile-footer">
+            <div class="profile-footer" style="text-align:center;margin-top:20px;color:rgba(255,255,255,0.3);font-size:0.85rem;">
                 <p>به PackZone MC خوش آمدید 🎮</p>
             </div>
         </section>
@@ -411,16 +479,17 @@
             document.getElementById('profileDate').textContent = user.createdAt || '---';
 
             // ===== آواتار =====
-            // ۱. اگر کاربر قبلاً عکس آپلود کرده، از localStorage می‌خونیم
             const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
             if (savedAvatar) {
                 document.getElementById('profileAvatar').src = savedAvatar;
             } else {
-                // ۲. اگر عکس نداشت، از ui-avatars استفاده می‌کنیم
                 const avatarUrl =
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=008cff&color=fff&size=120`;
                 document.getElementById('profileAvatar').src = avatarUrl;
             }
+
+            // ===== بارگذاری علاقه‌مندی‌ها =====
+            loadFavorites();
         }
 
         // ============================================================
@@ -430,13 +499,11 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            // بررسی اینکه عکس باشه
             if (!file.type.startsWith('image/')) {
                 alert('❌ لطفاً یک عکس انتخاب کنید');
                 return;
             }
 
-            // بررسی حجم (حداکثر ۲ مگابایت)
             if (file.size > 2 * 1024 * 1024) {
                 alert('❌ حجم عکس نباید بیشتر از ۲ مگابایت باشد');
                 return;
@@ -445,23 +512,13 @@
             const reader = new FileReader();
             reader.onload = function(event) {
                 const imageData = event.target.result;
-
-                // نمایش عکس
                 document.getElementById('profileAvatar').src = imageData;
-
-                // ذخیره در localStorage با ایمیل کاربر
                 const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
                 if (user) {
                     localStorage.setItem('pzmc_avatar_' + user.email, imageData);
                 }
-
                 alert('✅ عکس پروفایل با موفقیت آپلود شد!');
             };
-
-            reader.onerror = function() {
-                alert('❌ خطا در خواندن عکس');
-            };
-
             reader.readAsDataURL(file);
         });
 
@@ -562,4 +619,4 @@
     </script>
 
 </body>
-              </html>
+</html>
