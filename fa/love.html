@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>💖 سوالات عاشقانه 💖</title>
     <style>
         * {
@@ -11,18 +11,30 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        /* قفل کامل صفحه در حالت fullscreen */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            touch-action: none;
         }
 
         body {
             font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(145deg, #ffd1dc, #ffb3c6);
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            position: relative;
-            touch-action: none;
+            position: fixed;
+            overscroll-behavior: none;
         }
 
         .heart-bg {
@@ -62,8 +74,16 @@
             box-shadow: 0 25px 50px -8px rgba(200, 50, 80, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.6);
             text-align: center;
-            transition: all 0.3s ease;
             margin: 20px;
+            max-height: 95vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* اسکرول مخفی */
+        .container::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
         }
 
         h1 {
@@ -125,6 +145,7 @@
             min-width: 85px;
             letter-spacing: 1px;
             touch-action: manipulation;
+            position: relative;
         }
 
         .btn-yes {
@@ -267,18 +288,46 @@
             position: fixed;
             bottom: 10px;
             left: 10px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.3);
             font-size: 0.6rem;
             padding: 5px 10px;
             border-radius: 20px;
             cursor: pointer;
             z-index: 999;
             touch-action: manipulation;
+            backdrop-filter: blur(4px);
         }
         .secret-back:active {
             background: rgba(255,255,255,0.3);
+        }
+
+        /* هشدار قفل صفحه روی موبایل */
+        .lock-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .lock-overlay.show {
+            display: flex;
+        }
+        .lock-overlay .emoji-big {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 480px) {
@@ -294,12 +343,23 @@
             .btn { min-width: 60px; padding: 8px 12px; font-size: 0.85rem; }
         }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #ffe2ec; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #d43f6b; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
 <body>
+    <!-- لایه قفل برای موبایل (در صورت خروج) -->
+    <div class="lock-overlay" id="lockOverlay">
+        <div>
+            <span class="emoji-big">😈</span>
+            <p>نههه! فرار ممنوع!</p>
+            <p style="font-size:1rem; margin-top:10px;">اول جواب بده عزیزم!</p>
+            <button onclick="document.getElementById('lockOverlay').classList.remove('show')" 
+                    style="margin-top:20px; padding:12px 30px; border-radius:30px; border:none; background:#ff6b8a; color:white; font-size:1rem; cursor:pointer;">
+                برگشتم 🥺
+            </button>
+        </div>
+    </div>
+
     <div class="heart-bg" id="heartBg"></div>
 
     <div class="container">
@@ -353,6 +413,153 @@
 
     <script>
         (function() {
+            // ========== قفل مطلق موبایل و دسکتاپ ==========
+            
+            // 1. جلوگیری از اسکرول و زوم
+            document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+            document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+            document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+            
+            // 2. جلوگیری از حرکت صفحه با دو انگشت
+            document.addEventListener('touchmove', function(e) {
+                if (e.target.closest('.container')) {
+                    // اجازه اسکرول داخل کانتینر
+                    return;
+                }
+                e.preventDefault();
+            }, { passive: false });
+
+            // 3. غیرفعال کردن دکمه ضربدر
+            window.addEventListener('beforeunload', function(e) {
+                e.preventDefault();
+                e.returnValue = 'صبر کن عزیزم! حتماً جواب بده 😉';
+                return 'صبر کن عزیزم! حتماً جواب بده 😉';
+            });
+
+            // 4. قفل کردن تاریخچه (Back/Forward)
+            window.addEventListener('popstate', function(e) {
+                history.pushState(null, null, window.location.href);
+                // نمایش لایه قفل
+                document.getElementById('lockOverlay').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('lockOverlay').classList.remove('show');
+                }, 3000);
+            });
+            
+            // 5. پر کردن تاریخچه
+            for(let i = 0; i < 10; i++) {
+                history.pushState(null, null, window.location.href);
+            }
+
+            // 6. غیرفعال کردن کلیک راست
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // 7. غیرفعال کردن کلیدهای میانبر (دسکتاپ)
+            document.addEventListener('keydown', function(e) {
+                const blockedKeys = ['F4', 'F5', 'F12', 'Escape', 'Backspace'];
+                if (blockedKeys.includes(e.key)) {
+                    e.preventDefault();
+                    document.getElementById('lockOverlay').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('lockOverlay').classList.remove('show');
+                    }, 2000);
+                    return false;
+                }
+                if ((e.ctrlKey && e.key === 'w') || (e.ctrlKey && e.key === 'W') ||
+                    (e.ctrlKey && e.key === 'r') || (e.ctrlKey && e.key === 'R') ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))) {
+                    e.preventDefault();
+                    document.getElementById('lockOverlay').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('lockOverlay').classList.remove('show');
+                    }, 2000);
+                    return false;
+                }
+                if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+                    e.preventDefault();
+                    document.getElementById('lockOverlay').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('lockOverlay').classList.remove('show');
+                    }, 2000);
+                    return false;
+                }
+                // جلوگیری از Alt به تنهایی (باز کردن منوی مرورگر)
+                if (e.altKey) {
+                    e.preventDefault();
+                }
+            });
+
+            // 8. غیرفعال کردن خروج از تب
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    document.getElementById('lockOverlay').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('lockOverlay').classList.remove('show');
+                    }, 3000);
+                }
+            });
+
+            // 9. جلوگیری از کلیک روی لینک‌ها
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('a');
+                if (target && target.href) {
+                    e.preventDefault();
+                    document.getElementById('lockOverlay').classList.add('show');
+                    setTimeout(() => {
+                        document.getElementById('lockOverlay').classList.remove('show');
+                    }, 2000);
+                    return false;
+                }
+            });
+
+            // 10. جلوگیری از drag
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // 11. جلوگیری از دابل کلیک
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            });
+
+            // 12. برای موبایل: جلوگیری از خروج با کشیدن از لبه صفحه
+            document.body.addEventListener('touchstart', function(e) {
+                const touch = e.touches[0];
+                if (touch.clientX < 10 || touch.clientX > window.innerWidth - 10) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // 13. جلوگیری از پایین کشیدن صفحه (pull-to-refresh)
+            document.addEventListener('touchmove', function(e) {
+                if (e.target.closest('.container')) return;
+                e.preventDefault();
+            }, { passive: false });
+
+            // 14. درخواست fullscreen (برای موبایل)
+            function requestFullscreen() {
+                const el = document.documentElement;
+                if (el.requestFullscreen) {
+                    el.requestFullscreen().catch(() => {});
+                } else if (el.webkitRequestFullscreen) {
+                    el.webkitRequestFullscreen();
+                } else if (el.msRequestFullscreen) {
+                    el.msRequestFullscreen();
+                }
+            }
+            // تلاش برای fullscreen بعد از هر کلیک
+            document.addEventListener('click', function() {
+                requestFullscreen();
+            });
+            // و هنگام لود
+            setTimeout(requestFullscreen, 1000);
+
+            // ========== ادامه کد اصلی ==========
+            
             // قلب‌های پس‌زمینه
             const heartBg = document.getElementById('heartBg');
             const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝', '🌸', '🌺'];
@@ -383,10 +590,10 @@
             const adminToggle = document.getElementById('adminToggle');
             const adminMessages = document.getElementById('adminMessages');
             const secretBack = document.getElementById('secretBack');
+            const lockOverlay = document.getElementById('lockOverlay');
 
             let messagesLog = [];
 
-            // ذخیره پیام‌ها در localStorage (برای دسترسی ادمین)
             function saveMessages() {
                 localStorage.setItem('loveMessages', JSON.stringify(messagesLog));
             }
@@ -537,56 +744,13 @@
             // خروج مخفی
             secretBack.addEventListener('click', function() {
                 if (confirm('میخوای بری بیرون؟ مطمئنی؟ 🥺')) {
+                    // رها کردن قفل برای خروج
+                    window.removeEventListener('beforeunload', function() {});
                     window.location.href = '../index.html';
                 }
             });
 
-            // بارگذاری پیام‌های ذخیره شده
             loadMessages();
-
-            // جلوگیری از خروج
-            window.addEventListener('popstate', function(e) {
-                history.pushState(null, null, window.location.href);
-            });
-            history.pushState(null, null, window.location.href);
-
-            window.addEventListener('beforeunload', function(e) {
-                e.preventDefault();
-                e.returnValue = 'صبر کن عزیزم! حتماً جواب بده 😉';
-                return 'صبر کن عزیزم! حتماً جواب بده 😉';
-            });
-
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F4' && (e.altKey || e.metaKey)) {
-                    e.preventDefault();
-                    alert('🙈 نههه! اول جواب بده عزیزم!');
-                    return false;
-                }
-                if ((e.ctrlKey && e.key === 'w') || (e.ctrlKey && e.key === 'W')) {
-                    e.preventDefault();
-                    alert('🥺 نمی‌ذارم بری! جواب بده لطفاً...');
-                    return false;
-                }
-                if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
-                    e.preventDefault();
-                    alert('🔒 اینجا جای کنجکاوی نیست عزیزم!');
-                    return false;
-                }
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                    alert('😘 فرار ممنوع! لطفاً جواب بده.');
-                }
-            });
-
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    alert('🙈 کجا داری میری؟! بیا برگرد!');
-                }
-            });
 
             const styleSheet = document.createElement("style");
             styleSheet.textContent = `
@@ -597,7 +761,7 @@
             `;
             document.head.appendChild(styleSheet);
 
-            console.log('❤️ همه چیز آماده! عشق بازی شروع شد!');
+            console.log('❤️ قفل مطلق فعال شد! هیچ راه فراری نیست!');
         })();
     </script>
 </body>
