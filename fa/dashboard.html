@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>داشبورد | PackZone MC</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ===== GOOGLE FONTS ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
 
     <style>
         * {
@@ -17,50 +23,148 @@
         }
 
         body {
-            font-family: 'Inter', 'Vazirmatn', sans-serif;
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
             background: #0a0e1a;
-            color: #fff;
+            color: #e0e8f0;
             min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif !important;
+        }
+        .font-vazirmatn {
+            font-family: 'Vazirmatn', sans-serif !important;
+        }
+        .font-iransans {
+            font-family: 'Noto Sans Arabic', sans-serif !important;
+        }
+        .font-shabnam {
+            font-family: 'Shabnam', sans-serif !important;
+        }
+
+        .theme-default {
+            --primary: #008cff;
+            --primary-dark: #0066cc;
+            --primary-light: #33aaff;
+            --secondary: #7b00ff;
+            --secondary-dark: #5500cc;
+            --secondary-light: #aa66ff;
+            --bg-card: #0d2038;
+            --border-color: #008cff;
+            --shadow-color: #008cff;
+            --text-primary: #7ec8ff;
+            --bg-body: #0a0e1a;
+        }
+
+        .theme-green {
+            --primary: #2D8A4E;
+            --primary-dark: #1A5C32;
+            --primary-light: #4CAF50;
+            --secondary: #7CFC00;
+            --secondary-dark: #5CB800;
+            --secondary-light: #A8FF60;
+            --bg-card: #0d1f0d;
+            --border-color: #2D8A4E;
+            --shadow-color: #2D8A4E;
+            --text-primary: #7CFC00;
+            --bg-body: #0a120a;
+        }
+
+        .theme-orange {
+            --primary: #FF6B00;
+            --primary-dark: #CC5500;
+            --primary-light: #FF8C33;
+            --secondary: #FFD700;
+            --secondary-dark: #CCA800;
+            --secondary-light: #FFE44D;
+            --bg-card: #1a0f00;
+            --border-color: #FF6B00;
+            --shadow-color: #FF6B00;
+            --text-primary: #FFD700;
+            --bg-body: #0f0a00;
+        }
+
+        .theme-blue {
+            --primary: #0A2463;
+            --primary-dark: #061840;
+            --primary-light: #1A3F8A;
+            --secondary: #00B4D8;
+            --secondary-dark: #0088A8;
+            --secondary-light: #40D0F0;
+            --bg-card: #080c1a;
+            --border-color: #0A2463;
+            --shadow-color: #0A2463;
+            --text-primary: #00B4D8;
+            --bg-body: #05080f;
+        }
+
+        .theme-pink {
+            --primary: #9B5DE5;
+            --primary-dark: #7A3DB8;
+            --primary-light: #B87FED;
+            --secondary: #F15BB5;
+            --secondary-dark: #C73E94;
+            --secondary-light: #F58CC8;
+            --bg-card: #1a0f24;
+            --border-color: #9B5DE5;
+            --shadow-color: #9B5DE5;
+            --text-primary: #F15BB5;
+            --bg-body: #0f0a14;
+        }
+
+        body {
+            background: var(--bg-body, #0a0e1a);
         }
 
         /* ===== HEADER ===== */
-        .header {
+        .custom-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 30px;
-            background: #0d2038;
-            border-bottom: 2px solid #008cff;
+            padding: 15px 30px;
+            background: rgba(13, 32, 56, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color, #008cff);
+            position: sticky;
+            top: 0;
+            z-index: 50;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .logo {
-            font-size: 1.5rem;
+        .custom-logo {
+            font-size: 1.8rem;
             font-weight: 900;
-            color: #7ec8ff;
+            background: linear-gradient(135deg, var(--primary, #008cff), var(--secondary, #7b00ff));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .header-left {
+        .custom-nav {
             display: flex;
-            align-items: center;
             gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .header-left img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #008cff;
-            object-fit: cover;
-        }
-
-        .header-left .user-name {
-            color: #7ec8ff;
+        /* ===== دکمه‌های جدید داشبورد ===== */
+        .btn-add-account {
+            color: #fff;
+            text-decoration: none;
             font-weight: 600;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #00c853, #009624);
+            border-radius: 12px;
+            transition: 0.3s;
         }
 
-        .logout-btn {
+        .btn-add-account:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 200, 83, 0.3);
+        }
+
+        .btn-logout {
             background: rgba(255, 23, 68, 0.15);
             color: #ff1744;
             border: 1px solid #ff1744;
@@ -73,314 +177,507 @@
             font-family: inherit;
         }
 
-        .logout-btn:hover {
+        .btn-logout:hover {
             background: #ff1744;
             color: #fff;
         }
 
-        /* ===== DASHBOARD ===== */
-        .dashboard-container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .dashboard-container h1 {
-            color: #7ec8ff;
-            font-size: 2rem;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        /* ===== CARDS ===== */
-        .dash-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .dash-card {
-            background: #0d2038;
-            padding: 24px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #008cff;
+            object-fit: cover;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .dash-card:hover {
-            border-color: #008cff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 140, 255, 0.08);
-        }
-
-        .dash-card h3 {
-            color: #7ec8ff;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .dash-card p {
-            color: #9ecfff;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 12px;
-        }
-
-        .dash-card a {
-            display: inline-block;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #008cff, #6c3cff);
-            color: #fff;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.3s;
-        }
-
-        .dash-card a:hover {
+        .user-avatar:hover {
+            border-color: #7b00ff;
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
         }
 
-        /* ===== FAVORITES ===== */
-        .favorites-section {
-            margin-top: 30px;
-            background: #0d2038;
-            padding: 24px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .favorites-section h2 {
+        .user-name {
             color: #7ec8ff;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-
-        .favorite-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            margin-bottom: 6px;
-        }
-
-        .favorite-item span {
-            color: #7ec8ff;
-            font-weight: 500;
-        }
-
-        .favorite-item .remove-btn {
-            background: rgba(255, 23, 68, 0.15);
-            color: #ff1744;
-            border: 1px solid #ff1744;
-            padding: 3px 12px;
-            border-radius: 6px;
-            cursor: pointer;
             font-weight: 600;
-            font-size: 0.75rem;
-            transition: 0.3s;
-            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
         }
 
-        .favorite-item .remove-btn:hover {
-            background: #ff1744;
+        .user-name:hover {
+            color: #008cff;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 30px 20px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding: 25px 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 40px rgba(0, 140, 255, 0.08);
+        }
+
+        .about h2 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .about p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* ===== GRID ===== */
+        .menu-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* ===== CARDS ===== */
+        .small-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .small-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .small-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-color);
+            box-shadow: 0 12px 48px rgba(0, 140, 255, 0.15);
+        }
+
+        .small-card:hover::before {
+            opacity: 1;
+        }
+
+        .small-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .small-card p {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .small-card a {
+            display: inline-block;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .small-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 140, 255, 0.3);
+        }
+
+        .fav-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            min-width: 80px;
+        }
+
+        .fav-btn:hover {
+            background: rgba(255, 215, 0, 0.25);
+            transform: scale(1.05);
+        }
+
+        .fav-btn.saved {
+            background: rgba(255, 215, 0, 0.25);
+            border-color: #ffd700;
+            cursor: default;
+        }
+
+        .fav-btn.saved:hover {
+            transform: none;
+        }
+
+        .fav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== LANGUAGE TOGGLE ===== */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #0d2038;
+            border: 2px solid #008cff;
+            border-radius: 50px;
+            padding: 8px 16px;
+            color: #7ec8ff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.3);
+        }
+
+        .language-toggle:hover {
+            background: #008cff;
             color: #fff;
         }
 
-        .empty-msg {
+        .language-panel {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            z-index: 999;
+            background: #0d2038;
+            border: 1px solid #008cff;
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 220px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+
+        .language-panel.open {
+            display: block;
+        }
+
+        .language-panel .panel-title {
             color: #9ecfff;
-            opacity: 0.5;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .language-panel .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-panel .lang-item:hover {
+            background: rgba(0, 140, 255, 0.2);
+        }
+
+        .language-panel .lang-item.active {
+            background: rgba(0, 140, 255, 0.3);
+            border: 1px solid #008cff;
+        }
+
+        .language-panel .divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 12px 0;
+        }
+
+        .language-panel .theme-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .language-panel .theme-item:hover {
+            background: rgba(0, 140, 255, 0.2);
+        }
+
+        .language-panel .theme-item .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
             text-align: center;
-            padding: 15px;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 600px) {
-            .header {
+        @media (max-width: 700px) {
+            .custom-header {
                 flex-direction: column;
                 padding: 12px 16px;
             }
-            .dash-grid {
+            .menu-box {
                 grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px 30px;
             }
-            .dashboard-container h1 {
-                font-size: 1.5rem;
+            .custom-logo {
+                font-size: 1.4rem;
+            }
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            .small-card {
+                padding: 22px 18px;
+            }
+            .card-actions {
+                flex-direction: column;
+            }
+            .custom-nav {
+                gap: 8px;
+                justify-content: center;
+            }
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .language-panel {
+                top: 60px;
+                right: 10px;
+                min-width: 180px;
             }
         }
+
+        @media (max-width: 400px) {
+            .small-card h3 {
+                font-size: 1rem;
+            }
+            .small-card a {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+            .fav-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                min-width: 60px;
+            }
+            .btn-add-account {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .btn-logout {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+            }
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+            .user-name {
+                font-size: 0.8rem;
+            }
+        }
+
+        .toast-message {
+            font-family: inherit !important;
+        }
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="header" id="mainHeader">
-        <div class="logo">💙 PackZone MC</div>
-        <div class="header-left" id="userInfo">
-            <!-- توسط JS پر میشه -->
+    <!-- ===== LANGUAGE SWITCH PANEL ===== -->
+    <div class="language-toggle" onclick="togglePanel()">
+        <span class="flag-icon">🇮🇷</span>
+        <span>فارسی</span>
+        <span class="arrow">▼</span>
+    </div>
+
+    <div class="language-panel" id="languagePanel">
+        <div class="panel-title">🌍 انتخاب زبان</div>
+        <a href="../fa/index.html" class="lang-item active">
+            <span class="flag">🇮🇷</span>
+            <span class="lang-name">فارسی</span>
+            <span class="lang-code">FA</span>
+        </a>
+        <a href="../en/index.html" class="lang-item">
+            <span class="flag">🇺🇸</span>
+            <span class="lang-name">English</span>
+            <span class="lang-code">EN</span>
+        </a>
+        <hr class="divider">
+        <div class="panel-title">🎨 انتخاب تم</div>
+        <div class="theme-item" onclick="changeTheme('default')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#008cff,#7b00ff)"></span>
+            <span>پیش‌فرض (بنفش-آبی)</span>
         </div>
+        <div class="theme-item" onclick="changeTheme('green')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
+            <span>سبز ماینکرفت</span>
+        </div>
+        <div class="theme-item" onclick="changeTheme('orange')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
+            <span>نارنجی-طلایی</span>
+        </div>
+        <div class="theme-item" onclick="changeTheme('blue')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
+            <span>سلطنتی آبی</span>
+        </div>
+        <div class="theme-item" onclick="changeTheme('pink')">
+            <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
+            <span>صورتی-بنفش</span>
+        </div>
+        <hr class="divider">
+        <div class="panel-title">🔤 انتخاب فونت</div>
+        <div class="theme-item" onclick="changeFont('inter')">
+            <span>📝 اینتر (مدرن)</span>
+        </div>
+        <div class="theme-item" onclick="changeFont('vazirmatn')">
+            <span>📝 وزیرمتن</span>
+        </div>
+        <div class="theme-item" onclick="changeFont('iransans')">
+            <span>📝 ایران‌سنس</span>
+        </div>
+        <div class="theme-item" onclick="changeFont('shabnam')">
+            <span>📝 شبنم</span>
+        </div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="custom-header">
+        <div class="custom-logo">💙 PackZone MC</div>
+        <nav class="custom-nav" id="mainNav">
+            <!-- توسط JS پر میشه -->
+        </nav>
     </header>
 
-    <!-- ===== DASHBOARD ===== -->
-    <main class="dashboard-container">
-        <h1>👤 داشبورد کاربر</h1>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <h2>به PackZone MC خوش آمدید 💙</h2>
+        <p>مرکز تخصصی پک‌های منبع برای ماینکرفت جاوا و بدراک</p>
+    </section>
 
-        <div class="dash-grid">
+    <!-- ===== ABOUT ===== -->
+    <section class="card about">
+        <h2>📌 درباره PackZone MC</h2>
+        <p>PackZone MC مجموعه‌ای است که به ارائه پک‌های منبع حرفه‌ای،
+            پک‌های PvP، تبدیل پک‌ها و ابزارهای مفید ماینکرفت اختصاص دارد.
+            هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
+    </section>
 
-            <div class="dash-card">
-                <h3>📋 پروفایل</h3>
-                <p>مشاهده و ویرایش اطلاعات شخصی</p>
-                <a href="profile.html">رفتن به پروفایل</a>
-            </div>
+    <!-- ===== MENU ===== -->
+    <section class="menu-box">
 
-            <div class="dash-card">
-                <h3>⭐ علاقه‌مندی‌ها</h3>
-                <p>پک‌هایی که ذخیره کرده‌اید</p>
-                <a href="favorites.html">مشاهده</a>
-            </div>
-
-            <div class="dash-card">
-                <h3>📦 پک‌های من</h3>
-                <p>پک‌هایی که آپلود کرده‌اید</p>
-                <a href="my-packs.html">مشاهده</a>
-            </div>
-
-            <div class="dash-card">
-                <h3>💬 نظرات من</h3>
-                <p>نظراتی که نوشته‌اید</p>
-                <a href="my-reviews.html">مشاهده</a>
-            </div>
-
-        </div>
-
-        <!-- ===== FAVORITES ===== -->
-        <div class="favorites-section">
-            <h2>⭐ پک‌های ذخیره‌شده</h2>
-            <div id="favoritesList">
-                <p class="empty-msg">در حال بارگذاری...</p>
+        <div class="card small-card">
+            <h3>💎 پک‌های MysMce</h3>
+            <p>مجموعه پک‌های MysMce که به بدراک منتقل شده‌اند</p>
+            <div class="card-actions">
+                <a href="mysmce.html">مشاهده مجموعه</a>
+                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ ذخیره</button>
             </div>
         </div>
-    </main>
 
-    <script src="../src/js/main.js"></script>
+        <div class="card small-card">
+            <h3>📄 مانیفست بیلدر</h3>
+            <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
+            <div class="card-actions">
+                <a href="manifest.html">شروع ساخت</a>
+                <button class="fav-btn" data-pack="مانیفست بیلدر" onclick="addFavorite('مانیفست بیلدر')">⭐ ذخیره</button>
+            </div>
+        </div>
 
-    <script>
-        // ============================================================
-        // ۱. بررسی وضعیت کاربر
-        // ============================================================
-        function checkUser() {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+        <div class="card small-card">
+            <h3>🟦 پک‌های جاوا</h3>
+            <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
+            <div class="card-actions">
+                <a href="java.html">مرور جاوا</a>
+                <button class="fav-btn" data-pack="پک‌های جاوا" onclick="addFavorite('پک‌های جاوا')">⭐ ذخیره</button>
+            </div>
+        </div>
 
-            if (!user) {
-                alert('❌ شما وارد حساب خود نشده‌اید!');
-                window.location.href = 'index.html';
-                return;
-            }
-
-            // نمایش اطلاعات کاربر در هدر
-            const userInfo = document.getElementById('userInfo');
-            const savedAvatar = localStorage.getItem('pzmc_avatar_' + user.email);
-
-            userInfo.innerHTML = `
-                <img src="${savedAvatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=008cff&color=fff&size=40'}" alt="آواتار">
-                <span class="user-name">${user.name}</span>
-                <button class="logout-btn" onclick="logoutUser()">🚪 خروج</button>
-            `;
-
-            // بارگذاری علاقه‌مندی‌ها
-            loadFavorites();
-        }
-
-        // ============================================================
-        // ۲. خروج
-        // ============================================================
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                alert('👋 شما با موفقیت خارج شدید');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // ============================================================
-        // ۳. بارگذاری علاقه‌مندی‌ها
-        // ============================================================
-        function loadFavorites() {
-            const container = document.getElementById('favoritesList');
-            if (!container) return;
-
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (!user) {
-                container.innerHTML = '<p class="empty-msg">❌ لطفاً وارد شوید</p>';
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) {
-                container.innerHTML = '<p class="empty-msg">❌ کاربر پیدا نشد</p>';
-                return;
-            }
-
-            const favorites = users[index].favorites || [];
-
-            if (favorites.length === 0) {
-                container.innerHTML = '<p class="empty-msg">⭐ شما هیچ پکی ذخیره نکرده‌اید</p>';
-                return;
-            }
-
-            let html = '';
-            favorites.forEach(pack => {
-                html += `
-                    <div class="favorite-item">
-                        <span>⭐ ${pack}</span>
-                        <button class="remove-btn" onclick="removeFavorite('${pack}')">حذف</button>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        // ============================================================
-        // ۴. حذف پک از علاقه‌مندی‌ها
-        // ============================================================
-        function removeFavorite(packName) {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (!user) {
-                alert('❌ لطفاً اول وارد شوید');
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) return;
-
-            if (!users[index].favorites) return;
-
-            const packIndex = users[index].favorites.indexOf(packName);
-            if (packIndex === -1) return;
-
-            users[index].favorites.splice(packIndex, 1);
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-            user.favorites = users[index].favorites;
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
-            alert('🗑️ پک "' + packName + '" از علاقه‌مندی‌ها حذف شد');
-            loadFavorites();
-        }
-
-        // ============================================================
-        // ۵. بارگذاری صفحه
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', checkUser);
-    </script>
-
-</body>
-</html>
+        <div class="card small-card">
+            <h3>🟩 پک‌های بدراک</h3>
+    
