@@ -1,0 +1,277 @@
+/* ========================================
+   PACKZONE MC - AUTH STYLE
+   ======================================== */
+
+/* ===== تنظیمات پس‌زمینه ===== */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 40px 20px;
+    background: radial-gradient(ellipse at center, #0d2038, #050b18);
+}
+
+/* ===== کارت شیشه‌ای (Glassmorphism) ===== */
+.auth-box {
+    background: rgba(13, 32, 56, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 45px 40px;
+    border-radius: 28px;
+    border: 1px solid rgba(0, 140, 255, 0.25);
+    box-shadow: 
+        0 0 60px rgba(0, 140, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* ===== حاشیه نئون متحرک ===== */
+.auth-box::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 30px;
+    padding: 2px;
+    background: conic-gradient(
+        from 0deg,
+        #008cff,
+        #7b00ff,
+        #ff00aa,
+        #008cff,
+        #7b00ff,
+        #008cff
+    );
+    background-size: 400% 400%;
+    animation: rotateBorder 6s linear infinite;
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+@keyframes rotateBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== عنوان ===== */
+.auth-box h1 {
+    text-align: center;
+    color: #7ec8ff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
+    letter-spacing: -0.5px;
+}
+
+/* ===== فیلدها ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #9ecfff;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(6, 18, 32, 0.7);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-box input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: 300;
+}
+
+.auth-box input:focus {
+    border-color: #008cff;
+    box-shadow: 0 0 25px rgba(0, 140, 255, 0.08);
+    background: rgba(6, 18, 32, 0.9);
+}
+
+/* ===== دکمه ===== */
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #008cff, #6c3cff);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease;
+}
+
+.btn-primary:hover::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(0, 140, 255, 0.35);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+/* ===== لینک پایین فرم ===== */
+.auth-footer {
+    text-align: center;
+    margin-top: 22px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #7ec8ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.auth-footer a:hover {
+    color: #008cff;
+    text-decoration: underline;
+}
+
+/* ===== هدر ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(13, 32, 56, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 140, 255, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #7ec8ff;
+    text-shadow: 0 0 20px rgba(0, 140, 255, 0.15);
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.nav a:hover {
+    color: #7ec8ff;
+}
+
+.nav a.active {
+    color: #7ec8ff;
+    border-bottom: 2px solid #008cff;
+    padding-bottom: 4px;
+}
+
+/* ===== فوتر ===== */
+.footer {
+    text-align: center;
+    padding: 30px;
+    color: rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.85rem;
+}
+
+/* ===== واکنش‌گرایی (موبایل) ===== */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .auth-box {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    .auth-box h1 {
+        font-size: 1.6rem;
+    }
+
+    .auth-box input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-box {
+        padding: 24px 16px;
+    }
+
+    .auth-box h1 {
+        font-size: 1.3rem;
+    }
+
+    .nav a {
+        font-size: 0.8rem;
+    }
+}
