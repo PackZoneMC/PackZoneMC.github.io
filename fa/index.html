@@ -357,41 +357,6 @@
             box-shadow: 0 8px 24px rgba(0, 140, 255, 0.3);
         }
 
-        .fav-btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 215, 0, 0.15);
-            color: #ffd700;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            min-width: 80px;
-        }
-
-        .fav-btn:hover {
-            background: rgba(255, 215, 0, 0.25);
-            transform: scale(1.05);
-        }
-
-        .fav-btn.saved {
-            background: rgba(255, 215, 0, 0.25);
-            border-color: #ffd700;
-            cursor: default;
-        }
-
-        .fav-btn.saved:hover {
-            transform: none;
-        }
-
-        .fav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
         /* ===== LANGUAGE TOGGLE ===== */
         .language-toggle {
             position: fixed;
@@ -552,11 +517,6 @@
                 padding: 8px 20px;
                 font-size: 0.8rem;
             }
-            .fav-btn {
-                padding: 8px 14px;
-                font-size: 0.8rem;
-                min-width: 60px;
-            }
             .btn-signup {
                 padding: 6px 14px;
                 font-size: 0.8rem;
@@ -656,61 +616,46 @@
             هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
     </section>
 
-    <!-- ===== MENU ===== -->
+    <!-- ===== MENU با اسم‌های جدید ===== -->
     <section class="menu-box">
 
+        <!-- ردیف ۱ -->
         <div class="card small-card">
-            <h3>💎 پک‌های MysMce</h3>
-            <p>مجموعه پک‌های MysMce که به بدراک منتقل شده‌اند</p>
-            <div class="card-actions">
-                <a href="mysmce.html">مشاهده مجموعه</a>
-                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ ذخیره</button>
-            </div>
+            <h3>🎮 پک‌های میستی برای بدراک</h3>
+            <p>مجموعه پک‌های میستی که به بدراک منتقل شده‌اند</p>
+            <a href="mysmce.html">مشاهده مجموعه</a>
         </div>
 
         <div class="card small-card">
-            <h3>📄 مانیفست بیلدر</h3>
+            <h3>📄 ساخت مانیفست</h3>
             <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
-            <div class="card-actions">
-                <a href="manifest.html">شروع ساخت</a>
-                <button class="fav-btn" data-pack="مانیفست بیلدر" onclick="addFavorite('مانیفست بیلدر')">⭐ ذخیره</button>
-            </div>
-    
+            <a href="manifest.html">شروع ساخت</a>
         </div>
+
+        <!-- ردیف ۲ -->
         <div class="card small-card">
-            <h3>🟦 پک‌های جاوا</h3>
+            <h3>🟦 پک‌های جاوا ادیشن</h3>
             <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
-            <div class="card-actions">
-                <a href="java.html">مرور جاوا</a>
-                <button class="fav-btn" data-pack="پک‌های جاوا" onclick="addFavorite('پک‌های جاوا')">⭐ ذخیره</button>
-            </div>
+            <a href="java.html">مرور جاوا</a>
         </div>
 
         <div class="card small-card">
-            <h3>🟩 پک‌های بدراک</h3>
+            <h3>🟩 پک‌های بدراک ادیشن</h3>
             <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
-            <div class="card-actions">
-                <a href="bedrock.html">دانلود</a>
-                <button class="fav-btn" data-pack="پک‌های بدراک" onclick="addFavorite('پک‌های بدراک')">⭐ ذخیره</button>
-            </div>
+            <a href="bedrock.html">دانلود</a>
         </div>
 
+        <!-- ردیف ۳ -->
         <div class="card small-card">
             <h3>📦 پک‌های من</h3>
             <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
-            <div class="card-actions">
-                <a href="my-packs.html">مشاهده اختصاصی‌ها</a>
-                <button class="fav-btn" data-pack="پک‌های من" onclick="addFavorite('پک‌های من')">⭐ ذخیره</button>
-            </div>
+            <a href="my-packs.html">مشاهده اختصاصی‌ها</a>
         </div>
 
         <div class="card small-card">
-            <h3>📦 پک‌مک‌میتا بیلدر</h3>
+            <h3>📦 ساخت pack.mcmeta جاوا</h3>
             <p>فایل pack.mcmeta را برای پک‌های جاوا بسازید</p>
-            <div class="card-actions">
-                <a href="mcmeta-builder.html">ساخت</a>
-                <button class="fav-btn" data-pack="پک‌مک‌میتا بیلدر" onclick="addFavorite('پک‌مک‌میتا بیلدر')">⭐ ذخیره</button>
-            </div>
+            <a href="mcmeta-builder.html">ساخت</a>
         </div>
 
     </section>
@@ -719,235 +664,164 @@
     <footer>© PackZone MC 💙</footer>
 
     <!-- ===== SCRIPTS ===== -->
-    <script>
-        // ============================================================
-        // ===== ۱. توابع پنل زبان =====
-        // ============================================================
+ <script>
+    // ============================================================
+    // ===== ۱. توابع پنل زبان =====
+    // ============================================================
 
-        function togglePanel() {
-            const panel = document.getElementById('languagePanel');
-            panel.classList.toggle('open');
+    function togglePanel() {
+        const panel = document.getElementById('languagePanel');
+        panel.classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(event) {
+        const panel = document.getElementById('languagePanel');
+        const toggle = document.querySelector('.language-toggle');
+        if (!toggle.contains(event.target) && !panel.contains(event.target)) {
+            panel.classList.remove('open');
         }
+    });
 
-        // بستن پنل با کلیک بیرون
-        document.addEventListener('click', function(event) {
-            const panel = document.getElementById('languagePanel');
-            const toggle = document.querySelector('.language-toggle');
-            if (!toggle.contains(event.target) && !panel.contains(event.target)) {
-                panel.classList.remove('open');
-            }
-        });
+    // ============================================================
+    // ===== ۲. تغییر تم و فونت =====
+    // ============================================================
 
-        // ============================================================
-        // ===== ۲. تغییر تم و فونت =====
-        // ============================================================
+    function changeTheme(theme) {
+        document.body.className = '';
+        document.body.classList.add('theme-' + theme);
+        localStorage.setItem('selectedTheme', theme);
+        document.getElementById('languagePanel').classList.remove('open');
+        showToast('✅ تم با موفقیت تغییر کرد!');
+    }
 
-        function changeTheme(theme) {
-            document.body.className = '';
-            document.body.classList.add('theme-' + theme);
-            localStorage.setItem('selectedTheme', theme);
-            document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ تم با موفقیت تغییر کرد!');
+    function changeFont(font) {
+        document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
+        let fontClass = '';
+        switch (font) {
+            case 'inter':
+                fontClass = 'font-inter';
+                break;
+            case 'vazirmatn':
+                fontClass = 'font-vazirmatn';
+                break;
+            case 'iransans':
+                fontClass = 'font-iransans';
+                break;
+            case 'shabnam':
+                fontClass = 'font-shabnam';
+                break;
         }
+        if (fontClass) document.body.classList.add(fontClass);
+        localStorage.setItem('selectedFont', font);
+        document.getElementById('languagePanel').classList.remove('open');
+        showToast('✅ فونت با موفقیت تغییر کرد!');
+    }
 
-        function changeFont(font) {
-            document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans', 'font-shabnam');
-            let fontClass = '';
-            switch (font) {
-                case 'inter':
-                    fontClass = 'font-inter';
-                    break;
-                case 'vazirmatn':
-                    fontClass = 'font-vazirmatn';
-                    break;
-                case 'iransans':
-                    fontClass = 'font-iransans';
-                    break;
-                case 'shabnam':
-                    fontClass = 'font-shabnam';
-                    break;
-            }
-            if (fontClass) document.body.classList.add(fontClass);
-            localStorage.setItem('selectedFont', font);
-            document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ فونت با موفقیت تغییر کرد!');
-        }
+    // ============================================================
+    // ===== ۳. توست (پیام) =====
+    // ============================================================
 
-        // ============================================================
-        // ===== ۳. توست (پیام) =====
-        // ============================================================
-
-        function showToast(message) {
-            const old = document.querySelector('.toast-message');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.className = 'toast-message';
-            toast.textContent = message;
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #0d2038;
-                color: #7ec8ff;
-                padding: 15px 30px;
-                border-radius: 15px;
-                border: 1px solid #008cff;
-                box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
-                font-size: 1rem;
-                z-index: 9999;
-                animation: fadeInUp 0.3s ease;
-                font-family: inherit !important;
-            `;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => toast.remove(), 500);
-            }, 2000);
-        }
-
-        const styleAnim = document.createElement('style');
-        styleAnim.textContent = `
-            @keyframes fadeInUp {
-                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-                to { opacity: 1; transform: translateX(-50%) translateY(0); }
-            }
+    function showToast(message) {
+        const old = document.querySelector('.toast-message');
+        if (old) old.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d2038;
+            color: #7ec8ff;
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 1px solid #008cff;
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+            font-size: 1rem;
+            z-index: 9999;
+            animation: fadeInUp 0.3s ease;
+            font-family: inherit !important;
         `;
-        document.head.appendChild(styleAnim);
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
+    }
 
-        // ============================================================
-        // ===== ۴. مدیریت هدر بر اساس وضعیت کاربر =====
-        // ============================================================
+    const styleAnim = document.createElement('style');
+    styleAnim.textContent = `
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+    `;
+    document.head.appendChild(styleAnim);
 
-        function updateHeader() {
-            const nav = document.getElementById('mainNav');
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    // ============================================================
+    // ===== ۴. مدیریت هدر بر اساس وضعیت کاربر =====
+    // ============================================================
 
-            if (user) {
-                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=008cff&color=fff&size=40';
+    function updateHeader() {
+        const nav = document.getElementById('mainNav');
+        const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
 
-                nav.innerHTML = `
-                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
-                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name}</span>
-                    <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
-                    <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
-                `;
-            } else {
-                nav.innerHTML = `
-                    <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
-                    <a href="login.html" class="btn-login">🔐 ورود</a>
-                `;
-            }
+        if (user) {
+            const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name) + '&background=008cff&color=fff&size=40';
+
+            nav.innerHTML = `
+                <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
+                <span class="user-name" onclick="window.location.href='profile.html'">${user.name}</span>
+                <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
+                <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
+            `;
+        } else {
+            nav.innerHTML = `
+                <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
+                <a href="login.html" class="btn-login">🔐 ورود</a>
+            `;
+        }
+    }
+
+    // ============================================================
+    // ===== ۵. خروج =====
+    // ============================================================
+
+    function logoutUser() {
+        if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+            localStorage.removeItem('pzmc_current_user');
+            showToast('👋 شما با موفقیت خارج شدید');
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        }
+    }
+
+    // ============================================================
+    // ===== ۶. بارگذاری صفحه =====
+    // ============================================================
+
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('selectedTheme');
+        if (savedTheme) document.body.classList.add('theme-' + savedTheme);
+
+        const savedFont = localStorage.getItem('selectedFont');
+        if (savedFont) {
+            const map = {
+                inter: 'font-inter',
+                vazirmatn: 'font-vazirmatn',
+                iransans: 'font-iransans',
+                shabnam: 'font-shabnam'
+            };
+            if (map[savedFont]) document.body.classList.add(map[savedFont]);
         }
 
-        // ============================================================
-        // ===== ۵. خروج =====
-        // ============================================================
-
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
-            }
-        }
-
-        // ============================================================
-        // ===== ۶. ذخیره پک =====
-        // ============================================================
-
-        function addFavorite(packName) {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (!user) {
-                showToast('❌ لطفاً اول وارد حساب خود شوید');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) {
-                showToast('❌ کاربر پیدا نشد');
-                return;
-            }
-
-            if (!users[index].favorites) {
-                users[index].favorites = [];
-            }
-
-            if (users[index].favorites.includes(packName)) {
-                showToast('⚠️ این پک قبلاً ذخیره شده است');
-                return;
-            }
-
-            users[index].favorites.push(packName);
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-            user.favorites = users[index].favorites;
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
-            showToast('✅ پک "' + packName + '" ذخیره شد! ⭐');
-
-            const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
-            if (btn) {
-                btn.textContent = '⭐ ذخیره شد';
-                btn.classList.add('saved');
-                btn.disabled = true;
-            }
-        }
-
-        // ============================================================
-        // ===== ۷. بارگذاری صفحه =====
-        // ============================================================
-
-        window.onload = function() {
-            // تم
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme) document.body.classList.add('theme-' + savedTheme);
-
-            // فونت
-            const savedFont = localStorage.getItem('selectedFont');
-            if (savedFont) {
-                const map = {
-                    inter: 'font-inter',
-                    vazirmatn: 'font-vazirmatn',
-                    iransans: 'font-iransans',
-                    shabnam: 'font-shabnam'
-                };
-                if (map[savedFont]) document.body.classList.add(map[savedFont]);
-            }
-
-            // هدر
-            updateHeader();
-
-            // دکمه‌های ذخیره
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (user) {
-                let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-                const index = users.findIndex(u => u.email === user.email);
-                if (index !== -1) {
-                    const favorites = users[index].favorites || [];
-                    document.querySelectorAll('.fav-btn[data-pack]').forEach(btn => {
-                        const packName = btn.getAttribute('data-pack');
-                        if (favorites.includes(packName)) {
-                            btn.textContent = '⭐ ذخیره شد';
-                            btn.classList.add('saved');
-                            btn.disabled = true;
-                        }
-                    });
-                }
-            }
-        };
-    </script>
-
-</body>
+        updateHeader();
+    };
+            </script>
+            </body>
 
 </html>
