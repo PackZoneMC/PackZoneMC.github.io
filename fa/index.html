@@ -221,6 +221,7 @@
             color: #7ec8ff;
             font-weight: 600;
             font-size: 0.95rem;
+            cursor: pointer;
         }
 
         /* ===== HERO ===== */
@@ -391,69 +392,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-            opacity: 0.5;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 700px) {
-            .custom-header {
-                flex-direction: column;
-                padding: 12px 16px;
-            }
-            .menu-box {
-                grid-template-columns: 1fr;
-                gap: 18px;
-                padding: 0 16px 30px;
-            }
-            .custom-logo {
-                font-size: 1.4rem;
-            }
-            .hero h2 {
-                font-size: 1.6rem;
-            }
-            .small-card {
-                padding: 22px 18px;
-            }
-            .card-actions {
-                flex-direction: column;
-            }
-            .custom-nav {
-                gap: 8px;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .small-card h3 {
-                font-size: 1rem;
-            }
-            .small-card a {
-                padding: 8px 20px;
-                font-size: 0.8rem;
-            }
-            .fav-btn {
-                padding: 8px 14px;
-                font-size: 0.8rem;
-                min-width: 60px;
-            }
-            .btn-signup {
-                padding: 6px 14px;
-                font-size: 0.8rem;
-            }
-            .btn-login {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-            }
-        }
-
         /* ===== LANGUAGE TOGGLE ===== */
         .language-toggle {
             position: fixed;
@@ -553,6 +491,80 @@
             border-radius: 50%;
             border: 2px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .custom-header {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+            .menu-box {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px 30px;
+            }
+            .custom-logo {
+                font-size: 1.4rem;
+            }
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            .small-card {
+                padding: 22px 18px;
+            }
+            .card-actions {
+                flex-direction: column;
+            }
+            .custom-nav {
+                gap: 8px;
+                justify-content: center;
+            }
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .language-panel {
+                top: 60px;
+                right: 10px;
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .small-card h3 {
+                font-size: 1rem;
+            }
+            .small-card a {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+            .fav-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                min-width: 60px;
+            }
+            .btn-signup {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .btn-login {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
         }
 
         .toast-message {
@@ -670,13 +682,4 @@
             <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
             <div class="card-actions">
                 <a href="java.html">مرور جاوا</a>
-                <button class="fav-btn" data-pack="پک‌های جاوا" onclick="addFavorite('پک‌های جاوا')">⭐ ذخیره</button>
-            </div>
-        </div>
-
-        <div class="card small-card">
-            <h3>🟩 پک‌های بدراک</h3>
-            <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
-            <div class="card-actions">
-                <a href="bedrock.html">دانلود</a>
-                <button c
+                <button class="fav-btn" data-pack="پک‌های جاوا" on
