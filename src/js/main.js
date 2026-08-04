@@ -1,5 +1,5 @@
 // ========================================
-// PACKZONE MC - MAIN SCRIPT (با مدیریت کاربر)
+// PACKZONE MC - MAIN SCRIPT (با مدیریت کاربر + ذخیره پک)
 // ========================================
 
 console.log('💙 PackZone MC Loaded!');
@@ -158,7 +158,143 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ===== تابع خروج (برای استفاده در جاهای دیگه) =====
+// ============================================================
+// ===== توابع ذخیره پک در علاقه‌مندی‌ها =====
+// ============================================================
+
+// ===== افزودن پک به علاقه‌مندی‌ها =====
+function addFavorite(packName) {
+    const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (!user) {
+        showToast('❌ لطفاً اول وارد حساب خود شوید');
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+    const index = users.findIndex(u => u.email === user.email);
+
+    if (index === -1) {
+        showToast('❌ کاربر پیدا نشد');
+        return;
+    }
+
+    if (!users[index].favorites) {
+        users[index].favorites = [];
+    }
+
+    if (users[index].favorites.includes(packName)) {
+        showToast('⚠️ این پک قبلاً به علاقه‌مندی‌ها اضافه شده است');
+        return;
+    }
+
+    users[index].favorites.push(packName);
+    localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+    // به‌روزرسانی کاربر جاری
+    user.favorites = users[index].favorites;
+    localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+
+    showToast('✅ پک "' + packName + '" با موفقیت به علاقه‌مندی‌ها اضافه شد! ⭐');
+
+    // به‌روزرسانی دکمه (اگه دکمه وجود داشته باشه)
+    const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
+    if (btn) {
+        btn.textContent = '⭐ ذخیره شد';
+        btn.classList.add('saved');
+        btn.disabled = true;
+    }
+}
+
+// ===== حذف پک از علاقه‌مندی‌ها =====
+function removeFavorite(packName) {
+    const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (!user) {
+        showToast('❌ لطفاً اول وارد حساب خود شوید');
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+    const index = users.findIndex(u => u.email === user.email);
+
+    if (index === -1) {
+        showToast('❌ کاربر پیدا نشد');
+        return;
+    }
+
+    if (!users[index].favorites) {
+        users[index].favorites = [];
+    }
+
+    const packIndex = users[index].favorites.indexOf(packName);
+    if (packIndex === -1) {
+        showToast('⚠️ این پک در علاقه‌مندی‌های شما وجود ندارد');
+        return;
+    }
+
+    users[index].favorites.splice(packIndex, 1);
+    localStorage.setItem('pzmc_users', JSON.stringify(users));
+
+    // به‌روزرسانی کاربر جاری
+    user.favorites = users[index].favorites;
+    localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+
+    showToast('🗑️ پک "' + packName + '" از علاقه‌مندی‌ها حذف شد');
+
+    // به‌روزرسانی دکمه (اگه دکمه وجود داشته باشه)
+    const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
+    if (btn) {
+        btn.textContent = '⭐ ذخیره';
+        btn.classList.remove('saved');
+        btn.disabled = false;
+    }
+
+    // اگه توی صفحه favorites هستیم، لیست رو دوباره بارگذاری کن
+    if (window.location.pathname.includes('favorites.html')) {
+        loadFavorites();
+    }
+}
+
+// ===== بارگذاری لیست علاقه‌مندی‌ها (برای صفحه favorites.html) =====
+function loadFavorites() {
+    const container = document.getElementById('favoritesList');
+    if (!container) return;
+
+    const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (!user) {
+        container.innerHTML = '<p style="color:#9ecfff;">❌ لطفاً اول وارد حساب خود شوید</p>';
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+    const index = users.findIndex(u => u.email === user.email);
+
+    if (index === -1) {
+        container.innerHTML = '<p style="color:#9ecfff;">❌ کاربر پیدا نشد</p>';
+        return;
+    }
+
+    const favorites = users[index].favorites || [];
+
+    if (favorites.length === 0) {
+        container.innerHTML = '<p style="color:#9ecfff;">⭐ شما هنوز هیچ پکی را ذخیره نکرده‌اید</p>';
+        return;
+    }
+
+    let html = '<div style="display:flex;flex-direction:column;gap:12px;">';
+    favorites.forEach(pack => {
+        html += `
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:12px 16px;border-radius:12px;">
+                <span style="color:#7ec8ff;font-weight:600;">⭐ ${pack}</span>
+                <button onclick="removeFavorite('${pack}')" style="background:rgba(255,23,68,0.15);color:#ff1744;border:1px solid #ff1744;padding:6px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;">حذف</button>
+            </div>
+        `;
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// ===== خروج =====
 function logoutUser() {
     if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
         localStorage.removeItem('pzmc_current_user');
@@ -270,6 +406,24 @@ window.onload = function() {
         }
         if (fontClass) {
             document.body.classList.add(fontClass);
+        }
+    }
+
+    // ===== چک کردن وضعیت دکمه‌های ذخیره =====
+    const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (user) {
+        let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+        const index = users.findIndex(u => u.email === user.email);
+        if (index !== -1) {
+            const favorites = users[index].favorites || [];
+            document.querySelectorAll('.fav-btn[data-pack]').forEach(btn => {
+                const packName = btn.getAttribute('data-pack');
+                if (favorites.includes(packName)) {
+                    btn.textContent = '⭐ ذخیره شد';
+                    btn.classList.add('saved');
+                    btn.disabled = true;
+                }
+            });
         }
     }
 };
