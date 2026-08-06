@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackZone MC | My Packs</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 40%, #0d0d2b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== VERSION BADGE ===== */
+        .version-badge {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a29bfe;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 4px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        .hero p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ddd;
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: rgba(108, 92, 231, 0.25);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            max-width: 320px;
+            margin-right: 12px;
+            margin-left: 12px;
+            vertical-align: top;
+        }
+
+        .card:hover {
+            border-color: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .card img:hover {
+            border-color: #6c5ce7;
+            transform: scale(1.02);
+        }
+
+        .card h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 4px 0;
+        }
+
+        .card p span {
+            color: #7ec8ff;
+            font-weight: 500;
+        }
+
+        .card .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 14px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+        }
+
+        .card .btn-download:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== GRID ===== */
+        .menu-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 30px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .card {
+                max-width: 100%;
+                margin-right: 0;
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+            .card img {
+                max-width: 100%;
+            }
+            .main-logo {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 16px 12px;
+            }
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            .card .btn-download {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- ===== VERSION BADGE ===== -->
+        <div style="text-align:center;">
+            <span class="version-badge">✨ Exclusive Packs ✨</span>
+        </div>
+
+        <!-- ===== HERO ===== -->
+        <section class="hero">
+            <h1 class="main-logo">💙 PackZone MC</h1>
+            <a href="index.html" class="home-button">🏠 Home</a>
+            <h2>📦 My Packs</h2>
+            <p>Exclusive packs made by PackZone MC</p>
+        </section>
+
+        <!-- ===== PACKS GRID ===== -->
+        <section class="menu-box">
+
+            <!-- ===== PZMC v1 ===== -->
+            <div class="card">
+                <img src="../v1.png" alt="PZMC v1">
+                <h3>📦 PZMC v1</h3>
+                <p>🏷️ Tag : <span>Revamp</span></p>
+                <p>🎨 Quality : <span>16x</span></p>
+                <p>💾 Size : <span>10.17 MB</span></p>
+                <p>📱 Type : <span>Bedrock</span></p>
+                <p>⚙️ Support : <span>Minecraft 1.21 - Latest</span></p>
+                <a href="../PZMC%20v2.mcpack" download class="btn-download">⬇️ Download</a>
+            </div>
+
+            <!-- ===== PZMC v2 ===== -->
+            <div class="card">
+                <img src="../v2.png" alt="PZMC v2">
+                <h3>📦 PZMC v2</h3>
+                <p>🏷️ Tag : <span>FPS Boost</span></p>
+                <p>🎨 Quality : <span>16x</span></p>
+                <p>💾 Size : <span>7.78 MB</span></p>
+                <p>📱 Type : <span>Bedrock</span></p>
+                <p>⚙️ Support : <span>Minecraft 1.20 - Latest</span></p>
+                <a href="../PZMC%20v3.mcpack" download class="btn-download">⬇️ Download</a>
+            </div>
+
+            <!-- ===== PZMC v3 ===== -->
+            <div class="card">
+                <img src="../v3.png" alt="PZMC v3">
+                <h3>📦 PZMC v3</h3>
+                <p>🏷️ Tag : <span>Bedwars</span></p>
+                <p>🎨 Quality : <span>32x</span></p>
+                <p>💾 Size : <span>17.41 MB</span></p>
+                <p>📱 Type : <span>Bedrock</span></p>
+                <p>⚙️ Support : <span>Minecraft 1.21 - Latest</span></p>
+                <a href="../Astra16x.mcpack" download class="btn-download">⬇️ Download</a>
+            </div>
+
+            <!-- ===== PZMC 1k ===== -->
+            <div class="card">
+                <img src="../InShot_۲۰۲۶۰۷۲۲_۱۸۱۰۴۴۴۲۹.jpg" alt="PZMC 1k">
+                <h3>📦 PZMC 1k</h3>
+                <p>🏷️ Tag : <span>fps boost / RWB</span></p>
+                <p>🎨 Quality : <span>16x</span></p>
+                <p>💾 Size : <span>23.26 MB</span></p>
+                <p>📱 Type : <span>Bedrock</span></p>
+                <p>⚙️ Support : <span>Minecraft 1.16.2 - Latest</span></p>
+                <a href="../PZMC 1K sub.mcpack" download class="btn-download">⬇️ Download</a>
+            </div>
+
+        </section>
+
+        <footer>© PackZone MC 💙</footer>
+
+    </div>
+</body>
+
+</html>
