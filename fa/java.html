@@ -2,127 +2,290 @@
 <html lang="fa" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackZone MC | پک‌های جاوا</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>PackZone MC | پک‌های جاوا</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 40%, #0d0d2b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
 
-<link rel="stylesheet" href="../style.css">
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
+        /* ===== VERSION BADGE ===== */
+        .version-badge {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a29bfe;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 4px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        .hero p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ddd;
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: rgba(108, 92, 231, 0.25);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            max-width: 320px;
+            margin-right: 12px;
+            margin-left: 12px;
+            vertical-align: top;
+        }
+
+        .card:hover {
+            border-color: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .card img:hover {
+            border-color: #6c5ce7;
+            transform: scale(1.02);
+        }
+
+        .card h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 4px 0;
+        }
+
+        .card p span {
+            color: #7ec8ff;
+            font-weight: 500;
+        }
+
+        .card .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 14px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+        }
+
+        .card .btn-download:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== GRID ===== */
+        .menu-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 30px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .card {
+                max-width: 100%;
+                margin-right: 0;
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+            .card img {
+                max-width: 100%;
+            }
+            .main-logo {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 16px 12px;
+            }
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            .card .btn-download {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 
-
 <body>
+    <div class="container">
 
+        <!-- ===== VERSION BADGE ===== -->
+        <div style="text-align:center;">
+            <span class="version-badge">✨ پک‌های جاوا ✨</span>
+        </div>
 
-<section class="hero java-page">
+        <!-- ===== HERO ===== -->
+        <section class="hero">
+            <h1 class="main-logo">💙 PackZone MC</h1>
+            <a href="index.html" class="home-button">🏠 خانه</a>
+            <h2>🟦 پک‌های جاوا</h2>
+            <p>مجموعه ریسورس پک‌های حرفه‌ای Minecraft Java Edition</p>
+        </section>
 
-<h1 class="main-logo">
-💙 PackZone MC
-</h1>
+        <!-- ===== PACKS GRID ===== -->
+        <section class="menu-box">
 
-<a href="index.html" class="home-button">
-🏠 خانه
-</a>
+            <!-- ===== FruitFul ===== -->
+            <div class="card">
+                <img src="../fr.png" alt="FruitFul">
+                <h3>📦 FruitFul</h3>
+                <p>🏷️ برچسب : <span>FPS Boost</span></p>
+                <p>🎨 کیفیت : <span>32x</span></p>
+                <p>💾 حجم : <span>15.85 MB</span></p>
+                <p>📱 نوع : <span>Java</span></p>
+                <p>⚙️ سازگاری : <span>Minecraft 1.6.1 - 1.8.9</span></p>
+                <a href="../! §3FruitFul §8[§f32x§8].zip" download class="btn-download">⬇️ دانلود</a>
+            </div>
 
+            <!-- ===== Ranked Faith ===== -->
+            <div class="card">
+                <img src="../ranked.png" alt="Ranked Faith">
+                <h3>📦 Ranked Faith</h3>
+                <p>🏷️ برچسب : <span>RWB</span></p>
+                <p>🎨 کیفیت : <span>32x</span></p>
+                <p>💾 حجم : <span>18.65 MB</span></p>
+                <p>📱 نوع : <span>Java</span></p>
+                <p>⚙️ سازگاری : <span>Minecraft 1.6.1 - 1.8.9</span></p>
+                <a href="../Ranked Faith.zip" download class="btn-download">⬇️ دانلود</a>
+            </div>
 
-<h2>
-🟦 پک‌های جاوا
-</h2>
+            <!-- ===== BladeHart ===== -->
+            <div class="card">
+                <img src="../bl.jpg" alt="BladeHart">
+                <h3>📦 BladeHart</h3>
+                <p>🏷️ برچسب : <span>Bedwars</span></p>
+                <p>🎨 کیفیت : <span>64x</span></p>
+                <p>💾 حجم : <span>15.84 MB</span></p>
+                <p>📱 نوع : <span>Java</span></p>
+                <p>⚙️ سازگاری : <span>Minecraft 1.6.1 - 1.8.9</span></p>
+                <a href="../§bBladeHart §7[§f64x§7]§8.zip" download class="btn-download">⬇️ دانلود</a>
+            </div>
 
+        </section>
 
-<p>
-مجموعه ریسورس پک‌های حرفه‌ای Minecraft Java Edition
-</p>
+        <footer>© PackZone MC 💙</footer>
 
-
-</section>
-
-
-
-
-<section class="menu-box">
-
-
-
-<!-- FruitFul -->
-
-<div class="card">
-
-<img src="../fr.png" width="300">
-
-<h3>📦 FruitFul</h3>
-
-<p>🏷️ برچسب : FPS Boost</p>
-<p>🎨 کیفیت پک : 32x</p>
-<p>💾 حجم فایل : 15.85 MB</p>
-<p>📱 نوع : Java</p>
-<p>⚙️ سازگاری : Minecraft 1.6.1 - 1.8.9</p>
-
-<a href="../! §3FruitFul §8[§f32x§8].zip" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-
-<!-- Ranked Faith -->
-
-<div class="card">
-
-<img src="../ranked.png" width="300">
-
-<h3>📦 Ranked Faith</h3>
-
-<p>🏷️ برچسب : RWB</p>
-<p>🎨 کیفیت پک : 32x</p>
-<p>💾 حجم فایل : 18.65 MB</p>
-<p>📱 نوع : Java</p>
-<p>⚙️ سازگاری : Minecraft 1.6.1 - 1.8.9</p>
-
-<a href="../Ranked Faith.zip" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-
-<!-- BladeHart -->
-
-<div class="card">
-
-<img src="../bl.jpg" width="300">
-
-<h3>📦 BladeHart</h3>
-
-<p>🏷️ برچسب : Bedwars</p>
-<p>🎨 کیفیت پک : 64x</p>
-<p>💾 حجم فایل : 15.84 MB</p>
-<p>📱 نوع : Java</p>
-<p>⚙️ سازگاری : Minecraft 1.6.1 - 1.8.9</p>
-
-<a href="../§bBladeHart §7[§f64x§7]§8.zip" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-
-</section>
-
-
-
-<footer>
-
-© PackZone MC 💙
-
-</footer>
-
-
+    </div>
 </body>
 
 </html>
