@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🎮 چقدر منو بلدی؟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* ===== هدر ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(100, 200, 255, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        /* ===== پروگرس بار ===== */
+        .progress-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
+        }
+        .progress-dot.done {
+            background: #00d2ff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+        .progress-dot.active {
+            background: #ff6b8a;
+            transform: scale(1.4);
+            box-shadow: 0 0 25px rgba(255, 107, 138, 0.6);
+        }
+        .progress-dot.wrong {
+            background: #ff4444;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+        }
+
+        .counter-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        /* ===== سوال باکس ===== */
+        .question-box {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            padding: 22px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .question-box.active {
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            color: #fff;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .question-text .emoji {
+            font-size: 1.5rem;
+        }
+
+        /* ===== گزینه‌ها ===== */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            padding: 14px 18px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            cursor: not-allowed;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: inherit;
+            line-height: 1.6;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .option-btn.correct-option {
+            border-color: rgba(0, 210, 255, 0.3);
+            color: #fff;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 1;
+            background: rgba(0, 210, 255, 0.08);
+        }
+        .option-btn.correct-option:hover {
+            background: rgba(0, 210, 255, 0.15);
+            transform: scale(1.02);
+        }
+        .option-btn.correct-option:active {
+            transform: scale(0.97);
+        }
+        .option-btn.selected {
+            background: rgba(0, 210, 255, 0.2);
+            border-color: #00d2ff;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+        }
+        .option-btn.wrong-selected {
+            background: rgba(255, 68, 68, 0.2);
+            border-color: #ff4444;
+            animation: shake 0.5s ease;
+        }
+
+        /* ===== دکمه تکان دادن ===== */
+        .shake-btn-wrap {
+            text-align: center;
+            margin: 15px 0 10px;
+        }
+        .shake-btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #ff6b8a, #ee3b6b);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(238, 59, 107, 0.3);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .shake-btn:active {
+            transform: scale(0.95);
+        }
+        .shake-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .shake-btn .icon {
+            font-size: 1.3rem;
+        }
+
+        /* ===== انیمیشن تکان خوردن ===== */
+        .shake-animation {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .shake-animation.active {
+            display: block;
+            animation: shakePhone 0.8s ease;
+        }
+        .shake-animation .big-emoji {
+            font-size: 4rem;
+            display: block;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+        .shake-animation .text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* ===== پیام پایانی ===== */
+        .final-box {
+            display: none;
+            text-align: center;
+            padding: 20px 10px;
+            animation: fadeIn 0.8s ease;
+        }
+        .final-box.active {
+            display: block;
+        }
+        .final-box .big-text {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .final-box .sub-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .final-box .emoji-big {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .btn-send {
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 210, 255, 0.3);
+            font-family: inherit;
+        }
+        .btn-send:active {
+            transform: scale(0.95);
+        }
+        .btn-send:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== انیمیشن‌ها ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-15px); }
+            40% { transform: translateX(15px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+        }
+        @keyframes shakePhone {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-15deg) scale(1.1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+            75% { transform: rotate(-10deg) scale(1.05); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        /* ===== responsive ===== */
+        @media (max-width: 480px) {
+            .container { padding: 18px 14px; }
+            .question-text { font-size: 1rem; }
+            .option-btn { font-size: 0.85rem; padding: 12px 14px; }
+            .header h1 { font-size: 1.2rem; }
+            .shake-btn { padding: 12px 25px; font-size: 0.9rem; }
+            .final-box .big-text { font-size: 1.4rem; }
+        }
+
+        /* ===== اسکرول مخفی ===== */
+        ::-webkit-scrollbar { width: 0; }
+    </style>
+</head>
+<body>
+    <div class="container" id="appContainer">
+
+        <!-- ===== هدر ===== -->
+        <div class="header">
+            <h1>🎮 چقدر منو بلدی؟</h1>
+            <div class="subtitle">💙 با ریحانه جان</div>
+        </div>
+
+        <!-- ===== پروگرس بار ===== -->
+        <div class="progress-wrap" id="progressWrap">
+            <div class="progress-dot active" data-idx="0"></div>
+            <div class="progress-dot" data-idx="1"></div>
+            <div class="progress-dot" data-idx="2"></div>
+            <div class="progress-dot" data-idx="3"></div>
+            <div class="progress-dot" data-idx="4"></div>
+            <div class="progress-dot" data-idx="5"></div>
+            <div class="progress-dot" data-idx="6"></div>
+            <div class="progress-dot" data-idx="7"></div>
+            <div class="progress-dot" data-idx="8"></div>
+            <div class="progress-dot" data-idx="9"></div>
+        </div>
+        <div class="counter-text" id="counterText">سوال 1 از 10</div>
+
+        <!-- ===== دکمه تکان دادن (برای سوالات با شیک) ===== -->
+        <div class="shake-btn-wrap" id="shakeBtnWrap">
+            <button class="shake-btn" id="shakeBtn">
+                <span class="icon">📱</span>
+                گوشی رو تکون بده!
+            </button>
+        </div>
+
+        <!-- ===== انیمیشن تکان دادن ===== -->
+        <div class="shake-animation" id="shakeAnimation">
+            <span class="big-emoji">📱</span>
+            <div class="text">🌀 داره تکون میخوره...</div>
+        </div>
+
+        <!-- ===== سوالات (داینامیک) ===== -->
+        <div id="questionContainer"></div>
+
+        <!-- ===== باکس پایانی ===== -->
+        <div class="final-box" id="finalBox">
+            <span class="emoji-big">🎉</span>
+            <div class="big-text">آفرین عزیزم! 😎🔥</div>
+            <div class="sub-text">
+                یعنی واقعاً منو بلدی!<br>
+                بیا بریم یه بستنی باحال بخوریم! 🍦
+            </div>
+            <button class="btn-send" id="sendBtn">📨 بفرست براش</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // ===== دیتا =====
+        // ============================================================
+        const questions = [{
+            id: 0,
+            text: 'چرا بعضی وقتا وقتی میای خونه‌ی ننه، بهم محل نمیدی؟',
+            needsShake: true,
+            options: [
+                'چون خیلی با هم صمیمی نیستیم',
+                'چون به اندازه‌ی کافی خوب نیستم توی حرف زدن',
+                'چون اصن آدم بامزه‌ای نیستم و خجالتیم و اصن حرف زدن بلد نیستم و خیلی خجالت میکشم با تو حرف بزنم امیر جان 😅'
+            ],
+            correctIndex: 2,
+            responseEmoji: '😂',
+            responseText: 'آفرین امیر جان! اینو که میدونستم!'
+        }, {
+            id: 1,
+            text: 'چرا بعضی وقتا به پیامام جواب نمیدی؟',
+            needsShake: false,
+            options: [
+                'چون حوصله‌ام سر میره',
+                'چون دوست ندارم با کسی حرف بزنم',
+                'چون وقتی پیامت میاد، یادم میره همه‌چی و فقط بهت فکر میکنم عزیز دلم 💙'
+            ],
+            correctIndex: 2,
+            responseEmoji: '💙',
+            responseText: 'ایول! این رو هم بلدی!'
+        }, {
+            id: 2,
+            text: 'چرا بعضی وقتا اینقدر باحالی؟',
+            needsShake: true,
+            options: [
+                'چون خوش شانسی آوردم',
+                'چون آدم خاصی هستم',
+                'چون تو هستی که باعث میشی من باحال باشم داداش گلم 🤩'
+            ],
+            correctIndex: 2,
+            responseEmoji: '🤩',
+            responseText: 'آفرین امیر جان! تو هم باحالی!'
+        }, {
+            id: 3,
+            text: 'به نظرت چرا انقدر بهت فکر میکنم؟',
+            needsShake: false,
+            options: [
+                'چون کاری ندارم',
+                'چون تو رو دوست دارم',
+                'چون تو یکی از خاص‌ترین آدم‌های زندگیم شدی امیر جان عزیز ❤️'
+            ],
+            correctIndex: 2,
+            responseEmoji: '❤️',
+            responseText: 'دقیقاً! تو خاصی!'
+        }, {
+            id: 4,
+            text: 'چرا با تو راحت‌تر از بقیه حرف می‌زنم؟',
+            needsShake: true,
+            options: [
+                'چون حوصله‌ام سر میره',
+                'چون تو به حرفام گوش می‌دی',
+                'چون با تو بودن، یعنی امنیت، یعنی آرامش، یعنی خونه رفیق عزیزم 🏠'
+            ],
+            correctIndex: 2,
+            responseEmoji: '🏠',
+            responseText: 'آفرین! اینو خوب فهمیدی!'
+        }, {
+            id: 5,
+            text: 'چرا بعضی وقتا دلم میخواد باهات باشم؟',
+            needsShake: false,
+            options: [
+                'چون کاری ندارم',
+                'چون خوش میگذره',
+                'چون کنار تو بودن، یعنی بهترین لحظه‌های زندگیم امیر جان گلم 💫'
+            ],
+            correctIndex: 2,
+            responseEmoji: '💫',
+            responseText: 'ایول! اینو هم بلدی!'
+        }, {
+            id: 6,
+            text: 'چرا وقتی حالت بده، اولین کسی که بهش فکر میکنی منم؟',
+            needsShake: true,
+            options: [
+                'چون بهت می‌خنده',
+                'چون حوصله‌ات رو ندارم',
+                'چون میدونم همیشه میتونم بهت تکیه کنم امیر جان مهربون 🌸'
+            ],
+            correctIndex: 2,
+            responseEmoji: '🌸',
+            responseText: 'آفرین امیر جان! اینو خوب بلدی!'
+        }, {
+            id: 7,
+            text: 'چرا بعضی وقتا باهام اینقدر راحت صحبت میکنی؟',
+            needsShake: false,
+            options: [
+                'چون مجبوری',
+                'چون کس دیگه‌ای نیست',
+                'چون میدونم هیچوقت قضاوت نمیکنی و همیشه درکم میکنی امیر جان عزیز 💎'
+            ],
+            correctIndex: 2,
+            responseEmoji: '💎',
+            responseText: 'دقیقاً! تو همیشه درکم میکنی!'
+        }, {
+            id: 8,
+            text: 'چرا انقدر برام ارزش قائلی؟',
+            needsShake: true,
+            options: [
+                'چون وقت دارم',
+                'چون کار خاصی نیست',
+                'چون میدونم تو یکی از بهترین چیزایی هستی که توی زندگیم اتفاق افتاده امیر جان گلم 🌟'
+            ],
+            correctIndex: 2,
+            responseEmoji: '🌟',
+            responseText: 'آفرین! اینو که میدونستم!'
+        }, {
+            id: 9,
+            text: 'چرا بعضی وقتا دلم میخواد برات آهنگ بخونم؟',
+            needsShake: false,
+            options: [
+                'چون حوصل‌ام سر رفته',
+                'چون کار خاصی نیست',
+                'چون میدونم با خوندن آهنگ میتونم لبخند رو لبات بیارم امیر جان عزیز 🎵'
+            ],
+            correctIndex: 2,
+            responseEmoji: '🎵',
+            responseText: 'ایول! این رو هم بلدی!'
+        }];
+
+        // ============================================================
+        // ===== عناصر =====
+        // ============================================================
+        const container = document.getElementById('questionContainer');
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const counterText = document.getElementById('counterText');
+        const shakeBtn = document.getElementById('shakeBtn');
+        const shakeBtnWrap = document.getElementById('shakeBtnWrap');
+        const shakeAnim = document.getElementById('shakeAnimation');
+        const finalBox = document.getElementById('finalBox');
+        const sendBtn = document.getElementById('sendBtn');
+
+        let currentIndex = 0;
+        let isShaking = false;
+        let isAnswered = false;
+        let totalCorrect = 0;
+        let answersLog = [];
+
+        // ============================================================
+        // ===== توابع =====
+        // ============================================================
+
+        function updateProgress(index) {
+            progressDots.forEach((dot, i) => {
+                dot.classList.remove('active', 'done', 'wrong');
+                if (i === index) {
+                    dot.classList.add('active');
+                } else if (i < index) {
+                    dot.classList.add('done');
+                }
+            });
+            counterText.textContent = `سوال ${index + 1} از ${questions.length}`;
+        }
+
+        function showQuestion(index) {
+            const q = questions[index];
+            if (!q) return;
+
+            isAnswered = false;
+            const needsShake = q.needsShake;
+
+            // مخفی کردن انیمیشن تکان
+            shakeAnim.classList.remove('active');
+
+            // نمایش یا مخفی کردن دکمه تکان
+            if (needsShake) {
+                shakeBtnWrap.style.display = 'block';
+                shakeBtn.disabled = false;
+                shakeBtn.innerHTML = `<span class="icon">📱</span> گوشی رو تکون بده!`;
+            } else {
+                shakeBtnWrap.style.display = 'none';
+                // مستقیم گزینه‌ها رو نشون بده
+                renderOptions(q, index);
+            }
+
+            // رندر سوال
+            let html = `
+                <div class="question-box active">
+                    <div class="question-text">
+                        <span class="emoji">${q.text.split(' ')[0] === 'چرا' ? '🤔' : '💭'}</span>
+                        ${q.text}
+                    </div>
+                    <div class="options" id="optionsContainer"></div>
+                </div>
+            `;
+            container.innerHTML = html;
+
+            // اگه نیاز به تکان نداره، گزینه‌ها رو نشون بده
+            if (!needsShake) {
+                renderOptions(q, index);
+            }
+
+            updateProgress(index);
+        }
+
+        function renderOptions(q, index) {
+            const optionsContainer = document.getElementById('optionsContainer');
+            if (!optionsContainer) return;
+
+            let html = '';
+            q.options.forEach((opt, i) => {
+                const isCorrect = (i === q.correctIndex);
+                const classes = isCorrect ? 'option-btn correct-option' : 'option-btn';
+                html += `<button class="${classes}" data-optindex="${i}" data-correct="${isCorrect}">${opt}</button>`;
+            });
+            optionsContainer.innerHTML = html;
+
+            // رویداد برای گزینه‌ها
+            optionsContainer.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (isAnswered) return;
+                    const isCorrect = this.dataset.correct === 'true';
+                    const optIndex = parseInt(this.dataset.optindex);
+                    handleOptionClick(this, optIndex, isCorrect, q, index);
+                });
+            });
+        }
+
+        function handleOptionClick(btn, optIndex, isCorrect, q, index) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const allOptions = btn.parentElement.querySelectorAll('.option-btn');
+
+            if (isCorrect) {
+                // درست
+                btn.classList.add('selected');
+                totalCorrect++;
+                answersLog.push({ question: q.text, answer: q.options[optIndex], correct: true });
+
+                // پیام موفقیت
+                setTimeout(() => {
+                    showTempMessage(q.responseEmoji, q.responseText);
+                }, 300);
+
+                // رفتن به سوال بعد
+                setTimeout(() => {
+                    goToNext(index);
+                }, 1500);
+
+            } else {
+                // اشتباه
+                btn.classList.add('wrong-selected');
+                // علامت‌گذاری روی پروگرس
+                progressDots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.remove('active');
+                        dot.classList.add('wrong');
+                    }
+                });
+
+                // غیرفعال کردن همه گزینه‌ها
+                allOptions.forEach(b => {
+                    b.style.pointerEvents = 'none';
+                    b.style.opacity = '0.3';
+                });
+
+                // نشون دادن گزینه درست
+                allOptions.forEach((b, i) => {
+                    if (i === q.correctIndex) {
+                        b.classList.add('selected');
+                        b.style.opacity = '1';
+                    }
+                });
+
+                answersLog.push({ question: q.text, answer: q.options[optIndex], correct: false });
+
+                setTimeout(() => {
+                    goToNext(index);
+                }, 2000);
+            }
+        }
+
+        function showTempMessage(emoji, text) {
+            const existing = document.querySelector('.temp-message');
+            if (existing) existing.remove();
+
+            const div = document.createElement('div');
+            div.className = 'temp-message';
+            div.style.cssText = `
+                text-align: center;
+                padding: 15px;
+                margin: 10px 0;
+                background: rgba(0, 210, 255, 0.1);
+                border-radius: 20px;
+                border: 1px solid rgba(0, 210, 255, 0.2);
+                animation: fadeIn 0.4s ease;
+            `;
+            div.innerHTML = `
+                <span style="font-size:2.5rem;display:block;">${emoji}</span>
+                <span style="color:#fff;font-size:1rem;">${text}</span>
+            `;
+            const qBox = document.querySelector('.question-box');
+            if (qBox) qBox.appendChild(div);
+        }
+
+        function goToNext(index) {
+            const nextIndex = index + 1;
+            if (nextIndex < questions.length) {
+                showQuestion(nextIndex);
+            } else {
+                // پایان بازی
+                showFinal();
+            }
+        }
+
+        function showFinal() {
+            container.innerHTML = '';
+            shakeBtnWrap.style.display = 'none';
+            document.querySelector('.progress-wrap').style.display = 'none';
+            counterText.style.display = 'none';
+
+            finalBox.classList.add('active');
+            // به‌روزرسانی متن با تعداد درست
+            const subText = finalBox.querySelector('.sub-text');
+            subText.innerHTML = `
+                از ۱۰ تا سوال، <strong style="color:#00d2ff;">${totalCorrect}</strong> تاش رو درست جواب دادی!<br>
+                یعنی واقعاً منو بلدی! 😎<br>
+                بیا بریم یه بستنی باحال بخوریم! 🍦
+            `;
+        }
+
+        // ============================================================
+        // ===== دکمه تکان دادن =====
+        // ============================================================
+        shakeBtn.addEventListener('click', function() {
+            if (isShaking) return;
+            const q = questions[currentIndex];
+            if (!q || !q.needsShake) return;
+
+            isShaking = true;
+            this.disabled = true;
+            this.innerHTML = `<span class="icon">🌀</span> داره تکون میخوره...`;
+
+            // نمایش انیمیشن
+            shakeAnim.classList.add('active');
+
+            // لرزش گوشی (در صورت امکان)
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 200]);
+            }
+
+            // بعد از ۱ ثانیه، گزینه‌ها رو نشون بده
+            setTimeout(() => {
+                shakeAnim.classList.remove('active');
+                shakeBtnWrap.style.display = 'none';
+                isShaking = false;
+                // گزینه‌ها رو نشون بده
+                renderOptions(q, currentIndex);
+            }, 1200);
+        });
+
+        // ============================================================
+        // ===== دکمه ارسال =====
+        // ============================================================
+        sendBtn.addEventListener('click', function() {
+            // ذخیره در localStorage
+            const log = {
+                time: new Date().toLocaleString('fa-IR'),
+                totalCorrect: totalCorrect,
+                answers: answersLog
+            };
+            localStorage.setItem('amirGameLog', JSON.stringify(log));
+
+            this.disabled = true;
+            this.textContent = '✅ ارسال شد!';
+            this.style.opacity = '0.5';
+
+            // نمایش پیام نهایی
+            const subText = finalBox.querySelector('.sub-text');
+            subText.innerHTML += `<br><br><span style="color:#00d2ff;">❤️ برات فرستادم عزیزم!</span>`;
+
+            setTimeout(() => {
+                alert('😍 ارسال شد! منتظرتم عزیزم!');
+            }, 500);
+        });
+
+        // ============================================================
+        // ===== شروع =====
+        // ============================================================
+        showQuestion(0);
+
+        // ============================================================
+        // ===== جلوگیری از خروج =====
+        // ============================================================
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+        console.log('🎮 بازی چقدر منو بلدی؟ شروع شد!');
+    </script>
+</body>
+</html>
