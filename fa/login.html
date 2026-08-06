@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -126,6 +130,12 @@
             box-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
         }
 
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-google {
             width: 100%;
             padding: 12px;
@@ -146,6 +156,12 @@
         .btn-google:hover {
             transform: scale(1.02);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-google:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-phone {
@@ -222,11 +238,46 @@
             margin-bottom: 12px;
         }
 
+        .timer-text {
+            text-align: center;
+            color: #7ec8ff;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .recaptcha-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
             color: rgba(255, 255, 255, 0.15);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d2038;
+            border: 1px solid #008cff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast.show {
+            opacity: 1;
         }
 
         @media (max-width: 600px) {
@@ -257,193 +308,415 @@
         }
     </style>
 </head>
-
 <body>
 
-    <header class="header">
-        <div class="logo">💙 PackZone MC</div>
-        <nav class="nav">
-            <a href="index.html">خانه</a>
-            <a href="signup.html">ثبت‌نام</a>
-            <a href="login.html" style="color:#7ec8ff;">ورود</a>
-        </nav>
-    </header>
+    <!-- ===== Toast Notification ===== -->
+    <div class="toast" id="toast"></div>
+<header class="header">
+    <div class="logo">💙 PackZone MC</div>
+    <nav class="nav">
+        <a href="index.html">خانه</a>
+        <a href="signup.html">ثبت‌نام</a>
+        <a href="login.html" style="color:#7ec8ff;">ورود</a>
+    </nav>
+</header>
 
-    <main class="auth-container">
-        <section class="auth-box">
-            <h1>🔐 ورود</h1>
+<main class="auth-container">
+    <section class="auth-box">
+        <h1>🔐 ورود</h1>
 
-            <!-- ===== فرم ورود با ایمیل ===== -->
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">ایمیل</label>
-                    <input type="email" id="loginEmail" placeholder="example@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPass">رمز عبور</label>
-                    <input type="password" id="loginPass" placeholder="رمز عبور خود را وارد کنید" required>
-                </div>
-                <button type="submit" class="btn-primary">ورود</button>
-            </form>
-
-            <!-- ===== خط جداکننده ===== -->
-            <div class="divider">
-                <span>یا</span>
+        <!-- ===== فرم ورود با ایمیل ===== -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">ایمیل</label>
+                <input type="email" id="loginEmail" placeholder="example@email.com" required>
             </div>
-
-            <!-- ===== دکمه‌های ورود با گوگل و شماره ===== -->
-            <div style="display:flex;flex-direction:column;gap:10px;">
-
-                <button onclick="loginWithGoogle()" class="btn-google">
-                    <img src="https://www.google.com/favicon.ico" style="width:20px;height:20px;">
-                    ورود با گوگل
-                </button>
-
-                <button onclick="togglePhoneSection()" class="btn-phone">
-                    📱 ورود با شماره تلفن
-                </button>
-
+            <div class="form-group">
+                <label for="loginPass">رمز عبور</label>
+                <input type="password" id="loginPass" placeholder="رمز عبور خود را وارد کنید" required>
             </div>
+            <button type="submit" class="btn-primary" id="emailLoginBtn">ورود</button>
+        </form>
 
-            <!-- ===== بخش ورود با شماره تلفن ===== -->
-            <div class="phone-section" id="phoneSection">
-                <h3>📱 ورود با شماره تلفن</h3>
-                <div class="form-group">
-                    <label for="phoneNumber">شماره تلفن</label>
-                    <input type="tel" id="phoneNumber" placeholder="09xxxxxxxxx">
-                </div>
-                <div class="form-group" id="codeGroup" style="display:none;">
-                    <label for="phoneCode">کد تایید</label>
-                    <input type="text" id="phoneCode" placeholder="کد ۶ رقمی">
-                </div>
-                <button onclick="sendPhoneCode()" class="btn-primary" id="sendCodeBtn">ارسال کد</button>
-                <button onclick="verifyPhoneCode()" class="btn-primary" id="verifyCodeBtn" style="display:none;">تایید کد</button>
+        <!-- ===== خط جداکننده ===== -->
+        <div class="divider">
+            <span>یا</span>
+        </div>
+
+        <!-- ===== دکمه‌های ورود با گوگل و شماره ===== -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+            <button onclick="loginWithGoogle()" class="btn-google" id="googleBtn">
+                <img src="https://www.google.com/favicon.ico" style="width:20px;height:20px;">
+                ورود با گوگل
+            </button>
+
+            <button onclick="togglePhoneSection()" class="btn-phone" id="phoneToggleBtn">
+                📱 ورود با شماره تلفن
+            </button>
+
+        </div>
+
+        <!-- ===== بخش ورود با شماره تلفن ===== -->
+        <div class="phone-section" id="phoneSection">
+            <h3>📱 ورود با شماره تلفن</h3>
+            <div class="form-group">
+                <label for="phoneNumber">شماره تلفن</label>
+                <input type="tel" id="phoneNumber" placeholder="09xxxxxxxxx" dir="ltr">
             </div>
+            <div class="form-group" id="codeGroup" style="display:none;">
+                <label for="phoneCode">کد تایید</label>
+                <input type="text" id="phoneCode" placeholder="کد ۶ رقمی" dir="ltr" maxlength="6">
+            </div>
+            <div class="recaptcha-container" id="recaptchaContainer"></div>
+            <button onclick="sendPhoneCode()" class="btn-primary" id="sendCodeBtn">📨 ارسال کد</button>
+            <button onclick="verifyPhoneCode()" class="btn-primary" id="verifyCodeBtn" style="display:none;">✅ تایید کد</button>
+            <div id="timerDisplay" class="timer-text"></div>
+        </div>
 
-            <p class="auth-footer">عضو نیستی؟ <a href="signup.html">ثبت‌نام</a></p>
-        </section>
-    </main>
+        <p class="auth-footer">عضو نیستی؟ <a href="signup.html">ثبت‌نام</a></p>
+    </section>
+</main>
 
-    <footer class="footer">
-        <p>© PackZone MC</p>
-    </footer>
-
+<footer class="footer">
+    <p>© PackZone MC</p>
+</footer>
     <script>
         // ============================================================
-        // ===== ورود با ایمیل و رمز =====
+        // ===== Firebase Configuration =====
         // ============================================================
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBV9clBhPAMlcBhCS7DgfkotrgqsFrTNSA",
+            authDomain: "packzonemc.firebaseapp.com",
+            projectId: "packzonemc",
+            storageBucket: "packzonemc.firebasestorage.app",
+            messagingSenderId: "113323335089",
+            appId: "1:113323335089:web:a710482a0153dd077d3190",
+            measurementId: "G-WE3RFLBFCV"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // ============================================================
+        // ===== Toast =====
+        // ============================================================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.borderColor = isError ? '#e74c3c' : '#008cff';
+            toast.style.border = isError ? '1px solid #e74c3c' : '1px solid #008cff';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ============================================================
+        // ===== ورود با ایمیل =====
+        // ============================================================
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPass').value;
+            const btn = document.getElementById('emailLoginBtn');
 
             if (!email || !password) {
-                alert('❌ لطفاً همه فیلدها را پر کنید');
+                showToast('❌ لطفاً همه فیلدها را پر کنید', true);
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const user = users.find(u => u.email === email && u.password === password);
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال ورود...';
 
-            if (!user) {
-                alert('❌ ایمیل یا رمز عبور اشتباه است');
-                return;
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || user.email.split('@')[0],
+                    phone: user.phoneNumber || '',
+                    photoURL: user.photoURL || ''
+                };
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ ورود موفق! خوش آمدید ' + userData.name);
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ خطا در ورود';
+                if (error.code === 'auth/user-not-found') msg = '❌ کاربری با این ایمیل یافت نشد';
+                else if (error.code === 'auth/wrong-password') msg = '❌ رمز عبور اشتباه است';
+                else if (error.code === 'auth/invalid-email') msg = '❌ فرمت ایمیل نامعتبر است';
+                else if (error.code === 'auth/user-disabled') msg = '❌ این حساب کاربری غیرفعال شده است';
+                else if (error.code === 'auth/too-many-requests') msg = '❌ درخواست‌های زیاد، لطفاً بعداً تلاش کن';
+                else msg = '❌ ' + error.message;
+
+                showToast(msg, true);
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-            alert('✅ ورود با موفقیت انجام شد! خوش آمدید ' + user.name);
-            window.location.href = 'profile.html';
+            btn.disabled = false;
+            btn.textContent = 'ورود';
         });
 
         // ============================================================
-        // ===== ورود با گوگل (شبیه‌سازی) =====
+        // ===== ورود با گوگل =====
         // ============================================================
-        function loginWithGoogle() {
-            const googleUser = {
-                name: 'کاربر گوگل',
-                email: 'google_user_' + Date.now() + '@gmail.com',
-                password: 'google_login',
-                createdAt: new Date().toLocaleDateString('fa-IR')
-            };
+        async function loginWithGoogle() {
+            const btn = document.getElementById('googleBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال اتصال...';
 
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const existingUser = users.find(u => u.email === googleUser.email);
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
 
-            if (!existingUser) {
-                users.push(googleUser);
-                localStorage.setItem('pzmc_users', JSON.stringify(users));
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || 'کاربر گوگل',
+                    phone: user.phoneNumber || '',
+                    photoURL: user.photoURL || '',
+                    provider: 'google'
+                };
+
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ ورود با گوگل موفق! خوش آمدید ' + userData.name);
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ خطا در ورود با گوگل';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    msg = '❌ پنجره ورود بسته شد';
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    msg = '❌ درخواست ورود لغو شد';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    msg = '❌ این ایمیل با روش دیگری ثبت شده است';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(googleUser));
-            alert('✅ ورود با گوگل موفقیت‌آمیز بود! خوش آمدید ' + googleUser.name);
-            window.location.href = 'profile.html';
+            btn.disabled = false;
+            btn.textContent = 'ورود با گوگل';
         }
 
         // ============================================================
         // ===== ورود با شماره تلفن =====
         // ============================================================
-        let phoneData = { phone: '', code: '' };
+        let phoneData = { phone: '', verificationId: '', code: '' };
+        let timerInterval = null;
+        let recaptchaVerifier = null;
 
         function togglePhoneSection() {
             const section = document.getElementById('phoneSection');
-            section.classList.toggle('open');
+            const isOpen = section.classList.toggle('open');
+
+            if (isOpen) {
+                if (!recaptchaVerifier) {
+                    try {
+                        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+                            size: 'normal',
+                            callback: function(response) {
+                                document.getElementById('sendCodeBtn').disabled = false;
+                            },
+                            'expired-callback': function() {
+                                document.getElementById('sendCodeBtn').disabled = true;
+                            }
+                        });
+                        recaptchaVerifier.render();
+                    } catch (e) {
+                        console.log('reCAPTCHA already rendered');
+                    }
+                }
+            }
         }
 
-        function sendPhoneCode() {
-            const phone = document.getElementById('phoneNumber').value.trim();
+        async function sendPhoneCode() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phone = phoneInput.value.trim();
+            const sendBtn = document.getElementById('sendCodeBtn');
 
-            if (!phone || phone.length < 11) {
-                alert('❌ لطفاً شماره تلفن معتبر وارد کنید');
+            let formattedPhone = phone;
+            if (phone.startsWith('09')) {
+                formattedPhone = '+98' + phone.substring(1);
+            } else if (phone.startsWith('9')) {
+                formattedPhone = '+98' + phone;
+            } else if (!phone.startsWith('+')) {
+                formattedPhone = '+98' + phone;
+            }
+
+            if (!phone || phone.length < 10) {
+                showToast('❌ لطفاً شماره تلفن معتبر وارد کنید', true);
                 return;
             }
 
-            phoneData.phone = phone;
-            phoneData.code = Math.floor(100000 + Math.random() * 900000).toString();
-
-            console.log('📱 کد تایید:', phoneData.code);
-
-            alert('📱 کد تایید به شماره ' + phone + ' ارسال شد! (کد: ' + phoneData.code + ')');
-
-            document.getElementById('codeGroup').style.display = 'block';
-            document.getElementById('sendCodeBtn').style.display = 'none';
-            document.getElementById('verifyCodeBtn').style.display = 'block';
-        }
-
-        function verifyPhoneCode() {
-            const enteredCode = document.getElementById('phoneCode').value.trim();
-
-            if (!enteredCode) {
-                alert('❌ لطفاً کد تایید را وارد کنید');
+            if (!recaptchaVerifier) {
+                showToast('❌ لطفاً منتظر بارگذاری reCAPTCHA باشید', true);
                 return;
             }
 
-            if (enteredCode !== phoneData.code) {
-                alert('❌ کد تایید اشتباه است');
+            sendBtn.disabled = true;
+            sendBtn.textContent = '⏳ در حال ارسال...';
+
+            try {
+                const phoneProvider = new firebase.auth.PhoneAuthProvider();
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                    formattedPhone,
+                    recaptchaVerifier
+                );
+
+                phoneData.phone = phone;
+                phoneData.verificationId = verificationId;
+
+                document.getElementById('codeGroup').style.display = 'block';
+                document.getElementById('sendCodeBtn').style.display = 'none';
+                document.getElementById('verifyCodeBtn').style.display = 'block';
+
+                showToast('✅ کد تایید به شماره شما ارسال شد');
+                startTimer(60);
+
+            } catch (error) {
+                let msg = '❌ خطا در ارسال کد';
+                if (error.code === 'auth/invalid-phone-number') {
+                    msg = '❌ شماره تلفن نامعتبر است';
+                } else if (error.code === 'auth/too-many-requests') {
+                    msg = '❌ درخواست‌های زیاد، لطفاً بعداً تلاش کن';
+                } else if (error.code === 'auth/captcha-check-failed') {
+                    msg = '❌ تأیید کپچا ناموفق بود، دوباره تلاش کن';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
+                sendBtn.disabled = false;
+                sendBtn.textContent = '📨 ارسال کد';
+                recaptchaVerifier.clear();
+                recaptchaVerifier = null;
+            }
+        }
+
+        async function verifyPhoneCode() {
+            const code = document.getElementById('phoneCode').value.trim();
+            const verifyBtn = document.getElementById('verifyCodeBtn');
+
+            if (!code || code.length < 6) {
+                showToast('❌ لطفاً کد ۶ رقمی را وارد کنید', true);
                 return;
             }
 
-            const phoneUser = {
-                name: 'کاربر تلفن همراه',
-                email: 'phone_' + phoneData.phone + '@temp.com',
-                phone: phoneData.phone,
-                password: 'phone_login_' + phoneData.code,
-                createdAt: new Date().toLocaleDateString('fa-IR')
-            };
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const existingUser = users.find(u => u.phone === phoneData.phone);
-
-            if (!existingUser) {
-                users.push(phoneUser);
-                localStorage.setItem('pzmc_users', JSON.stringify(users));
+            if (!phoneData.verificationId) {
+                showToast('❌ ابتدا کد تایید را دریافت کنید', true);
+                return;
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(phoneUser));
-            alert('✅ ورود با شماره تلفن موفقیت‌آمیز بود! خوش آمدید');
-            window.location.href = 'profile.html';
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = '⏳ در حال بررسی...';
+
+            try {
+                const credential = firebase.auth.PhoneAuthProvider.credential(
+                    phoneData.verificationId,
+                    code
+                );
+
+                const result = await auth.signInWithCredential(credential);
+                const user = result.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email || 'phone_' + Date.now() + '@temp.com',
+                    name: 'کاربر تلفن همراه',
+                    phone: phoneData.phone,
+                    photoURL: user.photoURL || '',
+                    provider: 'phone'
+                };
+
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ ورود با شماره تلفن موفق! خوش آمدید');
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ خطا در تأیید کد';
+                if (error.code === 'auth/invalid-verification-code') {
+                    msg = '❌ کد تایید اشتباه است';
+                } else if (error.code === 'auth/expired-action-code') {
+                    msg = '❌ کد تایید منقضی شده است، دوباره درخواست کن';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
+            }
+
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = '✅ تایید کد';
         }
+
+        // ============================================================
+        // ===== تایمر =====
+        // ============================================================
+        function startTimer(seconds) {
+            const timerDisplay = document.getElementById('timerDisplay');
+            let remaining = seconds;
+
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                remaining--;
+                timerDisplay.textContent = `⏳ ارسال مجدد کد پس از ${remaining} ثانیه`;
+
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '📨 می‌توانید دوباره کد درخواست کنید';
+
+                    document.getElementById('sendCodeBtn').style.display = 'block';
+                    document.getElementById('sendCodeBtn').disabled = false;
+                    document.getElementById('sendCodeBtn').textContent = '📨 ارسال مجدد کد';
+                    document.getElementById('verifyCodeBtn').style.display = 'none';
+                    document.getElementById('codeGroup').style.display = 'none';
+                    phoneData.verificationId = '';
+                }
+            }, 1000);
+        }
+
+        // ============================================================
+        // ===== بررسی وضعیت ورود =====
+        // ============================================================
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                const userData = JSON.parse(localStorage.getItem('pzmc_current_user'));
+                if (userData && window.location.pathname.includes('login.html')) {
+                    window.location.href = 'profile.html';
+                }
+            }
+        });
+
+        // ============================================================
+        // ===== پشتیبانی از Enter =====
+        // ============================================================
+        document.getElementById('phoneNumber').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('sendCodeBtn').style.display !== 'none') {
+                    sendPhoneCode();
+                }
+            }
+        });
+
+        document.getElementById('phoneCode').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('verifyCodeBtn').style.display !== 'none') {
+                    verifyPhoneCode();
+                }
+            }
+        });
     </script>
-
 </body>
 </html>
