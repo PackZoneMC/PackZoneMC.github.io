@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | ساخت McMeta نسخه ۲.۰.۰</title>
+    <title>PackZone MC | McMeta Builder</title>
 
     <style>
         * {
@@ -24,19 +24,6 @@
         .container {
             max-width: 850px;
             margin: 0 auto;
-        }
-
-        .version-badge {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #a29bfe;
-            background: rgba(108, 92, 231, 0.15);
-            padding: 4px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid rgba(108, 92, 231, 0.25);
-            letter-spacing: 1px;
         }
 
         .hero {
@@ -92,10 +79,11 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border-radius: 24px;
-            padding: 28px 30px;
+            padding: 40px 30px;
             margin-bottom: 24px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .card:hover {
@@ -103,206 +91,38 @@
             box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
         }
 
-        .card h2 {
+        .card h1 {
             color: #fff;
-            font-size: 1.4rem;
+            font-size: 2.5rem;
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 {
-            color: #ddd;
-            font-size: 1.05rem;
-            margin: 18px 0 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .card p {
             color: #aaa;
-            font-size: 0.95rem;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 2;
         }
 
-        label {
-            display: block;
-            color: #ccc;
-            font-size: 0.95rem;
-            margin: 12px 0 6px;
-            font-weight: 500;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #6c5ce7;
-            background: rgba(108, 92, 231, 0.08);
-            box-shadow: 0 0 30px rgba(108, 92, 231, 0.1);
-            transform: scale(1.01);
-        }
-
-        input::placeholder {
-            color: #555;
-        }
-
-        select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c5ce7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: left 16px center;
-            padding-left: 40px;
-        }
-
-        select option {
-            background: #1a1040;
-            color: #fff;
-            padding: 8px;
-        }
-
-        .descPart {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 14px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .descPart:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(108, 92, 231, 0.15);
-        }
-
-        .descPart input {
-            flex: 2;
-            min-width: 120px;
-            background: rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.06);
-        }
-
-        .descPart input:focus {
-            border-color: #6c5ce7;
-            background: rgba(108, 92, 231, 0.05);
-        }
-
-        .descPart select {
-            flex: 1;
-            min-width: 100px;
-            background: rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.06);
-        }
-
-        .descPart select:focus {
-            border-color: #6c5ce7;
-            background: rgba(108, 92, 231, 0.05);
-        }
-
-        button {
+        .btn {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             color: #fff;
             border: none;
-            padding: 12px 28px;
+            padding: 14px 40px;
             border-radius: 30px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            margin-top: 20px;
             box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
         }
 
-        button:hover {
+        .btn:hover {
             transform: scale(1.04);
             box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
-        }
-
-        button:active {
-            transform: scale(0.96);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: none;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
-            border-color: rgba(108, 92, 231, 0.3);
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #fdcb6e, #f39c12);
-            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
-            color: #1a1a2e;
-        }
-
-        .btn-gold:hover {
-            box-shadow: 0 8px 35px rgba(243, 156, 18, 0.3);
-        }
-
-        #iconPreview {
-            border-radius: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-
-        #iconPreview:hover {
-            transform: scale(1.05);
-            border-color: #6c5ce7;
-        }
-
-        input[type="file"] {
-            padding: 10px;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        input[type="file"]::-webkit-file-upload-button {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            border: none;
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        input[type="file"]::-webkit-file-upload-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
-        }
-
-        .row {
-            display: flex;
-            gap: 14px;
-        }
-
-        .row>* {
-            flex: 1;
         }
 
         footer {
@@ -314,19 +134,6 @@
         }
 
         @media (max-width: 600px) {
-            .row {
-                flex-direction: column;
-            }
-            .descPart {
-                flex-direction: column;
-                padding: 10px;
-            }
-            .descPart input {
-                min-width: unset;
-            }
-            .descPart select {
-                min-width: unset;
-            }
             .main-logo {
                 font-size: 1.8rem;
             }
@@ -334,7 +141,14 @@
                 font-size: 1.3rem;
             }
             .card {
-                padding: 20px 16px;
+                padding: 30px 20px;
+            }
+            .card h1 {
+                font-size: 1.8rem;
+            }
+            .btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -342,9 +156,6 @@
 
 <body>
     <div class="container">
-        <div style="text-align:center;">
-            <span class="version-badge">✨ نسخه ۲.۰.۰ ✨</span>
-        </div>
 
         <section class="hero">
             <h1 class="main-logo">💙 PackZone MC</h1>
@@ -354,201 +165,15 @@
         </section>
 
         <div class="card">
-            <h2>📦 اطلاعات پک</h2>
-
-            <label>📛 اسم پک (ساده)</label>
-            <input type="text" id="packName" placeholder="مثلا PZMC Pack">
-
-            <h3>🎨 توضیحات رنگی</h3>
-            <p style="font-size:0.9rem;color:#888;">هر بخش رو جداگانه رنگ کن</p>
-            <div id="descParts">
-                <div class="descPart">
-                    <input class="descText" placeholder="مثلا Made By">
-                    <select class="descColor">
-                        <option value="§f">⚪ سفید</option>
-                        <option value="§b">🔵 آبی روشن</option>
-                        <option value="§e">🟡 زرد</option>
-                        <option value="§a">🟢 سبز</option>
-                        <option value="§c">🔴 قرمز</option>
-                        <option value="§5">🟣 بنفش</option>
-                    </select>
-                    <select class="descStyle">
-                        <option value="">عادی</option>
-                        <option value="§l">ضخیم</option>
-                        <option value="§o">کج</option>
-                        <option value="§n">زیرخط</option>
-                        <option value="§m">خط خورده</option>
-                    </select>
-                </div>
-            </div>
-            <button onclick="addDescPart()" class="btn-secondary">➕ اضافه کردن بخش</button>
-
-            <br><br>
-
-            <label>🎮 نسخه ماینکرفت (جاوا)</label>
-            <select id="mcVersion">
-                <option value="1.8.9" selected>1.8.9 🔥 (محبوب PvP)</option>
-                <option value="1.12.2">1.12.2</option>
-                <option value="1.16.5">1.16.5</option>
-                <option value="1.17.1">1.17.1</option>
-                <option value="1.18.2">1.18.2</option>
-                <option value="1.19.4">1.19.4</option>
-                <option value="1.20.4">1.20.4</option>
-                <option value="1.21.4">1.21.4 (جدید)</option>
-            </select>
+            <h1>💙 سلام!</h1>
+            <p>به بخش ساخت McMeta خوش آمدی.</p>
+            <p>این صفحه به‌زودی کامل میشه.</p>
+            <button class="btn" onclick="alert('سلام داداش! 😊')">کلیک کن</button>
         </div>
 
-        <div class="card">
-            <h2>🖼 آیکون پک</h2>
-            <p>آیکون pack.png رو انتخاب کن</p>
-            <input type="file" id="packIcon" accept="image/png" onchange="previewIcon(event)">
-            <br>
-            <img id="iconPreview" width="128" style="display:none; border-radius:16px;">
-        </div>
-
-        <div class="card">
-            <h2>⚡ ساخت و دانلود</h2>
-            <div class="row">
-                <button onclick="downloadMcmeta()" style="flex:1;">📄 دانلود pack.mcmeta</button>
-                <button onclick="downloadZip()" class="btn-gold" style="flex:1;">📦 دانلود پک کامل (ZIP)</button>
-            </div>
-        </div>
+        <footer>© PackZone MC 💙</footer>
 
     </div>
-
-    <footer>© PackZone MC 💙</footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script>
-        let packIconFile = null;
-
-        function addDescPart() {
-            let box = document.createElement("div");
-            box.className = "descPart";
-            box.innerHTML = `
-                <input class="descText" placeholder="متن">
-                <select class="descColor">
-                    <option value="§f">⚪ سفید</option>
-                    <option value="§1">🔷 آبی تیره</option>
-                    <option value="§5">🟣 بنفش</option>
-                    <option value="§6">🟠 طلایی</option>
-                    <option value="§a">🟢 سبز</option>
-                    <option value="§b">🔵 آبی روشن</option>
-                    <option value="§c">🔴 قرمز</option>
-                    <option value="§e">🟡 زرد</option>
-                </select>
-                <select class="descStyle">
-                    <option value="">عادی</option>
-                    <option value="§l">ضخیم</option>
-                    <option value="§o">کج</option>
-                    <option value="§n">زیرخط</option>
-                    <option value="§m">خط خورده</option>
-                </select>
-            `;
-            document.getElementById("descParts").appendChild(box);
-        }
-
-        function buildColoredText(container, textClass, colorClass, styleClass) {
-            let result = "";
-            let texts = document.querySelectorAll(container + " " + textClass);
-            let colors = document.querySelectorAll(container + " " + colorClass);
-            let styles = document.querySelectorAll(container + " " + styleClass);
-
-            for (let i = 0; i < texts.length; i++) {
-                if (texts[i].value.trim() !== "") {
-                    result += colors[i].value + styles[i].value + texts[i].value;
-                }
-            }
-            return result;
-        }
-
-        function getPackFormat(version) {
-            const map = {
-                '1.8.9': 1,
-                '1.12.2': 3,
-                '1.16.5': 6,
-                '1.17.1': 7,
-                '1.18.2': 8,
-                '1.19.4': 12,
-                '1.20.4': 18,
-                '1.21.4': 34
-            };
-            return map[version] || 1;
-        }
-
-        function buildMcmeta() {
-            let name = document.getElementById("packName").value.trim();
-            let desc = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
-
-            if (!name) name = "PackZone Pack";
-            if (!desc) desc = "Made by PackZone MC";
-
-            let version = document.getElementById("mcVersion").value;
-            let pack_format = getPackFormat(version);
-
-            return {
-                pack: {
-                    pack_format: pack_format,
-                    description: desc
-                }
-            };
-        }
-
-        function getCleanPackName() {
-            let name = document.getElementById("packName").value.trim();
-            if (!name) name = "PackZone-Pack";
-            name = name.replace(/\s+/g, '-');
-            name = name.replace(/[^a-zA-Z0-9\-_]/g, '');
-            return name;
-        }
-
-        function downloadMcmeta() {
-            let data = buildMcmeta();
-            let json = JSON.stringify(data, null, 4);
-            let blob = new Blob([json], { type: "application/json" });
-            let link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "pack.mcmeta";
-            link.click();
-        }
-
-        function downloadZip() {
-            let data = buildMcmeta();
-            let json = JSON.stringify(data, null, 4);
-            let zip = new JSZip();
-            zip.file("pack.mcmeta", json);
-
-            if (packIconFile) {
-                zip.file("pack.png", packIconFile);
-            } else {
-                alert("⚠️ لطفاً یک آیکون آپلود کن!");
-                return;
-            }
-
-            let zipName = getCleanPackName() + ".zip";
-
-            zip.generateAsync({ type: "blob" }).then(function(content) {
-                let link = document.createElement("a");
-                link.href = URL.createObjectURL(content);
-                link.download = zipName;
-                link.click();
-            });
-        }
-
-        function previewIcon(event) {
-            let file = event.target.files[0];
-            packIconFile = file;
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function() {
-                    let img = document.getElementById("iconPreview");
-                    img.src = reader.result;
-                    img.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 </body>
 
 </html>
