@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +23,6 @@
             min-height: 100vh;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -54,7 +52,6 @@
             color: #008cff;
         }
 
-        /* ===== فرم ===== */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -71,6 +68,11 @@
             max-width: 420px;
             width: 100%;
             box-shadow: 0 0 40px rgba(0, 140, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .auth-box:hover {
+            box-shadow: 0 0 60px rgba(0, 140, 255, 0.15);
         }
 
         .auth-box h1 {
@@ -105,6 +107,7 @@
 
         .auth-box input:focus {
             border-color: #008cff;
+            box-shadow: 0 0 20px rgba(0, 140, 255, 0.1);
         }
 
         .auth-box input::placeholder {
@@ -129,6 +132,32 @@
             box-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
         }
 
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 18px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
         .auth-footer {
             text-align: center;
             margin-top: 18px;
@@ -140,13 +169,46 @@
             color: #7ec8ff;
             text-decoration: none;
             font-weight: 600;
+            transition: 0.3s;
         }
 
         .auth-footer a:hover {
             text-decoration: underline;
         }
 
-        /* ===== FOOTER ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0d2038;
+            border: 1px solid #008cff;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            z-index: 999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.error {
+            border-color: #e74c3c;
+        }
+
+        .toast.success {
+            border-color: #00c853;
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -154,7 +216,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
@@ -178,13 +239,18 @@
                 padding: 12px;
                 font-size: 0.95rem;
             }
+            .toast {
+                min-width: 150px;
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- ===== HEADER ===== -->
+    <div class="toast" id="toast"></div>
+
     <header class="header">
         <div class="logo">💙 PackZone MC</div>
         <nav class="nav">
@@ -194,14 +260,14 @@
         </nav>
     </header>
 
-    <!-- ===== فرم ===== -->
     <main class="auth-container">
         <section class="auth-box">
             <h1>📝 ثبت‌نام</h1>
+
             <form id="signupForm">
                 <div class="form-group">
                     <label for="fullname">نام کامل</label>
-                    <input type="text" id="fullname" placeholder="نام و نام خانوادگی خود را وارد کنید" required>
+                    <input type="text" id="fullname" placeholder="نام و نام خانوادگی" required>
                 </div>
                 <div class="form-group">
                     <label for="email">ایمیل</label>
@@ -209,25 +275,41 @@
                 </div>
                 <div class="form-group">
                     <label for="password">رمز عبور</label>
-                    <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
+                    <input type="password" id="password" placeholder="حداقل ۶ کاراکتر" required>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">تکرار رمز عبور</label>
-                    <input type="password" id="confirmPassword" placeholder="رمز عبور را دوباره وارد کنید" required>
+                    <input type="password" id="confirmPassword" placeholder="دوباره وارد کنید" required>
                 </div>
-                <button type="submit" class="btn-primary">ساخت حساب</button>
+                <button type="submit" class="btn-primary" id="signupBtn">ساخت حساب</button>
             </form>
+
             <p class="auth-footer">قبلاً عضو شدی؟ <a href="login.html">ورود</a></p>
         </section>
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <p>© PackZone MC</p>
     </footer>
 
     <script>
-        // ===== ثبت‌نام =====
+        // ============================================================
+        // ===== Toast System =====
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast';
+            if (type === 'error') toast.classList.add('error');
+            if (type === 'success') toast.classList.add('success');
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ============================================================
+        // ===== Signup System (LocalStorage) =====
+        // ============================================================
         document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -235,43 +317,67 @@
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirm = document.getElementById('confirmPassword').value;
+            const btn = document.getElementById('signupBtn');
 
+            // ===== Validation =====
             if (!name || name.length < 3) {
-                alert('❌ نام کامل باید حداقل ۳ کاراکتر باشد');
-                return;
-            }
-            if (!email || !email.includes('@')) {
-                alert('❌ ایمیل معتبر وارد کنید');
-                return;
-            }
-            if (password.length < 6) {
-                alert('❌ رمز عبور باید حداقل ۶ کاراکتر باشد');
-                return;
-            }
-            if (password !== confirm) {
-                alert('❌ رمز عبور و تکرار آن مطابقت ندارند');
+                showToast('❌ نام کامل باید حداقل ۳ کاراکتر باشد', 'error');
                 return;
             }
 
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showToast('❌ لطفاً یک ایمیل معتبر وارد کنید', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast('❌ رمز عبور باید حداقل ۶ کاراکتر باشد', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                showToast('❌ رمز عبور و تکرار آن مطابقت ندارند', 'error');
+                return;
+            }
+
+            // ===== Check if user exists =====
             let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
             if (users.find(u => u.email === email)) {
-                alert('❌ این ایمیل قبلاً ثبت شده است');
+                showToast('❌ این ایمیل قبلاً ثبت شده است', 'error');
                 return;
             }
 
-            users.push({
+            // ===== Save user =====
+            const newUser = {
                 name: name,
                 email: email,
                 password: password,
-                createdAt: new Date().toLocaleDateString('fa-IR')
-            });
+                createdAt: new Date().toLocaleDateString('fa-IR'),
+                id: Date.now()
+            };
 
+            users.push(newUser);
             localStorage.setItem('pzmc_users', JSON.stringify(users));
-            alert('✅ ثبت‌نام با موفقیت انجام شد! خوش آمدید ' + name);
-            this.reset();
-            window.location.href = 'login.html';
+
+            showToast('✅ ثبت‌نام موفق! خوش آمدید ' + name, 'success');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ در حال انتقال...';
+
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        });
+
+        // ============================================================
+        // ===== Check if user is already logged in =====
+        // ============================================================
+        window.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (currentUser && !window.location.pathname.includes('profile.html')) {
+                window.location.href = 'profile.html';
+            }
         });
     </script>
-
 </body>
 </html>
