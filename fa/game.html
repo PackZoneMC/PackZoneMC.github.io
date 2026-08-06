@@ -89,7 +89,6 @@
             margin-top: 2px;
         }
 
-        /* ===== پروگرس ===== */
         .progress-wrap {
             display: flex;
             justify-content: center;
@@ -128,7 +127,6 @@
             margin-bottom: 12px;
         }
 
-        /* ===== سوال ===== */
         .question-box {
             background: rgba(255, 240, 245, 0.6);
             border-radius: 28px;
@@ -156,7 +154,6 @@
             font-size: 1.4rem;
         }
 
-        /* ===== گزینه‌ها ===== */
         .options {
             display: flex;
             flex-direction: column;
@@ -216,7 +213,6 @@
             opacity: 1;
         }
 
-        /* ===== دکمه تکان دادن ===== */
         .shake-btn-wrap {
             text-align: center;
             margin: 12px 0 8px;
@@ -253,7 +249,6 @@
             font-size: 1.3rem;
         }
 
-        /* ===== انیمیشن تکان ===== */
         .shake-animation {
             display: none;
             text-align: center;
@@ -277,7 +272,6 @@
             margin-top: 6px;
         }
 
-        /* ===== پیام موقت ===== */
         .temp-message {
             text-align: center;
             padding: 14px;
@@ -298,7 +292,6 @@
             font-size: 1rem;
         }
 
-        /* ===== پایان ===== */
         .final-box {
             display: none;
             text-align: center;
@@ -353,7 +346,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== انیمیشن‌ها ===== */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -411,7 +403,6 @@
             }
         }
 
-        /* ===== Responsive ===== */
         @media (max-width: 480px) {
             .container {
                 padding: 16px 12px;
@@ -461,18 +452,15 @@
     </style>
 </head>
 <body>
-    <!-- ===== قلب‌های پس‌زمینه ===== -->
     <div class="heart-bg" id="heartBg"></div>
 
     <div class="container">
 
-        <!-- ===== هدر ===== -->
         <div class="header">
             <h1>🎮 چقدر منو بلدی؟</h1>
             <div class="subtitle">💖 با ریحانه جان</div>
         </div>
 
-        <!-- ===== پروگرس ===== -->
         <div class="progress-wrap" id="progressWrap">
             <div class="progress-dot active" data-i="0"></div>
             <div class="progress-dot" data-i="1"></div>
@@ -487,7 +475,6 @@
         </div>
         <div class="counter-text" id="counterText">سوال 1 از 10</div>
 
-        <!-- ===== دکمه تکان دادن ===== -->
         <div class="shake-btn-wrap" id="shakeBtnWrap">
             <button class="shake-btn" id="shakeBtn">
                 <span class="icon">📱</span>
@@ -495,16 +482,13 @@
             </button>
         </div>
 
-        <!-- ===== انیمیشن تکان ===== -->
         <div class="shake-animation" id="shakeAnim">
             <span class="big-emoji">📱</span>
             <div class="text">🌀 داره تکون میخوره...</div>
         </div>
 
-        <!-- ===== جای سوالات ===== -->
         <div id="questionContainer"></div>
 
-        <!-- ===== باکس پایان ===== -->
         <div class="final-box" id="finalBox">
             <span class="emoji-big">🎉</span>
             <div class="big-text">آفرین عزیزم! 😎🔥</div>
@@ -536,7 +520,7 @@
         })();
 
         // ============================================================
-        //  دیتا (۱۰ سوال)
+        //  سوالات (۱۰ تا)
         // ============================================================
         const questions = [{
             text: 'چرا بعضی وقتا وقتی میای خونه‌ی ننه، بهم محل نمیدی؟',
@@ -649,8 +633,7 @@
             emoji: '🎵',
             feedback: 'ایول! این رو هم بلدی!'
         }];
-
-        // ============================================================
+                // ============================================================
         //  عناصر DOM
         // ============================================================
         const container = document.getElementById('questionContainer');
@@ -664,7 +647,7 @@
         const sendBtn = document.getElementById('sendBtn');
 
         let currentIndex = 0;
-        let isLocked = false; // جلوگیری از کلیک‌های همزمان
+        let isLocked = false;
         let totalCorrect = 0;
         let answersLog = [];
         let isShaking = false;
@@ -686,7 +669,6 @@
         }
 
         function renderQuestion(index) {
-            // اگر به آخر رسیدیم
             if (index >= questions.length) {
                 showFinal();
                 return;
@@ -695,29 +677,25 @@
             const q = questions[index];
             isLocked = false;
 
-            // مخفی کردن انیمیشن تکان
             shakeAnim.classList.remove('show');
 
-            // مدیریت دکمه تکان دادن
             if (q.needsShake) {
                 shakeBtnWrap.style.display = 'block';
                 shakeBtn.disabled = false;
                 shakeBtn.innerHTML = `<span class="icon">📱</span> گوشی رو تکون بده!`;
-                // گزینه‌ها رو مخفی نگه دار تا تکان بخوره
                 container.innerHTML = `
                     <div class="question-box show" id="qbox">
                         <div class="question-text">
                             <span class="emoji">🤔</span>
                             ${q.text}
                         </div>
-                        <div class="options" id="optionsContainer"></div>
+                        <div class="options" id="optionsContainer">
+                            <div style="text-align:center;color:#b3416e;padding:10px;">👆 گوشی رو تکون بده تا گزینه‌ها باز بشن!</div>
+                        </div>
                     </div>
                 `;
-                // گزینه‌ها رو خالی میذاریم تا بعد از تکان پر بشن
-                document.getElementById('optionsContainer').innerHTML = '';
             } else {
                 shakeBtnWrap.style.display = 'none';
-                // مستقیم گزینه‌ها رو نشون بده
                 container.innerHTML = `
                     <div class="question-box show" id="qbox">
                         <div class="question-text">
@@ -746,9 +724,8 @@
             });
             optionsContainer.innerHTML = html;
 
-            // رویداد برای گزینه‌ها
             optionsContainer.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function() {
                     if (isLocked) return;
                     const isCorrect = this.dataset.correct === 'true';
                     const optIndex = parseInt(this.dataset.i);
@@ -765,7 +742,6 @@
             const allOptions = btn.parentElement.querySelectorAll('.option-btn');
 
             if (isCorrect) {
-                // پاسخ درست
                 btn.classList.add('selected-correct');
                 totalCorrect++;
                 answersLog.push({
@@ -774,19 +750,15 @@
                     correct: true
                 });
 
-                // نمایش پیام موفقیت
                 showTempMessage(q.emoji, q.feedback);
 
-                // بعد از ۱.۵ ثانیه برو سوال بعد
                 setTimeout(() => {
                     goToNext(index);
                 }, 1500);
 
             } else {
-                // پاسخ اشتباه
                 btn.classList.add('selected-wrong');
 
-                // علامت روی پروگرس
                 progressDots.forEach((dot, i) => {
                     if (i === index) {
                         dot.classList.remove('active');
@@ -794,13 +766,11 @@
                     }
                 });
 
-                // غیرفعال کردن همه گزینه‌ها
                 allOptions.forEach(b => {
                     b.style.pointerEvents = 'none';
                     b.style.opacity = '0.3';
                 });
 
-                // نمایش گزینه درست
                 allOptions.forEach((b, i) => {
                     if (i === q.correctIndex) {
                         b.classList.add('reveal-correct');
@@ -814,7 +784,6 @@
                     correct: false
                 });
 
-                // بعد از ۲ ثانیه برو سوال بعد
                 setTimeout(() => {
                     goToNext(index);
                 }, 2000);
@@ -822,7 +791,6 @@
         }
 
         function showTempMessage(emoji, text) {
-            // حذف پیام قبلی
             const old = document.querySelector('.temp-message');
             if (old) old.remove();
 
@@ -871,15 +839,12 @@
             this.disabled = true;
             this.innerHTML = `<span class="icon">🌀</span> داره تکون میخوره...`;
 
-            // نمایش انیمیشن تکان
             shakeAnim.classList.add('show');
 
-            // لرزش گوشی (اگه پشتیبانی کنه)
             if (navigator.vibrate) {
                 navigator.vibrate([80, 40, 80, 40, 150]);
             }
 
-            // بعد از ۱ ثانیه گزینه‌ها رو نشون بده
             setTimeout(() => {
                 shakeAnim.classList.remove('show');
                 shakeBtnWrap.style.display = 'none';
@@ -923,7 +888,7 @@
             e.returnValue = '';
         });
 
-        console.log('🎮 بازی چقدر منو بلدی؟ (نسخه جدید بدون باگ)');
+        console.log('🎮 بازی چقدر منو بلدی؟ (نسخه نهایی بی‌باگ)');
     </script>
 </body>
 </html>
