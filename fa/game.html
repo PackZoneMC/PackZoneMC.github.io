@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎮 چقدر منو بلدی؟</title>
     <style>
         * {
@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -20,11 +19,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
+            padding: 12px;
+            margin: 0;
         }
 
         .heart-bg {
@@ -34,36 +30,41 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
             overflow: hidden;
+            z-index: 0;
         }
 
         .heart-bg span {
             position: absolute;
-            display: block;
             font-size: 2rem;
             color: rgba(255, 100, 150, 0.15);
             animation: floatHeart 14s infinite linear;
         }
 
         @keyframes floatHeart {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.7); opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(720deg) scale(1.1); opacity: 0; }
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.7);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.1);
+                opacity: 0;
+            }
         }
 
         .container {
             position: relative;
             z-index: 10;
-            background: rgba(255, 240, 245, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 240, 245, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-radius: 40px;
-            padding: 25px 20px;
-            max-width: 480px;
+            padding: 22px 18px;
+            max-width: 460px;
             width: 100%;
             border: 2px solid rgba(255, 150, 180, 0.3);
-            box-shadow: 0 30px 60px rgba(200, 80, 120, 0.2);
-            max-height: 95vh;
+            box-shadow: 0 30px 60px rgba(200, 80, 120, 0.18);
+            max-height: 96vh;
             overflow-y: auto;
         }
 
@@ -73,43 +74,48 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .header h1 {
             font-size: 1.5rem;
             color: #a02c5a;
-            text-shadow: 0 2px 15px rgba(200, 50, 100, 0.2);
+            text-shadow: 0 2px 15px rgba(200, 50, 100, 0.15);
         }
 
         .header .subtitle {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #b3416e;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
+        /* ===== پروگرس ===== */
         .progress-wrap {
             display: flex;
             justify-content: center;
             gap: 6px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
+
         .progress-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             background: #f0c0d0;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
+
         .progress-dot.done {
             background: #d43f6b;
-            box-shadow: 0 0 15px rgba(212, 63, 107, 0.4);
+            box-shadow: 0 0 12px rgba(212, 63, 107, 0.4);
         }
+
         .progress-dot.active {
             background: #ff6b8a;
             transform: scale(1.4);
-            box-shadow: 0 0 25px rgba(255, 107, 138, 0.5);
+            box-shadow: 0 0 20px rgba(255, 107, 138, 0.5);
         }
+
         .progress-dot.wrong {
             background: #e74c3c;
             box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
@@ -119,87 +125,105 @@
             text-align: center;
             color: #b3416e;
             font-size: 0.75rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
+        /* ===== سوال ===== */
         .question-box {
+            background: rgba(255, 240, 245, 0.6);
+            border-radius: 28px;
+            padding: 20px 16px;
+            border: 2px solid rgba(255, 150, 180, 0.25);
+            box-shadow: inset 0 2px 20px rgba(255, 150, 180, 0.08);
             display: none;
-            animation: fadeIn 0.5s ease;
-            background: rgba(255, 240, 245, 0.7);
-            border-radius: 30px;
-            padding: 22px 18px;
-            border: 2px solid rgba(255, 150, 180, 0.3);
-            box-shadow: inset 0 2px 20px rgba(255, 150, 180, 0.1);
+            animation: fadeIn 0.4s ease;
         }
-        .question-box.active {
+
+        .question-box.show {
             display: block;
         }
 
         .question-text {
-            font-size: 1.15rem;
-            color: #4a1a2c;
+            font-size: 1.1rem;
+            color: #3a1a2a;
             font-weight: 500;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             line-height: 1.8;
         }
+
         .question-text .emoji {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
 
+        /* ===== گزینه‌ها ===== */
         .options {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
+
         .option-btn {
-            padding: 14px 18px;
-            border-radius: 20px;
-            border: 2px solid rgba(200, 100, 150, 0.15);
-            background: rgba(255, 255, 255, 0.4);
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 2px solid rgba(200, 100, 150, 0.12);
+            background: rgba(255, 255, 255, 0.35);
             color: #8a5a6a;
             font-size: 0.95rem;
-            cursor: not-allowed;
-            transition: all 0.3s ease;
             text-align: center;
             font-family: inherit;
             line-height: 1.6;
+            transition: all 0.3s ease;
             opacity: 0.4;
             pointer-events: none;
+            cursor: not-allowed;
         }
+
         .option-btn.correct-option {
-            border-color: rgba(212, 63, 107, 0.3);
-            color: #4a1a2c;
-            cursor: pointer;
-            pointer-events: auto;
             opacity: 1;
-            background: rgba(255, 200, 220, 0.3);
+            pointer-events: auto;
+            cursor: pointer;
+            border-color: rgba(212, 63, 107, 0.25);
+            color: #3a1a2a;
+            background: rgba(255, 200, 220, 0.25);
         }
+
         .option-btn.correct-option:hover {
             background: rgba(255, 200, 220, 0.5);
             transform: scale(1.02);
             border-color: #d43f6b;
         }
+
         .option-btn.correct-option:active {
             transform: scale(0.97);
         }
-        .option-btn.selected {
+
+        .option-btn.selected-correct {
             background: rgba(212, 63, 107, 0.2);
             border-color: #d43f6b;
-            box-shadow: 0 0 30px rgba(212, 63, 107, 0.15);
+            box-shadow: 0 0 25px rgba(212, 63, 107, 0.15);
         }
-        .option-btn.wrong-selected {
+
+        .option-btn.selected-wrong {
             background: rgba(231, 76, 60, 0.2);
             border-color: #e74c3c;
             animation: shake 0.5s ease;
         }
 
+        .option-btn.reveal-correct {
+            background: rgba(212, 63, 107, 0.15);
+            border-color: #d43f6b;
+            opacity: 1;
+        }
+
+        /* ===== دکمه تکان دادن ===== */
         .shake-btn-wrap {
             text-align: center;
-            margin: 15px 0 10px;
+            margin: 12px 0 8px;
         }
+
         .shake-btn {
-            padding: 14px 35px;
+            padding: 14px 32px;
             border-radius: 50px;
             border: none;
             background: linear-gradient(135deg, #ff6b8a, #d43f6b);
@@ -214,82 +238,98 @@
             align-items: center;
             gap: 10px;
         }
+
         .shake-btn:active {
             transform: scale(0.95);
         }
+
         .shake-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
         }
+
         .shake-btn .icon {
             font-size: 1.3rem;
         }
 
+        /* ===== انیمیشن تکان ===== */
         .shake-animation {
             display: none;
             text-align: center;
-            padding: 20px 0;
+            padding: 16px 0;
         }
-        .shake-animation.active {
+
+        .shake-animation.show {
             display: block;
             animation: shakePhone 0.8s ease;
         }
+
         .shake-animation .big-emoji {
-            font-size: 4rem;
+            font-size: 3.8rem;
             display: block;
             animation: bounce 0.6s ease infinite alternate;
         }
+
         .shake-animation .text {
             color: #b3416e;
             font-size: 0.9rem;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
+        /* ===== پیام موقت ===== */
         .temp-message {
             text-align: center;
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(212, 63, 107, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(212, 63, 107, 0.2);
+            padding: 14px;
+            margin: 10px 0 0;
+            background: rgba(212, 63, 107, 0.08);
+            border-radius: 18px;
+            border: 1px solid rgba(212, 63, 107, 0.15);
             animation: fadeIn 0.4s ease;
         }
+
         .temp-message .big {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             display: block;
         }
+
         .temp-message .text {
-            color: #4a1a2c;
+            color: #3a1a2a;
             font-size: 1rem;
         }
 
+        /* ===== پایان ===== */
         .final-box {
             display: none;
             text-align: center;
             padding: 20px 10px;
-            animation: fadeIn 0.8s ease;
+            animation: fadeIn 0.7s ease;
         }
-        .final-box.active {
+
+        .final-box.show {
             display: block;
         }
-        .final-box .big-text {
-            font-size: 1.8rem;
-            color: #a02c5a;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .final-box .sub-text {
-            color: #6a3a4a;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
+
         .final-box .emoji-big {
             font-size: 4rem;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
+
+        .final-box .big-text {
+            font-size: 1.7rem;
+            color: #a02c5a;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .final-box .sub-text {
+            color: #6a3a4a;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            line-height: 1.8;
+        }
+
         .btn-send {
             padding: 14px 40px;
             border-radius: 50px;
@@ -303,73 +343,151 @@
             box-shadow: 0 8px 30px rgba(160, 44, 90, 0.3);
             font-family: inherit;
         }
+
         .btn-send:active {
             transform: scale(0.95);
         }
+
         .btn-send:disabled {
             opacity: 0.4;
             cursor: not-allowed;
         }
 
+        /* ===== انیمیشن‌ها ===== */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-15px); }
-            40% { transform: translateX(15px); }
-            60% { transform: translateX(-10px); }
-            80% { transform: translateX(10px); }
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-14px);
+            }
+            40% {
+                transform: translateX(14px);
+            }
+            60% {
+                transform: translateX(-10px);
+            }
+            80% {
+                transform: translateX(10px);
+            }
         }
+
         @keyframes shakePhone {
-            0% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(-15deg) scale(1.1); }
-            50% { transform: rotate(15deg) scale(1.1); }
-            75% { transform: rotate(-10deg) scale(1.05); }
-            100% { transform: rotate(0deg) scale(1); }
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(-14deg) scale(1.08);
+            }
+            50% {
+                transform: rotate(14deg) scale(1.08);
+            }
+            75% {
+                transform: rotate(-8deg) scale(1.04);
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
         }
+
         @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-18px);
+            }
         }
 
+        /* ===== Responsive ===== */
         @media (max-width: 480px) {
-            .container { padding: 18px 14px; }
-            .question-text { font-size: 1rem; }
-            .option-btn { font-size: 0.85rem; padding: 12px 14px; }
-            .header h1 { font-size: 1.2rem; }
-            .shake-btn { padding: 12px 25px; font-size: 0.9rem; }
-            .final-box .big-text { font-size: 1.4rem; }
+            .container {
+                padding: 16px 12px;
+            }
+            .question-text {
+                font-size: 1rem;
+            }
+            .option-btn {
+                font-size: 0.85rem;
+                padding: 12px 14px;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .shake-btn {
+                padding: 12px 22px;
+                font-size: 0.9rem;
+            }
+            .final-box .big-text {
+                font-size: 1.3rem;
+            }
+            .heart-bg span {
+                font-size: 1.5rem;
+            }
         }
 
-        ::-webkit-scrollbar { width: 0; }
+        @media (max-width: 380px) {
+            .container {
+                padding: 12px 8px;
+            }
+            .question-text {
+                font-size: 0.9rem;
+            }
+            .option-btn {
+                font-size: 0.8rem;
+                padding: 10px 10px;
+            }
+            .shake-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
     </style>
 </head>
 <body>
+    <!-- ===== قلب‌های پس‌زمینه ===== -->
     <div class="heart-bg" id="heartBg"></div>
 
-    <div class="container" id="appContainer">
+    <div class="container">
 
+        <!-- ===== هدر ===== -->
         <div class="header">
             <h1>🎮 چقدر منو بلدی؟</h1>
             <div class="subtitle">💖 با ریحانه جان</div>
         </div>
 
+        <!-- ===== پروگرس ===== -->
         <div class="progress-wrap" id="progressWrap">
-            <div class="progress-dot active" data-idx="0"></div>
-            <div class="progress-dot" data-idx="1"></div>
-            <div class="progress-dot" data-idx="2"></div>
-            <div class="progress-dot" data-idx="3"></div>
-            <div class="progress-dot" data-idx="4"></div>
-            <div class="progress-dot" data-idx="5"></div>
-            <div class="progress-dot" data-idx="6"></div>
-            <div class="progress-dot" data-idx="7"></div>
-            <div class="progress-dot" data-idx="8"></div>
-            <div class="progress-dot" data-idx="9"></div>
+            <div class="progress-dot active" data-i="0"></div>
+            <div class="progress-dot" data-i="1"></div>
+            <div class="progress-dot" data-i="2"></div>
+            <div class="progress-dot" data-i="3"></div>
+            <div class="progress-dot" data-i="4"></div>
+            <div class="progress-dot" data-i="5"></div>
+            <div class="progress-dot" data-i="6"></div>
+            <div class="progress-dot" data-i="7"></div>
+            <div class="progress-dot" data-i="8"></div>
+            <div class="progress-dot" data-i="9"></div>
         </div>
         <div class="counter-text" id="counterText">سوال 1 از 10</div>
 
+        <!-- ===== دکمه تکان دادن ===== -->
         <div class="shake-btn-wrap" id="shakeBtnWrap">
             <button class="shake-btn" id="shakeBtn">
                 <span class="icon">📱</span>
@@ -377,17 +495,20 @@
             </button>
         </div>
 
-        <div class="shake-animation" id="shakeAnimation">
+        <!-- ===== انیمیشن تکان ===== -->
+        <div class="shake-animation" id="shakeAnim">
             <span class="big-emoji">📱</span>
             <div class="text">🌀 داره تکون میخوره...</div>
         </div>
 
+        <!-- ===== جای سوالات ===== -->
         <div id="questionContainer"></div>
 
+        <!-- ===== باکس پایان ===== -->
         <div class="final-box" id="finalBox">
             <span class="emoji-big">🎉</span>
             <div class="big-text">آفرین عزیزم! 😎🔥</div>
-            <div class="sub-text">
+            <div class="sub-text" id="finalSubText">
                 یعنی واقعاً منو بلدی!<br>
                 بیا بریم یه بستنی باحال بخوریم! 🍦
             </div>
@@ -397,24 +518,27 @@
     </div>
 
     <script>
-        // ===== قلب‌های شناور =====
+        // ============================================================
+        //  قلب‌های شناور
+        // ============================================================
         (function createHearts() {
             const bg = document.getElementById('heartBg');
-            const emojis = ['❤️', '💖', '💗', '💓', '🌸', '🌺'];
-            for (let i = 0; i < 20; i++) {
+            const icons = ['❤️', '💖', '💗', '💓', '🌸', '🌺'];
+            for (let i = 0; i < 24; i++) {
                 const span = document.createElement('span');
-                span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                span.textContent = icons[Math.floor(Math.random() * icons.length)];
                 span.style.left = Math.random() * 100 + '%';
-                span.style.fontSize = (1.5 + Math.random() * 3) + 'rem';
+                span.style.fontSize = (1.4 + Math.random() * 3) + 'rem';
                 span.style.animationDuration = (10 + Math.random() * 18) + 's';
-                span.style.animationDelay = (Math.random() * 10) + 's';
+                span.style.animationDelay = (Math.random() * 12) + 's';
                 bg.appendChild(span);
             }
         })();
 
-        // ===== دیتا (۱۰ سوال) =====
+        // ============================================================
+        //  دیتا (۱۰ سوال)
+        // ============================================================
         const questions = [{
-            id: 0,
             text: 'چرا بعضی وقتا وقتی میای خونه‌ی ننه، بهم محل نمیدی؟',
             needsShake: true,
             options: [
@@ -423,10 +547,9 @@
                 'چون اصن آدم بامزه‌ای نیستم و خجالتیم و اصن حرف زدن بلد نیستم و خیلی خجالت میکشم با تو حرف بزنم امیر جان 😅'
             ],
             correctIndex: 2,
-            responseEmoji: '😂',
-            responseText: 'آفرین امیر جان! اینو که میدونستم!'
+            emoji: '😂',
+            feedback: 'آفرین امیر جان! اینو که میدونستم!'
         }, {
-            id: 1,
             text: 'چرا بعضی وقتا به پیامام جواب نمیدی؟',
             needsShake: false,
             options: [
@@ -435,10 +558,9 @@
                 'چون وقتی پیامت میاد، یادم میره همه‌چی و فقط بهت فکر میکنم عزیز دلم 💙'
             ],
             correctIndex: 2,
-            responseEmoji: '💙',
-            responseText: 'ایول! این رو هم بلدی!'
+            emoji: '💙',
+            feedback: 'ایول! این رو هم بلدی!'
         }, {
-            id: 2,
             text: 'چرا بعضی وقتا اینقدر باحالی؟',
             needsShake: true,
             options: [
@@ -447,10 +569,9 @@
                 'چون تو هستی که باعث میشی من باحال باشم داداش گلم 🤩'
             ],
             correctIndex: 2,
-            responseEmoji: '🤩',
-            responseText: 'آفرین امیر جان! تو هم باحالی!'
+            emoji: '🤩',
+            feedback: 'آفرین امیر جان! تو هم باحالی!'
         }, {
-            id: 3,
             text: 'به نظرت چرا انقدر بهت فکر میکنم؟',
             needsShake: false,
             options: [
@@ -459,10 +580,9 @@
                 'چون تو یکی از خاص‌ترین آدم‌های زندگیم شدی امیر جان عزیز ❤️'
             ],
             correctIndex: 2,
-            responseEmoji: '❤️',
-            responseText: 'دقیقاً! تو خاصی!'
+            emoji: '❤️',
+            feedback: 'دقیقاً! تو خاصی!'
         }, {
-            id: 4,
             text: 'چرا با تو راحت‌تر از بقیه حرف می‌زنم؟',
             needsShake: true,
             options: [
@@ -471,10 +591,9 @@
                 'چون با تو بودن، یعنی امنیت، یعنی آرامش، یعنی خونه رفیق عزیزم 🏠'
             ],
             correctIndex: 2,
-            responseEmoji: '🏠',
-            responseText: 'آفرین! اینو خوب فهمیدی!'
+            emoji: '🏠',
+            feedback: 'آفرین! اینو خوب فهمیدی!'
         }, {
-            id: 5,
             text: 'چرا بعضی وقتا دلم میخواد باهات باشم؟',
             needsShake: false,
             options: [
@@ -483,10 +602,9 @@
                 'چون کنار تو بودن، یعنی بهترین لحظه‌های زندگیم امیر جان گلم 💫'
             ],
             correctIndex: 2,
-            responseEmoji: '💫',
-            responseText: 'ایول! اینو هم بلدی!'
+            emoji: '💫',
+            feedback: 'ایول! اینو هم بلدی!'
         }, {
-            id: 6,
             text: 'چرا وقتی حالت بده، اولین کسی که بهش فکر میکنی منم؟',
             needsShake: true,
             options: [
@@ -495,10 +613,9 @@
                 'چون میدونم همیشه میتونم بهت تکیه کنم امیر جان مهربون 🌸'
             ],
             correctIndex: 2,
-            responseEmoji: '🌸',
-            responseText: 'آفرین امیر جان! اینو خوب بلدی!'
+            emoji: '🌸',
+            feedback: 'آفرین امیر جان! اینو خوب بلدی!'
         }, {
-            id: 7,
             text: 'چرا بعضی وقتا باهام اینقدر راحت صحبت میکنی؟',
             needsShake: false,
             options: [
@@ -507,10 +624,9 @@
                 'چون میدونم هیچوقت قضاوت نمیکنی و همیشه درکم میکنی امیر جان عزیز 💎'
             ],
             correctIndex: 2,
-            responseEmoji: '💎',
-            responseText: 'دقیقاً! تو همیشه درکم میکنی!'
+            emoji: '💎',
+            feedback: 'دقیقاً! تو همیشه درکم میکنی!'
         }, {
-            id: 8,
             text: 'چرا انقدر برام ارزش قائلی؟',
             needsShake: true,
             options: [
@@ -519,10 +635,9 @@
                 'چون میدونم تو یکی از بهترین چیزایی هستی که توی زندگیم اتفاق افتاده امیر جان گلم 🌟'
             ],
             correctIndex: 2,
-            responseEmoji: '🌟',
-            responseText: 'آفرین! اینو که میدونستم!'
+            emoji: '🌟',
+            feedback: 'آفرین! اینو که میدونستم!'
         }, {
-            id: 9,
             text: 'چرا بعضی وقتا دلم میخواد برات آهنگ بخونم؟',
             needsShake: false,
             options: [
@@ -531,27 +646,33 @@
                 'چون میدونم با خوندن آهنگ میتونم لبخند رو لبات بیارم امیر جان عزیز 🎵'
             ],
             correctIndex: 2,
-            responseEmoji: '🎵',
-            responseText: 'ایول! این رو هم بلدی!'
+            emoji: '🎵',
+            feedback: 'ایول! این رو هم بلدی!'
         }];
 
-        // ===== عناصر =====
+        // ============================================================
+        //  عناصر DOM
+        // ============================================================
         const container = document.getElementById('questionContainer');
         const progressDots = document.querySelectorAll('.progress-dot');
         const counterText = document.getElementById('counterText');
-        const shakeBtn = document.getElementById('shakeBtn');
         const shakeBtnWrap = document.getElementById('shakeBtnWrap');
-        const shakeAnim = document.getElementById('shakeAnimation');
+        const shakeBtn = document.getElementById('shakeBtn');
+        const shakeAnim = document.getElementById('shakeAnim');
         const finalBox = document.getElementById('finalBox');
+        const finalSubText = document.getElementById('finalSubText');
         const sendBtn = document.getElementById('sendBtn');
 
         let currentIndex = 0;
-        let isShaking = false;
-        let isAnswered = false;
+        let isLocked = false; // جلوگیری از کلیک‌های همزمان
         let totalCorrect = 0;
         let answersLog = [];
+        let isShaking = false;
 
-        // ===== توابع =====
+        // ============================================================
+        //  توابع اصلی
+        // ============================================================
+
         function updateProgress(index) {
             progressDots.forEach((dot, i) => {
                 dot.classList.remove('active', 'done', 'wrong');
@@ -564,89 +685,108 @@
             counterText.textContent = `سوال ${index + 1} از ${questions.length}`;
         }
 
-        function showQuestion(index) {
+        function renderQuestion(index) {
+            // اگر به آخر رسیدیم
             if (index >= questions.length) {
                 showFinal();
                 return;
             }
 
             const q = questions[index];
-            if (!q) return;
+            isLocked = false;
 
-            isAnswered = false;
-            const needsShake = q.needsShake;
+            // مخفی کردن انیمیشن تکان
+            shakeAnim.classList.remove('show');
 
-            shakeAnim.classList.remove('active');
-
-            if (needsShake) {
+            // مدیریت دکمه تکان دادن
+            if (q.needsShake) {
                 shakeBtnWrap.style.display = 'block';
                 shakeBtn.disabled = false;
                 shakeBtn.innerHTML = `<span class="icon">📱</span> گوشی رو تکون بده!`;
+                // گزینه‌ها رو مخفی نگه دار تا تکان بخوره
+                container.innerHTML = `
+                    <div class="question-box show" id="qbox">
+                        <div class="question-text">
+                            <span class="emoji">🤔</span>
+                            ${q.text}
+                        </div>
+                        <div class="options" id="optionsContainer"></div>
+                    </div>
+                `;
+                // گزینه‌ها رو خالی میذاریم تا بعد از تکان پر بشن
+                document.getElementById('optionsContainer').innerHTML = '';
             } else {
                 shakeBtnWrap.style.display = 'none';
-            }
-
-            let html = `
-                <div class="question-box active">
-                    <div class="question-text">
-                        <span class="emoji">🤔</span>
-                        ${q.text}
+                // مستقیم گزینه‌ها رو نشون بده
+                container.innerHTML = `
+                    <div class="question-box show" id="qbox">
+                        <div class="question-text">
+                            <span class="emoji">🤔</span>
+                            ${q.text}
+                        </div>
+                        <div class="options" id="optionsContainer"></div>
                     </div>
-                    <div class="options" id="optionsContainer"></div>
-                </div>
-            `;
-            container.innerHTML = html;
-
-            if (!needsShake) {
-                renderOptions(q, index);
+                `;
+                renderOptions(index);
             }
 
             updateProgress(index);
         }
 
-        function renderOptions(q, index) {
+        function renderOptions(index) {
+            const q = questions[index];
             const optionsContainer = document.getElementById('optionsContainer');
             if (!optionsContainer) return;
 
             let html = '';
             q.options.forEach((opt, i) => {
                 const isCorrect = (i === q.correctIndex);
-                const classes = isCorrect ? 'option-btn correct-option' : 'option-btn';
-                html += `<button class="${classes}" data-optindex="${i}" data-correct="${isCorrect}">${opt}</button>`;
+                const cls = isCorrect ? 'option-btn correct-option' : 'option-btn';
+                html += `<button class="${cls}" data-i="${i}" data-correct="${isCorrect}">${opt}</button>`;
             });
             optionsContainer.innerHTML = html;
 
+            // رویداد برای گزینه‌ها
             optionsContainer.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (isAnswered) return;
+                btn.addEventListener('click', function(e) {
+                    if (isLocked) return;
                     const isCorrect = this.dataset.correct === 'true';
-                    const optIndex = parseInt(this.dataset.optindex);
-                    handleOptionClick(this, optIndex, isCorrect, q, index);
+                    const optIndex = parseInt(this.dataset.i);
+                    handleOptionClick(this, optIndex, isCorrect, index);
                 });
             });
         }
 
-        function handleOptionClick(btn, optIndex, isCorrect, q, index) {
-            if (isAnswered) return;
-            isAnswered = true;
+        function handleOptionClick(btn, optIndex, isCorrect, index) {
+            if (isLocked) return;
+            isLocked = true;
 
+            const q = questions[index];
             const allOptions = btn.parentElement.querySelectorAll('.option-btn');
 
             if (isCorrect) {
-                btn.classList.add('selected');
+                // پاسخ درست
+                btn.classList.add('selected-correct');
                 totalCorrect++;
-                answersLog.push({ question: q.text, answer: q.options[optIndex], correct: true });
+                answersLog.push({
+                    question: q.text,
+                    answer: q.options[optIndex],
+                    correct: true
+                });
 
-                setTimeout(() => {
-                    showTempMessage(q.responseEmoji, q.responseText);
-                }, 300);
+                // نمایش پیام موفقیت
+                showTempMessage(q.emoji, q.feedback);
 
+                // بعد از ۱.۵ ثانیه برو سوال بعد
                 setTimeout(() => {
                     goToNext(index);
                 }, 1500);
 
             } else {
-                btn.classList.add('wrong-selected');
+                // پاسخ اشتباه
+                btn.classList.add('selected-wrong');
+
+                // علامت روی پروگرس
                 progressDots.forEach((dot, i) => {
                     if (i === index) {
                         dot.classList.remove('active');
@@ -654,20 +794,27 @@
                     }
                 });
 
+                // غیرفعال کردن همه گزینه‌ها
                 allOptions.forEach(b => {
                     b.style.pointerEvents = 'none';
                     b.style.opacity = '0.3';
                 });
 
+                // نمایش گزینه درست
                 allOptions.forEach((b, i) => {
                     if (i === q.correctIndex) {
-                        b.classList.add('selected');
+                        b.classList.add('reveal-correct');
                         b.style.opacity = '1';
                     }
                 });
 
-                answersLog.push({ question: q.text, answer: q.options[optIndex], correct: false });
+                answersLog.push({
+                    question: q.text,
+                    answer: q.options[optIndex],
+                    correct: false
+                });
 
+                // بعد از ۲ ثانیه برو سوال بعد
                 setTimeout(() => {
                     goToNext(index);
                 }, 2000);
@@ -675,8 +822,9 @@
         }
 
         function showTempMessage(emoji, text) {
-            const existing = document.querySelector('.temp-message');
-            if (existing) existing.remove();
+            // حذف پیام قبلی
+            const old = document.querySelector('.temp-message');
+            if (old) old.remove();
 
             const div = document.createElement('div');
             div.className = 'temp-message';
@@ -684,14 +832,14 @@
                 <span class="big">${emoji}</span>
                 <span class="text">${text}</span>
             `;
-            const qBox = document.querySelector('.question-box');
-            if (qBox) qBox.appendChild(div);
+            const qbox = document.getElementById('qbox');
+            if (qbox) qbox.appendChild(div);
         }
 
         function goToNext(index) {
-            const nextIndex = index + 1;
-            if (nextIndex < questions.length) {
-                showQuestion(nextIndex);
+            const next = index + 1;
+            if (next < questions.length) {
+                renderQuestion(next);
             } else {
                 showFinal();
             }
@@ -700,20 +848,20 @@
         function showFinal() {
             container.innerHTML = '';
             shakeBtnWrap.style.display = 'none';
-            const progressWrap = document.querySelector('.progress-wrap');
-            if (progressWrap) progressWrap.style.display = 'none';
+            document.querySelector('.progress-wrap').style.display = 'none';
             counterText.style.display = 'none';
 
-            finalBox.classList.add('active');
-            const subText = finalBox.querySelector('.sub-text');
-            subText.innerHTML = `
+            finalBox.classList.add('show');
+            finalSubText.innerHTML = `
                 از ۱۰ تا سوال، <strong style="color:#d43f6b;">${totalCorrect}</strong> تاش رو درست جواب دادی!<br>
                 یعنی واقعاً منو بلدی! 😎<br>
                 بیا بریم یه بستنی باحال بخوریم! 🍦
             `;
         }
 
-        // ===== دکمه تکان دادن =====
+        // ============================================================
+        //  دکمه تکان دادن
+        // ============================================================
         shakeBtn.addEventListener('click', function() {
             if (isShaking) return;
             const q = questions[currentIndex];
@@ -723,21 +871,26 @@
             this.disabled = true;
             this.innerHTML = `<span class="icon">🌀</span> داره تکون میخوره...`;
 
-            shakeAnim.classList.add('active');
+            // نمایش انیمیشن تکان
+            shakeAnim.classList.add('show');
 
+            // لرزش گوشی (اگه پشتیبانی کنه)
             if (navigator.vibrate) {
-                navigator.vibrate([100, 50, 100, 50, 200]);
+                navigator.vibrate([80, 40, 80, 40, 150]);
             }
 
+            // بعد از ۱ ثانیه گزینه‌ها رو نشون بده
             setTimeout(() => {
-                shakeAnim.classList.remove('active');
+                shakeAnim.classList.remove('show');
                 shakeBtnWrap.style.display = 'none';
                 isShaking = false;
-                renderOptions(q, currentIndex);
-            }, 1200);
+                renderOptions(currentIndex);
+            }, 1100);
         });
 
-        // ===== دکمه ارسال =====
+        // ============================================================
+        //  دکمه ارسال
+        // ============================================================
         sendBtn.addEventListener('click', function() {
             const log = {
                 time: new Date().toLocaleString('fa-IR'),
@@ -750,24 +903,27 @@
             this.textContent = '✅ ارسال شد!';
             this.style.opacity = '0.5';
 
-            const subText = finalBox.querySelector('.sub-text');
-            subText.innerHTML += `<br><br><span style="color:#d43f6b;">❤️ برات فرستادم عزیزم!</span>`;
+            finalSubText.innerHTML += `<br><br><span style="color:#d43f6b;">❤️ برات فرستادم عزیزم!</span>`;
 
             setTimeout(() => {
                 alert('😍 ارسال شد! منتظرتم عزیزم!');
-            }, 500);
+            }, 400);
         });
 
-        // ===== شروع =====
-        showQuestion(0);
+        // ============================================================
+        //  شروع بازی
+        // ============================================================
+        renderQuestion(0);
 
-        // ===== جلوگیری از خروج =====
+        // ============================================================
+        //  جلوگیری از خروج
+        // ============================================================
         window.addEventListener('beforeunload', function(e) {
             e.preventDefault();
             e.returnValue = '';
         });
 
-        console.log('🎮 بازی چقدر منو بلدی؟ شروع شد!');
+        console.log('🎮 بازی چقدر منو بلدی؟ (نسخه جدید بدون باگ)');
     </script>
 </body>
 </html>
