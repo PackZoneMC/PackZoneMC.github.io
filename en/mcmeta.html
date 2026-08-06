@@ -4,94 +4,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | Build McMeta</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>PackZone MC | McMeta Builder v2.0.0</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 40%, #0d0d2b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* ===== VERSION BADGE ===== */
+        .version-badge {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a29bfe;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 4px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        .hero p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ddd;
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: rgba(108, 92, 231, 0.25);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+        }
+
+        .card h2 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            color: #ddd;
+            font-size: 1.05rem;
+            margin: 18px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            color: #ccc;
+            font-size: 0.95rem;
+            margin: 12px 0 6px;
+            font-weight: 500;
+        }
+
+        /* ===== INPUTS ===== */
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.08);
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.1);
+            transform: scale(1.01);
+        }
+
+        input::placeholder {
+            color: #555;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c5ce7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        select option {
+            background: #1a1040;
+            color: #fff;
+            padding: 8px;
+        }
+
+        /* ===== DESC PARTS ===== */
+        .descPart {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .descPart:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(108, 92, 231, 0.15);
+        }
+
+        .descPart input {
+            flex: 2;
+            min-width: 120px;
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .descPart input:focus {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .descPart select {
+            flex: 1;
+            min-width: 100px;
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .descPart select:focus {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        /* ===== BUTTONS ===== */
+        button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+        }
+
+        button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+            border-color: rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #fdcb6e, #f39c12);
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
+            color: #1a1a2e;
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 8px 35px rgba(243, 156, 18, 0.3);
+        }
+
+        /* ===== ICON PREVIEW ===== */
+        #iconPreview {
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #iconPreview:hover {
+            transform: scale(1.05);
+            border-color: #6c5ce7;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border: none;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 20px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+            }
+            .descPart {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .descPart input {
+                min-width: unset;
+            }
+            .descPart select {
+                min-width: unset;
+            }
+            .main-logo {
+                font-size: 1.8rem;
+            }
+            .hero h2 {
+                font-size: 1.3rem;
+            }
+            .card {
+                padding: 20px 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <div class="language-switch">
-        <button onclick="changeLanguage('fa')">🇮🇷 FA</button>
-        <button onclick="changeLanguage('en')">🇺🇸 EN</button>
-    </div>
-
+    <div class="container">
+        <!-- ===== VERSION BADGE ===== -->
+        <div style="text-align:center;">
+            <span class="version-badge">✨ Version 2.0.0 ✨</span>
+        </div>
+    <!-- ===== HERO ===== -->
     <section class="hero">
         <h1 class="main-logo">💙 PackZone MC</h1>
         <a href="index.html" class="home-button">🏠 Home</a>
-        <h2>📄 Build McMeta</h2>
+        <h2>📄 McMeta Builder</h2>
         <p>Build your pack.mcmeta file for Java Edition</p>
     </section>
 
-    <section class="menu-box">
+    <!-- ===== CARD: Pack Info ===== -->
+    <div class="card">
+        <h2>📦 Pack Info</h2>
 
-        <div class="card">
-            <h2>📦 Pack Info</h2>
+        <label>📛 Pack Name (Simple)</label>
+        <input type="text" id="packName" placeholder="e.g. PZMC Pack">
 
-            <label>📛 Pack Name (Simple)</label><br>
-            <input type="text" id="packName" placeholder="e.g. PZMC Pack"><br><br>
-
-            <h3>🎨 Colored Description</h3>
-            <p>Customize each part with color and style</p>
-            <div id="descParts">
-                <div class="descPart">
-                    <input class="descText" placeholder="e.g. Made By">
-                    <select class="descColor">
-                        <option value="§f">⚪ White</option>
-                        <option value="§b">🔵 Light Blue</option>
-                        <option value="§e">🟡 Yellow</option>
-                        <option value="§a">🟢 Green</option>
-                        <option value="§c">🔴 Red</option>
-                        <option value="§5">🟣 Purple</option>
-                    </select>
-                    <select class="descStyle">
-                        <option value="">Normal</option>
-                        <option value="§l">Bold</option>
-                        <option value="§o">Italic</option>
-                        <option value="§n">Underline</option>
-                        <option value="§m">Strikethrough</option>
-                    </select>
-                </div>
+        <h3>🎨 Colored Description</h3>
+        <p style="font-size:0.9rem;color:#888;">Color each part separately</p>
+        <div id="descParts">
+            <div class="descPart">
+                <input class="descText" placeholder="e.g. Made By">
+                <select class="descColor">
+                    <option value="§f">⚪ White</option>
+                    <option value="§b">🔵 Light Blue</option>
+                    <option value="§e">🟡 Yellow</option>
+                    <option value="§a">🟢 Green</option>
+                    <option value="§c">🔴 Red</option>
+                    <option value="§5">🟣 Purple</option>
+                </select>
+                <select class="descStyle">
+                    <option value="">Normal</option>
+                    <option value="§l">Bold</option>
+                    <option value="§o">Italic</option>
+                    <option value="§n">Underline</option>
+                    <option value="§m">Strikethrough</option>
+                </select>
             </div>
-            <button onclick="addDescPart()">➕ Add Part</button>
-            <br><br>
-
-            <label>🎮 Minecraft Version (Java)</label><br>
-            <select id="mcVersion">
-                <option value="1.8.9" selected>1.8.9 🔥 (PvP Favorite)</option>
-                <option value="1.12.2">1.12.2</option>
-                <option value="1.16.5">1.16.5</option>
-                <option value="1.17.1">1.17.1</option>
-                <option value="1.18.2">1.18.2</option>
-                <option value="1.19.4">1.19.4</option>
-                <option value="1.20.4">1.20.4</option>
-                <option value="1.21.4">1.21.4 (Latest)</option>
-            </select>
         </div>
+        <button onclick="addDescPart()" class="btn-secondary">➕ Add Part</button>
 
-        <div class="card">
-            <h2>🖼 Pack Icon</h2>
-            <p>Choose your pack icon (pack.png)</p>
-            <input type="file" id="packIcon" accept="image/png" onchange="previewIcon(event)">
-            <br><br>
-            <img id="iconPreview" width="128" style="display:none; border-radius:15px;">
+        <br><br>
+
+        <label>🎮 Minecraft Version (Java)</label>
+        <select id="mcVersion">
+            <option value="1.8.9" selected>1.8.9 🔥 (PvP Favorite)</option>
+            <option value="1.12.2">1.12.2</option>
+            <option value="1.16.5">1.16.5</option>
+            <option value="1.17.1">1.17.1</option>
+            <option value="1.18.2">1.18.2</option>
+            <option value="1.19.4">1.19.4</option>
+            <option value="1.20.4">1.20.4</option>
+            <option value="1.21.4">1.21.4 (Latest)</option>
+        </select>
+    </div>
+
+    <!-- ===== CARD: Pack Icon ===== -->
+    <div class="card">
+        <h2>🖼 Pack Icon</h2>
+        <p>Choose your pack.png icon</p>
+        <input type="file" id="packIcon" accept="image/png" onchange="previewIcon(event)">
+        <br>
+        <img id="iconPreview" width="128" style="display:none; border-radius:16px;">
+    </div>
+
+    <!-- ===== CARD: Build & Download ===== -->
+    <div class="card">
+        <h2>⚡ Build & Download</h2>
+        <div class="row">
+            <button onclick="downloadMcmeta()" style="flex:1;">📄 Download pack.mcmeta</button>
+            <button onclick="downloadZip()" class="btn-gold" style="flex:1;">📦 Download Full Pack (ZIP)</button>
         </div>
+    </div>
 
-        <div class="card">
-            <h2>⚡ Build & Download</h2>
-            <br>
-            <button onclick="downloadMcmeta()">⬇️ Download pack.mcmeta</button>
-            <br><br>
-            <button onclick="downloadZip()">📦 Download Full Pack (ZIP)</button>
-        </div>
+</div>
 
-    </section>
-
-    <footer>© PackZone MC 💙</footer>
-
+<footer>© PackZone MC 💙</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
         let packIconFile = null;
 
+        // ===== Add Description Part =====
         function addDescPart() {
             let box = document.createElement("div");
             box.className = "descPart";
@@ -118,6 +462,7 @@
             document.getElementById("descParts").appendChild(box);
         }
 
+        // ===== Build Colored Text =====
         function buildColoredText(container, textClass, colorClass, styleClass) {
             let result = "";
             let texts = document.querySelectorAll(container + " " + textClass);
@@ -132,6 +477,7 @@
             return result;
         }
 
+        // ===== Get pack_format based on version =====
         function getPackFormat(version) {
             const map = {
                 '1.8.9': 1,
@@ -146,6 +492,7 @@
             return map[version] || 1;
         }
 
+        // ===== Build pack.mcmeta content =====
         function buildMcmeta() {
             let name = document.getElementById("packName").value.trim();
             let desc = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
@@ -164,6 +511,7 @@
             };
         }
 
+        // ===== Get clean pack name for download =====
         function getCleanPackName() {
             let name = document.getElementById("packName").value.trim();
             if (!name) name = "PackZone-Pack";
@@ -172,6 +520,7 @@
             return name;
         }
 
+        // ===== Download pack.mcmeta =====
         function downloadMcmeta() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -182,6 +531,7 @@
             link.click();
         }
 
+        // ===== Download Full Pack (ZIP) =====
         function downloadZip() {
             let data = buildMcmeta();
             let json = JSON.stringify(data, null, 4);
@@ -205,6 +555,7 @@
             });
         }
 
+        // ===== Preview Icon =====
         function previewIcon(event) {
             let file = event.target.files[0];
             packIconFile = file;
@@ -219,7 +570,6 @@
             }
         }
     </script>
-
 </body>
 
 </html>
