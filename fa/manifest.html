@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | ساخت مانیفست نسخه ۱.۱.۲</title>
+    <title>PackZone MC | ساخت مانیفست نسخه ۱.۱.۳</title>
     <style>
         * {
             margin: 0;
@@ -28,38 +28,14 @@
         .version-badge {
             text-align: center;
             font-size: 0.8rem;
-            color: #6c5ce7;
+            color: #a29bfe;
             background: rgba(108, 92, 231, 0.15);
-            padding: 4px 16px;
+            padding: 4px 20px;
             border-radius: 20px;
             display: inline-block;
             margin-bottom: 15px;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-        }
-
-        .language-switch {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .language-switch button {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            padding: 8px 22px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .language-switch button:hover {
-            background: rgba(108, 92, 231, 0.3);
-            border-color: #6c5ce7;
-            color: #fff;
-            transform: scale(1.05);
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            letter-spacing: 1px;
         }
 
         .hero {
@@ -108,6 +84,7 @@
             background: rgba(108, 92, 231, 0.25);
             border-color: #6c5ce7;
             color: #fff;
+            transform: scale(1.05);
         }
 
         .card {
@@ -122,18 +99,25 @@
 
         .card:hover {
             border-color: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
         }
 
         .card h2 {
             color: #fff;
             font-size: 1.4rem;
             margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .card h3 {
             color: #ddd;
             font-size: 1.05rem;
             margin: 18px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .card p {
@@ -150,13 +134,14 @@
             font-weight: 500;
         }
 
+        /* ===== استایل‌های خوشگل برای اینپوت‌ها و سلیکت‌ها ===== */
         input,
         select,
         textarea {
             width: 100%;
             padding: 12px 16px;
             background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
             color: #fff;
             font-size: 0.95rem;
@@ -169,27 +154,56 @@
         textarea:focus {
             outline: none;
             border-color: #6c5ce7;
-            background: rgba(255, 255, 255, 0.09);
-            box-shadow: 0 0 20px rgba(108, 92, 231, 0.08);
+            background: rgba(108, 92, 231, 0.08);
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.1), inset 0 0 30px rgba(108, 92, 231, 0.03);
+            transform: scale(1.01);
         }
 
         input::placeholder,
         textarea::placeholder {
-            color: #666;
+            color: #555;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c5ce7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 16px center;
+            padding-left: 40px;
         }
 
         select option {
             background: #1a1040;
             color: #fff;
+            padding: 8px;
         }
 
+        select optgroup {
+            background: #0d0d2b;
+            color: #a29bfe;
+        }
+
+        /* ===== بخش‌های رنگی با استایل جدید ===== */
         .namePart,
         .descPart,
         .subPart {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .namePart:hover,
+        .descPart:hover,
+        .subPart:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(108, 92, 231, 0.15);
         }
 
         .namePart input,
@@ -197,6 +211,15 @@
         .subPart input {
             flex: 2;
             min-width: 120px;
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .namePart input:focus,
+        .descPart input:focus,
+        .subPart input:focus {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.05);
         }
 
         .namePart select,
@@ -204,8 +227,18 @@
         .subPart select {
             flex: 1;
             min-width: 100px;
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.06);
         }
 
+        .namePart select:focus,
+        .descPart select:focus,
+        .subPart select:focus {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        /* ===== دکمه‌ها ===== */
         button {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             color: #fff;
@@ -217,39 +250,59 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
         }
 
         button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.3);
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.96);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.15);
-            box-shadow: none;
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+            border-color: rgba(108, 92, 231, 0.3);
         }
 
         .btn-danger {
             background: linear-gradient(135deg, #e17055, #d63031);
+            box-shadow: 0 4px 20px rgba(214, 48, 49, 0.15);
         }
 
         .btn-danger:hover {
-            box-shadow: 0 8px 30px rgba(214, 48, 49, 0.3);
+            box-shadow: 0 8px 35px rgba(214, 48, 49, 0.3);
         }
 
         .btn-success {
             background: linear-gradient(135deg, #00b894, #00cec9);
+            box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
         }
 
         .btn-success:hover {
-            box-shadow: 0 8px 30px rgba(0, 206, 201, 0.3);
+            box-shadow: 0 8px 35px rgba(0, 206, 201, 0.3);
         }
 
+        .btn-gold {
+            background: linear-gradient(135deg, #fdcb6e, #f39c12);
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
+            color: #1a1a2e;
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 8px 35px rgba(243, 156, 18, 0.3);
+        }
+
+        /* ===== ساب‌پک لیست ===== */
         .subpack-item {
             background: rgba(255, 255, 255, 0.04);
             border-radius: 16px;
@@ -259,6 +312,12 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .subpack-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(108, 92, 231, 0.15);
         }
 
         .subpack-item span {
@@ -272,16 +331,51 @@
             font-size: 0.8rem;
         }
 
+        /* ===== آیکون ===== */
         #iconPreview {
             border-radius: 16px;
             border: 2px solid rgba(255, 255, 255, 0.1);
             margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #iconPreview:hover {
+            transform: scale(1.05);
+            border-color: #6c5ce7;
         }
 
         input[readonly] {
             color: #a29bfe;
             background: rgba(108, 92, 231, 0.08);
             border-color: rgba(108, 92, 231, 0.15);
+            cursor: default;
+        }
+
+        input[readonly]:focus {
+            transform: none;
+            box-shadow: none;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border: none;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
         }
 
         .row {
@@ -293,6 +387,7 @@
             flex: 1;
         }
 
+        /* ===== ریسپانسیو ===== */
         @media (max-width: 600px) {
             .row {
                 flex-direction: column;
@@ -301,6 +396,17 @@
             .descPart,
             .subPart {
                 flex-direction: column;
+                padding: 10px;
+            }
+            .namePart input,
+            .descPart input,
+            .subPart input {
+                min-width: unset;
+            }
+            .namePart select,
+            .descPart select,
+            .subPart select {
+                min-width: unset;
             }
             .main-logo {
                 font-size: 1.8rem;
@@ -318,14 +424,9 @@
 <body>
     <div class="container">
         <div style="text-align:center;">
-            <span class="version-badge">📌 نسخه ۱.۱.۲</span>
+            <span class="version-badge">✨ نسخه ۱.۱.۳ ✨</span>
         </div>
-            <div class="language-switch">
-        <button onclick="changeLanguage('fa')">🇮🇷 FA</button>
-        <button onclick="changeLanguage('en')">🇺🇸 EN</button>
-    </div>
-
-    <section class="hero">
+            <section class="hero">
         <h1 class="main-logo">💙 PackZone MC</h1>
         <a href="index.html" class="home-button">🏠 خانه</a>
         <h2>📄 ساخت مانیفست</h2>
@@ -337,7 +438,7 @@
         <h2>📦 اطلاعات پک</h2>
 
         <h3>🎨 ساخت اسم رنگی حرفه‌ای</h3>
-        <p>هر کلمه را جدا وارد کن و رنگ و فونت بده.</p>
+        <p style="font-size:0.9rem;color:#888;">هر کلمه را جدا وارد کن و رنگ و فونت بده.</p>
         <div id="nameParts">
             <div class="namePart">
                 <input class="partText" placeholder="مثلا PZMC">
@@ -372,10 +473,8 @@
 
         <br><br>
 
-        <h3>📝 توضیحات پک</h3>
-        <textarea id="description" rows="3" placeholder="توضیحات معمولی"></textarea>
-
         <h3>🎨 ساخت توضیحات رنگی</h3>
+        <p style="font-size:0.9rem;color:#888;">هر بخش از توضیحات را جدا رنگ کن.</p>
         <div id="descParts">
             <div class="descPart">
                 <input class="descText" placeholder="مثلا Made By">
@@ -401,7 +500,7 @@
         <br><br>
 
         <label>🎮 نسخه ماینکرفت</label>
-        <select id="mcVersion">
+        <select id="mcVersion" style="background:rgba(0,0,0,0.2);border-color:rgba(255,255,255,0.06);">
             <option>1.16.0</option>
             <option>1.16.100</option>
             <option>1.16.200</option>
@@ -434,17 +533,17 @@
     <!-- Card: Pack Icon -->
     <div class="card">
         <h2>🖼 انتخاب Pack Icon</h2>
-        <p>آیکون پک خود را انتخاب کنید.</p>
+        <p>آیکون پک خود را انتخاب کنید (PNG یا JPG).</p>
         <input type="file" id="packIcon" accept="image/png,image/jpeg" onchange="previewIcon(event)">
         <br><br>
-        <img id="iconPreview" width="128" style="display:none;border-radius:15px;">
+        <img id="iconPreview" width="128" style="display:none;border-radius:16px;">
     </div>
 
     <!-- Card: Subpack -->
     <div class="card">
         <h2>📂 ساخت Subpack</h2>
         <label>📁 اسم پوشه Subpack</label>
-        <input type="text" id="subFolder" placeholder="مثلا day">
+        <input type="text" id="subFolder" placeholder="مثلا day" style="background:rgba(0,0,0,0.2);border-color:rgba(255,255,255,0.06);">
 
         <br><br>
 
@@ -490,7 +589,7 @@
         <h2>📦 ساخت و دانلود</h2>
         <div class="row">
             <button onclick="generateManifest()" style="flex:1;">📄 ساخت manifest.json</button>
-            <button onclick="downloadPack()" style="flex:1;background:linear-gradient(135deg,#00b894,#00cec9);">📦 دانلود پک</button>
+            <button onclick="downloadPack()" class="btn-gold" style="flex:1;">📦 دانلود پک</button>
         </div>
     </div>
 
@@ -588,6 +687,7 @@
                     <option value="§a">🟢 سبز</option>
                     <option value="§b">🔵 آبی روشن</option>
                     <option value="§c">🔴 قرمز</option>
+                    <option value="§d">🩷 صورتی</option>
                     <option value="§e">🟡 زرد</option>
                 </select>
                 <select class="subStyle">
