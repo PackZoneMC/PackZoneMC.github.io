@@ -9,15 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <style>
-        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* ===== BODY ===== */
         body {
             font-family: 'Inter', sans-serif;
             background: #0a0e1a;
@@ -25,7 +27,6 @@
             min-height: 100vh;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -55,7 +56,6 @@
             color: #008cff;
         }
 
-        /* ===== AUTH CONTAINER ===== */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -64,7 +64,6 @@
             padding: 30px 20px;
         }
 
-        /* ===== AUTH BOX ===== */
         .auth-box {
             background: #0d2038;
             padding: 35px 30px;
@@ -82,7 +81,6 @@
             margin-bottom: 25px;
         }
 
-        /* ===== FORM GROUP ===== */
         .form-group {
             margin-bottom: 16px;
         }
@@ -114,7 +112,6 @@
             color: rgba(255, 255, 255, 0.2);
         }
 
-        /* ===== PRIMARY BUTTON ===== */
         .btn-primary {
             width: 100%;
             padding: 14px;
@@ -133,7 +130,12 @@
             box-shadow: 0 0 30px rgba(0, 140, 255, 0.2);
         }
 
-        /* ===== GOOGLE BUTTON ===== */
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-google {
             width: 100%;
             padding: 12px;
@@ -156,7 +158,12 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        /* ===== PHONE BUTTON ===== */
+        .btn-google:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-phone {
             width: 100%;
             padding: 12px;
@@ -175,7 +182,6 @@
             box-shadow: 0 0 20px rgba(0, 200, 83, 0.3);
         }
 
-        /* ===== DIVIDER ===== */
         .divider {
             display: flex;
             align-items: center;
@@ -196,7 +202,6 @@
             font-size: 0.85rem;
         }
 
-        /* ===== FOOTER TEXT ===== */
         .auth-footer {
             text-align: center;
             margin-top: 18px;
@@ -214,7 +219,6 @@
             text-decoration: underline;
         }
 
-        /* ===== PHONE SECTION ===== */
         .phone-section {
             display: none;
             margin-top: 15px;
@@ -234,7 +238,19 @@
             margin-bottom: 12px;
         }
 
-        /* ===== FOOTER ===== */
+        .timer-text {
+            text-align: center;
+            color: #7ec8ff;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .recaptcha-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -242,7 +258,28 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        /* ===== RESPONSIVE ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d2038;
+            border: 1px solid #008cff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
@@ -271,197 +308,415 @@
         }
     </style>
 </head>
-
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="logo">💙 PackZone MC</div>
-        <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
-            <a href="login.html" style="color:#7ec8ff;">Login</a>
-        </nav>
-    </header>
+    <!-- ===== Toast Notification ===== -->
+    <div class="toast" id="toast"></div>
+<header class="header">
+    <div class="logo">💙 PackZone MC</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="login.html" style="color:#7ec8ff;">Login</a>
+    </nav>
+</header>
 
-    <!-- ===== MAIN ===== -->
-    <main class="auth-container">
-        <section class="auth-box">
-            <h1>🔐 Login</h1>
+<main class="auth-container">
+    <section class="auth-box">
+        <h1>🔐 Login</h1>
 
-            <!-- ===== Login with Email ===== -->
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="example@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPass">Password</label>
-                    <input type="password" id="loginPass" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn-primary">Login</button>
-            </form>
-
-            <!-- ===== Divider ===== -->
-            <div class="divider">
-                <span>or</span>
+        <!-- ===== Login Form ===== -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" placeholder="example@email.com" required>
             </div>
-
-            <!-- ===== Google & Phone Login ===== -->
-            <div style="display:flex;flex-direction:column;gap:10px;">
-
-                <button onclick="loginWithGoogle()" class="btn-google">
-                    <img src="https://www.google.com/favicon.ico" style="width:20px;height:20px;">
-                    Login with Google
-                </button>
-
-                <button onclick="togglePhoneSection()" class="btn-phone">
-                    📱 Login with Phone
-                </button>
-
+            <div class="form-group">
+                <label for="loginPass">Password</label>
+                <input type="password" id="loginPass" placeholder="Enter your password" required>
             </div>
+            <button type="submit" class="btn-primary" id="emailLoginBtn">Login</button>
+        </form>
 
-            <!-- ===== Phone Login Section ===== -->
-            <div class="phone-section" id="phoneSection">
-                <h3>📱 Login with Phone</h3>
-                <div class="form-group">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" placeholder="09xxxxxxxxx">
-                </div>
-                <div class="form-group" id="codeGroup" style="display:none;">
-                    <label for="phoneCode">Verification Code</label>
-                    <input type="text" id="phoneCode" placeholder="6-digit code">
-                </div>
-                <button onclick="sendPhoneCode()" class="btn-primary" id="sendCodeBtn">Send Code</button>
-                <button onclick="verifyPhoneCode()" class="btn-primary" id="verifyCodeBtn" style="display:none;">Verify Code</button>
+        <!-- ===== Divider ===== -->
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <!-- ===== Google & Phone Buttons ===== -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+            <button onclick="loginWithGoogle()" class="btn-google" id="googleBtn">
+                <img src="https://www.google.com/favicon.ico" style="width:20px;height:20px;">
+                Sign in with Google
+            </button>
+
+            <button onclick="togglePhoneSection()" class="btn-phone" id="phoneToggleBtn">
+                📱 Sign in with Phone
+            </button>
+
+        </div>
+
+        <!-- ===== Phone Section ===== -->
+        <div class="phone-section" id="phoneSection">
+            <h3>📱 Sign in with Phone</h3>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" placeholder="+98 900 000 0000" dir="ltr">
             </div>
+            <div class="form-group" id="codeGroup" style="display:none;">
+                <label for="phoneCode">Verification Code</label>
+                <input type="text" id="phoneCode" placeholder="6-digit code" dir="ltr" maxlength="6">
+            </div>
+            <div class="recaptcha-container" id="recaptchaContainer"></div>
+            <button onclick="sendPhoneCode()" class="btn-primary" id="sendCodeBtn">📨 Send Code</button>
+            <button onclick="verifyPhoneCode()" class="btn-primary" id="verifyCodeBtn" style="display:none;">✅ Verify Code</button>
+            <div id="timerDisplay" class="timer-text"></div>
+        </div>
 
-            <p class="auth-footer">Don't have an account? <a href="signup.html">Sign Up</a></p>
-        </section>
-    </main>
+        <p class="auth-footer">Not a member? <a href="signup.html">Sign Up</a></p>
+    </section>
+</main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <p>© PackZone MC</p>
-    </footer>
-
-    <!-- ===== SCRIPTS ===== -->
+<footer class="footer">
+    <p>© PackZone MC</p>
+</footer>
     <script>
         // ============================================================
-        // ===== Login with Email & Password =====
+        // ===== Firebase Configuration =====
         // ============================================================
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBV9clBhPAMlcBhCS7DgfkotrgqsFrTNSA",
+            authDomain: "packzonemc.firebaseapp.com",
+            projectId: "packzonemc",
+            storageBucket: "packzonemc.firebasestorage.app",
+            messagingSenderId: "113323335089",
+            appId: "1:113323335089:web:a710482a0153dd077d3190",
+            measurementId: "G-WE3RFLBFCV"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // ============================================================
+        // ===== Toast =====
+        // ============================================================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.borderColor = isError ? '#e74c3c' : '#008cff';
+            toast.style.border = isError ? '1px solid #e74c3c' : '1px solid #008cff';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ============================================================
+        // ===== Email/Password Login =====
+        // ============================================================
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPass').value;
+            const btn = document.getElementById('emailLoginBtn');
 
             if (!email || !password) {
-                alert('❌ Please fill in all fields');
+                showToast('❌ Please fill in all fields', true);
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const user = users.find(u => u.email === email && u.password === password);
+            btn.disabled = true;
+            btn.textContent = '⏳ Logging in...';
 
-            if (!user) {
-                alert('❌ Incorrect email or password');
-                return;
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || user.email.split('@')[0],
+                    phone: user.phoneNumber || '',
+                    photoURL: user.photoURL || ''
+                };
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ Login successful! Welcome ' + userData.name);
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ Login error';
+                if (error.code === 'auth/user-not-found') msg = '❌ No user found with this email';
+                else if (error.code === 'auth/wrong-password') msg = '❌ Incorrect password';
+                else if (error.code === 'auth/invalid-email') msg = '❌ Invalid email format';
+                else if (error.code === 'auth/user-disabled') msg = '❌ This account has been disabled';
+                else if (error.code === 'auth/too-many-requests') msg = '❌ Too many requests, please try later';
+                else msg = '❌ ' + error.message;
+
+                showToast(msg, true);
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-            alert('✅ Login successful! Welcome ' + user.name);
-            window.location.href = 'profile.html';
+            btn.disabled = false;
+            btn.textContent = 'Login';
         });
 
         // ============================================================
-        // ===== Login with Google (Simulated) =====
+        // ===== Google Login =====
         // ============================================================
-        function loginWithGoogle() {
-            const googleUser = {
-                name: 'Google User',
-                email: 'google_user_' + Date.now() + '@gmail.com',
-                password: 'google_login',
-                createdAt: new Date().toLocaleDateString('en-US')
-            };
+        async function loginWithGoogle() {
+            const btn = document.getElementById('googleBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Connecting...';
 
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const existingUser = users.find(u => u.email === googleUser.email);
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
 
-            if (!existingUser) {
-                users.push(googleUser);
-                localStorage.setItem('pzmc_users', JSON.stringify(users));
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || 'Google User',
+                    phone: user.phoneNumber || '',
+                    photoURL: user.photoURL || '',
+                    provider: 'google'
+                };
+
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ Google login successful! Welcome ' + userData.name);
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ Google login error';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    msg = '❌ Login window was closed';
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    msg = '❌ Login request was cancelled';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    msg = '❌ This email is already registered with another method';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(googleUser));
-            alert('✅ Google login successful! Welcome ' + googleUser.name);
-            window.location.href = 'profile.html';
+            btn.disabled = false;
+            btn.textContent = 'Sign in with Google';
         }
 
         // ============================================================
-        // ===== Login with Phone =====
+        // ===== Phone Login =====
         // ============================================================
-        let phoneData = { phone: '', code: '' };
+        let phoneData = { phone: '', verificationId: '', code: '' };
+        let timerInterval = null;
+        let recaptchaVerifier = null;
 
         function togglePhoneSection() {
             const section = document.getElementById('phoneSection');
-            section.classList.toggle('open');
+            const isOpen = section.classList.toggle('open');
+
+            if (isOpen) {
+                if (!recaptchaVerifier) {
+                    try {
+                        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+                            size: 'normal',
+                            callback: function(response) {
+                                document.getElementById('sendCodeBtn').disabled = false;
+                            },
+                            'expired-callback': function() {
+                                document.getElementById('sendCodeBtn').disabled = true;
+                            }
+                        });
+                        recaptchaVerifier.render();
+                    } catch (e) {
+                        console.log('reCAPTCHA already rendered');
+                    }
+                }
+            }
         }
 
-        function sendPhoneCode() {
-            const phone = document.getElementById('phoneNumber').value.trim();
+        async function sendPhoneCode() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phone = phoneInput.value.trim();
+            const sendBtn = document.getElementById('sendCodeBtn');
 
-            if (!phone || phone.length < 11) {
-                alert('❌ Please enter a valid phone number');
+            let formattedPhone = phone;
+            if (phone.startsWith('09')) {
+                formattedPhone = '+98' + phone.substring(1);
+            } else if (phone.startsWith('9')) {
+                formattedPhone = '+98' + phone;
+            } else if (!phone.startsWith('+')) {
+                formattedPhone = '+98' + phone;
+            }
+
+            if (!phone || phone.length < 10) {
+                showToast('❌ Please enter a valid phone number', true);
                 return;
             }
 
-            phoneData.phone = phone;
-            phoneData.code = Math.floor(100000 + Math.random() * 900000).toString();
-
-            console.log('📱 Verification code:', phoneData.code);
-
-            alert('📱 Verification code sent to ' + phone + '! (Code: ' + phoneData.code + ')');
-
-            document.getElementById('codeGroup').style.display = 'block';
-            document.getElementById('sendCodeBtn').style.display = 'none';
-            document.getElementById('verifyCodeBtn').style.display = 'block';
-        }
-
-        function verifyPhoneCode() {
-            const enteredCode = document.getElementById('phoneCode').value.trim();
-
-            if (!enteredCode) {
-                alert('❌ Please enter the verification code');
+            if (!recaptchaVerifier) {
+                showToast('❌ Please wait for reCAPTCHA to load', true);
                 return;
             }
 
-            if (enteredCode !== phoneData.code) {
-                alert('❌ Incorrect verification code');
+            sendBtn.disabled = true;
+            sendBtn.textContent = '⏳ Sending...';
+
+            try {
+                const phoneProvider = new firebase.auth.PhoneAuthProvider();
+                const verificationId = await phoneProvider.verifyPhoneNumber(
+                    formattedPhone,
+                    recaptchaVerifier
+                );
+
+                phoneData.phone = phone;
+                phoneData.verificationId = verificationId;
+
+                document.getElementById('codeGroup').style.display = 'block';
+                document.getElementById('sendCodeBtn').style.display = 'none';
+                document.getElementById('verifyCodeBtn').style.display = 'block';
+
+                showToast('✅ Verification code sent to your phone');
+                startTimer(60);
+
+            } catch (error) {
+                let msg = '❌ Error sending code';
+                if (error.code === 'auth/invalid-phone-number') {
+                    msg = '❌ Invalid phone number';
+                } else if (error.code === 'auth/too-many-requests') {
+                    msg = '❌ Too many requests, please try later';
+                } else if (error.code === 'auth/captcha-check-failed') {
+                    msg = '❌ CAPTCHA verification failed, try again';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
+                sendBtn.disabled = false;
+                sendBtn.textContent = '📨 Send Code';
+                recaptchaVerifier.clear();
+                recaptchaVerifier = null;
+            }
+        }
+
+        async function verifyPhoneCode() {
+            const code = document.getElementById('phoneCode').value.trim();
+            const verifyBtn = document.getElementById('verifyCodeBtn');
+
+            if (!code || code.length < 6) {
+                showToast('❌ Please enter the 6-digit code', true);
                 return;
             }
 
-            const phoneUser = {
-                name: 'Phone User',
-                email: 'phone_' + phoneData.phone + '@temp.com',
-                phone: phoneData.phone,
-                password: 'phone_login_' + phoneData.code,
-                createdAt: new Date().toLocaleDateString('en-US')
-            };
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const existingUser = users.find(u => u.phone === phoneData.phone);
-
-            if (!existingUser) {
-                users.push(phoneUser);
-                localStorage.setItem('pzmc_users', JSON.stringify(users));
+            if (!phoneData.verificationId) {
+                showToast('❌ Please request a code first', true);
+                return;
             }
 
-            localStorage.setItem('pzmc_current_user', JSON.stringify(phoneUser));
-            alert('✅ Phone login successful! Welcome');
-            window.location.href = 'profile.html';
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = '⏳ Verifying...';
+
+            try {
+                const credential = firebase.auth.PhoneAuthProvider.credential(
+                    phoneData.verificationId,
+                    code
+                );
+
+                const result = await auth.signInWithCredential(credential);
+                const user = result.user;
+
+                const userData = {
+                    uid: user.uid,
+                    email: user.email || 'phone_' + Date.now() + '@temp.com',
+                    name: 'Phone User',
+                    phone: phoneData.phone,
+                    photoURL: user.photoURL || '',
+                    provider: 'phone'
+                };
+
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+
+                showToast('✅ Phone login successful! Welcome');
+                setTimeout(() => window.location.href = 'profile.html', 1000);
+
+            } catch (error) {
+                let msg = '❌ Code verification error';
+                if (error.code === 'auth/invalid-verification-code') {
+                    msg = '❌ Invalid verification code';
+                } else if (error.code === 'auth/expired-action-code') {
+                    msg = '❌ Code has expired, please request a new one';
+                } else {
+                    msg = '❌ ' + error.message;
+                }
+                showToast(msg, true);
+            }
+
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = '✅ Verify Code';
         }
+
+        // ============================================================
+        // ===== Timer =====
+        // ============================================================
+        function startTimer(seconds) {
+            const timerDisplay = document.getElementById('timerDisplay');
+            let remaining = seconds;
+
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                remaining--;
+                timerDisplay.textContent = `⏳ Resend code in ${remaining} seconds`;
+
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '📨 You can request a new code';
+
+                    document.getElementById('sendCodeBtn').style.display = 'block';
+                    document.getElementById('sendCodeBtn').disabled = false;
+                    document.getElementById('sendCodeBtn').textContent = '📨 Resend Code';
+                    document.getElementById('verifyCodeBtn').style.display = 'none';
+                    document.getElementById('codeGroup').style.display = 'none';
+                    phoneData.verificationId = '';
+                }
+            }, 1000);
+        }
+
+        // ============================================================
+        // ===== Auth State Check =====
+        // ============================================================
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                const userData = JSON.parse(localStorage.getItem('pzmc_current_user'));
+                if (userData && window.location.pathname.includes('login.html')) {
+                    window.location.href = 'profile.html';
+                }
+            }
+        });
+
+        // ============================================================
+        // ===== Enter Key Support =====
+        // ============================================================
+        document.getElementById('phoneNumber').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('sendCodeBtn').style.display !== 'none') {
+                    sendPhoneCode();
+                }
+            }
+        });
+
+        document.getElementById('phoneCode').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('verifyCodeBtn').style.display !== 'none') {
+                    verifyPhoneCode();
+                }
+            }
+        });
     </script>
-
 </body>
 </html>
