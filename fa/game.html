@@ -27,7 +27,6 @@
             height: 100%;
         }
 
-        /* قلب‌های شناور پس‌زمینه */
         .heart-bg {
             position: fixed;
             top: 0;
@@ -72,7 +71,6 @@
             width: 0;
         }
 
-        /* ===== هدر ===== */
         .header {
             text-align: center;
             margin-bottom: 20px;
@@ -90,7 +88,6 @@
             margin-top: 4px;
         }
 
-        /* ===== پروگرس بار ===== */
         .progress-wrap {
             display: flex;
             justify-content: center;
@@ -125,7 +122,6 @@
             margin-bottom: 15px;
         }
 
-        /* ===== سوال باکس ===== */
         .question-box {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -151,7 +147,6 @@
             font-size: 1.5rem;
         }
 
-        /* ===== گزینه‌ها ===== */
         .options {
             display: flex;
             flex-direction: column;
@@ -199,7 +194,6 @@
             animation: shake 0.5s ease;
         }
 
-        /* ===== دکمه تکان دادن ===== */
         .shake-btn-wrap {
             text-align: center;
             margin: 15px 0 10px;
@@ -232,7 +226,6 @@
             font-size: 1.3rem;
         }
 
-        /* ===== انیمیشن تکان خوردن ===== */
         .shake-animation {
             display: none;
             text-align: center;
@@ -253,7 +246,6 @@
             margin-top: 8px;
         }
 
-        /* ===== پیام موقت ===== */
         .temp-message {
             text-align: center;
             padding: 15px;
@@ -272,7 +264,6 @@
             font-size: 1rem;
         }
 
-        /* ===== پیام پایانی ===== */
         .final-box {
             display: none;
             text-align: center;
@@ -320,7 +311,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== انیمیشن‌ها ===== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -344,7 +334,6 @@
             100% { transform: translateY(-20px); }
         }
 
-        /* ===== responsive ===== */
         @media (max-width: 480px) {
             .container { padding: 18px 14px; }
             .question-text { font-size: 1rem; }
@@ -358,18 +347,15 @@
     </style>
 </head>
 <body>
-    <!-- قلب‌های شناور پس‌زمینه -->
     <div class="heart-bg" id="heartBg"></div>
 
     <div class="container" id="appContainer">
 
-        <!-- ===== هدر ===== -->
         <div class="header">
             <h1>🎮 چقدر منو بلدی؟</h1>
             <div class="subtitle">💖 با ریحانه جان</div>
         </div>
 
-        <!-- ===== پروگرس بار ===== -->
         <div class="progress-wrap" id="progressWrap">
             <div class="progress-dot active" data-idx="0"></div>
             <div class="progress-dot" data-idx="1"></div>
@@ -384,7 +370,6 @@
         </div>
         <div class="counter-text" id="counterText">سوال 1 از 10</div>
 
-        <!-- ===== دکمه تکان دادن ===== -->
         <div class="shake-btn-wrap" id="shakeBtnWrap">
             <button class="shake-btn" id="shakeBtn">
                 <span class="icon">📱</span>
@@ -392,16 +377,13 @@
             </button>
         </div>
 
-        <!-- ===== انیمیشن تکان دادن ===== -->
         <div class="shake-animation" id="shakeAnimation">
             <span class="big-emoji">📱</span>
             <div class="text">🌀 داره تکون میخوره...</div>
         </div>
 
-        <!-- ===== سوالات ===== -->
         <div id="questionContainer"></div>
 
-        <!-- ===== باکس پایانی ===== -->
         <div class="final-box" id="finalBox">
             <span class="emoji-big">🎉</span>
             <div class="big-text">آفرین عزیزم! 😎🔥</div>
@@ -415,9 +397,7 @@
     </div>
 
     <script>
-        // ============================================================
         // ===== قلب‌های شناور =====
-        // ============================================================
         (function createHearts() {
             const bg = document.getElementById('heartBg');
             const emojis = ['❤️', '💖', '💗', '💓', '🌸', '🌺'];
@@ -432,9 +412,7 @@
             }
         })();
 
-        // ============================================================
-        // ===== دیتا =====
-        // ============================================================
+        // ===== دیتا (۱۰ سوال) =====
         const questions = [{
             id: 0,
             text: 'چرا بعضی وقتا وقتی میای خونه‌ی ننه، بهم محل نمیدی؟',
@@ -557,9 +535,7 @@
             responseText: 'ایول! این رو هم بلدی!'
         }];
 
-        // ============================================================
         // ===== عناصر =====
-        // ============================================================
         const container = document.getElementById('questionContainer');
         const progressDots = document.querySelectorAll('.progress-dot');
         const counterText = document.getElementById('counterText');
@@ -575,10 +551,7 @@
         let totalCorrect = 0;
         let answersLog = [];
 
-        // ============================================================
         // ===== توابع =====
-        // ============================================================
-
         function updateProgress(index) {
             progressDots.forEach((dot, i) => {
                 dot.classList.remove('active', 'done', 'wrong');
@@ -592,6 +565,11 @@
         }
 
         function showQuestion(index) {
+            if (index >= questions.length) {
+                showFinal();
+                return;
+            }
+
             const q = questions[index];
             if (!q) return;
 
@@ -606,13 +584,12 @@
                 shakeBtn.innerHTML = `<span class="icon">📱</span> گوشی رو تکون بده!`;
             } else {
                 shakeBtnWrap.style.display = 'none';
-                renderOptions(q, index);
             }
 
             let html = `
                 <div class="question-box active">
                     <div class="question-text">
-                        <span class="emoji">${q.text.split(' ')[0] === 'چرا' ? '🤔' : '💭'}</span>
+                        <span class="emoji">🤔</span>
                         ${q.text}
                     </div>
                     <div class="options" id="optionsContainer"></div>
@@ -723,7 +700,8 @@
         function showFinal() {
             container.innerHTML = '';
             shakeBtnWrap.style.display = 'none';
-            document.querySelector('.progress-wrap').style.display = 'none';
+            const progressWrap = document.querySelector('.progress-wrap');
+            if (progressWrap) progressWrap.style.display = 'none';
             counterText.style.display = 'none';
 
             finalBox.classList.add('active');
@@ -735,9 +713,7 @@
             `;
         }
 
-        // ============================================================
         // ===== دکمه تکان دادن =====
-        // ============================================================
         shakeBtn.addEventListener('click', function() {
             if (isShaking) return;
             const q = questions[currentIndex];
@@ -761,9 +737,7 @@
             }, 1200);
         });
 
-        // ============================================================
         // ===== دکمه ارسال =====
-        // ============================================================
         sendBtn.addEventListener('click', function() {
             const log = {
                 time: new Date().toLocaleString('fa-IR'),
@@ -784,14 +758,10 @@
             }, 500);
         });
 
-        // ============================================================
         // ===== شروع =====
-        // ============================================================
         showQuestion(0);
 
-        // ============================================================
         // ===== جلوگیری از خروج =====
-        // ============================================================
         window.addEventListener('beforeunload', function(e) {
             e.preventDefault();
             e.returnValue = '';
