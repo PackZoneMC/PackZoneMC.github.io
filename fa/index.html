@@ -9,11 +9,9 @@
     <!-- ===== GOOGLE FONTS ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* ============================================================
-                   RESET & BASE
-                   ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -53,15 +51,58 @@
             transition: var(--transition);
         }
 
+        .font-inter {
+            font-family: 'Inter', sans-serif !important;
+        }
+        .font-vazirmatn {
+            font-family: 'Vazirmatn', sans-serif !important;
+        }
+        .font-iransans {
+            font-family: 'Noto Sans Arabic', sans-serif !important;
+        }
+
+        .theme-default {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+        }
+        .theme-green {
+            --primary: #2D8A4E;
+            --primary-light: #7CFC00;
+            --bg-card: rgba(45, 138, 78, 0.08);
+            --border-color: #2D8A4E;
+            --text-primary: #7CFC00;
+        }
+        .theme-orange {
+            --primary: #FF6B00;
+            --primary-light: #FFD700;
+            --bg-card: rgba(255, 107, 0, 0.08);
+            --border-color: #FF6B00;
+            --text-primary: #FFD700;
+        }
+        .theme-blue {
+            --primary: #0A2463;
+            --primary-light: #00B4D8;
+            --bg-card: rgba(10, 36, 99, 0.08);
+            --border-color: #0A2463;
+            --text-primary: #00B4D8;
+        }
+        .theme-pink {
+            --primary: #9B5DE5;
+            --primary-light: #F15BB5;
+            --bg-card: rgba(155, 93, 229, 0.08);
+            --border-color: #9B5DE5;
+            --text-primary: #F15BB5;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 40px;
         }
 
-        /* ============================================================
-                   VERSION BADGE
-                   ============================================================ */
         .version-badge {
             text-align: center;
             font-size: 0.75rem;
@@ -85,9 +126,6 @@
             box-shadow: 0 4px 20px rgba(108, 92, 231, 0.1);
         }
 
-        /* ============================================================
-                   HEADER
-                   ============================================================ */
         .custom-header {
             display: flex;
             justify-content: space-between;
@@ -95,7 +133,6 @@
             padding: 14px 30px;
             background: rgba(13, 32, 56, 0.7);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border-bottom: 2px solid rgba(108, 92, 231, 0.15);
             position: sticky;
             top: 0;
@@ -221,9 +258,6 @@
             color: #fff;
         }
 
-        /* ============================================================
-                   LANGUAGE TOGGLE
-                   ============================================================ */
         .language-toggle {
             position: fixed;
             top: 80px;
@@ -259,10 +293,13 @@
             border: 1px solid rgba(108, 92, 231, 0.15);
             border-radius: 16px;
             padding: 20px;
-            min-width: 220px;
+            min-width: 240px;
+            max-width: 280px;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6);
             display: none;
             transition: var(--transition);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .language-panel.open {
@@ -327,9 +364,291 @@
             margin: 12px 0;
         }
 
-        /* ============================================================
-                   HERO
-                   ============================================================ */
+        .language-panel .theme-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: #ddd;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .language-panel .theme-item:hover {
+            background: rgba(108, 92, 231, 0.15);
+            color: #fff;
+        }
+
+        .language-panel .theme-item .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
+        }
+
+        .language-panel .font-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: #ddd;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .language-panel .font-item:hover {
+            background: rgba(108, 92, 231, 0.15);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<!-- ===== LANGUAGE PANEL ===== -->
+<div class="language-toggle" onclick="togglePanel()">
+    <span>🇮🇷</span>
+    <span>فارسی</span>
+    <span>▼</span>
+</div>
+
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 انتخاب زبان</div>
+    <a href="../fa/index.html" class="lang-item active">
+        <span>🇮🇷</span>
+        <span>فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    <a href="../en/index.html" class="lang-item">
+        <span>🇺🇸</span>
+        <span>English</span>
+        <span class="lang-code">EN</span>
+    </a>
+
+    <hr class="divider">
+
+    <div class="panel-title">🎨 انتخاب تم</div>
+    <div class="theme-item" onclick="changeTheme('default')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
+        <span>پیش‌فرض (بنفش-آبی)</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('green')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#2D8A4E,#7CFC00)"></span>
+        <span>سبز ماینکرفت</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('orange')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#FF6B00,#FFD700)"></span>
+        <span>نارنجی-طلایی</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('blue')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#0A2463,#00B4D8)"></span>
+        <span>سلطنتی آبی</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('pink')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#9B5DE5,#F15BB5)"></span>
+        <span>صورتی-بنفش</span>
+    </div>
+
+    <hr class="divider">
+
+    <div class="panel-title">🔤 انتخاب فونت</div>
+    <div class="font-item" onclick="changeFont('inter')">
+        <span>📝 اینتر (مدرن)</span>
+    </div>
+    <div class="font-item" onclick="changeFont('vazirmatn')">
+        <span>📝 وزیرمتن</span>
+    </div>
+    <div class="font-item" onclick="changeFont('iransans')">
+        <span>📝 ایران‌سنس</span>
+    </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="custom-header">
+    <div class="custom-logo">💙 PackZone MC</div>
+    <nav class="custom-nav" id="mainNav">
+        <!-- توسط JS پر میشه -->
+    </nav>
+</header>
+
+<div class="container">
+    <div style="text-align:center;">
+        <span class="version-badge">✨ نسخه ۲.۰.۰ ✨</span>
+    </div>
+
+    <section class="hero">
+        <h2>به PackZone MC خوش آمدید 💙</h2>
+        <p>مرکز تخصصی پک‌های منبع برای ماینکرفت جاوا و بدراک</p>
+    </section>
+
+    <section class="about">
+        <h2>📌 درباره PackZone MC</h2>
+        <p>PackZone MC مجموعه‌ای است که به ارائه پک‌های منبع حرفه‌ای، پک‌های PvP، تبدیل پک‌ها و ابزارهای مفید ماینکرفت اختصاص دارد. هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
+    </section>
+
+    <section class="menu-box">
+        <div class="small-card">
+            <h3>🎮 پک‌های میستی برای بدراک</h3>
+            <p>مجموعه پک‌های میستی که به بدراک پورت شده‌اند</p>
+            <div class="card-actions">
+                <a href="mysmce.html" class="btn-card">مشاهده مجموعه</a>
+            </div>
+        </div>
+
+        <div class="small-card">
+            <h3>📄 ساخت مانیفست</h3>
+            <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
+            <div class="card-actions">
+                <a href="manifest.html" class="btn-card btn-card-gold">شروع ساخت</a>
+            </div>
+        </div>
+
+        <div class="small-card">
+            <h3>🟦 پک‌های جاوا ادیشن</h3>
+            <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
+            <div class="card-actions">
+                <a href="java.html" class="btn-card">مرور جاوا</a>
+            </div>
+        </div>
+
+        <div class="small-card">
+            <h3>🟩 پک‌های بدراک ادیشن</h3>
+            <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
+            <div class="card-actions">
+                <a href="bedrock.html" class="btn-card btn-card-green">دانلود</a>
+            </div>
+        </div>
+
+        <div class="small-card">
+            <h3>📦 پک‌های من</h3>
+            <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
+            <div class="card-actions">
+                <a href="my-packs.html" class="btn-card">مشاهده اختصاصی‌ها</a>
+            </div>
+        </div>
+
+        <div class="small-card">
+            <h3>📦 ساخت pack.mcmeta جاوا</h3>
+            <p>فایل pack.mcmeta را بدون کدنویسی برای پک جاوا بسازید</p>
+            <div class="card-actions">
+                <a href="mcmeta.html" class="btn-card btn-card-gold">ساخت</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>© PackZone MC 💙</footer>
+    <script>
+        function togglePanel() {
+            const panel = document.getElementById('languagePanel');
+            panel.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('languagePanel');
+            const toggle = document.querySelector('.language-toggle');
+            if (!toggle.contains(event.target) && !panel.contains(event.target)) {
+                panel.classList.remove('open');
+            }
+        });
+
+        function changeTheme(theme) {
+            document.body.className = '';
+            document.body.classList.add('theme-' + theme);
+            localStorage.setItem('selectedTheme', theme);
+            document.getElementById('languagePanel').classList.remove('open');
+            showToast('✅ تم با موفقیت تغییر کرد!');
+        }
+
+        function changeFont(font) {
+            document.body.classList.remove('font-inter', 'font-vazirmatn', 'font-iransans');
+            let fontClass = '';
+            switch (font) {
+                case 'inter':
+                    fontClass = 'font-inter';
+                    break;
+                case 'vazirmatn':
+                    fontClass = 'font-vazirmatn';
+                    break;
+                case 'iransans':
+                    fontClass = 'font-iransans';
+                    break;
+            }
+            if (fontClass) document.body.classList.add(fontClass);
+            localStorage.setItem('selectedFont', font);
+            document.getElementById('languagePanel').classList.remove('open');
+            showToast('✅ فونت با موفقیت تغییر کرد!');
+        }
+
+        function showToast(message) {
+            const old = document.querySelector('.toast-message');
+            if (old) old.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 2500);
+        }
+
+        function updateHeader() {
+            const nav = document.getElementById('mainNav');
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40';
+
+                nav.innerHTML = `
+                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
+                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'کاربر'}</span>
+                    <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
+                    <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
+                    <a href="login.html" class="btn-login">🔐 ورود</a>
+                `;
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                showToast('👋 شما با موفقیت خارج شدید');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) document.body.classList.add('theme-' + savedTheme);
+
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                const map = {
+                    inter: 'font-inter',
+                    vazirmatn: 'font-vazirmatn',
+                    iransans: 'font-iransans'
+                };
+                if (map[savedFont]) document.body.classList.add(map[savedFont]);
+            }
+
+            updateHeader();
+        });
+    </script>
+
+    <style>
         .hero {
             text-align: center;
             padding: 50px 20px 40px;
@@ -371,9 +690,6 @@
             z-index: 1;
         }
 
-        /* ============================================================
-                   ABOUT
-                   ============================================================ */
         .about {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
@@ -401,9 +717,6 @@
             line-height: 1.9;
         }
 
-        /* ============================================================
-                   GRID
-                   ============================================================ */
         .menu-box {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -411,9 +724,6 @@
             margin-top: 10px;
         }
 
-        /* ============================================================
-                   SMALL CARDS
-                   ============================================================ */
         .small-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
@@ -514,9 +824,6 @@
             box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
         }
 
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
         footer {
             text-align: center;
             padding: 30px 20px 20px;
@@ -526,9 +833,6 @@
             font-size: 0.85rem;
         }
 
-        /* ============================================================
-                   TOAST
-                   ============================================================ */
         .toast-message {
             position: fixed;
             bottom: 30px;
@@ -559,9 +863,6 @@
             }
         }
 
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
         @media (max-width: 768px) {
             .custom-header {
                 flex-direction: column;
@@ -600,7 +901,7 @@
             .language-panel {
                 top: 130px;
                 right: 10px;
-                min-width: 180px;
+                min-width: 200px;
                 padding: 16px;
             }
             .small-card .btn-card {
@@ -628,198 +929,12 @@
                 font-size: 0.75rem;
                 padding: 6px 14px;
             }
+            .language-panel {
+                min-width: 170px;
+                padding: 12px;
+            }
         }
     </style>
-</head>
 
-<body>
-
-    <!-- ===== LANGUAGE TOGGLE ===== -->
-    <div class="language-toggle" onclick="togglePanel()">
-        <span>🇮🇷</span>
-        <span>فارسی</span>
-        <span>▼</span>
-    </div>
-
-    <div class="language-panel" id="languagePanel">
-        <div class="panel-title">🌍 انتخاب زبان</div>
-        <a href="../fa/index.html" class="lang-item active">
-            <span>🇮🇷</span>
-            <span>فارسی</span>
-            <span class="lang-code">FA</span>
-        </a>
-</div>
-    <!-- ===== HEADER ===== -->
-    <header class="custom-header">
-        <div class="custom-logo">💙 PackZone MC</div>
-        <nav class="custom-nav" id="mainNav">
-            <!-- توسط JS پر میشه -->
-        </nav>
-    </header>
-
-    <div class="container">
-
-        <!-- ===== VERSION BADGE ===== -->
-        <div style="text-align:center;">
-            <span class="version-badge">✨ نسخه ۲.۰.۰ ✨</span>
-        </div>
-
-        <!-- ===== HERO ===== -->
-        <section class="hero">
-            <h2>به PackZone MC خوش آمدید 💙</h2>
-            <p>مرکز تخصصی پک‌های منبع برای ماینکرفت جاوا و بدراک</p>
-        </section>
-
-        <!-- ===== ABOUT ===== -->
-        <section class="about">
-            <h2>📌 درباره PackZone MC</h2>
-            <p>PackZone MC مجموعه‌ای است که به ارائه پک‌های منبع حرفه‌ای، پک‌های PvP، تبدیل پک‌ها و ابزارهای مفید ماینکرفت اختصاص دارد. هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
-        </section>
-
-        <!-- ===== GRID ===== -->
-        <section class="menu-box">
-
-            <!-- ردیف ۱ -->
-            <div class="small-card">
-                <h3>🎮 پک‌های میستی برای بدراک</h3>
-                <p>مجموعه پک‌های میستی که به بدراک پورت شده‌اند</p>
-                <div class="card-actions">
-                    <a href="mysmce.html" class="btn-card">مشاهده مجموعه</a>
-                </div>
-            </div>
-
-            <div class="small-card">
-                <h3>📄 ساخت مانیفست</h3>
-                <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
-                <div class="card-actions">
-                    <a href="manifest.html" class="btn-card btn-card-gold">شروع ساخت</a>
-                </div>
-            </div>
-
-            <!-- ردیف ۲ -->
-            <div class="small-card">
-                <h3>🟦 پک‌های جاوا ادیشن</h3>
-                <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
-                <div class="card-actions">
-                    <a href="java.html" class="btn-card">مرور جاوا</a>
-                </div>
-            </div>
-
-            <div class="small-card">
-                <h3>🟩 پک‌های بدراک ادیشن</h3>
-                <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
-                <div class="card-actions">
-                    <a href="bedrock.html" class="btn-card btn-card-green">دانلود</a>
-                </div>
-            </div>
-
-            <!-- ردیف ۳ -->
-            <div class="small-card">
-                <h3>📦 پک‌های من</h3>
-                <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
-                <div class="card-actions">
-                    <a href="my-packs.html" class="btn-card">مشاهده اختصاصی‌ها</a>
-                </div>
-            </div>
-
-            <div class="small-card">
-                <h3>📦 ساخت pack.mcmeta جاوا</h3>
-                <p>فایل pack.mcmeta را بدون کدنویسی برای پک جاوا بسازید</p>
-                <div class="card-actions">
-                    <a href="mcmeta.html" class="btn-card btn-card-gold">ساخت</a>
-                </div>
-            </div>
-
-        </section>
-
-    </div>
-
-    <!-- ===== FOOTER ===== -->
-    <footer>© PackZone MC 💙</footer>
-
-    <script>
-        // ============================================================
-        // ===== ۱. توابع پنل زبان =====
-        // ============================================================
-
-        function togglePanel() {
-            const panel = document.getElementById('languagePanel');
-            panel.classList.toggle('open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const panel = document.getElementById('languagePanel');
-            const toggle = document.querySelector('.language-toggle');
-            if (!toggle.contains(event.target) && !panel.contains(event.target)) {
-                panel.classList.remove('open');
-            }
-        });
-
-        // ============================================================
-        // ===== ۲. توست (پیام) =====
-        // ============================================================
-
-        function showToast(message) {
-            const old = document.querySelector('.toast-message');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.className = 'toast-message';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => toast.remove(), 500);
-            }, 2500);
-        }
-
-        // ============================================================
-        // ===== ۳. مدیریت هدر بر اساس وضعیت کاربر =====
-        // ============================================================
-
-        function updateHeader() {
-            const nav = document.getElementById('mainNav');
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (user) {
-                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40';
-
-                nav.innerHTML = `
-                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
-                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'کاربر'}</span>
-                    <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
-                    <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
-                `;
-            } else {
-                nav.innerHTML = `
-                    <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
-                    <a href="login.html" class="btn-login">🔐 ورود</a>
-                `;
-            }
-        }
-
-        // ============================================================
-        // ===== ۴. خروج =====
-        // ============================================================
-
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
-            }
-        }
-
-        // ============================================================
-        // ===== ۵. بارگذاری صفحه =====
-        // ============================================================
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateHeader();
-        });
-</script>
 </body>
 </html>
