@@ -2,436 +2,485 @@
 <html lang="fa" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackZone MC | کالکشن رسمی MysMce</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>PackZone MC | پک‌های MysMce</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 40%, #0d0d2b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
 
-<link rel="stylesheet" href="../style.css">
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
+        /* ===== VERSION BADGE ===== */
+        .version-badge {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #a29bfe;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 4px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(108, 92, 231, 0.25);
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .main-logo {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        .hero p {
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ddd;
+            padding: 8px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: rgba(108, 92, 231, 0.25);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 22px 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;
+            margin-right: 10px;
+            margin-left: 10px;
+            vertical-align: top;
+        }
+
+        .card:hover {
+            border-color: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .card img {
+            width: 100%;
+            max-width: 240px;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .card img:hover {
+            border-color: #6c5ce7;
+            transform: scale(1.02);
+        }
+
+        .card h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin: 2px 0;
+        }
+
+        .card p span {
+            color: #7ec8ff;
+            font-weight: 500;
+        }
+
+        .card .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+        }
+
+        .card .btn-download:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== GRID ===== */
+        .menu-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 30px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .card {
+                max-width: 100%;
+                margin-right: 0;
+                margin-left: 0;
+                padding: 18px 14px;
+            }
+            .card img {
+                max-width: 100%;
+            }
+            .main-logo {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 14px 10px;
+            }
+            .card h3 {
+                font-size: 1rem;
+            }
+            .card .btn-download {
+                padding: 6px 18px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-<section class="hero">
-
-<h1 class="main-logo">
-💙 PackZone MC
-</h1>
-
-<a href="index.html" class="home-button">
-🏠 خانه
-</a>
-
-<h2>
-💎 کالکشن رسمی MysMce
-</h2>
-
-<p>
-۱۸ ریسورس‌پک حرفه‌ای ماینکرفت بدراک
-</p>
-
-</section>
-
-
-<!-- Abyss Pack -->
-
-<div class="card">
-<img src="../Abyss.jpg" width="300">
-
-<h3>🎮 ابیس</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 15.82 مگابایت</p>
-
-<a href="../Abyss (16x) ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Bermuda Pack -->
-
-<div class="card">
-<img src="../Bermuda.jpg" width="300">
-
-<h3>🎮 برمودا 32x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 32x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 22.73 مگابایت</p>
-
-<a href="../Bermuda 32x ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- BixPix Pack -->
-
-<div class="card">
-<img src="../BixPix.jpg" width="300">
-
-<h3>🎮 بیکس پیکس 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 8.15 مگابایت</p>
-
-<a href="../BixPix (16x) ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- BlackHole Pack -->
-
-<div class="card">
-<img src="../Black hole.jpg" width="300">
-
-<h3>🎮 بلک هول 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 7.33 مگابایت</p>
-
-<a href="../BlackHole 16x ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- DARK-NØVA Pack -->
-
-<div class="card">
-<img src="../DarkNØVA.jpg" width="300">
-
-<h3>🎮 دارک-نوا 32x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 32x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 24.94 مگابایت</p>
-
-<a href="../DARK-NØVA [32x] ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Elysium Pack -->
-
-<div class="card">
-<img src="../Elysium.jpg" width="300">
-
-<h3>🎮 الیسیوم 32x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 32x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 19.71 مگابایت</p>
-
-<a href="../Elysium ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Erph4n v1 Pack -->
-
-<div class="card">
-
-<img src="../Erph4n v1.jpg" width="300">
-
-<h3>🎮 ارفان نسخه ۱</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 21.23 مگابایت</p>
-
-<a href="../Erph4n-v1 (16x) ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Erph4n v2 Pack -->
-
-<div class="card">
-
-<img src="../Erph4n v2.jpg" width="300">
-
-<h3>🎮 ارفان نسخه ۲</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 23.47 مگابایت</p>
-
-<a href="../Erph4n-v2  (16x) ـ  bedrock by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Gliese 16x Pack -->
-
-<div class="card">
-
-<img src="../Gliese 16x.jpg" width="300">
-
-<h3>🎮 گلیز 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 3.65 مگابایت</p>
-
-<a href="../Gliese 16x ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Gliese 32x Pack -->
-
-<div class="card">
-
-<img src="../Gliese 32x.jpg" width="300">
-
-<h3>🎮 گلیز 32x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 32x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 4.87 مگابایت</p>
-
-<a href="../Gliese 32X ـ Bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Jason Voorhees Pack -->
-
-<div class="card">
-
-<img src="../Jason.jpg" width="300">
-
-<h3>🎮 جیسون ورهیز 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 8.75 مگابایت</p>
-
-<a href="../jason voorhees 16x ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Kepler Pack -->
-
-<div class="card">
-
-<img src="../Kepler.jpg" width="300">
-
-<h3>🎮 کپلر 7.5k</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 32x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 21.18 مگابایت</p>
-
-<a href="../Kepler 7.5k ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- M00N Pack -->
-
-<div class="card">
-
-<img src="../M00N.jpg" width="300">
-
-<h3>🎮 مون 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 21.18 مگابایت</p>
-
-<a href="../M00N (16x) ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Mysticism 5k Pack -->
-
-<div class="card">
-
-<img src="../Mysticism 5k.jpg" width="300">
-
-<h3>🎮 میستیسیزم 5k</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 16.97 مگابایت</p>
-
-<a href="../Mysticism 5k (16x) ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- MysMce 3k Pack -->
-
-<div class="card">
-
-<img src="../MysMce 3k.jpg" width="300">
-
-<h3>🎮 میس ام سی 3k</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 10.56 مگابایت</p>
-
-<a href="../MysMce_3k.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Rigel Pack -->
-
-<div class="card">
-
-<img src="../Rigel.jpg" width="300">
-
-<h3>🎮 ریگل 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 13.30 مگابایت</p>
-
-<a href="../Rigel 16x ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Saturn Pack -->
-
-<div class="card">
-
-<img src="../Saturn.jpg" width="300">
-
-<h3>🎮 زحل 16x</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 24.98 مگابایت</p>
-
-<a href="../Saturn ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-
-<!-- Telalco Pack -->
-
-<div class="card">
-
-<img src="../Telalco.jpg" width="300">
-
-<h3>🎮 تلالکو 13.2k</h3>
-
-<p>👤 سازنده : MysMce</p>
-<p>🔧 پورتر : AmirPZ</p>
-<p>🎮 نسخه : بدراک</p>
-<p>⭐ رزولوشن : 16x</p>
-<p>📱 نسخه بازی : 1.16.2+</p>
-<p>📦 حجم : 5.71 مگابایت</p>
-
-<a href="../Telalco 13.2k ـ bedrocked by PZMC.mcpack" download>
-⬇️ دانلود
-</a>
-
-</div>
-
-<footer>
-
-© PackZone MC 💙
-
-</footer>
-
-<script src="../language.js"></script>
-
+    <div class="container">
+
+        <!-- ===== VERSION BADGE ===== -->
+        <div style="text-align:center;">
+            <span class="version-badge">💎 کالکشن رسمی MysMce</span>
+        </div>
+
+        <!-- ===== HERO ===== -->
+        <section class="hero">
+            <h1 class="main-logo">💙 PackZone MC</h1>
+            <a href="index.html" class="home-button">🏠 خانه</a>
+            <h2>💎 کالکشن رسمی MysMce</h2>
+            <p>۱۸ ریسورس‌پک حرفه‌ای ماینکرفت بدراک</p>
+        </section>
+
+        <section class="menu-box">
+            <!-- ===== Abyss ===== -->
+            <div class="card">
+                <img src="/Abyss.jpg" alt="Abyss">
+                <h3>🎮 ابیس</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>15.82 مگابایت</span></p>
+                <a href="/Abyss%20(16x)%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Bermuda ===== -->
+            <div class="card">
+                <img src="/Bermuda.jpg" alt="Bermuda">
+                <h3>🎮 برمودا 32x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>32x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>22.73 مگابایت</span></p>
+                <a href="/Bermuda%2032x%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== BixPix ===== -->
+            <div class="card">
+                <img src="/BixPix.jpg" alt="BixPix">
+                <h3>🎮 بیکس پیکس 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>8.15 مگابایت</span></p>
+                <a href="/BixPix%20(16x)%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== BlackHole ===== -->
+            <div class="card">
+                <img src="/Black%20hole.jpg" alt="BlackHole">
+                <h3>🎮 بلک هول 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>7.33 مگابایت</span></p>
+                <a href="/BlackHole%2016x%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== DARK-NØVA ===== -->
+            <div class="card">
+                <img src="/DarkN%C3%98VA.jpg" alt="DARK-NØVA">
+                <h3>🎮 دارک-نوا 32x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>32x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>24.94 مگابایت</span></p>
+                <a href="/DARK-N%C3%98VA%20%5B32x%5D%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Elysium ===== -->
+            <div class="card">
+                <img src="/Elysium.jpg" alt="Elysium">
+                <h3>🎮 الیسیوم 32x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>32x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>19.71 مگابایت</span></p>
+                <a href="/Elysium%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Erph4n v1 ===== -->
+            <div class="card">
+                <img src="/Erph4n%20v1.jpg" alt="Erph4n v1">
+                <h3>🎮 ارفان نسخه ۱</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>21.23 مگابایت</span></p>
+                <a href="/Erph4n-v1%20(16x)%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Erph4n v2 ===== -->
+            <div class="card">
+                <img src="/Erph4n%20v2.jpg" alt="Erph4n v2">
+                <h3>🎮 ارفان نسخه ۲</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>23.47 مگابایت</span></p>
+                <a href="/Erph4n-v2%20%20(16x)%20%E2%80%94%20%20bedrock%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Gliese 16x ===== -->
+            <div class="card">
+                <img src="/Gliese%2016x.jpg" alt="Gliese 16x">
+                <h3>🎮 گلیز 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>3.65 مگابایت</span></p>
+                <a href="/Gliese%2016x%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Gliese 32x ===== -->
+            <div class="card">
+                <img src="/Gliese%2032x.jpg" alt="Gliese 32x">
+                <h3>🎮 گلیز 32x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>32x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>4.87 مگابایت</span></p>
+                <a href="/Gliese%2032X%20%E2%80%94%20Bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Jason ===== -->
+            <div class="card">
+                <img src="/Jason.jpg" alt="Jason">
+                <h3>🎮 جیسون ورهیز 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>8.75 مگابایت</span></p>
+                <a href="/jason%20voorhees%2016x%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Kepler ===== -->
+            <div class="card">
+                <img src="/Kepler.jpg" alt="Kepler">
+                <h3>🎮 کپلر 7.5k</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>32x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>21.18 مگابایت</span></p>
+                <a href="/Kepler%207.5k%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== M00N ===== -->
+            <div class="card">
+                <img src="/M00N.jpg" alt="M00N">
+                <h3>🎮 مون 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>21.18 مگابایت</span></p>
+                <a href="/M00N%20(16x)%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Mysticism 5k ===== -->
+            <div class="card">
+                <img src="/Mysticism%205k.jpg" alt="Mysticism 5k">
+                <h3>🎮 میستیسیزم 5k</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>16.97 مگابایت</span></p>
+                <a href="/Mysticism%205k%20(16x)%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== MysMce 3k ===== -->
+            <div class="card">
+                <img src="/MysMce%203k.jpg" alt="MysMce 3k">
+                <h3>🎮 میس ام سی 3k</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>10.56 مگابایت</span></p>
+                <a href="/MysMce_3k.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Rigel ===== -->
+            <div class="card">
+                <img src="/Rigel.jpg" alt="Rigel">
+                <h3>🎮 ریگل 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>13.30 مگابایت</span></p>
+                <a href="/Rigel%2016x%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Saturn ===== -->
+            <div class="card">
+                <img src="/Saturn.jpg" alt="Saturn">
+                <h3>🎮 زحل 16x</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>24.98 مگابایت</span></p>
+                <a href="/Saturn%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+            <!-- ===== Telalco ===== -->
+            <div class="card">
+                <img src="/Telalco.jpg" alt="Telalco">
+                <h3>🎮 تلالکو 13.2k</h3>
+                <p>👤 سازنده : <span>MysMce</span></p>
+                <p>🔧 پورتر : <span>AmirPZ</span></p>
+                <p>🎮 نسخه : <span>بدراک</span></p>
+                <p>⭐ رزولوشن : <span>16x</span></p>
+                <p>📱 نسخه بازی : <span>1.16.2+</span></p>
+                <p>📦 حجم : <span>5.71 مگابایت</span></p>
+                <a href="/Telalco%2013.2k%20%E2%80%94%20bedrocked%20by%20PZMC.mcpack" download class="btn-download">⬇️ دانلود</a>
+            </div>
+
+        </section>
+
+        <footer>© PackZone MC 💙</footer>
+
+    </div>
 </body>
-
 </html>
