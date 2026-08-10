@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Pack Builder Pro | PackZone MC</title>
+
+    <!-- فونت وزیرمتن -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+                   استایل مانیفست بولدر
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1040, #0d0d2b);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .card p {
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #fdcb6e, #f39c12);
+            color: #1a1a2e;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   انتخاب پوشه‌ها (چک‌باکس)
+                   ============================================================ */
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .folder-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .folder-item:hover {
+            background: rgba(108, 92, 231, 0.1);
+            border-color: #6c5ce7;
+        }
+
+        .folder-item.selected {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.15);
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.1);
+        }
+
+        .folder-item .icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .folder-item .check {
+            display: none;
+            color: #6c5ce7;
+            font-size: 1rem;
+        }
+
+        .folder-item.selected .check {
+            display: inline;
+        }
+
+        .folder-item .sub-label {
+            font-size: 0.7rem;
+            color: #666;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   انتخاب همه
+                   ============================================================ */
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 12px 0;
+        }
+
+        .select-all input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #6c5ce7;
+            cursor: pointer;
+        }
+
+        /* ============================================================
+                   آپلود فایل
+                   ============================================================ */
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 16px 0;
+        }
+
+        .upload-area:hover {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.03);
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        .file-info {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 16px;
+            border-radius: 12px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #aaa;
+            word-break: break-all;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        /* ============================================================
+                   دکمه
+                   ============================================================ */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ============================================================
+                   Toast
+                   ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 32, 56, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 14px 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            color: #fff;
+            z-index: 999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            font-size: 0.95rem;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ============================================================
+                   Responsive
+                   ============================================================ */
+        @media (max-width: 600px) {
+            .folder-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card {
+                padding: 20px 16px;
+            }
+            .price-tag {
+                font-size: 0.8rem;
+                padding: 4px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2>🎨 Resource Pack Builder <span class="price-tag">۷۵ تومن</span></h2>
+            <p>پوشه‌های مورد نظر خود را انتخاب کنید و فایل ZIP ریسورس‌پک خود را آپلود کنید.</p>
+
+            <!-- ===== انتخاب همه ===== -->
+            <div class="select-all" onclick="toggleAllFolders()">
+                <input type="checkbox" id="selectAllCheckbox">
+                <label for="selectAllCheckbox" style="font-weight:600;cursor:pointer;">📁 انتخاب همه پوشه‌ها</label>
+            </div>
+
+            <!-- ===== پوشه‌ها ===== -->
+            <div class="folder-grid" id="folderGrid">
+                <!-- items -->
+                <div class="folder-item" data-folder="items" onclick="toggleFolder(this)">
+                    <span class="icon">🧱</span> items
+                    <span class="check">✅</span>
+                    <span class="sub-label">انتخاب آیتم‌ها</span>
+                </div>
+
+                <!-- blocks -->
+                <div class="folder-item" data-folder="blocks" onclick="toggleFolder(this)">
+                    <span class="icon">🟦</span> blocks
+                    <span class="check">✅</span>
+                    <span class="sub-label">انتخاب بلوک‌ها</span>
+                </div>
+
+                <!-- gui -->
+                <div class="folder-item" data-folder="gui" onclick="toggleFolder(this)">
+                    <span class="icon">🖥️</span> gui
+                    <span class="check">✅</span>
+                    <span class="sub-label">gui.png, widgets.png, icons.png</span>
+                </div>
+
+                <!-- environment -->
+                <div class="folder-item" data-folder="environment" onclick="toggleFolder(this)">
+                    <span class="icon">🌍</span> environment
+                    <span class="check">✅</span>
+                    <span class="sub-label">cubemap, clouds, destroy_stage</span>
+                </div>
+
+                <!-- misc -->
+                <div class="folder-item" data-folder="misc" onclick="toggleFolder(this)">
+                    <span class="icon">📎</span> misc
+                    <span class="check">✅</span>
+                    <span class="sub-label">enchanted_item_glint.png</span>
+                </div>
+
+                <!-- particle -->
+                <div class="folder-item" data-folder="particle" onclick="toggleFolder(this)">
+                    <span class="icon">✨</span> particle
+                    <span class="check">✅</span>
+                    <span class="sub-label">particles.png</span>
+                </div>
+
+                <!-- font -->
+                <div class="folder-item" data-folder="font" onclick="toggleFolder(this)">
+                    <span class="icon">🔤</span> font
+                    <span class="check">✅</span>
+                    <span class="sub-label">default8.png</span>
+                </div>
+            </div>
+
+            <!-- ===== آپلود فایل ===== -->
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <span style="font-size:2rem;">📤</span>
+                <p style="margin-top:6px;">کلیک کنید یا فایل ZIP خود را بکشید اینجا</p>
+                <p style="font-size:0.8rem;color:#666;">فقط فایل ZIP</p>
+                <input type="file" id="fileInput" accept=".zip" onchange="handleFile(event)">
+            </div>
+
+            <div class="file-info" id="fileInfo">
+                <span id="fileName"></span> (<span id="fileSize"></span> MB)
+      </div>
+            <!-- ===== دکمه ساخت ===== -->
+            <button class="btn-primary" id="buildBtn" disabled onclick="startBuild()">🚀 ساخت پک اختصاصی (۷۵ تومن)</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== JSZip ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+    </script>
+
+    <script>
+        // ============================================================
+        // انتخاب پوشه‌ها
+        // ============================================================
+        let selectedFolders = [];
+
+        function toggleFolder(el) {
+            el.classList.toggle('selected');
+            updateSelectedFolders();
+        }
+
+        function toggleAllFolders() {
+            const checked = document.getElementById('selectAllCheckbox').checked;
+            document.querySelectorAll('.folder-item').forEach(item => {
+                if (checked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            updateSelectedFolders();
+        }
+
+        function updateSelectedFolders() {
+            selectedFolders = [];
+            document.querySelectorAll('.folder-item.selected').forEach(item => {
+                selectedFolders.push(item.dataset.folder);
+            });
+
+            const btn = document.getElementById('buildBtn');
+            const fileInfo = document.getElementById('fileInfo');
+
+            if (selectedFolders.length > 0 && fileInfo.classList.contains('show')) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        }
+
+        // ============================================================
+        // آپلود فایل
+        // ============================================================
+        let uploadedFile = null;
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.name.endsWith('.zip')) {
+                showToast('❌ لطفاً یک فایل ZIP انتخاب کنید');
+                event.target.value = '';
+                return;
+            }
+
+            uploadedFile = file;
+            const info = document.getElementById('fileInfo');
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = (file.size / 1024 / 1024).toFixed(2);
+            info.classList.add('show');
+
+            updateSelectedFolders();
+        }
+
+        // ============================================================
+        // شروع ساخت
+        // ============================================================
+        function startBuild() {
+            if (!uploadedFile) {
+                showToast('❌ لطفاً یک فایل ZIP آپلود کنید');
+                return;
+            }
+
+            if (selectedFolders.length === 0) {
+                showToast('❌ حداقل یک پوشه را انتخاب کنید');
+                return;
+            }
+
+            showToast('🔄 در حال پردازش فایل... لطفاً صبر کنید');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    JSZip.loadAsync(data).then(function(sourceZip) {
+                        const newZip = new JSZip();
+
+                        // پیدا کردن پوشه textures
+                        let texturePath = null;
+                        const allFiles = Object.keys(sourceZip.files);
+
+                        for (let path of allFiles) {
+                            if (path.includes('assets/minecraft/textures/')) {
+                                const parts = path.split('textures/');
+                                if (parts.length > 1) {
+                                    texturePath = parts[0] + 'textures/';
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!texturePath) {
+                            showToast('❌ پوشه textures پیدا نشد! مطمئن شوید فایل ZIP ریسورس‌پک است.');
+                            return;
+                        }
+
+                        // لیست فایل‌های مورد نظر برای هر پوشه
+                        const folderFiles = {
+                            'gui': ['gui.png', 'widgets.png', 'icons.png'],
+                            'environment': [
+                                'clouds.png',
+                                'destroy_stage_0.png', 'destroy_stage_1.png', 'destroy_stage_2.png',
+                                'destroy_stage_3.png', 'destroy_stage_4.png', 'destroy_stage_5.png',
+                                'destroy_stage_6.png', 'destroy_stage_7.png', 'destroy_stage_8.png',
+                                'destroy_stage_9.png',
+                                'cubemap_0.png', 'cubemap_1.png', 'cubemap_2.png',
+                                'cubemap_3.png', 'cubemap_4.png', 'cubemap_5.png'
+                            ],
+                            'misc': ['enchanted_item_glint.png'],
+                            'particle': ['particles.png'],
+                            'font': ['default8.png']
+                        };
+
+                        let found = false;
+
+                        for (let path in sourceZip.files) {
+                            if (sourceZip.files[path].dir) continue;
+
+                            // بررسی هر پوشه انتخاب شده
+                            for (let folder of selectedFolders) {
+                                // اگر پوشه items یا blocks باشه، همه فایل‌های داخلش رو کپی کن
+                                if (folder === 'items' || folder === 'blocks') {
+                                    if (path.includes(texturePath + folder + '/')) {
+                                        newZip.file(path, sourceZip.files[path].async('blob'));
+                                        found = true;
+                                        continue;
+                                    }
+                                }
+
+                                // پوشه‌های خاص (gui, environment, misc, particle, font)
+                                if (folderFiles[folder]) {
+                                    const fileName = path.split('/').pop();
+                                    if (folderFiles[folder].includes(fileName) && path.includes(texturePath + folder +
+                                        '/')) {
+                                        newZip.file(path, sourceZip.files[path].async('blob'));
+                                        found = true;
+                                    }
+                                }
+                            }
+
+                            // کپی pack.mcmeta و pack.png
+                            if (path === 'pack.mcmeta' || path === 'pack.png') {
+                                newZip.file(path, sourceZip.files[path].async('blob'));
+                            }
+                        }
+
+                        if (!found) {
+                            showToast('⚠️ هیچ فایلی از پوشه‌های انتخاب شده پیدا نشد!');
+                            return;
+                        }
+
+                        // ساخت ZIP نهایی
+                        newZip.generateAsync({ type: 'blob' }).then(function(content) {
+                            // ===== درگاه پرداخت (شبیه‌سازی) =====
+                            showToast('✅ پک با موفقیت ساخته شد! در حال انتقال به درگاه پرداخت...');
+
+                            setTimeout(() => {
+                                const link = document.createElement('a');
+                                link.href = URL.createObjectURL(content);
+                                link.download = 'custom_resource_pack.zip';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                                showToast('🎉 دانلود پک اختصاصی شما شروع شد!');
+                            }, 2000);
+                        });
+
+                    }).catch(function(err) {
+                        showToast('❌ خطا در پردازش ZIP: ' + err.message);
+                    });
+                } catch (err) {
+                    showToast('❌ خطا: ' + err.message);
+                }
+            };
+
+            reader.readAsArrayBuffer(uploadedFile);
+        }
+
+        // ============================================================
+        // Toast
+        // ============================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ============================================================
+        // مقداردهی اولیه
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // پیش‌انتخاب همه پوشه‌ها
+            document.querySelectorAll('.folder-item').forEach(item => {
+                item.classList.add('selected');
+            });
+            document.getElementById('selectAllCheckbox').checked = true;
+            updateSelectedFolders();
+        });
+    </script>
+
+</body>
+</html>
