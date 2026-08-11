@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | کالکشن Deiwer</title>
+    <title>PackZone MC | کالکشن dewier</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -13,238 +19,888 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #4a3db8;
+            --secondary: #fd79a8;
+            --secondary-light: #ffb8d0;
+            --gold: #fdcb6e;
+            --gold-dark: #f39c12;
+            --gold-light: #ffeaa7;
+            --bg-dark: #0a0a1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(108, 92, 231, 0.25);
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #888888;
+            --shadow: 0 8px 32px rgba(108, 92, 231, 0.12);
+            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.2);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --radius-xs: 10px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+            --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
+            --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-secondary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-arabic: 'Noto Sans Arabic', 'Vazirmatn', sans-serif;
+            --font-serif: 'Amiri', 'Vazirmatn', serif;
+            --font-cairo: 'Cairo', 'Vazirmatn', sans-serif;
+            --font-minecraft: 'Minecraft', 'Vazirmatn', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 40%, #0d0d2b 100%);
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #0a0a1a 0%, #12082a 25%, #1a1040 50%, #0d0d2b 75%, #0a0a1a 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            padding: 20px;
-            color: #e0e0e0;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding: 0;
+            margin: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 20px 40px;
+            position: relative;
+            z-index: 1;
         }
 
-        .version-badge {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #a29bfe;
-            background: rgba(108, 92, 231, 0.15);
-            padding: 4px 20px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid rgba(108, 92, 231, 0.25);
-            letter-spacing: 1px;
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .hero {
-            text-align: center;
-            padding: 40px 20px 30px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
+        .glass-strong {
+            background: rgba(13, 32, 56, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            margin-bottom: 30px;
         }
 
-        .main-logo {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .font-primary {
+            font-family: var(--font-primary) !important;
+        }
+        .font-secondary {
+            font-family: var(--font-secondary) !important;
+        }
+        .font-arabic {
+            font-family: var(--font-arabic) !important;
+        }
+        .font-serif {
+            font-family: var(--font-serif) !important;
+        }
+        .font-cairo {
+            font-family: var(--font-cairo) !important;
+        }
+        .font-minecraft {
+            font-family: var(--font-minecraft) !important;
         }
 
-        .hero h2 {
-            color: #fff;
-            font-size: 1.8rem;
-            margin-top: 10px;
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .hero p {
-            color: #aaa;
-            margin-top: 8px;
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
         }
-
-        .home-button {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ddd;
-            padding: 8px 22px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
-
-        .home-button:hover {
-            background: rgba(108, 92, 231, 0.25);
-            border-color: #6c5ce7;
-            color: #fff;
-            transform: scale(1.05);
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
         }
+    </style>
+</head>
 
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 22px 20px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-            text-align: center;
-            display: inline-block;
-            width: 100%;
-            max-width: 280px;
-            margin-right: 10px;
-            margin-left: 10px;
-            vertical-align: top;
-        }
+<body>
+<!-- ===== HEADER ===== -->
+<header class="custom-header glass-strong" id="mainHeader">
+    <div class="custom-logo">💙 PackZone MC</div>
+    <nav class="custom-nav" id="mainNav">
+        <!-- توسط JS پر میشه -->
+    </nav>
+</header>
 
-        .card:hover {
-            border-color: rgba(108, 92, 231, 0.2);
-            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
-            transform: translateY(-4px);
-        }
+<style>
+    .custom-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 30px;
+        background: rgba(13, 32, 56, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 2px solid rgba(108, 92, 231, 0.12);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: var(--transition);
+    }
 
-        .card img {
-            width: 100%;
-            max-width: 240px;
-            border-radius: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-        }
+    .custom-header:hover {
+        border-bottom-color: rgba(108, 92, 231, 0.25);
+    }
 
-        .card img:hover {
-            border-color: #6c5ce7;
-            transform: scale(1.02);
-        }
+    .custom-logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+    }
 
-        .card h3 {
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #7ec8ff, #a29bfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .custom-logo:hover {
+        transform: scale(1.02);
+    }
 
-        .card p {
-            color: #aaa;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            margin: 2px 0;
-        }
+    .custom-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 
-        .card p span {
-            color: #7ec8ff;
-            font-weight: 500;
-        }
+    .custom-nav .btn-signup {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
 
-        .card .btn-download {
-            display: inline-block;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: #fff;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 12px;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
-        }
+    .custom-nav .btn-signup:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.25);
+    }
 
-        .card .btn-download:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
-        }
+    .custom-nav .btn-login {
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 18px;
+        transition: var(--transition);
+        border-radius: 30px;
+        font-size: 0.9rem;
+    }
 
-        .card-actions {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
+    .custom-nav .btn-login:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+    }
 
-        .card-actions button {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ddd;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+    .custom-nav .btn-dashboard {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 18px;
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
+    }
 
-        .card-actions button:hover {
-            background: rgba(108, 92, 231, 0.15);
-            border-color: #6c5ce7;
-            color: #fff;
-        }
+    .custom-nav .btn-dashboard:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
+    }
 
-        .card-actions .copy-btn {
-            background: rgba(0, 200, 83, 0.1);
-            border-color: rgba(0, 200, 83, 0.2);
-            color: #00c853;
-        }
+    .custom-nav .btn-logout {
+        background: rgba(255, 23, 68, 0.12);
+        color: #ff1744;
+        border: 1px solid rgba(255, 23, 68, 0.2);
+        padding: 6px 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
 
-        .card-actions .copy-btn:hover {
-            background: rgba(0, 200, 83, 0.2);
-        }
+    .custom-nav .btn-logout:hover {
+        background: #ff1744;
+        color: #fff;
+        border-color: #ff1744;
+        transform: scale(1.04);
+    }
 
-        .card-actions .save-btn {
-            background: rgba(253, 203, 110, 0.1);
-            border-color: rgba(253, 203, 110, 0.2);
-            color: #fdcb6e;
-        }
+    .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid rgba(108, 92, 231, 0.3);
+        object-fit: cover;
+        cursor: pointer;
+        transition: var(--transition);
+    }
 
-        .card-actions .save-btn:hover {
-            background: rgba(253, 203, 110, 0.2);
-        }
+    .user-avatar:hover {
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
 
-        .card-actions .comment-btn {
-            background: rgba(108, 92, 231, 0.1);
-            border-color: rgba(108, 92, 231, 0.2);
-            color: #a29bfe;
-        }
+    .user-name {
+        color: var(--primary-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
 
-        .card-actions .comment-btn:hover {
-            background: rgba(108, 92, 231, 0.2);
-        }
+    .user-name:hover {
+        color: #fff;
+    }
 
-        .card-actions button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+    .version-badge {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #a29bfe;
+        background: rgba(108, 92, 231, 0.15);
+        padding: 4px 20px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        border: 1px solid rgba(108, 92, 231, 0.25);
+        letter-spacing: 1px;
+    }
 
-        .card-actions .copy-feedback {
-            font-size: 0.65rem;
-            color: #00c853;
-            margin-right: 4px;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
+    .hero {
+        text-align: center;
+        padding: 40px 20px 30px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 30px;
+    }
 
-        .card-actions .copy-feedback.show {
-            opacity: 1;
-        }
+    .main-logo {
+        font-size: 2.8rem;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
 
-        /* ===== Comment Modal ===== */
+    .hero h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+
+    .hero p {
+        color: #aaa;
+        margin-top: 8px;
+    }
+
+    .home-button {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.08);
+        color: #ddd;
+        padding: 8px 22px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .home-button:hover {
+        background: rgba(108, 92, 231, 0.25);
+        border-color: #6c5ce7;
+        color: #fff;
+        transform: scale(1.05);
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        padding: 22px 20px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.3s ease;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        max-width: 280px;
+        margin-right: 10px;
+        margin-left: 10px;
+        vertical-align: top;
+    }
+
+    .card:hover {
+        border-color: rgba(108, 92, 231, 0.2);
+        box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+        transform: translateY(-4px);
+    }
+
+    .card img {
+        width: 100%;
+        max-width: 240px;
+        border-radius: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    .card img:hover {
+        border-color: #6c5ce7;
+        transform: scale(1.02);
+    }
+
+    .card h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card p {
+        color: #aaa;
+        font-size: 0.85rem;
+        line-height: 1.8;
+        margin: 2px 0;
+    }
+
+    .card p span {
+        color: #7ec8ff;
+        font-weight: 500;
+    }
+
+    .card .btn-download {
+        display: inline-block;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        color: #fff;
+        border: none;
+        padding: 8px 24px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 12px;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
+
+    .card .btn-download:hover {
+        transform: scale(1.04);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+    }
+
+    .card-actions {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .card-actions button {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ddd;
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .card-actions button:hover {
+        background: rgba(108, 92, 231, 0.15);
+        border-color: #6c5ce7;
+        color: #fff;
+    }
+
+    .card-actions .copy-btn {
+        background: rgba(0, 200, 83, 0.1);
+        border-color: rgba(0, 200, 83, 0.2);
+        color: #00c853;
+    }
+
+    .card-actions .copy-btn:hover {
+        background: rgba(0, 200, 83, 0.2);
+    }
+
+    .card-actions .save-btn {
+        background: rgba(253, 203, 110, 0.1);
+        border-color: rgba(253, 203, 110, 0.2);
+        color: #fdcb6e;
+    }
+
+    .card-actions .save-btn:hover {
+        background: rgba(253, 203, 110, 0.2);
+    }
+
+    .card-actions .comment-btn {
+        background: rgba(108, 92, 231, 0.1);
+        border-color: rgba(108, 92, 231, 0.2);
+        color: #a29bfe;
+    }
+
+    .card-actions .comment-btn:hover {
+        background: rgba(108, 92, 231, 0.2);
+    }
+
+    .card-actions button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .card-actions .copy-feedback {
+        font-size: 0.65rem;
+        color: #00c853;
+        margin-right: 4px;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .card-actions .copy-feedback.show {
+        opacity: 1;
+    }
+
+    .menu-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        margin-top: 30px;
+    }
+</style>
+
+<div class="container">
+
+    <div style="text-align:center;">
+        <span class="version-badge">🔥 کالکشن dewier</span>
+    </div>
+
+    <section class="hero">
+        <h1 class="main-logo">💙 PackZone MC</h1>
+        <a href="index.html" class="home-button">🏠 خانه</a>
+        <h2>🔥 کالکشن dewier</h2>
+        <p>مجموعه‌ای از پک‌های حرفه‌ای dewier برای ماینکرفت بدراک</p>
+    </section>
+
+    <section class="menu-box">
+    <!-- dewier 2k -->
+<div class="card" data-pack="dewier 2k">
+    <img src="../assets/2k.jpg" width="300">
+    <h3>🎮 dewier 2k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
+    <p>📦 حجم : <span>10.33 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9x2j" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 2k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 2k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 2k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 2k Revamp -->
+<div class="card" data-pack="dewier 2k Revamp">
+    <img src="../assets/2krevamp.jpg" width="300">
+    <h3>🎮 dewier 2k Revamp</h3>
+    <p>👤 سازنده : <span>QUITTERS _Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
+    <p>📦 حجم : <span>15.24 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9XAR" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 2k Revamp')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 2k Revamp')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 2k Revamp', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 5k -->
+<div class="card" data-pack="dewier 5k">
+    <img src="../assets/5k.jpg" width="300">
+    <h3>🎮 dewier 5k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>16x</span></p>
+    <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
+    <p>📦 حجم : <span>21.96 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9X51" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 5k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 5k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 5k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 20k -->
+<div class="card" data-pack="dewier 20k">
+    <img src="../assets/20k.jpg" width="300">
+    <h3>🎮 dewier 20k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>16x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>35.02 MB</span></p>
+    <a href="https://my.uupload.ir/dl/aG55Aa88" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 20k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 20k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 20k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 30k -->
+<div class="card" data-pack="dewier 30k">
+    <img src="../assets/30k.jpg" width="300">
+    <h3>🎮 dewier 30k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>12.61 MB</span></p>
+    <a href="https://my.uupload.ir/dl/eyJJW87r" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 30k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 30k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 30k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 40k -->
+<div class="card" data-pack="dewier 40k">
+    <img src="../assets/40k.jpg" width="300">
+    <h3>🎮 dewier 40k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>16x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>15.28 MB</span></p>
+    <a href="https://my.uupload.ir/dl/v9VVwXgY" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 40k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 40k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 40k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 50k -->
+<div class="card" data-pack="dewier 50k">
+    <img src="../assets/50k.jpg" width="300">
+    <h3>🎮 dewier 50k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>19.01 MB</span></p>
+    <a href="https://my.uupload.ir/dl/kjLLGree" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 50k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 50k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 50k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 60k -->
+<div class="card" data-pack="dewier 60k">
+    <img src="../assets/60k.jpg" width="300">
+    <h3>🎮 dewier 60k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>13.26 MB</span></p>
+    <a href="https://my.uupload.ir/dl/6EAAvO9W" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 60k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 60k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 60k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 70k -->
+<div class="card" data-pack="dewier 70k">
+    <img src="../assets/70k.jpg" width="300">
+    <h3>🎮 dewier 70k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>17.97 MB</span></p>
+    <a href="https://my.uupload.ir/dl/Ndwwg54R" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 70k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 70k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 70k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 80k -->
+<div class="card" data-pack="dewier 80k">
+    <img src="../assets/80k.jpg" width="300">
+    <h3>🎮 dewier 80k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>32x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>49.93 MB</span></p>
+    <a href="https://my.uupload.ir/dl/EOkk1GzQ" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 80k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 80k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 80k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 90k -->
+<div class="card" data-pack="dewier 90k">
+    <img src="../assets/90k.jpg" width="300">
+    <h3>🎮 dewier 90k</h3>
+    <p>👤 سازنده : <span>Dewier</span></p>
+    <p>🔧 پورتر : <span>AmirPZ</span></p>
+    <p>🎮 نسخه : <span>بدراک</span></p>
+    <p>⭐ رزولوشن : <span>16x</span></p>
+    <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+    <p>📦 حجم : <span>5.36 MB</span></p>
+    <a href="https://my.uupload.ir/dl/2KDDeyjp" download class="btn-download">⬇️ دانلود</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 90k')">💬 نظر</button>
+        <button class="save-btn" onclick="savePack('dewier 90k')">⭐ ذخیره</button>
+        <button class="copy-btn" onclick="copyLink('dewier 90k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+    </div>
+    </div>
+            <!-- dewier 100k -->
+        <div class="card" data-pack="dewier 100k">
+            <img src="../assets/100k.jpg" width="300">
+            <h3>🎮 dewier 100k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>15.31 MB</span></p>
+            <a href="https://my.uupload.ir/dl/n2JJy866" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 100k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 100k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 100k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 110k -->
+        <div class="card" data-pack="dewier 110k">
+            <img src="../assets/110k.jpg" width="300">
+            <h3>🎮 dewier 110k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>13.17 MB</span></p>
+            <a href="https://my.uupload.ir/dl/yoWW286k" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 110k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 110k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 110k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 120k -->
+        <div class="card" data-pack="dewier 120k">
+            <img src="../assets/120k.jpg" width="300">
+            <h3>🎮 dewier 120k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>9.25 MB</span></p>
+            <a href="https://my.uupload.ir/dl/aG55A9bL" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 120k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 120k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 120k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 130k -->
+        <div class="card" data-pack="dewier 130k">
+            <img src="../assets/130k.jpg" width="300">
+            <h3>🎮 dewier 130k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>32x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>31.58 MB</span></p>
+            <a href="https://my.uupload.ir/dl/eyJJWLnm" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 130k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 130k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 130k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 140k -->
+        <div class="card" data-pack="dewier 140k">
+            <img src="../assets/140k.jpg" width="300">
+            <h3>🎮 dewier 140k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>20.73 MB</span></p>
+            <a href="https://my.uupload.ir/dl/aG55AkK7" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 140k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 140k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 140k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 150k -->
+        <div class="card" data-pack="dewier 150k">
+            <img src="../assets/150k.jpg" width="300">
+            <h3>🎮 dewier 150k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>16.95 MB</span></p>
+            <a href="https://my.uupload.ir/dl/4eXXE1pd" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 150k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 150k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 150k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 160k -->
+        <div class="card" data-pack="dewier 160k">
+            <img src="../assets/160k.jpg" width="300">
+            <h3>🎮 dewier 160k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>15.30 MB</span></p>
+            <a href="https://my.uupload.ir/dl/yoWW2DBD" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 160k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 160k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 160k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 170k -->
+        <div class="card" data-pack="dewier 170k">
+            <img src="../assets/170k.jpg" width="300">
+            <h3>🎮 dewier 170k</h3>
+            <p>👤 سازنده : <span>Dewier</span></p>
+            <p>🔧 پورتر : <span>AmirPZ</span></p>
+            <p>🎮 نسخه : <span>بدراک</span></p>
+            <p>⭐ رزولوشن : <span>16x</span></p>
+            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
+            <p>📦 حجم : <span>15.28 MB</span></p>
+            <a href="https://my.uupload.ir/dl/v9VVw4gb" download class="btn-download">⬇️ دانلود</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 170k')">💬 نظر</button>
+                <button class="save-btn" onclick="savePack('dewier 170k')">⭐ ذخیره</button>
+                <button class="copy-btn" onclick="copyLink('dewier 170k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>© PackZone MC 💙</footer>
+
+</div>
+    <!-- ===== Comment Modal ===== -->
+    <div class="comment-modal" id="commentModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="commentModalTitle">💬 نظرات</h3>
+                <button class="close-btn" onclick="closeCommentModal()">✕</button>
+            </div>
+            <div class="comments-list" id="commentsList"></div>
+            <div class="comment-input-area">
+                <input type="text" id="commentInput" placeholder="نظر خود را بنویسید..." maxlength="500">
+                <button class="send-btn" onclick="sendComment()">📤 ارسال</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
         .comment-modal {
             display: none;
             position: fixed;
@@ -259,11 +915,9 @@
             align-items: center;
             animation: fadeIn 0.3s ease;
         }
-
         .comment-modal.open {
             display: flex;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -274,7 +928,6 @@
                 transform: scale(1);
             }
         }
-
         .comment-modal .modal-box {
             background: #0d2038;
             padding: 30px;
@@ -287,7 +940,6 @@
             flex-direction: column;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
-
         .comment-modal .modal-header {
             display: flex;
             justify-content: space-between;
@@ -296,13 +948,11 @@
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
-
         .comment-modal .modal-header h3 {
             color: #7ec8ff;
             font-size: 1.1rem;
             font-weight: 700;
         }
-
         .comment-modal .modal-header .close-btn {
             background: none;
             border: none;
@@ -312,12 +962,10 @@
             transition: all 0.3s ease;
             padding: 0 8px;
         }
-
         .comment-modal .modal-header .close-btn:hover {
             color: #fff;
             transform: rotate(90deg);
         }
-
         .comment-modal .comments-list {
             flex: 1;
             overflow-y: auto;
@@ -325,7 +973,6 @@
             padding-right: 4px;
             max-height: 300px;
         }
-
         .comment-modal .comments-list::-webkit-scrollbar {
             width: 4px;
         }
@@ -336,7 +983,6 @@
             background: #6c5ce7;
             border-radius: 10px;
         }
-
         .comment-modal .comment-item {
             background: rgba(255, 255, 255, 0.03);
             padding: 10px 14px;
@@ -344,41 +990,35 @@
             margin-bottom: 8px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-
         .comment-modal .comment-item .comment-user {
             font-weight: 600;
             color: #7ec8ff;
             font-size: 0.85rem;
         }
-
         .comment-modal .comment-item .comment-text {
             color: #ddd;
             font-size: 0.9rem;
             margin-top: 4px;
             word-wrap: break-word;
         }
-
         .comment-modal .comment-item .comment-date {
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.2);
             margin-top: 4px;
             display: block;
         }
-
         .comment-modal .no-comments {
             color: rgba(255, 255, 255, 0.3);
             text-align: center;
             padding: 30px 0;
             font-size: 0.9rem;
         }
-
         .comment-modal .comment-input-area {
             display: flex;
             gap: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding-top: 12px;
         }
-
         .comment-modal .comment-input-area input {
             flex: 1;
             padding: 10px 14px;
@@ -391,15 +1031,12 @@
             transition: all 0.3s ease;
             font-family: inherit;
         }
-
         .comment-modal .comment-input-area input:focus {
             border-color: #6c5ce7;
         }
-
         .comment-modal .comment-input-area input::placeholder {
             color: rgba(255, 255, 255, 0.2);
         }
-
         .comment-modal .comment-input-area .send-btn {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             color: #fff;
@@ -413,32 +1050,14 @@
             font-family: inherit;
             white-space: nowrap;
         }
-
         .comment-modal .comment-input-area .send-btn:hover {
             transform: scale(1.04);
             box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
         }
-
         .comment-modal .comment-input-area .send-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
-        .menu-box {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: rgba(255, 255, 255, 0.15);
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            margin-top: 30px;
-        }
-
         .toast-message {
             position: fixed;
             bottom: 30px;
@@ -457,7 +1076,6 @@
             font-family: inherit !important;
             text-align: center;
         }
-
         @keyframes toastSlideUp {
             from {
                 opacity: 0;
@@ -468,439 +1086,37 @@
                 transform: translateX(-50%) translateY(0) scale(1);
             }
         }
-
         @media (max-width: 768px) {
-            .card {
-                max-width: 100%;
-                margin-right: 0;
-                margin-left: 0;
-                padding: 18px 14px;
-            }
-            .card img {
-                max-width: 100%;
-            }
-            .main-logo {
-                font-size: 2rem;
-            }
-            .hero h2 {
-                font-size: 1.4rem;
-            }
-            .card-actions {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .card-actions button {
-                font-size: 0.7rem;
-                padding: 4px 10px;
-            }
             .comment-modal .modal-box {
                 padding: 20px 16px;
                 max-width: 95%;
             }
         }
-
-        @media (max-width: 400px) {
-            body {
-                padding: 12px;
-            }
-            .card {
-                padding: 14px 10px;
-            }
-            .card h3 {
-                font-size: 1rem;
-            }
-            .card .btn-download {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            .card-actions button {
-                font-size: 0.65rem;
-                padding: 3px 8px;
-            }
-        }
     </style>
-</head>
-
-<body>
-<div class="container">
-
-    <div style="text-align:center;">
-        <span class="version-badge">🔥 کالکشن Deiwer</span>
-    </div>
-    <section class="hero">
-        <h1 class="main-logo">💙 PackZone MC</h1>
-        <a href="index.html" class="home-button">🏠 خانه</a>
-        <h2>🔥 کالکشن Deiwer</h2>
-        <p>مجموعه‌ای از پک‌های حرفه‌ای Deiwer برای ماینکرفت بدراک</p>
-    </section>
-
-    <section class="menu-box">
-        <!-- Deiwer 2k -->
-        <div class="card" data-pack="Deiwer 2k">
-            <img src="../assets/2k.jpg" width="300">
-            <h3>🎮 Deiwer 2k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
-            <p>📦 حجم : <span>10.33 MB</span></p>
-            <a href="https://my.uupload.ir/dl/0jkk9x2j" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 2k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 2k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 2k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 2k Revamp -->
-        <div class="card" data-pack="Deiwer 2k Revamp">
-            <img src="../assets/2krevamp.jpg" width="300">
-            <h3>🎮 Deiwer 2k Revamp</h3>
-            <p>👤 سازنده : <span>QUITTERS _Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
-            <p>📦 حجم : <span>15.24 MB</span></p>
-            <a href="https://my.uupload.ir/dl/0jkk9XAR" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 2k Revamp')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 2k Revamp')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 2k Revamp', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 5k -->
-        <div class="card" data-pack="Deiwer 5k">
-            <img src="../assets/5k.jpg" width="300">
-            <h3>🎮 Deiwer 5k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.16.2 - Latest</span></p>
-            <p>📦 حجم : <span>21.96 MB</span></p>
-            <a href="https://my.uupload.ir/dl/0jkk9X51" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 5k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 5k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 5k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 20k -->
-        <div class="card" data-pack="Deiwer 20k">
-            <img src="../assets/20k.jpg" width="300">
-            <h3>🎮 Deiwer 20k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>35.02 MB</span></p>
-            <a href="https://my.uupload.ir/dl/aG55Aa88" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 20k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 20k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 20k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 30k -->
-        <div class="card" data-pack="Deiwer 30k">
-            <img src="../assets/30k.jpg" width="300">
-            <h3>🎮 Deiwer 30k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>12.61 MB</span></p>
-            <a href="https://my.uupload.ir/dl/eyJJW87r" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 30k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 30k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 30k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 40k -->
-        <div class="card" data-pack="Deiwer 40k">
-            <img src="../assets/40k.jpg" width="300">
-            <h3>🎮 Deiwer 40k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>15.28 MB</span></p>
-            <a href="https://my.uupload.ir/dl/v9VVwXgY" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 40k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 40k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 40k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 50k -->
-        <div class="card" data-pack="Deiwer 50k">
-            <img src="../assets/50k.jpg" width="300">
-            <h3>🎮 Deiwer 50k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>19.01 MB</span></p>
-            <a href="https://my.uupload.ir/dl/kjLLGree" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 50k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 50k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 50k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 60k -->
-        <div class="card" data-pack="Deiwer 60k">
-            <img src="../assets/60k.jpg" width="300">
-            <h3>🎮 Deiwer 60k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>13.26 MB</span></p>
-            <a href="https://my.uupload.ir/dl/6EAAvO9W" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 60k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 60k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 60k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 70k -->
-        <div class="card" data-pack="Deiwer 70k">
-            <img src="../assets/70k.jpg" width="300">
-            <h3>🎮 Deiwer 70k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>17.97 MB</span></p>
-            <a href="https://my.uupload.ir/dl/Ndwwg54R" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 70k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 70k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 70k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-                <!-- Deiwer 80k -->
-        <div class="card" data-pack="Deiwer 80k">
-            <img src="../assets/80k.jpg" width="300">
-            <h3>🎮 Deiwer 80k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>49.93 MB</span></p>
-            <a href="https://my.uupload.ir/dl/EOkk1GzQ" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 80k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 80k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 80k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 90k -->
-        <div class="card" data-pack="Deiwer 90k">
-            <img src="../assets/90k.jpg" width="300">
-            <h3>🎮 Deiwer 90k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>5.36 MB</span></p>
-            <a href="https://my.uupload.ir/dl/2KDDeyjp" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 90k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 90k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 90k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 100k -->
-        <div class="card" data-pack="Deiwer 100k">
-            <img src="../assets/100k.jpg" width="300">
-            <h3>🎮 Deiwer 100k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>15.31 MB</span></p>
-            <a href="https://my.uupload.ir/dl/n2JJy866" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 100k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 100k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 100k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 110k -->
-        <div class="card" data-pack="Deiwer 110k">
-            <img src="../assets/110k.jpg" width="300">
-            <h3>🎮 Deiwer 110k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>13.17 MB</span></p>
-            <a href="https://my.uupload.ir/dl/yoWW286k" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 110k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 110k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 110k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 120k -->
-        <div class="card" data-pack="Deiwer 120k">
-            <img src="../assets/120k.jpg" width="300">
-            <h3>🎮 Deiwer 120k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>9.25 MB</span></p>
-            <a href="https://my.uupload.ir/dl/aG55A9bL" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 120k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 120k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 120k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 130k -->
-        <div class="card" data-pack="Deiwer 130k">
-            <img src="../assets/130k.jpg" width="300">
-            <h3>🎮 Deiwer 130k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>32x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>31.58 MB</span></p>
-            <a href="https://my.uupload.ir/dl/eyJJWLnm" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 130k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 130k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 130k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 140k -->
-        <div class="card" data-pack="Deiwer 140k">
-            <img src="../assets/140k.jpg" width="300">
-            <h3>🎮 Deiwer 140k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>20.73 MB</span></p>
-            <a href="https://my.uupload.ir/dl/aG55AkK7" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 140k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 140k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 140k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 150k -->
-        <div class="card" data-pack="Deiwer 150k">
-            <img src="../assets/150k.jpg" width="300">
-            <h3>🎮 Deiwer 150k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>16.95 MB</span></p>
-            <a href="https://my.uupload.ir/dl/4eXXE1pd" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 150k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 150k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 150k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 160k -->
-        <div class="card" data-pack="Deiwer 160k">
-            <img src="../assets/160k.jpg" width="300">
-            <h3>🎮 Deiwer 160k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>15.30 MB</span></p>
-            <a href="https://my.uupload.ir/dl/yoWW2DBD" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 160k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 160k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 160k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-        <!-- Deiwer 170k -->
-        <div class="card" data-pack="Deiwer 170k">
-            <img src="../assets/170k.jpg" width="300">
-            <h3>🎮 Deiwer 170k</h3>
-            <p>👤 سازنده : <span>Dewier</span></p>
-            <p>🔧 پورتر : <span>AmirPZ</span></p>
-            <p>🎮 نسخه : <span>بدراک</span></p>
-            <p>⭐ رزولوشن : <span>16x</span></p>
-            <p>📱 ساپورت : <span>1.20.0 - Latest</span></p>
-            <p>📦 حجم : <span>15.28 MB</span></p>
-            <a href="https://my.uupload.ir/dl/v9VVw4gb" download class="btn-download">⬇️ دانلود</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Deiwer 170k')">💬 نظر</button>
-                <button class="save-btn" onclick="savePack('Deiwer 170k')">⭐ ذخیره</button>
-                <button class="copy-btn" onclick="copyLink('Deiwer 170k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
-
-    </section>
-
-    <footer>© PackZone MC 💙</footer>
-
-</div>
-    <!-- ===== Comment Modal ===== -->
-    <div class="comment-modal" id="commentModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="commentModalTitle">💬 نظرات</h3>
-                <button class="close-btn" onclick="closeCommentModal()">✕</button>
-            </div>
-            <div class="comments-list" id="commentsList">
-                <!-- توسط JS پر میشه -->
-            </div>
-            <div class="comment-input-area">
-                <input type="text" id="commentInput" placeholder="نظر خود را بنویسید..." maxlength="500">
-                <button class="send-btn" onclick="sendComment()">📤 ارسال</button>
-            </div>
-        </div>
-    </div>
 
     <script>
         // ============================================================
-        // ===== Comment System (با localStorage - عمومی) =====
+        // اعمال فونت ذخیره‌شده از صفحه اصلی
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                const map = {
+                    primary: 'font-primary',
+                    secondary: 'font-secondary',
+                    arabic: 'font-arabic',
+                    serif: 'font-serif',
+                    cairo: 'font-cairo',
+                    minecraft: 'font-minecraft'
+                };
+                if (map[savedFont]) {
+                    document.body.classList.add(map[savedFont]);
+                }
+            }
+        });
+
+        // ============================================================
+        // Comment System
         // ============================================================
         let currentCommentPack = '';
 
@@ -917,7 +1133,7 @@
 
         function openCommentModal(packName) {
             currentCommentPack = packName;
-            document.getElementById('commentModalTitle').textContent = `💬 نظرات (${packName})`;
+            document.getElementById('commentModalTitle').textContent = '💬 نظرات (' + packName + ')';
             renderComments(packName);
             document.getElementById('commentModal').classList.add('open');
             document.getElementById('commentInput').value = '';
@@ -932,14 +1148,11 @@
         function renderComments(packName) {
             const list = document.getElementById('commentsList');
             const comments = getComments(packName);
-
             if (comments.length === 0) {
-                list.innerHTML = `<div class="no-comments">💬 هنوز نظری ثبت نشده است</div>`;
+                list.innerHTML = '<div class="no-comments">💬 هنوز نظری ثبت نشده است</div>';
                 return;
             }
-
             let html = '';
-            // نمایش آخرین نظرات اول
             const sortedComments = [...comments].reverse();
             sortedComments.forEach(comment => {
                 const date = new Date(comment.date);
@@ -967,22 +1180,16 @@
         function sendComment() {
             const input = document.getElementById('commentInput');
             const text = input.value.trim();
-
             if (!text) {
                 showToast('⚠️ لطفاً متن نظر را وارد کنید');
                 return;
             }
-
-            // بررسی ورود کاربر
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             if (!user) {
                 showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
                 return;
             }
-
             const comments = getComments(currentCommentPack);
             comments.push({
                 user: user.name || 'کاربر ناشناس',
@@ -990,29 +1197,23 @@
                 date: new Date().toISOString()
             });
             saveComments(currentCommentPack, comments);
-
             renderComments(currentCommentPack);
             input.value = '';
             showToast('✅ نظر شما ثبت شد!', 'success');
         }
 
         // ============================================================
-        // ===== Toast System =====
+        // Toast System
         // ============================================================
         function showToast(message, type = 'info') {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
-
             const toast = document.createElement('div');
             toast.className = 'toast-message';
             toast.textContent = message;
-            if (type === 'error') {
-                toast.style.borderColor = '#e74c3c';
-            } else if (type === 'success') {
-                toast.style.borderColor = '#00c853';
-            }
+            if (type === 'error') toast.style.borderColor = '#e74c3c';
+            else if (type === 'success') toast.style.borderColor = '#00c853';
             document.body.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.5s ease';
@@ -1020,77 +1221,50 @@
             }, 3000);
         }
 
-        // ============================================================
-        // ===== Check if user is logged in =====
-        // ============================================================
         function checkUser() {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            return user !== null;
+            return JSON.parse(localStorage.getItem('pzmc_current_user')) !== null;
         }
 
         // ============================================================
-        // ===== Save Pack (⭐ ذخیره) =====
+        // Save Pack
         // ============================================================
         function savePack(packName) {
             if (!checkUser()) {
                 showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
                 return;
             }
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
             const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) {
-                showToast('❌ کاربر پیدا نشد!', 'error');
-                return;
-            }
-
-            if (!users[index].favorites) {
-                users[index].favorites = [];
-            }
-
+            if (index === -1) { showToast('❌ کاربر پیدا نشد!', 'error'); return; }
+            if (!users[index].favorites) users[index].favorites = [];
             if (users[index].favorites.includes(packName)) {
                 showToast('⚠️ این پک قبلاً ذخیره شده است!');
                 return;
             }
-
             users[index].favorites.push(packName);
             localStorage.setItem('pzmc_users', JSON.stringify(users));
-
             user.favorites = users[index].favorites;
             localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
             showToast('✅ پک "' + packName + '" ذخیره شد! ⭐', 'success');
-
-            const card = document.querySelector(`.card[data-pack="${packName}"]`);
+            const card = document.querySelector('.card[data-pack="' + packName + '"]');
             if (card) {
                 const btn = card.querySelector('.save-btn');
-                if (btn) {
-                    btn.textContent = '⭐ ذخیره شد';
-                    btn.disabled = true;
-                }
+                if (btn) { btn.textContent = '⭐ ذخیره شد';
+                    btn.disabled = true; }
             }
         }
 
         // ============================================================
-        // ===== Copy Link (🔗 کپی لینک) =====
+        // Copy Link
         // ============================================================
         function copyLink(packName, btn) {
-            const baseUrl = window.location.href.split('?')[0];
-            const url = `${baseUrl}?pack=${encodeURIComponent(packName)}`;
-
+            const url = window.location.href.split('?')[0] + '?pack=' + encodeURIComponent(packName);
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(url).then(() => {
-                    showFeedback(btn, true);
-                }).catch(() => {
-                    fallbackCopy(url, btn);
-                });
-            } else {
-                fallbackCopy(url, btn);
-            }
+                navigator.clipboard.writeText(url).then(() => { showFeedback(btn, true); }).catch(() => { fallbackCopy(url,
+                    btn); });
+            } else { fallbackCopy(url, btn); }
         }
 
         function fallbackCopy(text, btn) {
@@ -1100,12 +1274,8 @@
             textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             textarea.select();
-            try {
-                document.execCommand('copy');
-                showFeedback(btn, true);
-            } catch (e) {
-                showFeedback(btn, false);
-            }
+            try { document.execCommand('copy');
+                showFeedback(btn, true); } catch (e) { showFeedback(btn, false); }
             document.body.removeChild(textarea);
         }
 
@@ -1114,16 +1284,58 @@
             if (feedback) {
                 feedback.textContent = success ? '✓ کپی شد!' : '❌ خطا';
                 feedback.classList.add('show');
-                setTimeout(() => {
-                    feedback.classList.remove('show');
-                }, 2000);
+                setTimeout(() => { feedback.classList.remove('show'); }, 2000);
             }
         }
 
         // ============================================================
-        // ===== بارگذاری وضعیت دکمه‌های ذخیره =====
+        // Header
+        // ============================================================
+        function updateHeader() {
+            const nav = document.getElementById('mainNav');
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40&bold=true';
+                nav.innerHTML = `
+                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
+                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'کاربر'}</span>
+                    <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
+                    <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
+                    <a href="login.html" class="btn-login">🔐 ورود</a>
+                `;
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('pzmc_current_user');
+                showToast('👋 شما با موفقیت خارج شدید');
+                setTimeout(() => { window.location.reload(); }, 500);
+            }
+        }
+
+        // ============================================================
+        // Page Load
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                const map = {
+                    primary: 'font-primary',
+                    secondary: 'font-secondary',
+                    arabic: 'font-arabic',
+                    serif: 'font-serif',
+                    cairo: 'font-cairo',
+                    minecraft: 'font-minecraft'
+                };
+                if (map[savedFont]) document.body.classList.add(map[savedFont]);
+            }
+            updateHeader();
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             if (user) {
                 let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
@@ -1134,48 +1346,34 @@
                         const packName = card.getAttribute('data-pack');
                         if (favorites.includes(packName)) {
                             const btn = card.querySelector('.save-btn');
-                            if (btn) {
-                                btn.textContent = '⭐ ذخیره شد';
-                                btn.disabled = true;
-                            }
+                            if (btn) { btn.textContent = '⭐ ذخیره شد';
+                                btn.disabled = true; }
                         }
                     });
                 }
             }
-
-            // ===== چک کردن پارامتر pack در URL =====
             const params = new URLSearchParams(window.location.search);
             const packParam = params.get('pack');
             if (packParam) {
                 const decodedPack = decodeURIComponent(packParam);
-                const card = document.querySelector(`.card[data-pack="${decodedPack}"]`);
+                const card = document.querySelector('.card[data-pack="' + decodedPack + '"]');
                 if (card) {
                     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     card.style.borderColor = '#6c5ce7';
                     card.style.boxShadow = '0 0 40px rgba(108, 92, 231, 0.2)';
-                    setTimeout(() => {
-                        card.style.borderColor = '';
-                        card.style.boxShadow = '';
-                    }, 3000);
-                    showToast(`🔍 در حال نمایش پک "${decodedPack}"`, 'info');
+                    setTimeout(() => { card.style.borderColor = '';
+                        card.style.boxShadow = ''; }, 3000);
+                    showToast('🔍 در حال نمایش پک "' + decodedPack + '"', 'info');
                 } else {
                     showToast('❌ پک مورد نظر پیدا نشد!', 'error');
                 }
             }
-
-            // ===== بستن مودال با کلیک خارج =====
             document.getElementById('commentModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeCommentModal();
-                }
+                if (e.target === this) closeCommentModal();
             });
-
-            // ===== ارسال با Enter =====
             document.getElementById('commentInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendComment();
-                }
+                if (e.key === 'Enter') { e.preventDefault();
+                    sendComment(); }
             });
         });
     </script>
