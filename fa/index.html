@@ -52,6 +52,14 @@
             --font-arabic: 'Noto Sans Arabic', 'Vazirmatn', sans-serif;
             --font-serif: 'Amiri', 'Vazirmatn', serif;
             --font-cairo: 'Cairo', 'Vazirmatn', sans-serif;
+            --font-minecraft: 'Minecraft', 'Vazirmatn', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
 
         body {
@@ -121,6 +129,9 @@
         }
         .font-cairo {
             font-family: var(--font-cairo) !important;
+        }
+        .font-minecraft {
+            font-family: var(--font-minecraft) !important;
         }
 
         /* ===== THEMES ===== */
@@ -203,6 +214,7 @@
         }
     </style>
 </head>
+
 <body>
 <!-- ============================================================
 LANGUAGE TOGGLE (پنل کامل با تم و فونت)
@@ -271,6 +283,9 @@ LANGUAGE TOGGLE (پنل کامل با تم و فونت)
     </div>
     <div class="font-item" onclick="changeFont('cairo')">
         <span>📝 قاهره (عربی مدرن)</span>
+    </div>
+    <div class="font-item" onclick="changeFont('minecraft')">
+        <span>⛏️ ماینکرفت (پلاک)</span>
     </div>
 </div>
 
@@ -649,7 +664,7 @@ HEADER
         }
     }
     </style>
-    <!-- ============================================================
+<!-- ============================================================
 MAIN CONTAINER
 ============================================================ -->
 <div class="container">
@@ -724,6 +739,15 @@ MAIN CONTAINER
             <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
             <div class="card-actions">
                 <a href="bedrock.html" class="btn-card btn-card-green">دانلود</a>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <div class="card-icon">🔥</div>
+            <h3>کالکشن dewier</h3>
+            <p>مجموعه پک‌های حرفه‌ای dewier برای بدراک</p>
+            <div class="card-actions">
+                <a href="dewier.html" class="btn-card btn-card-gold">مشاهده مجموعه</a>
             </div>
         </div>
 
@@ -1150,7 +1174,7 @@ MAIN CONTAINER
         function changeFont(font) {
             const body = document.body;
             // حذف فونت‌های قبلی
-            body.classList.remove('font-primary', 'font-secondary', 'font-arabic', 'font-serif', 'font-cairo');
+            body.classList.remove('font-primary', 'font-secondary', 'font-arabic', 'font-serif', 'font-cairo', 'font-minecraft');
 
             // اضافه کردن فونت جدید
             let fontClass = '';
@@ -1169,6 +1193,9 @@ MAIN CONTAINER
                     break;
                 case 'cairo':
                     fontClass = 'font-cairo';
+                    break;
+                case 'minecraft':
+                    fontClass = 'font-minecraft';
                     break;
             }
             if (fontClass) body.classList.add(fontClass);
@@ -1262,7 +1289,8 @@ MAIN CONTAINER
                     secondary: 'font-secondary',
                     arabic: 'font-arabic',
                     serif: 'font-serif',
-                    cairo: 'font-cairo'
+                    cairo: 'font-cairo',
+                    minecraft: 'font-minecraft'
                 };
                 if (map[savedFont]) {
                     document.body.classList.add(map[savedFont]);
