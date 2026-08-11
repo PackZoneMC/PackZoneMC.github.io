@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackZone MC | dewier Collection</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #4a3db8;
+            --secondary: #fd79a8;
+            --secondary-light: #ffb8d0;
+            --gold: #fdcb6e;
+            --gold-dark: #f39c12;
+            --gold-light: #ffeaa7;
+            --bg-dark: #0a0a1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(108, 92, 231, 0.25);
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #888888;
+            --shadow: 0 8px 32px rgba(108, 92, 231, 0.12);
+            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.2);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --radius-xs: 10px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+            --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
+            --font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-secondary: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-serif: 'Playfair Display', 'Inter', serif;
+            --font-outfit: 'Outfit', 'Inter', sans-serif;
+            --font-minecraft: 'Minecraft', 'Inter', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #0a0a1a 0%, #12082a 25%, #1a1040 50%, #0d0d2b 75%, #0a0a1a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding: 0;
+            margin: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== GLASS EFFECT ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-strong {
+            background: rgba(13, 32, 56, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ===== FONT CLASSES ===== */
+        .font-primary {
+            font-family: var(--font-primary) !important;
+        }
+        .font-secondary {
+            font-family: var(--font-secondary) !important;
+        }
+        .font-serif {
+            font-family: var(--font-serif) !important;
+        }
+        .font-outfit {
+            font-family: var(--font-outfit) !important;
+        }
+        .font-minecraft {
+            font-family: var(--font-minecraft) !important;
+        }
+
+        /* ============================================================
+                   SCROLLBAR
+                   ============================================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+    </style>
+</head>
+
+<body>
+<!-- ============================================================
+HEADER
+============================================================ -->
+<header class="custom-header glass-strong" id="mainHeader">
+    <div class="custom-logo">💙 PackZone MC</div>
+    <nav class="custom-nav" id="mainNav">
+        <!-- Populated by JS -->
+    </nav>
+</header>
+
+<style>
+    .custom-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 30px;
+        background: rgba(13, 32, 56, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 2px solid rgba(108, 92, 231, 0.12);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: var(--transition);
+    }
+
+    .custom-header:hover {
+        border-bottom-color: rgba(108, 92, 231, 0.25);
+    }
+
+    .custom-logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+    }
+
+    .custom-logo:hover {
+        transform: scale(1.02);
+    }
+
+    .custom-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .custom-nav .btn-signup {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
+
+    .custom-nav .btn-signup:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.25);
+    }
+
+    .custom-nav .btn-login {
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 18px;
+        transition: var(--transition);
+        border-radius: 30px;
+        font-size: 0.9rem;
+    }
+
+    .custom-nav .btn-login:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .custom-nav .btn-dashboard {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 18px;
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
+    }
+
+    .custom-nav .btn-dashboard:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
+    }
+
+    .custom-nav .btn-logout {
+        background: rgba(255, 23, 68, 0.12);
+        color: #ff1744;
+        border: 1px solid rgba(255, 23, 68, 0.2);
+        padding: 6px 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .custom-nav .btn-logout:hover {
+        background: #ff1744;
+        color: #fff;
+        border-color: #ff1744;
+        transform: scale(1.04);
+    }
+
+    .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid rgba(108, 92, 231, 0.3);
+        object-fit: cover;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-avatar:hover {
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .user-name {
+        color: var(--primary-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-name:hover {
+        color: #fff;
+    }
+
+    .version-badge {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #a29bfe;
+        background: rgba(108, 92, 231, 0.15);
+        padding: 4px 20px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        border: 1px solid rgba(108, 92, 231, 0.25);
+        letter-spacing: 1px;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 40px 20px 30px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 30px;
+    }
+
+    .main-logo {
+        font-size: 2.8rem;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
+
+    .hero h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+
+    .hero p {
+        color: #aaa;
+        margin-top: 8px;
+    }
+
+    .home-button {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.08);
+        color: #ddd;
+        padding: 8px 22px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .home-button:hover {
+        background: rgba(108, 92, 231, 0.25);
+        border-color: #6c5ce7;
+        color: #fff;
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="container">
+
+    <div style="text-align:center;">
+        <span class="version-badge">🔥 dewier Collection</span>
+    </div>
+
+    <section class="hero">
+        <h1 class="main-logo">💙 PackZone MC</h1>
+        <a href="index.html" class="home-button">🏠 Home</a>
+        <h2>🔥 dewier Collection</h2>
+        <p>A collection of professional dewier packs for Minecraft Bedrock</p>
+    </section>
+
+    <section class="menu-box">
+    <!-- dewier 2k -->
+<div class="card" data-pack="dewier 2k">
+    <img src="../assets/2k.jpg" width="300">
+    <h3>🎮 dewier 2k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.16.2 - Latest</span></p>
+    <p>📦 Size : <span>10.33 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9x2j" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 2k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 2k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 2k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 2k Revamp -->
+<div class="card" data-pack="dewier 2k Revamp">
+    <img src="../assets/2krevamp.jpg" width="300">
+    <h3>🎮 dewier 2k Revamp</h3>
+    <p>👤 Creator : <span>QUITTERS _Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.16.2 - Latest</span></p>
+    <p>📦 Size : <span>15.24 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9XAR" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 2k Revamp')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 2k Revamp')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 2k Revamp', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 5k -->
+<div class="card" data-pack="dewier 5k">
+    <img src="../assets/5k.jpg" width="300">
+    <h3>🎮 dewier 5k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2 - Latest</span></p>
+    <p>📦 Size : <span>21.96 MB</span></p>
+    <a href="https://my.uupload.ir/dl/0jkk9X51" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 5k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 5k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 5k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 20k -->
+<div class="card" data-pack="dewier 20k">
+    <img src="../assets/20k.jpg" width="300">
+    <h3>🎮 dewier 20k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>35.02 MB</span></p>
+    <a href="https://my.uupload.ir/dl/aG55Aa88" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 20k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 20k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 20k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 30k -->
+<div class="card" data-pack="dewier 30k">
+    <img src="../assets/30k.jpg" width="300">
+    <h3>🎮 dewier 30k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>12.61 MB</span></p>
+    <a href="https://my.uupload.ir/dl/eyJJW87r" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 30k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 30k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 30k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 40k -->
+<div class="card" data-pack="dewier 40k">
+    <img src="../assets/40k.jpg" width="300">
+    <h3>🎮 dewier 40k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>15.28 MB</span></p>
+    <a href="https://my.uupload.ir/dl/v9VVwXgY" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 40k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 40k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 40k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 50k -->
+<div class="card" data-pack="dewier 50k">
+    <img src="../assets/50k.jpg" width="300">
+    <h3>🎮 dewier 50k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>19.01 MB</span></p>
+    <a href="https://my.uupload.ir/dl/kjLLGree" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 50k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 50k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 50k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 60k -->
+<div class="card" data-pack="dewier 60k">
+    <img src="../assets/60k.jpg" width="300">
+    <h3>🎮 dewier 60k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>13.26 MB</span></p>
+    <a href="https://my.uupload.ir/dl/6EAAvO9W" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 60k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 60k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 60k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 70k -->
+<div class="card" data-pack="dewier 70k">
+    <img src="../assets/70k.jpg" width="300">
+    <h3>🎮 dewier 70k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>17.97 MB</span></p>
+    <a href="https://my.uupload.ir/dl/Ndwwg54R" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 70k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 70k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 70k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 80k -->
+<div class="card" data-pack="dewier 80k">
+    <img src="../assets/80k.jpg" width="300">
+    <h3>🎮 dewier 80k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>49.93 MB</span></p>
+    <a href="https://my.uupload.ir/dl/EOkk1GzQ" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 80k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 80k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 80k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- dewier 90k -->
+<div class="card" data-pack="dewier 90k">
+    <img src="../assets/90k.jpg" width="300">
+    <h3>🎮 dewier 90k</h3>
+    <p>👤 Creator : <span>Dewier</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.20.0 - Latest</span></p>
+    <p>📦 Size : <span>5.36 MB</span></p>
+    <a href="https://my.uupload.ir/dl/2KDDeyjp" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('dewier 90k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('dewier 90k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('dewier 90k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+      </div>
+            <!-- dewier 100k -->
+        <div class="card" data-pack="dewier 100k">
+            <img src="../assets/100k.jpg" width="300">
+            <h3>🎮 dewier 100k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>15.31 MB</span></p>
+            <a href="https://my.uupload.ir/dl/n2JJy866" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 100k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 100k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 100k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 110k -->
+        <div class="card" data-pack="dewier 110k">
+            <img src="../assets/110k.jpg" width="300">
+            <h3>🎮 dewier 110k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>13.17 MB</span></p>
+            <a href="https://my.uupload.ir/dl/yoWW286k" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 110k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 110k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 110k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 120k -->
+        <div class="card" data-pack="dewier 120k">
+            <img src="../assets/120k.jpg" width="300">
+            <h3>🎮 dewier 120k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>9.25 MB</span></p>
+            <a href="https://my.uupload.ir/dl/aG55A9bL" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 120k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 120k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 120k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 130k -->
+        <div class="card" data-pack="dewier 130k">
+            <img src="../assets/130k.jpg" width="300">
+            <h3>🎮 dewier 130k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>32x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>31.58 MB</span></p>
+            <a href="https://my.uupload.ir/dl/eyJJWLnm" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 130k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 130k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 130k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 140k -->
+        <div class="card" data-pack="dewier 140k">
+            <img src="../assets/140k.jpg" width="300">
+            <h3>🎮 dewier 140k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>20.73 MB</span></p>
+            <a href="https://my.uupload.ir/dl/aG55AkK7" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 140k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 140k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 140k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 150k -->
+        <div class="card" data-pack="dewier 150k">
+            <img src="../assets/150k.jpg" width="300">
+            <h3>🎮 dewier 150k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>16.95 MB</span></p>
+            <a href="https://my.uupload.ir/dl/4eXXE1pd" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 150k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 150k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 150k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 160k -->
+        <div class="card" data-pack="dewier 160k">
+            <img src="../assets/160k.jpg" width="300">
+            <h3>🎮 dewier 160k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>15.30 MB</span></p>
+            <a href="https://my.uupload.ir/dl/yoWW2DBD" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 160k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 160k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 160k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+        <!-- dewier 170k -->
+        <div class="card" data-pack="dewier 170k">
+            <img src="../assets/170k.jpg" width="300">
+            <h3>🎮 dewier 170k</h3>
+            <p>👤 Creator : <span>Dewier</span></p>
+            <p>🔧 Porter : <span>AmirPZ</span></p>
+            <p>🎮 Version : <span>Bedrock</span></p>
+            <p>⭐ Resolution : <span>16x</span></p>
+            <p>📱 Support : <span>1.20.0 - Latest</span></p>
+            <p>📦 Size : <span>15.28 MB</span></p>
+            <a href="https://my.uupload.ir/dl/v9VVw4gb" download class="btn-download">⬇️ Download</a>
+            <div class="card-actions">
+                <button class="comment-btn" onclick="openCommentModal('dewier 170k')">💬 Comment</button>
+                <button class="save-btn" onclick="savePack('dewier 170k')">⭐ Save</button>
+                <button class="copy-btn" onclick="copyLink('dewier 170k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>© PackZone MC 💙</footer>
+
+              </div>
+        <style>
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        padding: 22px 20px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.3s ease;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        max-width: 280px;
+        margin-right: 10px;
+        margin-left: 10px;
+        vertical-align: top;
+    }
+
+    .card:hover {
+        border-color: rgba(108, 92, 231, 0.2);
+        box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+        transform: translateY(-4px);
+    }
+
+    .card img {
+        width: 100%;
+        max-width: 240px;
+        border-radius: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    .card img:hover {
+        border-color: #6c5ce7;
+        transform: scale(1.02);
+    }
+
+    .card h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #7ec8ff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card p {
+        color: #aaa;
+        font-size: 0.85rem;
+        line-height: 1.8;
+        margin: 2px 0;
+    }
+
+    .card p span {
+        color: #7ec8ff;
+        font-weight: 500;
+    }
+
+    .card .btn-download {
+        display: inline-block;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        color: #fff;
+        border: none;
+        padding: 8px 24px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 12px;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
+
+    .card .btn-download:hover {
+        transform: scale(1.04);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.3);
+    }
+
+    .card-actions {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .card-actions button {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #ddd;
+        padding: 6px 14px;
+        border-radius: 30px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .card-actions button:hover {
+        background: rgba(108, 92, 231, 0.15);
+        border-color: #6c5ce7;
+        color: #fff;
+    }
+
+    .card-actions .copy-btn {
+        background: rgba(0, 200, 83, 0.1);
+        border-color: rgba(0, 200, 83, 0.2);
+        color: #00c853;
+    }
+
+    .card-actions .copy-btn:hover {
+        background: rgba(0, 200, 83, 0.2);
+    }
+
+    .card-actions .save-btn {
+        background: rgba(253, 203, 110, 0.1);
+        border-color: rgba(253, 203, 110, 0.2);
+        color: #fdcb6e;
+    }
+
+    .card-actions .save-btn:hover {
+        background: rgba(253, 203, 110, 0.2);
+    }
+
+    .card-actions .comment-btn {
+        background: rgba(108, 92, 231, 0.1);
+        border-color: rgba(108, 92, 231, 0.2);
+        color: #a29bfe;
+    }
+
+    .card-actions .comment-btn:hover {
+        background: rgba(108, 92, 231, 0.2);
+    }
+
+    .card-actions button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .card-actions .copy-feedback {
+        font-size: 0.65rem;
+        color: #00c853;
+        margin-left: 4px;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .card-actions .copy-feedback.show {
+        opacity: 1;
+    }
+
+    .menu-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        margin-top: 30px;
+    }
+
+    /* ===== Comment Modal ===== */
+    .comment-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+    }
+    .comment-modal.open {
+        display: flex;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    .comment-modal .modal-box {
+        background: #0d2038;
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(108, 92, 231, 0.15);
+        max-width: 450px;
+        width: 90%;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+    .comment-modal .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .comment-modal .modal-header h3 {
+        color: #7ec8ff;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+    .comment-modal .modal-header .close-btn {
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0 8px;
+    }
+    .comment-modal .modal-header .close-btn:hover {
+        color: #fff;
+        transform: rotate(90deg);
+    }
+    .comment-modal .comments-list {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 15px;
+        padding-right: 4px;
+        max-height: 300px;
+    }
+    .comment-modal .comments-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    .comment-modal .comments-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+    }
+    .comment-modal .comments-list::-webkit-scrollbar-thumb {
+        background: #6c5ce7;
+        border-radius: 10px;
+    }
+    .comment-modal .comment-item {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 10px 14px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .comment-modal .comment-item .comment-user {
+        font-weight: 600;
+        color: #7ec8ff;
+        font-size: 0.85rem;
+    }
+    .comment-modal .comment-item .comment-text {
+        color: #ddd;
+        font-size: 0.9rem;
+        margin-top: 4px;
+        word-wrap: break-word;
+    }
+    .comment-modal .comment-item .comment-date {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.2);
+        margin-top: 4px;
+        display: block;
+    }
+    .comment-modal .no-comments {
+        color: rgba(255, 255, 255, 0.3);
+        text-align: center;
+        padding: 30px 0;
+        font-size: 0.9rem;
+    }
+    .comment-modal .comment-input-area {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding-top: 12px;
+    }
+    .comment-modal .comment-input-area input {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.2);
+        color: #fff;
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+    .comment-modal .comment-input-area input:focus {
+        border-color: #6c5ce7;
+    }
+    .comment-modal .comment-input-area input::placeholder {
+        color: rgba(255, 255, 255, 0.2);
+    }
+    .comment-modal .comment-input-area .send-btn {
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        white-space: nowrap;
+    }
+    .comment-modal .comment-input-area .send-btn:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
+    }
+    .comment-modal .comment-input-area .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .toast-message {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(12px);
+        color: #e0e0e0;
+        padding: 14px 28px;
+        border-radius: 14px;
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        font-size: 0.95rem;
+        z-index: 9999;
+        animation: toastSlideUp 0.4s ease;
+        font-family: inherit !important;
+        text-align: center;
+    }
+    @keyframes toastSlideUp {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            max-width: 100%;
+            margin-right: 0;
+            margin-left: 0;
+            padding: 18px 14px;
+        }
+        .card img {
+            max-width: 100%;
+        }
+        .main-logo {
+            font-size: 2rem;
+        }
+        .hero h2 {
+            font-size: 1.4rem;
+        }
+        .card-actions {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .card-actions button {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+        }
+        .comment-modal .modal-box {
+            padding: 20px 16px;
+            max-width: 95%;
+        }
+    }
+
+    @media (max-width: 400px) {
+        body {
+            padding: 12px;
+        }
+        .card {
+            padding: 14px 10px;
+        }
+        .card h3 {
+            font-size: 1rem;
+        }
+        .card .btn-download {
+            padding: 6px 18px;
+            font-size: 0.8rem;
+        }
+        .card-actions button {
+            font-size: 0.65rem;
+            padding: 3px 8px;
+        }
+    }
+</style>
+
+<!-- ===== Comment Modal ===== -->
+<div class="comment-modal" id="commentModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="commentModalTitle">💬 Comments</h3>
+            <button class="close-btn" onclick="closeCommentModal()">✕</button>
+        </div>
+        <div class="comments-list" id="commentsList"></div>
+        <div class="comment-input-area">
+            <input type="text" id="commentInput" placeholder="Write your comment..." maxlength="500">
+            <button class="send-btn" onclick="sendComment()">📤 Send</button>
+        </div>
+    </div>
+          </div>
+            <script>
+        // ============================================================
+        // Apply saved font from homepage
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                const map = {
+                    primary: 'font-primary',
+                    secondary: 'font-secondary',
+                    serif: 'font-serif',
+                    outfit: 'font-outfit',
+                    minecraft: 'font-minecraft'
+                };
+                if (map[savedFont]) {
+                    document.body.classList.add(map[savedFont]);
+                }
+            }
+        });
+
+        // ============================================================
+        // Comment System
+        // ============================================================
+        let currentCommentPack = '';
+
+        function getComments(packName) {
+            const allComments = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            return allComments[packName] || [];
+        }
+
+        function saveComments(packName, comments) {
+            const allComments = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            allComments[packName] = comments;
+            localStorage.setItem('pzmc_comments', JSON.stringify(allComments));
+        }
+
+        function openCommentModal(packName) {
+            currentCommentPack = packName;
+            document.getElementById('commentModalTitle').textContent = '💬 Comments (' + packName + ')';
+            renderComments(packName);
+            document.getElementById('commentModal').classList.add('open');
+            document.getElementById('commentInput').value = '';
+            document.getElementById('commentInput').focus();
+        }
+
+        function closeCommentModal() {
+            document.getElementById('commentModal').classList.remove('open');
+            currentCommentPack = '';
+        }
+
+        function renderComments(packName) {
+            const list = document.getElementById('commentsList');
+            const comments = getComments(packName);
+            if (comments.length === 0) {
+                list.innerHTML = '<div class="no-comments">💬 No comments yet</div>';
+                return;
+            }
+            let html = '';
+            const sortedComments = [...comments].reverse();
+            sortedComments.forEach(comment => {
+                const date = new Date(comment.date);
+                const formattedDate = date.toLocaleDateString('en-US') + ' ' + date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                html += `
+                    <div class="comment-item">
+                        <div class="comment-user">${escapeHtml(comment.user)}</div>
+                        <div class="comment-text">${escapeHtml(comment.text)}</div>
+                        <span class="comment-date">${formattedDate}</span>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function sendComment() {
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            if (!text) {
+                showToast('⚠️ Please enter a comment');
+                return;
+            }
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                showToast('❌ Please login first!', 'error');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+            const comments = getComments(currentCommentPack);
+            comments.push({
+                user: user.name || 'Anonymous',
+                text: text,
+                date: new Date().toISOString()
+            });
+            saveComments(currentCommentPack, comments);
+            renderComments(currentCommentPack);
+            input.value = '';
+            showToast('✅ Comment posted!', 'success');
+        }
+
+        // ============================================================
+        // Toast System
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const old = document.querySelector('.toast-message');
+            if (old) old.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            if (type === 'error') toast.style.borderColor = '#e74c3c';
+            else if (type === 'success') toast.style.borderColor = '#00c853';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        function checkUser() {
+            return JSON.parse(localStorage.getItem('pzmc_current_user')) !== null;
+        }
+
+        // ============================================================
+        // Save Pack
+        // ============================================================
+        function savePack(packName) {
+            if (!checkUser()) {
+                showToast('❌ Please login first!', 'error');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+            const index = users.findIndex(u => u.email === user.email);
+            if (index === -1) { showToast('❌ User not found!', 'error'); return; }
+            if (!users[index].favorites) users[index].favorites = [];
+            if (users[index].favorites.includes(packName)) {
+                showToast('⚠️ This pack is already saved');
+                return;
+            }
+            users[index].favorites.push(packName);
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+            user.favorites = users[index].favorites;
+            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+            showToast('✅ Pack "' + packName + '" saved! ⭐', 'success');
+            const card = document.querySelector('.card[data-pack="' + packName + '"]');
+            if (card) {
+                const btn = card.querySelector('.save-btn');
+                if (btn) { btn.textContent = '⭐ Saved';
+                    btn.disabled = true; }
+            }
+        }
+
+        // ============================================================
+        // Copy Link
+        // ============================================================
+        function copyLink(packName, btn) {
+            const url = window.location.href.split('?')[0] + '?pack=' + encodeURIComponent(packName);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => { showFeedback(btn, true); }).catch(() => { fallbackCopy(url,
+                    btn); });
+            } else { fallbackCopy(url, btn); }
+        }
+
+        function fallbackCopy(text, btn) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try { document.execCommand('copy');
+                showFeedback(btn, true); } catch (e) { showFeedback(btn, false); }
+            document.body.removeChild(textarea);
+        }
+
+        function showFeedback(btn, success) {
+            const feedback = btn.querySelector('.copy-feedback');
+            if (feedback) {
+                feedback.textContent = success ? '✓ Copied!' : '❌ Error';
+                feedback.classList.add('show');
+                setTimeout(() => { feedback.classList.remove('show'); }, 2000);
+            }
+        }
+
+        // ============================================================
+        // Header
+        // ============================================================
+        function updateHeader() {
+            const nav = document.getElementById('mainNav');
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40&bold=true';
+                nav.innerHTML = `
+                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
+                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'User'}</span>
+                    <a href="dashboard.html" class="btn-dashboard">📊 Dashboard</a>
+                    <button class="btn-logout" onclick="logoutUser()">🚪 Logout</button>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <a href="signup.html" class="btn-signup">📝 Sign Up</a>
+                    <a href="login.html" class="btn-login">🔐 Login</a>
+                `;
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('pzmc_current_user');
+                showToast('👋 You have been logged out successfully');
+                setTimeout(() => { window.location.reload(); }, 500);
+            }
+        }
+
+        // ============================================================
+        // Page Load
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            if (savedFont) {
+                const map = {
+                    primary: 'font-primary',
+                    secondary: 'font-secondary',
+                    serif: 'font-serif',
+                    outfit: 'font-outfit',
+                    minecraft: 'font-minecraft'
+                };
+                if (map[savedFont]) document.body.classList.add(map[savedFont]);
+            }
+            updateHeader();
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (user) {
+                let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+                const index = users.findIndex(u => u.email === user.email);
+                if (index !== -1) {
+                    const favorites = users[index].favorites || [];
+                    document.querySelectorAll('.card[data-pack]').forEach(card => {
+                        const packName = card.getAttribute('data-pack');
+                        if (favorites.includes(packName)) {
+                            const btn = card.querySelector('.save-btn');
+                            if (btn) { btn.textContent = '⭐ Saved';
+                                btn.disabled = true; }
+                        }
+                    });
+                }
+            }
+            const params = new URLSearchParams(window.location.search);
+            const packParam = params.get('pack');
+            if (packParam) {
+                const decodedPack = decodeURIComponent(packParam);
+                const card = document.querySelector('.card[data-pack="' + decodedPack + '"]');
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.borderColor = '#6c5ce7';
+                    card.style.boxShadow = '0 0 40px rgba(108, 92, 231, 0.2)';
+                    setTimeout(() => { card.style.borderColor = '';
+                        card.style.boxShadow = ''; }, 3000);
+                    showToast('🔍 Showing pack "' + decodedPack + '"', 'info');
+                } else {
+                    showToast('❌ Pack not found!', 'error');
+                }
+            }
+            document.getElementById('commentModal').addEventListener('click', function(e) {
+                if (e.target === this) closeCommentModal();
+            });
+            document.getElementById('commentInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    sendComment(); }
+            });
+        });
+    </script>
+
+</body>
+</html>
