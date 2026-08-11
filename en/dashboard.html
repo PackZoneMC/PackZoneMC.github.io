@@ -48,6 +48,14 @@
             --font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --font-secondary: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --font-serif: 'Playfair Display', 'Inter', serif;
+            --font-minecraft: 'Minecraft', 'Inter', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
 
         body {
@@ -111,8 +119,75 @@
         .font-serif {
             font-family: var(--font-serif) !important;
         }
+        .font-minecraft {
+            font-family: var(--font-minecraft) !important;
+        }
 
-        /* ===== SCROLLBAR ===== */
+        /* ===== THEMES ===== */
+        .theme-default {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary: #fd79a8;
+            --gold: #fdcb6e;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+        }
+        .theme-green {
+            --primary: #00b894;
+            --primary-light: #55efc4;
+            --secondary: #00cec9;
+            --gold: #fdcb6e;
+            --bg-card: rgba(0, 184, 148, 0.06);
+            --border-color: rgba(0, 184, 148, 0.2);
+            --text-primary: #55efc4;
+            --gradient-hero: linear-gradient(135deg, #00b894, #00cec9, #55efc4, #fdcb6e);
+        }
+        .theme-blue {
+            --primary: #0984e3;
+            --primary-light: #74b9ff;
+            --secondary: #00cec9;
+            --gold: #fdcb6e;
+            --bg-card: rgba(9, 132, 227, 0.06);
+            --border-color: rgba(9, 132, 227, 0.2);
+            --text-primary: #74b9ff;
+            --gradient-hero: linear-gradient(135deg, #0984e3, #74b9ff, #00cec9, #fdcb6e);
+        }
+        .theme-red {
+            --primary: #e17055;
+            --primary-light: #fd79a8;
+            --secondary: #ff7675;
+            --gold: #fdcb6e;
+            --bg-card: rgba(225, 112, 85, 0.06);
+            --border-color: rgba(225, 112, 85, 0.2);
+            --text-primary: #fd79a8;
+            --gradient-hero: linear-gradient(135deg, #e17055, #fd79a8, #ff7675, #fdcb6e);
+        }
+        .theme-purple {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary: #fd79a8;
+            --gold: #fdcb6e;
+            --bg-card: rgba(108, 92, 231, 0.08);
+            --border-color: rgba(108, 92, 231, 0.2);
+            --text-primary: #a29bfe;
+            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+        }
+        .theme-rainbow {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary: #fd79a8;
+            --gold: #fdcb6e;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+            --gradient-hero: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #a29bfe, #fd79a8);
+        }
+
+        /* ============================================================
+                   SCROLLBAR
+                   ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -126,116 +201,419 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-light);
         }
+    </style>
+</head>
 
-        /* ============================================================
-                   HEADER
-                   ============================================================ */
+<body>
+<!-- ============================================================
+LANGUAGE TOGGLE
+============================================================ -->
+<div class="language-toggle" onclick="togglePanel()">
+    <span>🇺🇸</span>
+    <span>English</span>
+    <span>▼</span>
+</div>
+
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 Select Language</div>
+    <a href="../fa/index.html" class="lang-item">
+        <span>🇮🇷</span>
+        <span>فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    <a href="../en/index.html" class="lang-item active">
+        <span>🇺🇸</span>
+        <span>English</span>
+        <span class="lang-code">EN</span>
+    </a>
+
+    <hr class="divider">
+
+    <div class="panel-title">🎨 Select Theme</div>
+    <div class="theme-item" onclick="changeTheme('default')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
+        <span>Default (Purple-Blue)</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('green')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#00b894,#55efc4)"></span>
+        <span>Emerald</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('blue')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"></span>
+        <span>Ocean Blue</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('red')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#e17055,#fd79a8)"></span>
+        <span>Warm</span>
+    </div>
+    <div class="theme-item" onclick="changeTheme('purple')">
+        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
+        <span>Royal</span>
+    </div>
+
+    <hr class="divider">
+
+    <div class="panel-title">🔤 Select Font</div>
+    <div class="font-item" onclick="changeFont('primary')">
+        <span>📝 Inter</span>
+    </div>
+    <div class="font-item" onclick="changeFont('secondary')">
+        <span>📝 Montserrat</span>
+    </div>
+    <div class="font-item" onclick="changeFont('serif')">
+        <span>📝 Playfair</span>
+    </div>
+    <div class="font-item" onclick="changeFont('minecraft')">
+        <span>⛏️ Minecraft (Pelak)</span>
+    </div>
+</div>
+
+<!-- ============================================================
+HEADER
+============================================================ -->
+<header class="custom-header glass-strong">
+    <div class="custom-logo">💙 PackZone MC</div>
+    <nav class="custom-nav" id="mainNav">
+        <!-- Populated by JS -->
+    </nav>
+</header>
+
+<style>
+    /* ============================================================
+               HEADER
+               ============================================================ */
+    .custom-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 30px;
+        background: rgba(13, 32, 56, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 2px solid rgba(108, 92, 231, 0.12);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: var(--transition);
+    }
+
+    .custom-header:hover {
+        border-bottom-color: rgba(108, 92, 231, 0.25);
+    }
+
+    .custom-logo {
+        font-size: 1.6rem;
+        font-weight: 900;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+    }
+
+    .custom-logo:hover {
+        transform: scale(1.02);
+    }
+
+    .custom-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .custom-nav .btn-add-account {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 20px;
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
+    }
+
+    .custom-nav .btn-add-account:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
+    }
+
+    .custom-nav .btn-logout {
+        background: rgba(255, 23, 68, 0.12);
+        color: #ff1744;
+        border: 1px solid rgba(255, 23, 68, 0.2);
+        padding: 6px 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .custom-nav .btn-logout:hover {
+        background: #ff1744;
+        color: #fff;
+        border-color: #ff1744;
+        transform: scale(1.04);
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid rgba(108, 92, 231, 0.3);
+        object-fit: cover;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-avatar:hover {
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .user-name {
+        color: var(--primary-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-name:hover {
+        color: #fff;
+    }
+
+    /* ============================================================
+               LANGUAGE TOGGLE
+               ============================================================ */
+    .language-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(13, 32, 56, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(108, 92, 231, 0.15);
+        border-radius: 50px;
+        padding: 8px 16px;
+        color: #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+        transition: var(--transition);
+        font-size: 0.85rem;
+    }
+
+    .language-toggle:hover {
+        border-color: rgba(108, 92, 231, 0.35);
+        background: rgba(13, 32, 56, 0.95);
+        transform: translateY(-2px);
+    }
+
+    .language-panel {
+        position: fixed;
+        top: 75px;
+        right: 20px;
+        z-index: 999;
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(108, 92, 231, 0.1);
+        border-radius: 20px;
+        padding: 20px 22px;
+        min-width: 240px;
+        max-width: 280px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        display: none;
+        transition: var(--transition);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .language-panel.open {
+        display: block;
+        animation: panelSlideIn 0.3s ease;
+    }
+
+    @keyframes panelSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-15px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .language-panel .panel-title {
+        color: var(--primary-light);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .language-panel .lang-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        color: #ddd;
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .language-panel .lang-item:hover {
+        background: rgba(108, 92, 231, 0.1);
+        color: #fff;
+    }
+
+    .language-panel .lang-item.active {
+        background: rgba(108, 92, 231, 0.12);
+        border: 1px solid rgba(108, 92, 231, 0.15);
+        color: #fff;
+    }
+
+    .language-panel .lang-item .lang-code {
+        margin-right: auto;
+        font-size: 0.65rem;
+        opacity: 0.4;
+        font-weight: 600;
+    }
+
+    .language-panel .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 12px 0;
+    }
+
+    .language-panel .theme-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        color: #ddd;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: var(--transition);
+    }
+
+    .language-panel .theme-item:hover {
+        background: rgba(108, 92, 231, 0.1);
+        color: #fff;
+    }
+
+    .language-panel .theme-item .color-dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
+    }
+
+    .language-panel .font-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        color: #ddd;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: var(--transition);
+    }
+
+    .language-panel .font-item:hover {
+        background: rgba(108, 92, 231, 0.1);
+        color: #fff;
+    }
+
+    /* ============================================================
+               RESPONSIVE HEADER
+               ============================================================ */
+    @media (max-width: 768px) {
         .custom-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 30px;
-            background: rgba(13, 32, 56, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 2px solid rgba(108, 92, 231, 0.12);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            flex-wrap: wrap;
-            gap: 10px;
-            transition: var(--transition);
+            flex-direction: column;
+            padding: 12px 16px;
+            gap: 8px;
         }
-
-        .custom-header:hover {
-            border-bottom-color: rgba(108, 92, 231, 0.25);
-        }
-
-        .custom-logo {
-            font-size: 1.6rem;
-            font-weight: 900;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
-            transition: var(--transition);
-        }
-
-        .custom-logo:hover {
-            transform: scale(1.02);
-        }
-
         .custom-nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
         }
+        .custom-logo {
+            font-size: 1.3rem;
+        }
+        .language-toggle {
+            top: 12px;
+            right: 12px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+        .language-panel {
+            top: 68px;
+            right: 12px;
+            min-width: 200px;
+            padding: 16px 18px;
+        }
+        .language-toggle .toggle-label {
+            display: none;
+        }
+    }
 
+    @media (max-width: 400px) {
         .custom-nav .btn-add-account {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            border-radius: 30px;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
+            padding: 6px 14px;
+            font-size: 0.75rem;
         }
-
-        .custom-nav .btn-add-account:hover {
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
-        }
-
         .custom-nav .btn-logout {
-            background: rgba(255, 23, 68, 0.12);
-            color: #ff1744;
-            border: 1px solid rgba(255, 23, 68, 0.2);
-            padding: 6px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: var(--transition);
-            font-family: inherit;
+            padding: 4px 12px;
+            font-size: 0.75rem;
         }
-
-        .custom-nav .btn-logout:hover {
-            background: #ff1744;
-            color: #fff;
-            border-color: #ff1744;
-            transform: scale(1.04);
-        }
-
         .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(108, 92, 231, 0.3);
-            object-fit: cover;
-            cursor: pointer;
-            transition: var(--transition);
+            width: 32px;
+            height: 32px;
         }
-
-        .user-avatar:hover {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
         .user-name {
-            color: var(--primary-light);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
+            font-size: 0.8rem;
         }
-
-        .user-name:hover {
-            color: #fff;
+        .language-panel {
+            min-width: 180px;
+            padding: 14px;
         }
+    }
+</style>
+<!-- ============================================================
+MAIN CONTAINER
+============================================================ -->
+<div class="container">
 
+    <!-- ===== HERO ===== -->
+    <section class="hero glass">
+        <h2>Welcome to PackZone MC 💙</h2>
+        <p>Your hub for Minecraft Java &amp; Bedrock resource packs</p>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about glass">
+        <h2>📌 About PackZone MC</h2>
+        <p>PackZone MC is a platform dedicated to providing professional resource packs, PvP packs, pack conversions, and useful Minecraft tools. Our goal is to create a better and simpler experience for Minecraft players.</p>
+    </section>
+
+    <style>
         /* ============================================================
                    HERO
                    ============================================================ */
@@ -311,6 +689,105 @@
             line-height: 1.9;
         }
 
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            .hero {
+                padding: 30px 16px 25px;
+            }
+            .about {
+                padding: 20px 18px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h2 {
+                font-size: 1.3rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+        }
+                </style>
+    <!-- ===== GRID CARDS ===== -->
+    <section class="menu-box">
+
+        <div class="small-card glass">
+            <h3>🔥 dewier Collection</h3>
+            <p>A collection of professional dewier packs for Bedrock</p>
+            <div class="card-actions">
+                <a href="dewier.html" class="btn-card btn-card-gold">View Collection</a>
+                <button class="fav-btn" data-pack="dewier Collection" onclick="addFavorite('dewier Collection')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>💎 MysMce Packs</h3>
+            <p>A collection of MysMce packs ported to Bedrock</p>
+            <div class="card-actions">
+                <a href="mysmce.html" class="btn-card">View Collection</a>
+                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>📄 Manifest Builder</h3>
+            <p>Build your manifest.json file without coding</p>
+            <div class="card-actions">
+                <a href="manifest.html" class="btn-card btn-card-gold">Start Building</a>
+                <button class="fav-btn" data-pack="Manifest Builder" onclick="addFavorite('Manifest Builder')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>🟦 Java Edition Packs</h3>
+            <p>Browse resource packs for Minecraft Java</p>
+            <div class="card-actions">
+                <a href="java.html" class="btn-card">Browse Java</a>
+                <button class="fav-btn" data-pack="Java Packs" onclick="addFavorite('Java Packs')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>🟩 Bedrock Edition Packs</h3>
+            <p>Download resource packs for Minecraft Bedrock</p>
+            <div class="card-actions">
+                <a href="bedrock.html" class="btn-card btn-card-green">Download</a>
+                <button class="fav-btn" data-pack="Bedrock Packs" onclick="addFavorite('Bedrock Packs')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>📦 My Packs</h3>
+            <p>Exclusive packs created by PackZone MC</p>
+            <div class="card-actions">
+                <a href="my-packs.html" class="btn-card">View Exclusives</a>
+                <button class="fav-btn" data-pack="My Packs" onclick="addFavorite('My Packs')">⭐ Save</button>
+            </div>
+        </div>
+
+        <div class="small-card glass">
+            <h3>📦 pack.mcmeta Builder</h3>
+            <p>Create pack.mcmeta files for Java resource packs</p>
+            <div class="card-actions">
+                <a href="mcmeta-builder.html" class="btn-card btn-card-gold">Create</a>
+                <button class="fav-btn" data-pack="mcmeta Builder" onclick="addFavorite('mcmeta Builder')">⭐ Save</button>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="glass" style="text-align:center;padding:24px 20px;border-radius:var(--radius);margin-top:20px;color:rgba(255,255,255,0.12);font-size:0.85rem;">
+    <p>© PackZone MC 💙 — All rights reserved</p>
+</footer>
+    <style>
         /* ============================================================
                    GRID
                    ============================================================ */
@@ -460,312 +937,6 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-    </style>
-</head>
-
-<body>
-<!-- ============================================================
-LANGUAGE TOGGLE
-============================================================ -->
-<div class="language-toggle" onclick="togglePanel()">
-    <span>🇺🇸</span>
-    <span>English</span>
-    <span>▼</span>
-</div>
-
-<div class="language-panel" id="languagePanel">
-    <div class="panel-title">🌍 Select Language</div>
-    <a href="../fa/index.html" class="lang-item">
-        <span>🇮🇷</span>
-        <span>فارسی</span>
-        <span class="lang-code">FA</span>
-    </a>
-    <a href="../en/index.html" class="lang-item active">
-        <span>🇺🇸</span>
-        <span>English</span>
-        <span class="lang-code">EN</span>
-    </a>
-
-    <hr class="divider">
-
-    <div class="panel-title">🎨 Select Theme</div>
-    <div class="theme-item" onclick="changeTheme('default')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>Default (Purple-Blue)</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('green')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#00b894,#55efc4)"></span>
-        <span>Emerald</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('blue')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"></span>
-        <span>Ocean Blue</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('red')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#e17055,#fd79a8)"></span>
-        <span>Warm</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('purple')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>Royal</span>
-    </div>
-
-    <hr class="divider">
-
-    <div class="panel-title">🔤 Select Font</div>
-    <div class="font-item" onclick="changeFont('primary')">
-        <span>📝 Inter</span>
-    </div>
-    <div class="font-item" onclick="changeFont('secondary')">
-        <span>📝 Montserrat</span>
-    </div>
-    <div class="font-item" onclick="changeFont('serif')">
-        <span>📝 Playfair</span>
-    </div>
-</div>
-
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header class="custom-header glass-strong">
-    <div class="custom-logo">💙 PackZone MC</div>
-    <nav class="custom-nav" id="mainNav">
-        <!-- Populated by JS -->
-    </nav>
-</header>
-
-<div class="container">
-
-    <!-- ===== HERO ===== -->
-    <section class="hero glass">
-        <h2>Welcome to PackZone MC 💙</h2>
-        <p>Your hub for Minecraft Java &amp; Bedrock resource packs</p>
-    </section>
-
-    <!-- ===== ABOUT ===== -->
-    <section class="about glass">
-        <h2>📌 About PackZone MC</h2>
-        <p>PackZone MC is a platform dedicated to providing professional resource packs, PvP packs, pack conversions, and useful Minecraft tools. Our goal is to create a better and simpler experience for Minecraft players.</p>
-    </section>
-
-    <!-- ===== GRID CARDS ===== -->
-    <section class="menu-box">
-
-        <div class="small-card glass">
-            <h3>💎 MysMce Packs</h3>
-            <p>A collection of MysMce packs ported to Bedrock</p>
-            <div class="card-actions">
-                <a href="mysmce.html" class="btn-card">View Collection</a>
-                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📄 Manifest Builder</h3>
-            <p>Build your manifest.json file without coding</p>
-            <div class="card-actions">
-                <a href="manifest.html" class="btn-card btn-card-gold">Start Building</a>
-                <button class="fav-btn" data-pack="Manifest Builder" onclick="addFavorite('Manifest Builder')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>🟦 Java Edition Packs</h3>
-            <p>Browse resource packs for Minecraft Java</p>
-            <div class="card-actions">
-                <a href="java.html" class="btn-card">Browse Java</a>
-                <button class="fav-btn" data-pack="Java Packs" onclick="addFavorite('Java Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>🟩 Bedrock Edition Packs</h3>
-            <p>Download resource packs for Minecraft Bedrock</p>
-            <div class="card-actions">
-                <a href="bedrock.html" class="btn-card btn-card-green">Download</a>
-                <button class="fav-btn" data-pack="Bedrock Packs" onclick="addFavorite('Bedrock Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📦 My Packs</h3>
-            <p>Exclusive packs created by PackZone MC</p>
-            <div class="card-actions">
-                <a href="my-packs.html" class="btn-card">View Exclusives</a>
-                <button class="fav-btn" data-pack="My Packs" onclick="addFavorite('My Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📦 pack.mcmeta Builder</h3>
-            <p>Create pack.mcmeta files for Java resource packs</p>
-            <div class="card-actions">
-                <a href="mcmeta-builder.html" class="btn-card btn-card-gold">Create</a>
-                <button class="fav-btn" data-pack="mcmeta Builder" onclick="addFavorite('mcmeta Builder')">⭐ Save</button>
-            </div>
-        </div>
-
-    </section>
-
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="glass" style="text-align:center;padding:24px 20px;border-radius:var(--radius);margin-top:20px;color:rgba(255,255,255,0.12);font-size:0.85rem;">
-    <p>© PackZone MC 💙 — All rights reserved</p>
-</footer>
-    <style>
-        /* ============================================================
-                   LANGUAGE PANEL
-                   ============================================================ */
-        .language-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(13, 32, 56, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            border-radius: 50px;
-            padding: 8px 16px;
-            color: #ddd;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .language-toggle:hover {
-            border-color: rgba(108, 92, 231, 0.35);
-            background: rgba(13, 32, 56, 0.95);
-            transform: translateY(-2px);
-        }
-
-        .language-panel {
-            position: fixed;
-            top: 75px;
-            right: 20px;
-            z-index: 999;
-            background: rgba(13, 32, 56, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(108, 92, 231, 0.1);
-            border-radius: 20px;
-            padding: 20px 22px;
-            min-width: 240px;
-            max-width: 280px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: none;
-            transition: var(--transition);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .language-panel.open {
-            display: block;
-            animation: panelSlideIn 0.3s ease;
-        }
-
-        @keyframes panelSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-15px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .language-panel .panel-title {
-            color: var(--primary-light);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .language-panel .lang-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .language-panel .lang-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
-        }
-
-        .language-panel .lang-item.active {
-            background: rgba(108, 92, 231, 0.12);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            color: #fff;
-        }
-
-        .language-panel .lang-item .lang-code {
-            margin-right: auto;
-            font-size: 0.65rem;
-            opacity: 0.4;
-            font-weight: 600;
-        }
-
-        .language-panel .divider {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin: 12px 0;
-        }
-
-        .language-panel .theme-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .language-panel .theme-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
-        }
-
-        .language-panel .theme-item .color-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-        }
-
-        .language-panel .font-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .language-panel .font-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
-        }
 
         /* ============================================================
                    TOAST
@@ -804,45 +975,12 @@ HEADER
                    RESPONSIVE
                    ============================================================ */
         @media (max-width: 768px) {
-            .custom-header {
-                flex-direction: column;
-                padding: 12px 16px;
-                gap: 8px;
-            }
-            .custom-nav {
-                justify-content: center;
-                gap: 8px;
-            }
-            .custom-logo {
-                font-size: 1.3rem;
-            }
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            .hero {
-                padding: 30px 16px 25px;
-            }
-            .about {
-                padding: 20px 18px;
-            }
             .menu-box {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
             .small-card {
                 padding: 20px 16px;
-            }
-            .language-toggle {
-                top: 12px;
-                right: 12px;
-                padding: 6px 12px;
-                font-size: 0.75rem;
-            }
-            .language-panel {
-                top: 68px;
-                right: 12px;
-                min-width: 200px;
-                padding: 16px 18px;
             }
             .small-card .btn-card {
                 padding: 8px 18px;
@@ -853,30 +991,9 @@ HEADER
                 font-size: 0.75rem;
                 min-width: 60px;
             }
-            .custom-nav .btn-add-account {
-                padding: 6px 14px;
-                font-size: 0.75rem;
-            }
-            .custom-nav .btn-logout {
-                padding: 4px 12px;
-                font-size: 0.75rem;
-            }
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            .user-name {
-                font-size: 0.8rem;
-            }
         }
 
         @media (max-width: 400px) {
-            .hero h2 {
-                font-size: 1.3rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
             .small-card h3 {
                 font-size: 1rem;
             }
@@ -888,10 +1005,6 @@ HEADER
                 font-size: 0.7rem;
                 padding: 6px 10px;
                 min-width: 50px;
-            }
-            .language-panel {
-                min-width: 170px;
-                padding: 14px;
             }
         }
     </style>
@@ -927,7 +1040,7 @@ HEADER
         }
 
         function changeFont(font) {
-            document.body.classList.remove('font-primary', 'font-secondary', 'font-serif');
+            document.body.classList.remove('font-primary', 'font-secondary', 'font-serif', 'font-minecraft');
             let fontClass = '';
             switch (font) {
                 case 'primary':
@@ -938,6 +1051,9 @@ HEADER
                     break;
                 case 'serif':
                     fontClass = 'font-serif';
+                    break;
+                case 'minecraft':
+                    fontClass = 'font-minecraft';
                     break;
             }
             if (fontClass) document.body.classList.add(fontClass);
@@ -1067,7 +1183,8 @@ HEADER
                 const map = {
                     primary: 'font-primary',
                     secondary: 'font-secondary',
-                    serif: 'font-serif'
+                    serif: 'font-serif',
+                    minecraft: 'font-minecraft'
                 };
                 if (map[savedFont]) document.body.classList.add(map[savedFont]);
             }
