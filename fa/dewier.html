@@ -244,6 +244,186 @@
             opacity: 1;
         }
 
+        /* ===== Comment Modal ===== */
+        .comment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .comment-modal.open {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .comment-modal .modal-box {
+            background: #0d2038;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(108, 92, 231, 0.15);
+            max-width: 450px;
+            width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .comment-modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .comment-modal .modal-header h3 {
+            color: #7ec8ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .comment-modal .modal-header .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0 8px;
+        }
+
+        .comment-modal .modal-header .close-btn:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .comment-modal .comments-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 4px;
+            max-height: 300px;
+        }
+
+        .comment-modal .comments-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .comment-modal .comments-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .comment-modal .comments-list::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .comment-modal .comment-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .comment-modal .comment-item .comment-user {
+            font-weight: 600;
+            color: #7ec8ff;
+            font-size: 0.85rem;
+        }
+
+        .comment-modal .comment-item .comment-text {
+            color: #ddd;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            word-wrap: break-word;
+        }
+
+        .comment-modal .comment-item .comment-date {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .comment-modal .no-comments {
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+
+        .comment-modal .comment-input-area {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 12px;
+        }
+
+        .comment-modal .comment-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .comment-modal .comment-input-area input:focus {
+            border-color: #6c5ce7;
+        }
+
+        .comment-modal .comment-input-area input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .comment-modal .comment-input-area .send-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .comment-modal .comment-input-area .send-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
+        }
+
+        .comment-modal .comment-input-area .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .menu-box {
             display: flex;
             flex-wrap: wrap;
@@ -313,6 +493,10 @@
                 font-size: 0.7rem;
                 padding: 4px 10px;
             }
+            .comment-modal .modal-box {
+                padding: 20px 16px;
+                max-width: 95%;
+            }
         }
 
         @media (max-width: 400px) {
@@ -338,20 +522,19 @@
 </head>
 
 <body>
-    <div class="container">
+<div class="container">
 
-        <div style="text-align:center;">
-            <span class="version-badge">🔥 کالکشن Deiwer</span>
-        </div>
+    <div style="text-align:center;">
+        <span class="version-badge">🔥 کالکشن Deiwer</span>
+    </div>
+    <section class="hero">
+        <h1 class="main-logo">💙 PackZone MC</h1>
+        <a href="index.html" class="home-button">🏠 خانه</a>
+        <h2>🔥 کالکشن Deiwer</h2>
+        <p>مجموعه‌ای از پک‌های حرفه‌ای Deiwer برای ماینکرفت بدراک</p>
+    </section>
 
-        <section class="hero">
-            <h1 class="main-logo">💙 PackZone MC</h1>
-            <a href="index.html" class="home-button">🏠 خانه</a>
-            <h2>🔥 کالکشن Deiwer</h2>
-            <p>مجموعه‌ای از پک‌های حرفه‌ای Deiwer برای ماینکرفت بدراک</p>
-        </section>
-
-        <section class="menu-box">
+    <section class="menu-box">
         <!-- Deiwer 2k -->
         <div class="card" data-pack="Deiwer 2k">
             <img src="../assets/2k.jpg" width="300">
@@ -364,7 +547,7 @@
             <p>📦 حجم : <span>10.33 MB</span></p>
             <a href="https://my.uupload.ir/dl/0jkk9x2j" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 2k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 2k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 2k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 2k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -382,7 +565,7 @@
             <p>📦 حجم : <span>15.24 MB</span></p>
             <a href="https://my.uupload.ir/dl/0jkk9XAR" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 2k Revamp')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 2k Revamp')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 2k Revamp')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 2k Revamp', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -400,7 +583,7 @@
             <p>📦 حجم : <span>21.96 MB</span></p>
             <a href="https://my.uupload.ir/dl/0jkk9X51" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 5k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 5k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 5k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 5k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -418,7 +601,7 @@
             <p>📦 حجم : <span>35.02 MB</span></p>
             <a href="https://my.uupload.ir/dl/aG55Aa88" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 20k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 20k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 20k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 20k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -436,7 +619,7 @@
             <p>📦 حجم : <span>12.61 MB</span></p>
             <a href="https://my.uupload.ir/dl/eyJJW87r" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 30k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 30k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 30k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 30k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -454,7 +637,7 @@
             <p>📦 حجم : <span>15.28 MB</span></p>
             <a href="https://my.uupload.ir/dl/v9VVwXgY" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 40k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 40k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 40k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 40k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -472,7 +655,7 @@
             <p>📦 حجم : <span>19.01 MB</span></p>
             <a href="https://my.uupload.ir/dl/kjLLGree" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 50k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 50k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 50k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 50k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -490,7 +673,7 @@
             <p>📦 حجم : <span>13.26 MB</span></p>
             <a href="https://my.uupload.ir/dl/6EAAvO9W" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 60k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 60k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 60k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 60k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -508,13 +691,12 @@
             <p>📦 حجم : <span>17.97 MB</span></p>
             <a href="https://my.uupload.ir/dl/Ndwwg54R" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 70k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 70k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 70k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 70k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
         </div>
-
-        <!-- Deiwer 80k -->
+                <!-- Deiwer 80k -->
         <div class="card" data-pack="Deiwer 80k">
             <img src="../assets/80k.jpg" width="300">
             <h3>🎮 Deiwer 80k</h3>
@@ -526,7 +708,7 @@
             <p>📦 حجم : <span>49.93 MB</span></p>
             <a href="https://my.uupload.ir/dl/EOkk1GzQ" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 80k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 80k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 80k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 80k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -544,7 +726,7 @@
             <p>📦 حجم : <span>5.36 MB</span></p>
             <a href="https://my.uupload.ir/dl/2KDDeyjp" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 90k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 90k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 90k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 90k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -562,7 +744,7 @@
             <p>📦 حجم : <span>15.31 MB</span></p>
             <a href="https://my.uupload.ir/dl/n2JJy866" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 100k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 100k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 100k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 100k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -580,7 +762,7 @@
             <p>📦 حجم : <span>13.17 MB</span></p>
             <a href="https://my.uupload.ir/dl/yoWW286k" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 110k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 110k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 110k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 110k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -598,7 +780,7 @@
             <p>📦 حجم : <span>9.25 MB</span></p>
             <a href="https://my.uupload.ir/dl/aG55A9bL" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 120k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 120k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 120k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 120k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -616,7 +798,7 @@
             <p>📦 حجم : <span>31.58 MB</span></p>
             <a href="https://my.uupload.ir/dl/eyJJWLnm" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 130k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 130k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 130k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 130k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -634,7 +816,7 @@
             <p>📦 حجم : <span>20.73 MB</span></p>
             <a href="https://my.uupload.ir/dl/aG55AkK7" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 140k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 140k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 140k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 140k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -652,7 +834,7 @@
             <p>📦 حجم : <span>16.95 MB</span></p>
             <a href="https://my.uupload.ir/dl/4eXXE1pd" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 150k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 150k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 150k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 150k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -670,7 +852,7 @@
             <p>📦 حجم : <span>15.30 MB</span></p>
             <a href="https://my.uupload.ir/dl/yoWW2DBD" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 160k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 160k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 160k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 160k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -688,7 +870,7 @@
             <p>📦 حجم : <span>15.28 MB</span></p>
             <a href="https://my.uupload.ir/dl/v9VVw4gb" download class="btn-download">⬇️ دانلود</a>
             <div class="card-actions">
-                <button class="comment-btn" onclick="openComment('Deiwer 170k')">💬 نظر</button>
+                <button class="comment-btn" onclick="openCommentModal('Deiwer 170k')">💬 نظر</button>
                 <button class="save-btn" onclick="savePack('Deiwer 170k')">⭐ ذخیره</button>
                 <button class="copy-btn" onclick="copyLink('Deiwer 170k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
             </div>
@@ -698,8 +880,122 @@
 
     <footer>© PackZone MC 💙</footer>
 
+</div>
+    <!-- ===== Comment Modal ===== -->
+    <div class="comment-modal" id="commentModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="commentModalTitle">💬 نظرات</h3>
+                <button class="close-btn" onclick="closeCommentModal()">✕</button>
+            </div>
+            <div class="comments-list" id="commentsList">
+                <!-- توسط JS پر میشه -->
+            </div>
+            <div class="comment-input-area">
+                <input type="text" id="commentInput" placeholder="نظر خود را بنویسید..." maxlength="500">
+                <button class="send-btn" onclick="sendComment()">📤 ارسال</button>
+            </div>
+        </div>
     </div>
+
     <script>
+        // ============================================================
+        // ===== Comment System (با localStorage - عمومی) =====
+        // ============================================================
+        let currentCommentPack = '';
+
+        function getComments(packName) {
+            const allComments = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            return allComments[packName] || [];
+        }
+
+        function saveComments(packName, comments) {
+            const allComments = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            allComments[packName] = comments;
+            localStorage.setItem('pzmc_comments', JSON.stringify(allComments));
+        }
+
+        function openCommentModal(packName) {
+            currentCommentPack = packName;
+            document.getElementById('commentModalTitle').textContent = `💬 نظرات (${packName})`;
+            renderComments(packName);
+            document.getElementById('commentModal').classList.add('open');
+            document.getElementById('commentInput').value = '';
+            document.getElementById('commentInput').focus();
+        }
+
+        function closeCommentModal() {
+            document.getElementById('commentModal').classList.remove('open');
+            currentCommentPack = '';
+        }
+
+        function renderComments(packName) {
+            const list = document.getElementById('commentsList');
+            const comments = getComments(packName);
+
+            if (comments.length === 0) {
+                list.innerHTML = `<div class="no-comments">💬 هنوز نظری ثبت نشده است</div>`;
+                return;
+            }
+
+            let html = '';
+            // نمایش آخرین نظرات اول
+            const sortedComments = [...comments].reverse();
+            sortedComments.forEach(comment => {
+                const date = new Date(comment.date);
+                const formattedDate = date.toLocaleDateString('fa-IR') + ' ' + date.toLocaleTimeString('fa-IR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                html += `
+                    <div class="comment-item">
+                        <div class="comment-user">${escapeHtml(comment.user)}</div>
+                        <div class="comment-text">${escapeHtml(comment.text)}</div>
+                        <span class="comment-date">${formattedDate}</span>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function sendComment() {
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+
+            if (!text) {
+                showToast('⚠️ لطفاً متن نظر را وارد کنید');
+                return;
+            }
+
+            // بررسی ورود کاربر
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            const comments = getComments(currentCommentPack);
+            comments.push({
+                user: user.name || 'کاربر ناشناس',
+                text: text,
+                date: new Date().toISOString()
+            });
+            saveComments(currentCommentPack, comments);
+
+            renderComments(currentCommentPack);
+            input.value = '';
+            showToast('✅ نظر شما ثبت شد!', 'success');
+        }
+
         // ============================================================
         // ===== Toast System =====
         // ============================================================
@@ -743,7 +1039,6 @@
                 }, 1500);
                 return;
             }
-
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
             const index = users.findIndex(u => u.email === user.email);
@@ -826,26 +1121,6 @@
         }
 
         // ============================================================
-        // ===== Open Comment (💬 نظر) =====
-        // ============================================================
-        function openComment(packName) {
-            if (!checkUser()) {
-                showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                return;
-            }
-
-            const comment = prompt(`نظر خود را برای پک "${packName}" وارد کنید:`);
-            if (comment !== null && comment.trim() !== '') {
-                showToast('💬 نظر شما ثبت شد!', 'success');
-            } else if (comment !== null) {
-                showToast('⚠️ نظری وارد نشد!');
-            }
-        }
-
-        // ============================================================
         // ===== بارگذاری وضعیت دکمه‌های ذخیره =====
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -868,6 +1143,7 @@
                 }
             }
 
+            // ===== چک کردن پارامتر pack در URL =====
             const params = new URLSearchParams(window.location.search);
             const packParam = params.get('pack');
             if (packParam) {
@@ -886,6 +1162,21 @@
                     showToast('❌ پک مورد نظر پیدا نشد!', 'error');
                 }
             }
+
+            // ===== بستن مودال با کلیک خارج =====
+            document.getElementById('commentModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCommentModal();
+                }
+            });
+
+            // ===== ارسال با Enter =====
+            document.getElementById('commentInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendComment();
+                }
+            });
         });
     </script>
 
