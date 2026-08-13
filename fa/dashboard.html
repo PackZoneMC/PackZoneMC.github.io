@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
     
-    <!-- ===== GOOGLE FONTS (پریمیوم) ===== -->
+    <!-- ===== GOOGLE FONTS (اضافی) ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -68,7 +68,6 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
             --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
-            --gradient-premium: linear-gradient(135deg, #fdcb6e, #f39c12, #e17055, #fd79a8);
             
             /* فونت‌های پایه */
             --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -83,7 +82,7 @@
             --font-space: 'Space Grotesk', 'Vazirmatn', sans-serif;
             --font-dm: 'DM Sans', 'Vazirmatn', sans-serif;
             
-            /* فونت‌های پریمیوم */
+            /* فونت‌های اضافی */
             --font-cinzel: 'Cinzel', 'Vazirmatn', serif;
             --font-raleway: 'Raleway', 'Vazirmatn', sans-serif;
             --font-poppins: 'Poppins', 'Vazirmatn', sans-serif;
@@ -160,13 +159,6 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .glass-premium {
-            background: rgba(253, 203, 110, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(253, 203, 110, 0.15);
-        }
-
         /* کلاس‌های فونت (پایه) */
         .font-primary { font-family: var(--font-primary) !important; }
         .font-secondary { font-family: var(--font-secondary) !important; }
@@ -180,7 +172,7 @@
         .font-space { font-family: var(--font-space) !important; }
         .font-dm { font-family: var(--font-dm) !important; }
         
-        /* کلاس‌های فونت (پریمیوم) */
+        /* کلاس‌های فونت (اضافی) */
         .font-cinzel { font-family: var(--font-cinzel) !important; }
         .font-raleway { font-family: var(--font-raleway) !important; }
         .font-poppins { font-family: var(--font-poppins) !important; }
@@ -209,36 +201,12 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-light);
         }
-
-        /* Badge پریمیوم */
-        .premium-badge {
-            display: inline-block;
-            background: var(--gradient-premium);
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: #1a1a2e;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            animation: premiumGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes premiumGlow {
-            0%, 100% { box-shadow: 0 0 10px rgba(253, 203, 110, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(253, 203, 110, 0.6); }
-        }
-
-        .premium-icon {
-            color: var(--gold);
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 
 <body>
 <!-- ============================================================
-===== بخش ۲: هدر و پنل پس‌زمینه (با گزینه‌های پریمیوم) =====
+===== بخش ۲: هدر و پنل پس‌زمینه =====
 ============================================================ -->
 
 <!-- ===== پنل پس‌زمینه ===== -->
@@ -266,22 +234,11 @@
         <input type="color" id="customColor2" value="#a29bfe" onchange="applyCustomBg()">
         <button onclick="applyCustomBg()" class="btn-apply">اعمال</button>
     </div>
-    
-    <!-- گزینه‌های پریمیوم -->
-    <hr class="divider">
-    <div class="bg-panel-title" style="color: var(--gold);">⭐ پریمیوم</div>
-    <div class="bg-grid">
-        <div class="bg-item premium-bg" onclick="changeBg('premium1')" style="background:linear-gradient(135deg,#1a0033,#4a0066,#6c5ce7)"></div>
-        <div class="bg-item premium-bg" onclick="changeBg('premium2')" style="background:linear-gradient(135deg,#0a0a2a,#1a0a4a,#fd79a8)"></div>
-        <div class="bg-item premium-bg" onclick="changeBg('premium3')" style="background:linear-gradient(135deg,#001a1a,#00333a,#00b894)"></div>
-        <div class="bg-item premium-bg" onclick="changeBg('premium4')" style="background:linear-gradient(135deg,#1a0a00,#3a1a00,#fdcb6e)"></div>
-        <div class="bg-item premium-bg" onclick="changeBg('premium5')" style="background:linear-gradient(135deg,#0a001a,#1a003a,#a29bfe)"></div>
-    </div>
 </div>
 
 <!-- ===== HEADER ===== -->
 <header class="custom-header glass-strong" id="mainHeader">
-    <div class="custom-logo">💙 PackZone MC <span class="premium-badge">پریمیوم</span></div>
+    <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
         <!-- توسط JS پر میشه -->
     </nav>
@@ -317,9 +274,6 @@
         -webkit-text-fill-color: transparent;
         letter-spacing: 0.5px;
         transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 10px;
     }
 
     .custom-logo:hover {
@@ -522,20 +476,6 @@
         box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
     }
 
-    .premium-bg {
-        border-color: rgba(253, 203, 110, 0.2);
-    }
-
-    .premium-bg:hover {
-        border-color: rgba(253, 203, 110, 0.6) !important;
-        box-shadow: 0 4px 25px rgba(253, 203, 110, 0.2) !important;
-    }
-
-    .premium-bg.active {
-        border-color: var(--gold) !important;
-        box-shadow: 0 0 30px rgba(253, 203, 110, 0.3) !important;
-    }
-
     .bg-custom-input {
         display: flex;
         gap: 8px;
@@ -570,12 +510,6 @@
     .bg-custom-input .btn-apply:hover {
         transform: scale(1.04);
         box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
-    }
-
-    .divider {
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        margin: 12px 0;
     }
 
     @keyframes panelSlideIn {
@@ -615,7 +549,7 @@
 
     <hr class="divider">
 
-    <div class="panel-title">🔤 انتخاب فونت <span class="premium-badge" style="font-size:0.5rem;">پریمیوم</span></div>
+    <div class="panel-title">🔤 انتخاب فونت</div>
     
     <div class="panel-subtitle">📋 پایه</div>
     <div class="font-item" onclick="changeFont('primary')"><span>📝 وزیرمتن</span></div>
@@ -625,26 +559,26 @@
     <div class="font-item" onclick="changeFont('cairo')"><span>📝 قاهره</span></div>
     <div class="font-item" onclick="changeFont('minecraft')"><span>⛏️ ماینکرفت</span></div>
     
-    <div class="panel-subtitle" style="color: var(--gold);">⭐ پریمیوم</div>
-    <div class="font-item premium-font" onclick="changeFont('playfair')"><span>📝 پلیفیر <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('montserrat')"><span>📝 مونسرات <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('outfit')"><span>📝 اوتفیت <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('space')"><span>📝 اسپیس گروتسک <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('dm')"><span>📝 دیام سانس <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('cinzel')"><span>📝 سینزل <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('raleway')"><span>📝 رالوی <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('poppins')"><span>📝 پاپینز <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('nunito')"><span>📝 نونیتو <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('quicksand')"><span>📝 کویک‌سند <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('orbitron')"><span>📝 اوربیترون <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('pressstart')"><span>🎮 پرس استارت <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('josefin')"><span>📝 جوزفین <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('lobster')"><span>🦞 لابستر <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('pacifico')"><span>🌊 پاسیفیکو <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('dancing')"><span>💃 دنسینگ <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('greatvibes')"><span>✨ گریت وایبز <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('satisfy')"><span>😊 ساتیسفای <span class="premium-icon">⭐</span></span></div>
-    <div class="font-item premium-font" onclick="changeFont('bangers')"><span>💥 بنگرز <span class="premium-icon">⭐</span></span></div>
+    <div class="panel-subtitle">⭐ اضافی</div>
+    <div class="font-item" onclick="changeFont('playfair')"><span>📝 پلیفیر</span></div>
+    <div class="font-item" onclick="changeFont('montserrat')"><span>📝 مونسرات</span></div>
+    <div class="font-item" onclick="changeFont('outfit')"><span>📝 اوتفیت</span></div>
+    <div class="font-item" onclick="changeFont('space')"><span>📝 اسپیس گروتسک</span></div>
+    <div class="font-item" onclick="changeFont('dm')"><span>📝 دیام سانس</span></div>
+    <div class="font-item" onclick="changeFont('cinzel')"><span>📝 سینزل</span></div>
+    <div class="font-item" onclick="changeFont('raleway')"><span>📝 رالوی</span></div>
+    <div class="font-item" onclick="changeFont('poppins')"><span>📝 پاپینز</span></div>
+    <div class="font-item" onclick="changeFont('nunito')"><span>📝 نونیتو</span></div>
+    <div class="font-item" onclick="changeFont('quicksand')"><span>📝 کویک‌سند</span></div>
+    <div class="font-item" onclick="changeFont('orbitron')"><span>📝 اوربیترون</span></div>
+    <div class="font-item" onclick="changeFont('pressstart')"><span>🎮 پرس استارت</span></div>
+    <div class="font-item" onclick="changeFont('josefin')"><span>📝 جوزفین</span></div>
+    <div class="font-item" onclick="changeFont('lobster')"><span>🦞 لابستر</span></div>
+    <div class="font-item" onclick="changeFont('pacifico')"><span>🌊 پاسیفیکو</span></div>
+    <div class="font-item" onclick="changeFont('dancing')"><span>💃 دنسینگ</span></div>
+    <div class="font-item" onclick="changeFont('greatvibes')"><span>✨ گریت وایبز</span></div>
+    <div class="font-item" onclick="changeFont('satisfy')"><span>😊 ساتیسفای</span></div>
+    <div class="font-item" onclick="changeFont('bangers')"><span>💥 بنگرز</span></div>
 </div>
 
 <style>
@@ -776,18 +710,9 @@
         background: rgba(108, 92, 231, 0.12);
         color: #fff;
     }
-
-    .language-panel .font-item.premium-font {
-        border-right: 2px solid rgba(253, 203, 110, 0.15);
-    }
-
-    .language-panel .font-item.premium-font:hover {
-        background: rgba(253, 203, 110, 0.08);
-        border-right-color: var(--gold);
-    }
 </style>
 <!-- ============================================================
-===== بخش ۴: هیرو (Hero - مثل صفحه اصلی) =====
+===== بخش ۴: هیرو (Hero) =====
 ============================================================ -->
 
 <div class="container">
@@ -885,7 +810,7 @@
     }
 </style>
 <!-- ============================================================
-===== بخش ۵: درباره (About) + پروفایل کاربری =====
+===== بخش ۵: درباره (About) =====
 ============================================================ -->
 
     <!-- ===== ABOUT ===== -->
@@ -909,49 +834,9 @@
         </div>
     </section>
 
-    <!-- ===== پروفایل کاربر ===== -->
-    <section class="profile-section glass-premium" id="profileSection">
-        <div class="profile-header">
-            <div class="profile-avatar-wrapper">
-                <img src="" alt="آواتار" class="profile-avatar" id="profileAvatar">
-                <div class="profile-status" id="profileStatus">🟢 آنلاین</div>
-            </div>
-            <div class="profile-info">
-                <h2 id="profileName">کاربر عزیز</h2>
-                <div class="profile-meta">
-                    <span class="profile-level" id="profileLevel">🎯 سطح ۱</span>
-                    <span class="profile-premium" id="profilePremium">⭐ رایگان</span>
-                    <span class="profile-join" id="profileJoin">📅 تاریخ عضویت: امروز</span>
-                </div>
-            </div>
-            <div class="profile-actions">
-                <button class="btn-premium" onclick="upgradePremium()">⭐ ارتقا به پریمیوم</button>
-                <button class="btn-settings" onclick="openSettings()">⚙️ تنظیمات</button>
-            </div>
-        </div>
-        <div class="profile-stats">
-            <div class="stat-item">
-                <span class="stat-number" id="statPacks">۰</span>
-                <span class="stat-label">پک‌های ساخته شده</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="statDownloads">۰</span>
-                <span class="stat-label">دانلودها</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="statStorage">۰ GB</span>
-                <span class="stat-label">فضای مصرفی</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="statPremiumDays">۰</span>
-                <span class="stat-label">روز باقیمانده پریمیوم</span>
-            </div>
-        </div>
-    </section>
-
 <style>
     /* ============================================================
-    ===== بخش ۵: استایل درباره و پروفایل =====
+    ===== بخش ۵: استایل درباره =====
     ============================================================ */
     .about {
         padding: 32px 36px;
@@ -1016,24 +901,55 @@
         color: var(--text-muted);
         opacity: 0.6;
     }
+</style>
+<!-- ============================================================
+===== بخش ۶: پروفایل کاربری =====
+============================================================ -->
 
-    /* ===== پروفایل ===== */
+    <!-- ===== پروفایل کاربر ===== -->
+    <section class="profile-section glass" id="profileSection">
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                <img src="" alt="آواتار" class="profile-avatar" id="profileAvatar">
+                <div class="profile-status" id="profileStatus">🟢 آنلاین</div>
+            </div>
+            <div class="profile-info">
+                <h2 id="profileName">کاربر عزیز</h2>
+                <div class="profile-meta">
+                    <span class="profile-level" id="profileLevel">🎯 سطح ۱</span>
+                    <span class="profile-join" id="profileJoin">📅 تاریخ عضویت: امروز</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn-settings" onclick="openSettings()">⚙️ تنظیمات</button>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-number" id="statPacks">۰</span>
+                <span class="stat-label">پک‌های ساخته شده</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statDownloads">۰</span>
+                <span class="stat-label">دانلودها</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statStorage">۰ GB</span>
+                <span class="stat-label">فضای مصرفی</span>
+            </div>
+        </div>
+    </section>
+
+<style>
+    /* ============================================================
+    ===== بخش ۶: استایل پروفایل =====
+    ============================================================ */
     .profile-section {
         padding: 30px 36px;
         border-radius: var(--radius);
         margin-bottom: 30px;
         position: relative;
         overflow: hidden;
-    }
-
-    .profile-section::before {
-        content: '⭐';
-        position: absolute;
-        top: -30px;
-        right: -30px;
-        font-size: 8rem;
-        opacity: 0.03;
-        pointer-events: none;
     }
 
     .profile-header {
@@ -1104,33 +1020,10 @@
         color: var(--primary-light);
     }
 
-    .profile-premium {
-        color: var(--gold);
-    }
-
     .profile-actions {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
-    }
-
-    .btn-premium {
-        padding: 10px 24px;
-        background: var(--gradient-premium);
-        color: #1a1a2e;
-        border: none;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: inherit;
-        box-shadow: 0 4px 20px rgba(253, 203, 110, 0.15);
-    }
-
-    .btn-premium:hover {
-        transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 35px rgba(253, 203, 110, 0.25);
     }
 
     .btn-settings {
@@ -1186,9 +1079,9 @@
         color: var(--text-muted);
         opacity: 0.7;
     }
-    </style>
+</style>
 <!-- ============================================================
-===== بخش ۶: کارتها (دست نزن - استایل مانیفست بولدر) =====
+===== بخش ۷: کارتها (دست نزن - استایل مانیفست بولدر) =====
 ============================================================ -->
 
     <!-- ===== GRID CARDS ===== -->
@@ -1259,7 +1152,7 @@
 
 <style>
     /* ============================================================
-    ===== بخش ۶: استایل کارتها (دست نزن) =====
+    ===== بخش ۷: استایل کارتها (دست نزن) =====
     ============================================================ */
     .menu-box {
         display: grid;
@@ -1368,83 +1261,63 @@
     .small-card .btn-card-green:hover {
         box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
     }
-            </style>
+</style>
 <!-- ============================================================
-===== بخش ۷: ابزارهای پریمیوم + پک‌های اخیر =====
+===== بخش ۸: ابزارهای رایگان =====
 ============================================================ -->
 
-    <!-- ===== ابزارهای پریمیوم ===== -->
+    <!-- ===== ابزارها ===== -->
     <section class="tools-section">
-        <h2 class="section-title">⭐ ابزارهای پریمیوم <span class="premium-badge">فقط پریمیوم</span></h2>
+        <h2 class="section-title">🔧 ابزارهای PackZone MC</h2>
         
         <div class="tools-grid">
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">🔄</div>
                 <h3>تبدیل پک جاوا به بدراک</h3>
                 <p>پک‌های جاوا رو با یک کلیک به بدراک تبدیل کن</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="convertPack()">شروع تبدیل</button>
             </div>
 
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">🤖</div>
                 <h3>ساخت پک با هوش مصنوعی</h3>
                 <p>با توضیح ساده، AI برات پک می‌سازه</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="aiPack()">ساخت با AI</button>
             </div>
 
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">📤</div>
                 <h3>آپلود پک اختصاصی</h3>
                 <p>فضای ۱۰GB برای آپلود پک‌های خودت</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="uploadPack()">آپلود</button>
             </div>
 
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">👑</div>
                 <h3>دسترسی به پک‌های VIP</h3>
                 <p>بیش از ۱۰۰ پک اختصاصی و نایاب</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="vipPacks()">مشاهده VIP</button>
             </div>
 
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">📋</div>
                 <h3>مانیفست حرفه‌ای</h3>
                 <p>قالب‌های آماده مانیفست با تنظیمات پیشرفته</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="proManifest()">ساخت حرفه‌ای</button>
             </div>
 
-            <div class="tool-card glass-premium">
+            <div class="tool-card glass">
                 <div class="tool-icon">📊</div>
                 <h3>آمار پیشرفته پک</h3>
                 <p>آنالیز کامل پک‌ها و عملکرد آنها</p>
-                <div class="tool-badge premium-badge">پریمیوم</div>
                 <button class="btn-tool" onclick="packStats()">مشاهده آمار</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== پک‌های اخیر ===== -->
-    <section class="recent-section">
-        <h2 class="section-title">📦 پک‌های اخیر شما</h2>
-        <div class="recent-grid" id="recentPacks">
-            <div class="recent-empty glass">
-                <span class="empty-icon">📭</span>
-                <p>هنوز پکی نساختی!</p>
-                <button class="btn-create" onclick="createPack()">➕ ساخت پک جدید</button>
-            </div>
-        </div>
-    </section>
-
-</div>
-
 <style>
     /* ============================================================
-    ===== بخش ۷: استایل ابزارهای پریمیوم و پک‌های اخیر =====
+    ===== بخش ۸: استایل ابزارها =====
     ============================================================ */
     .section-title {
         color: #fff;
@@ -1470,13 +1343,13 @@
         transition: var(--transition);
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba(253, 203, 110, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .tool-card:hover {
         transform: translateY(-4px);
-        border-color: rgba(253, 203, 110, 0.15);
-        box-shadow: 0 8px 40px rgba(253, 203, 110, 0.05);
+        border-color: rgba(108, 92, 231, 0.15);
+        box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
     }
 
     .tool-card .tool-icon {
@@ -1498,20 +1371,13 @@
         margin-bottom: 12px;
     }
 
-    .tool-card .tool-badge {
-        display: inline-block;
-        margin-bottom: 12px;
-        font-size: 0.6rem;
-        padding: 2px 14px;
-    }
-
     .btn-tool {
         padding: 8px 28px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: #1a1a2e;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
         border: none;
         border-radius: 30px;
-        font-weight: 700;
+        font-weight: 600;
         font-size: 0.85rem;
         cursor: pointer;
         transition: var(--transition);
@@ -1521,10 +1387,31 @@
 
     .btn-tool:hover {
         transform: scale(1.03);
-        box-shadow: 0 4px 20px rgba(253, 203, 110, 0.2);
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
     }
+    </style>
+<!-- ============================================================
+===== بخش ۹: پک‌های اخیر =====
+============================================================ -->
 
-    /* ===== پک‌های اخیر ===== */
+    <!-- ===== پک‌های اخیر ===== -->
+    <section class="recent-section">
+        <h2 class="section-title">📦 پک‌های اخیر شما</h2>
+        <div class="recent-grid" id="recentPacks">
+            <div class="recent-empty glass">
+                <span class="empty-icon">📭</span>
+                <p>هنوز پکی نساختی!</p>
+                <button class="btn-create" onclick="createPack()">➕ ساخت پک جدید</button>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    /* ============================================================
+    ===== بخش ۹: استایل پک‌های اخیر =====
+    ============================================================ */
     .recent-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1611,17 +1498,17 @@
     }
 </style>
 <!-- ============================================================
-===== بخش ۸-الف: فوتر و استایل‌های تکمیلی =====
+===== بخش ۱۰-الف: فوتر و استایل‌های تکمیلی =====
 ============================================================ -->
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer glass">
-    <p>© PackZone MC 💙 — تمامی حقوق محفوظ است | <span class="premium-badge">نسخه پریمیوم</span></p>
+    <p>© PackZone MC 💙 — تمامی حقوق محفوظ است</p>
 </footer>
 
 <style>
     /* ============================================================
-    ===== بخش ۸-الف: استایل فوتر، Toast و ریسپانسیو =====
+    ===== بخش ۱۰-الف: استایل فوتر، Toast و ریسپانسیو =====
     ============================================================ */
     .footer {
         text-align: center;
@@ -1791,7 +1678,7 @@
     }
 </style>
     <!-- ============================================================
-    ===== بخش ۸-ب: جاوااسکریپت کامل =====
+    ===== بخش ۱۰-ب: جاوااسکریپت کامل =====
     ============================================================ -->
 
     <script>
@@ -1819,19 +1706,6 @@
             const level = user.level || 1;
             document.getElementById('profileLevel').textContent = '🎯 سطح ' + level;
 
-            const isPremium = user.isPremium || false;
-            const premiumDays = user.premiumDays || 0;
-            const premiumEl = document.getElementById('profilePremium');
-            if (isPremium) {
-                premiumEl.innerHTML = '⭐ پریمیوم';
-                premiumEl.style.color = 'var(--gold)';
-                document.getElementById('statPremiumDays').textContent = premiumDays + ' روز';
-            } else {
-                premiumEl.innerHTML = '💎 رایگان';
-                premiumEl.style.color = 'var(--text-muted)';
-                document.getElementById('statPremiumDays').textContent = '—';
-            }
-
             const joinDate = user.joinDate || new Date().toLocaleDateString('fa-IR');
             document.getElementById('profileJoin').textContent = '📅 تاریخ عضویت: ' + joinDate;
 
@@ -1841,90 +1715,29 @@
         }
 
         // ============================================================
-        // ===== ۲. ارتقا به پریمیوم =====
-        // ============================================================
-        function upgradePremium() {
-            const user = getUserData();
-            if (!user) return;
-
-            if (user.isPremium) {
-                showToast('⭐ شما قبلاً پریمیوم هستید!');
-                return;
-            }
-
-            if (confirm('🎉 می‌خوای به نسخه پریمیوم ارتقا بدی؟\nهزینه: ۹۹,۰۰۰ تومان / ماه')) {
-                showToast('⏳ در حال پردازش...');
-                setTimeout(() => {
-                    user.isPremium = true;
-                    user.premiumDays = 30;
-                    localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-                    showToast('🎉 تبریک! شما به پریمیوم ارتقا پیدا کردید! ⭐');
-                    loadUserProfile();
-                    updateHeader();
-                }, 2000);
-            }
-        }
-
-        // ============================================================
-        // ===== ۳. ابزارهای پریمیوم =====
+        // ===== ۲. ابزارها =====
         // ============================================================
         function convertPack() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('🔄 صفحه تبدیل پک در حال باز شدن...');
         }
 
         function aiPack() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('🤖 هوش مصنوعی در حال آماده‌سازی...');
         }
 
         function uploadPack() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('📤 صفحه آپلود پک در حال باز شدن...');
         }
 
         function vipPacks() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('👑 در حال باز کردن پک‌های VIP...');
         }
 
         function proManifest() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('📋 صفحه مانیفست حرفه‌ای در حال باز شدن...');
         }
 
         function packStats() {
-            const user = getUserData();
-            if (!user) return;
-            if (!user.isPremium) {
-                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
-                return;
-            }
             showToast('📊 در حال بارگذاری آمار...');
         }
 
@@ -1937,7 +1750,7 @@
         }
 
         // ============================================================
-        // ===== ۴. توابع پنل پس‌زمینه =====
+        // ===== ۳. توابع پنل پس‌زمینه =====
         // ============================================================
         function toggleBgPanel() {
             const panel = document.getElementById('bgPanel');
@@ -2010,21 +1823,6 @@
                 case 'space':
                     bg = 'linear-gradient(135deg, #00001a, #1a0033)';
                     break;
-                case 'premium1':
-                    bg = 'linear-gradient(135deg, #1a0033, #4a0066, #6c5ce7)';
-                    break;
-                case 'premium2':
-                    bg = 'linear-gradient(135deg, #0a0a2a, #1a0a4a, #fd79a8)';
-                    break;
-                case 'premium3':
-                    bg = 'linear-gradient(135deg, #001a1a, #00333a, #00b894)';
-                    break;
-                case 'premium4':
-                    bg = 'linear-gradient(135deg, #1a0a00, #3a1a00, #fdcb6e)';
-                    break;
-                case 'premium5':
-                    bg = 'linear-gradient(135deg, #0a001a, #1a003a, #a29bfe)';
-                    break;
                 case 'custom':
                     const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
                     const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
@@ -2050,7 +1848,7 @@
         }
 
         // ============================================================
-        // ===== ۵. توابع پنل زبان =====
+        // ===== ۴. توابع پنل زبان =====
         // ============================================================
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
@@ -2071,7 +1869,7 @@
         });
 
         // ============================================================
-        // ===== ۶. تغییر فونت (با پشتیبانی از ۲۵ فونت) =====
+        // ===== ۵. تغییر فونت (با پشتیبانی از ۲۵ فونت) =====
         // ============================================================
         function changeFont(font) {
             const body = document.body;
@@ -2120,7 +1918,7 @@
         }
 
         // ============================================================
-        // ===== ۷. Toast =====
+        // ===== ۶. Toast =====
         // ============================================================
         function showToast(message) {
             const old = document.querySelector('.toast-message');
@@ -2137,7 +1935,7 @@
         }
 
         // ============================================================
-        // ===== ۸. مدیریت هدر =====
+        // ===== ۷. مدیریت هدر =====
         // ============================================================
         function updateHeader() {
             const nav = document.getElementById('mainNav');
@@ -2146,10 +1944,9 @@
                 const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
                     'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
                     '&background=6c5ce7&color=fff&size=40&bold=true';
-                const isPremium = user.isPremium ? '⭐' : '';
                 nav.innerHTML = `
                             <img src="${avatar}" class="user-avatar" onclick="window.location.href='dashboard.html'">
-                            <span class="user-name" onclick="window.location.href='dashboard.html'">${user.name || 'کاربر'} ${isPremium}</span>
+                            <span class="user-name" onclick="window.location.href='dashboard.html'">${user.name || 'کاربر'}</span>
                             <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
                             <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
                         `;
@@ -2170,7 +1967,7 @@
         }
 
         // ============================================================
-        // ===== ۹. بارگذاری صفحه =====
+        // ===== ۸. بارگذاری صفحه =====
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             const user = getUserData();
@@ -2229,13 +2026,9 @@
                     document.getElementById('bgPanel').classList.remove('open');
                 }
             });
-
-            if (user.isPremium) {
-                document.querySelector('.profile-section').classList.add('glass-premium');
-            }
         });
 
-        console.log('💙 PackZone MC - داشبورد کامل با ۸ بخش!');
+        console.log('💙 PackZone MC - داشبورد کامل با ۱۰ بخش (رایگان)');
     </script>
 
 </body>
