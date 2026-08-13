@@ -4,17 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | PackZone MC</title>
-
-    <!-- ===== GOOGLE FONTS ===== -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <title>PackZone MC | Homepage</title>
 
     <style>
         /* ============================================================
-                   RESET & BASE - Manifest Builder Style
-                   ============================================================ */
+        ===== SECTION 1: RESET & Variables =====
+        ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -32,35 +27,26 @@
             --gold-light: #ffeaa7;
             --bg-dark: #0a0a1a;
             --bg-card: rgba(255, 255, 255, 0.04);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
             --border-color: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(108, 92, 231, 0.2);
+            --border-hover: rgba(108, 92, 231, 0.25);
             --text-primary: #ffffff;
             --text-secondary: #e0e0e0;
             --text-muted: #888888;
-            --shadow: 0 8px 32px rgba(108, 92, 231, 0.08);
-            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.12);
+            --shadow: 0 8px 32px rgba(108, 92, 231, 0.12);
+            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.2);
             --radius: 24px;
             --radius-sm: 14px;
             --radius-xs: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+            --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
             --font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-secondary: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-serif: 'Playfair Display', 'Inter', serif;
-            --font-minecraft: 'Minecraft', 'Inter', sans-serif;
-        }
-
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
+            --bg-body: #0a0a1a;
         }
 
         body {
             font-family: var(--font-primary);
-            background: linear-gradient(135deg, #0a0a1a 0%, #12082a 25%, #1a1040 50%, #0d0d2b 75%, #0a0a1a 100%);
+            background: var(--bg-body);
             background-attachment: fixed;
             min-height: 100vh;
             color: var(--text-secondary);
@@ -80,8 +66,9 @@
             right: 0;
             bottom: 0;
             background:
-                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(108, 92, 231, 0.02) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -94,100 +81,20 @@
             z-index: 1;
         }
 
-        /* ===== GLASS EFFECT ===== */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-strong {
             background: rgba(13, 32, 56, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* ===== FONT CLASSES ===== */
-        .font-primary {
-            font-family: var(--font-primary) !important;
-        }
-        .font-secondary {
-            font-family: var(--font-secondary) !important;
-        }
-        .font-serif {
-            font-family: var(--font-serif) !important;
-        }
-        .font-minecraft {
-            font-family: var(--font-minecraft) !important;
-        }
-
-        /* ===== THEMES ===== */
-        .theme-default {
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --secondary: #fd79a8;
-            --gold: #fdcb6e;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --text-primary: #ffffff;
-            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
-        }
-        .theme-green {
-            --primary: #00b894;
-            --primary-light: #55efc4;
-            --secondary: #00cec9;
-            --gold: #fdcb6e;
-            --bg-card: rgba(0, 184, 148, 0.06);
-            --border-color: rgba(0, 184, 148, 0.2);
-            --text-primary: #55efc4;
-            --gradient-hero: linear-gradient(135deg, #00b894, #00cec9, #55efc4, #fdcb6e);
-        }
-        .theme-blue {
-            --primary: #0984e3;
-            --primary-light: #74b9ff;
-            --secondary: #00cec9;
-            --gold: #fdcb6e;
-            --bg-card: rgba(9, 132, 227, 0.06);
-            --border-color: rgba(9, 132, 227, 0.2);
-            --text-primary: #74b9ff;
-            --gradient-hero: linear-gradient(135deg, #0984e3, #74b9ff, #00cec9, #fdcb6e);
-        }
-        .theme-red {
-            --primary: #e17055;
-            --primary-light: #fd79a8;
-            --secondary: #ff7675;
-            --gold: #fdcb6e;
-            --bg-card: rgba(225, 112, 85, 0.06);
-            --border-color: rgba(225, 112, 85, 0.2);
-            --text-primary: #fd79a8;
-            --gradient-hero: linear-gradient(135deg, #e17055, #fd79a8, #ff7675, #fdcb6e);
-        }
-        .theme-purple {
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --secondary: #fd79a8;
-            --gold: #fdcb6e;
-            --bg-card: rgba(108, 92, 231, 0.08);
-            --border-color: rgba(108, 92, 231, 0.2);
-            --text-primary: #a29bfe;
-            --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
-        }
-        .theme-rainbow {
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --secondary: #fd79a8;
-            --gold: #fdcb6e;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --text-primary: #ffffff;
-            --gradient-hero: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #a29bfe, #fd79a8);
-        }
-
-        /* ============================================================
-                   SCROLLBAR
-                   ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -206,90 +113,128 @@
 
 <body>
 <!-- ============================================================
-LANGUAGE TOGGLE
+===== SECTION 2: 25 Google Fonts =====
 ============================================================ -->
-<div class="language-toggle" onclick="togglePanel()">
-    <span>🇺🇸</span>
-    <span>English</span>
-    <span>▼</span>
-</div>
 
-<div class="language-panel" id="languagePanel">
-    <div class="panel-title">🌍 Select Language</div>
-    <a href="../fa/dashboard.html" class="lang-item">
-        <span>🇮🇷</span>
-        <span>فارسی</span>
-        <span class="lang-code">FA</span>
-    </a>
-    <a href="../en/dashboard.html" class="lang-item active">
-        <span>🇺🇸</span>
-        <span>English</span>
-        <span class="lang-code">EN</span>
-    </a>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <hr class="divider">
+<style>
+    /* ============================================================
+    ===== SECTION 2: Font Classes =====
+    ============================================================ */
+    @font-face {
+        font-family: 'Minecraft';
+        src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
 
-    <div class="panel-title">🎨 Select Theme</div>
-    <div class="theme-item" onclick="changeTheme('default')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>Default (Purple-Blue)</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('green')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#00b894,#55efc4)"></span>
-        <span>Emerald</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('blue')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"></span>
-        <span>Ocean Blue</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('red')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#e17055,#fd79a8)"></span>
-        <span>Warm</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('purple')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>Royal</span>
-    </div>
-
-    <hr class="divider">
-
-    <div class="panel-title">🔤 Select Font</div>
-    <div class="font-item" onclick="changeFont('primary')">
-        <span>📝 Inter</span>
-    </div>
-    <div class="font-item" onclick="changeFont('secondary')">
-        <span>📝 Montserrat</span>
-    </div>
-    <div class="font-item" onclick="changeFont('serif')">
-        <span>📝 Playfair</span>
-    </div>
-    <div class="font-item" onclick="changeFont('minecraft')">
-        <span>⛏️ Minecraft (Pelak)</span>
-    </div>
-</div>
-
+    .font-primary { font-family: 'Inter', 'Segoe UI', sans-serif !important; }
+    .font-secondary { font-family: 'Vazirmatn', 'Segoe UI', sans-serif !important; }
+    .font-arabic { font-family: 'Noto Sans Arabic', 'Inter', sans-serif !important; }
+    .font-serif { font-family: 'Amiri', 'Inter', serif !important; }
+    .font-cairo { font-family: 'Cairo', 'Inter', sans-serif !important; }
+    .font-minecraft { font-family: 'Minecraft', 'Inter', sans-serif !important; }
+    .font-playfair { font-family: 'Playfair Display', 'Inter', serif !important; }
+    .font-montserrat { font-family: 'Montserrat', 'Inter', sans-serif !important; }
+    .font-outfit { font-family: 'Outfit', 'Inter', sans-serif !important; }
+    .font-space { font-family: 'Space Grotesk', 'Inter', sans-serif !important; }
+    .font-dm { font-family: 'DM Sans', 'Inter', sans-serif !important; }
+    .font-cinzel { font-family: 'Cinzel', 'Inter', serif !important; }
+    .font-raleway { font-family: 'Raleway', 'Inter', sans-serif !important; }
+    .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+    .font-nunito { font-family: 'Nunito', 'Inter', sans-serif !important; }
+    .font-quicksand { font-family: 'Quicksand', 'Inter', sans-serif !important; }
+    .font-orbitron { font-family: 'Orbitron', 'Inter', sans-serif !important; }
+    .font-pressstart { font-family: 'Press Start 2P', 'Inter', cursive !important; }
+    .font-josefin { font-family: 'Josefin Sans', 'Inter', sans-serif !important; }
+    .font-lobster { font-family: 'Lobster', 'Inter', cursive !important; }
+    .font-pacifico { font-family: 'Pacifico', 'Inter', cursive !important; }
+    .font-dancing { font-family: 'Dancing Script', 'Inter', cursive !important; }
+    .font-greatvibes { font-family: 'Great Vibes', 'Inter', cursive !important; }
+    .font-satisfy { font-family: 'Satisfy', 'Inter', cursive !important; }
+    .font-bangers { font-family: 'Bangers', 'Inter', cursive !important; }
+    </style>
 <!-- ============================================================
-HEADER
+===== SECTION 3: Header & Background Panel (HTML) =====
 ============================================================ -->
-<header class="custom-header glass-strong">
+
+<!-- ===== BACKGROUND PANEL ===== -->
+<div class="bg-toggle" onclick="toggleBgPanel()">
+    <span class="bg-icon">🎨</span>
+    <span class="bg-label">Background</span>
+    <span class="bg-arrow">▼</span>
+</div>
+
+<div class="bg-panel" id="bgPanel">
+    <div class="bg-panel-title">🎨 Choose Background</div>
+    <div class="bg-grid">
+        <div class="bg-item" onclick="changeBg('default')" style="background:linear-gradient(135deg,#0a0a1a,#1a1040)"></div>
+        <div class="bg-item" onclick="changeBg('ocean')" style="background:linear-gradient(135deg,#001a3a,#003366)"></div>
+        <div class="bg-item" onclick="changeBg('sunset')" style="background:linear-gradient(135deg,#1a0a00,#4a1a00)"></div>
+        <div class="bg-item" onclick="changeBg('forest')" style="background:linear-gradient(135deg,#001a0a,#00331a)"></div>
+        <div class="bg-item" onclick="changeBg('neon')" style="background:linear-gradient(135deg,#1a001a,#4a004a)"></div>
+        <div class="bg-item" onclick="changeBg('snow')" style="background:linear-gradient(135deg,#1a1a2a,#2a2a3a)"></div>
+        <div class="bg-item" onclick="changeBg('lava')" style="background:linear-gradient(135deg,#2a0a00,#5a1a00)"></div>
+        <div class="bg-item" onclick="changeBg('space')" style="background:linear-gradient(135deg,#00001a,#1a0033)"></div>
+        <div class="bg-item" onclick="changeBg('custom')" style="background:conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #a29bfe, #fd79a8, #ff6b6b);"></div>
+    </div>
+    <div class="bg-custom-input" id="customBgInput" style="display:none;">
+        <input type="color" id="customColor1" value="#6c5ce7" onchange="applyCustomBg()">
+        <input type="color" id="customColor2" value="#a29bfe" onchange="applyCustomBg()">
+        <button onclick="applyCustomBg()" class="btn-apply">Apply</button>
+    </div>
+    <hr class="divider">
+    <div class="bg-panel-title">✨ New</div>
+    <div class="bg-grid">
+        <div class="bg-item" onclick="changeBg('midnight')" style="background:linear-gradient(135deg,#0a0015,#1a0030,#2a0045)"></div>
+        <div class="bg-item" onclick="changeBg('aurora')" style="background:linear-gradient(135deg,#001a1a,#00332a,#00b894)"></div>
+        <div class="bg-item" onclick="changeBg('candy')" style="background:linear-gradient(135deg,#2a001a,#4a003a,#fd79a8)"></div>
+        <div class="bg-item" onclick="changeBg('golden')" style="background:linear-gradient(135deg,#1a0a00,#3a1a00,#fdcb6e)"></div>
+        <div class="bg-item" onclick="changeBg('galaxy')" style="background:linear-gradient(135deg,#0a001a,#1a003a,#4a0066,#a29bfe)"></div>
+    </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="custom-header glass-strong" id="mainHeader">
     <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
         <!-- Populated by JS -->
     </nav>
 </header>
+<!-- ============================================================
+===== SECTION 4: Header & Background Panel Styles =====
+============================================================ -->
 
 <style>
-    /* ============================================================
-               HEADER
-               ============================================================ */
     .custom-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 14px 30px;
-        background: rgba(13, 32, 56, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
         border-bottom: 2px solid rgba(108, 92, 231, 0.12);
         position: sticky;
         top: 0;
@@ -298,13 +243,11 @@ HEADER
         gap: 10px;
         transition: var(--transition);
     }
-
     .custom-header:hover {
         border-bottom-color: rgba(108, 92, 231, 0.25);
     }
-
     .custom-logo {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         font-weight: 900;
         background: var(--gradient-hero);
         -webkit-background-clip: text;
@@ -312,35 +255,58 @@ HEADER
         letter-spacing: 0.5px;
         transition: var(--transition);
     }
-
     .custom-logo:hover {
         transform: scale(1.02);
     }
-
     .custom-nav {
         display: flex;
         gap: 12px;
         align-items: center;
         flex-wrap: wrap;
     }
-
-    .custom-nav .btn-add-account {
+    .custom-nav .btn-signup {
         color: #fff;
         text-decoration: none;
         font-weight: 600;
-        padding: 8px 20px;
+        padding: 8px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
+    .custom-nav .btn-signup:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.25);
+    }
+    .custom-nav .btn-login {
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 18px;
+        transition: var(--transition);
+        border-radius: 30px;
+        font-size: 0.9rem;
+    }
+    .custom-nav .btn-login:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    .custom-nav .btn-dashboard {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 18px;
         background: linear-gradient(135deg, #00b894, #00cec9);
         border-radius: 30px;
         transition: var(--transition);
         font-size: 0.85rem;
-        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
     }
-
-    .custom-nav .btn-add-account:hover {
+    .custom-nav .btn-dashboard:hover {
         transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
+        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
     }
-
     .custom-nav .btn-logout {
         background: rgba(255, 23, 68, 0.12);
         color: #ff1744;
@@ -353,29 +319,25 @@ HEADER
         transition: var(--transition);
         font-family: inherit;
     }
-
     .custom-nav .btn-logout:hover {
         background: #ff1744;
         color: #fff;
         border-color: #ff1744;
         transform: scale(1.04);
     }
-
     .user-avatar {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
         border: 2px solid rgba(108, 92, 231, 0.3);
         object-fit: cover;
         cursor: pointer;
         transition: var(--transition);
     }
-
     .user-avatar:hover {
         border-color: var(--primary);
         transform: scale(1.05);
     }
-
     .user-name {
         color: var(--primary-light);
         font-weight: 600;
@@ -383,64 +345,130 @@ HEADER
         cursor: pointer;
         transition: var(--transition);
     }
-
     .user-name:hover {
         color: #fff;
     }
 
-    /* ============================================================
-               LANGUAGE TOGGLE
-               ============================================================ */
-    .language-toggle {
+    .bg-toggle {
         position: fixed;
-        top: 20px;
-        right: 20px;
+        top: 85px;
+        left: 20px;
         z-index: 1000;
-        background: rgba(13, 32, 56, 0.85);
+        background: rgba(13, 32, 56, 0.8);
         backdrop-filter: blur(16px);
-        border: 1px solid rgba(108, 92, 231, 0.15);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(108, 92, 231, 0.2);
         border-radius: 50px;
-        padding: 8px 16px;
+        padding: 10px 18px;
         color: #ddd;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+        gap: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         transition: var(--transition);
         font-size: 0.85rem;
     }
-
-    .language-toggle:hover {
-        border-color: rgba(108, 92, 231, 0.35);
+    .bg-toggle:hover {
+        border-color: rgba(108, 92, 231, 0.4);
         background: rgba(13, 32, 56, 0.95);
         transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     }
-
-    .language-panel {
+    .bg-panel {
         position: fixed;
-        top: 75px;
-        right: 20px;
+        top: 145px;
+        left: 20px;
         z-index: 999;
         background: rgba(13, 32, 56, 0.95);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(108, 92, 231, 0.1);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(108, 92, 231, 0.12);
         border-radius: 20px;
-        padding: 20px 22px;
-        min-width: 240px;
-        max-width: 280px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        padding: 22px 24px;
+        min-width: 260px;
+        max-width: 300px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         display: none;
         transition: var(--transition);
         max-height: 80vh;
         overflow-y: auto;
     }
-
-    .language-panel.open {
+    .bg-panel.open {
         display: block;
-        animation: panelSlideIn 0.3s ease;
+        animation: panelSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
+    .bg-panel-title {
+        color: var(--primary-light);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 10px;
+        font-weight: 700;
+    }
+    .bg-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    .bg-item {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        transition: var(--transition);
+        position: relative;
+    }
+    .bg-item:hover {
+        transform: scale(1.06);
+        border-color: rgba(108, 92, 231, 0.4);
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.1);
+    }
+    .bg-item.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+    }
+    .bg-custom-input {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .bg-custom-input input[type="color"] {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+        background: transparent;
+        padding: 2px;
+    }
+    .bg-custom-input .btn-apply {
+        padding: 6px 16px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+    .bg-custom-input .btn-apply:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+    }
+    .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 12px 0;
+    }
     @keyframes panelSlideIn {
         from {
             opacity: 0;
@@ -451,7 +479,113 @@ HEADER
             transform: translateY(0) scale(1);
         }
     }
+</style>
+<!-- ============================================================
+===== SECTION 5: Language Panel (HTML) =====
+============================================================ -->
 
+<div class="language-toggle" onclick="togglePanel()">
+    <span class="toggle-icon">🌍</span>
+    <span class="toggle-label">English</span>
+    <span class="toggle-arrow">▼</span>
+</div>
+
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 Select Language</div>
+    <a href="../fa/index.html" class="lang-item">
+        <span class="flag">🇮🇷</span>
+        <span class="lang-name">فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    <a href="../en/index.html" class="lang-item active">
+        <span class="flag">🇺🇸</span>
+        <span class="lang-name">English</span>
+        <span class="lang-code">EN</span>
+    </a>
+    <hr class="divider">
+    <div class="panel-title">🔤 Choose Font</div>
+    <div class="panel-subtitle">📋 Basic</div>
+    <div class="font-item" onclick="changeFont('primary')"><span>📝 Inter</span></div>
+    <div class="font-item" onclick="changeFont('secondary')"><span>📝 Vazirmatn</span></div>
+    <div class="font-item" onclick="changeFont('arabic')"><span>📝 Noto Sans Arabic</span></div>
+    <div class="font-item" onclick="changeFont('serif')"><span>📝 Amiri</span></div>
+    <div class="font-item" onclick="changeFont('cairo')"><span>📝 Cairo</span></div>
+    <div class="font-item" onclick="changeFont('minecraft')"><span>⛏️ Minecraft</span></div>
+    <div class="panel-subtitle">⭐ Extra</div>
+    <div class="font-item" onclick="changeFont('playfair')"><span>📝 Playfair Display</span></div>
+    <div class="font-item" onclick="changeFont('montserrat')"><span>📝 Montserrat</span></div>
+    <div class="font-item" onclick="changeFont('outfit')"><span>📝 Outfit</span></div>
+    <div class="font-item" onclick="changeFont('space')"><span>📝 Space Grotesk</span></div>
+    <div class="font-item" onclick="changeFont('dm')"><span>📝 DM Sans</span></div>
+    <div class="font-item" onclick="changeFont('cinzel')"><span>📝 Cinzel</span></div>
+    <div class="font-item" onclick="changeFont('raleway')"><span>📝 Raleway</span></div>
+    <div class="font-item" onclick="changeFont('poppins')"><span>📝 Poppins</span></div>
+    <div class="font-item" onclick="changeFont('nunito')"><span>📝 Nunito</span></div>
+    <div class="font-item" onclick="changeFont('quicksand')"><span>📝 Quicksand</span></div>
+    <div class="font-item" onclick="changeFont('orbitron')"><span>📝 Orbitron</span></div>
+    <div class="font-item" onclick="changeFont('pressstart')"><span>🎮 Press Start 2P</span></div>
+    <div class="font-item" onclick="changeFont('josefin')"><span>📝 Josefin Sans</span></div>
+    <div class="font-item" onclick="changeFont('lobster')"><span>🦞 Lobster</span></div>
+    <div class="font-item" onclick="changeFont('pacifico')"><span>🌊 Pacifico</span></div>
+    <div class="font-item" onclick="changeFont('dancing')"><span>💃 Dancing Script</span></div>
+    <div class="font-item" onclick="changeFont('greatvibes')"><span>✨ Great Vibes</span></div>
+    <div class="font-item" onclick="changeFont('satisfy')"><span>😊 Satisfy</span></div>
+    <div class="font-item" onclick="changeFont('bangers')"><span>💥 Bangers</span></div>
+</div>
+<!-- ============================================================
+===== SECTION 6: Language Panel Styles =====
+============================================================ -->
+
+<style>
+    .language-toggle {
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(13, 32, 56, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        border-radius: 50px;
+        padding: 10px 18px;
+        color: #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: var(--transition);
+        font-size: 0.85rem;
+    }
+    .language-toggle:hover {
+        border-color: rgba(108, 92, 231, 0.4);
+        background: rgba(13, 32, 56, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+    .language-panel {
+        position: fixed;
+        top: 145px;
+        right: 20px;
+        z-index: 999;
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(108, 92, 231, 0.12);
+        border-radius: 20px;
+        padding: 22px 24px;
+        min-width: 280px;
+        max-width: 320px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        display: none;
+        transition: var(--transition);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    .language-panel.open {
+        display: block;
+        animation: panelSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
     .language-panel .panel-title {
         color: var(--primary-light);
         font-size: 0.65rem;
@@ -462,7 +596,14 @@ HEADER
         padding-bottom: 10px;
         font-weight: 700;
     }
-
+    .language-panel .panel-subtitle {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin: 8px 0 6px 0;
+        padding: 4px 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
     .language-panel .lang-item {
         display: flex;
         align-items: center;
@@ -474,56 +615,26 @@ HEADER
         transition: var(--transition);
         cursor: pointer;
     }
-
     .language-panel .lang-item:hover {
-        background: rgba(108, 92, 231, 0.1);
-        color: #fff;
-    }
-
-    .language-panel .lang-item.active {
         background: rgba(108, 92, 231, 0.12);
-        border: 1px solid rgba(108, 92, 231, 0.15);
         color: #fff;
     }
-
+    .language-panel .lang-item.active {
+        background: rgba(108, 92, 231, 0.15);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        color: #fff;
+    }
     .language-panel .lang-item .lang-code {
-        margin-right: auto;
+        margin-left: auto;
         font-size: 0.65rem;
         opacity: 0.4;
         font-weight: 600;
     }
-
     .language-panel .divider {
         border: none;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         margin: 12px 0;
     }
-
-    .language-panel .theme-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 8px 14px;
-        border-radius: 12px;
-        color: #ddd;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: var(--transition);
-    }
-
-    .language-panel .theme-item:hover {
-        background: rgba(108, 92, 231, 0.1);
-        color: #fff;
-    }
-
-    .language-panel .theme-item .color-dot {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.06);
-        flex-shrink: 0;
-    }
-
     .language-panel .font-item {
         display: flex;
         align-items: center;
@@ -535,15 +646,382 @@ HEADER
         font-size: 0.85rem;
         transition: var(--transition);
     }
-
     .language-panel .font-item:hover {
-        background: rgba(108, 92, 231, 0.1);
+        background: rgba(108, 92, 231, 0.12);
         color: #fff;
     }
+</style>
+<!-- ============================================================
+===== SECTION 7: Hero & About =====
+============================================================ -->
 
-    /* ============================================================
-               RESPONSIVE HEADER
-               ============================================================ */
+<div class="container">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero glass">
+        <div class="hero-content">
+            <h2>Welcome to PackZone MC 💙</h2>
+            <p>Your specialized hub for Minecraft Java & Bedrock resource packs</p>
+            <div class="hero-badges">
+                <span class="badge">🚀 Professional</span>
+                <span class="badge">🎨 4K</span>
+                <span class="badge">⚡ 60+ Packs</span>
+                <span class="badge">🔥 PvP</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about glass">
+        <div class="about-icon">📌</div>
+        <h2>About PackZone MC</h2>
+        <p>PackZone MC is a collection dedicated to providing professional resource packs, PvP packs, pack converters, and useful Minecraft tools. Our goal is to create a better and simpler experience for Minecraft players.</p>
+        <div class="about-stats">
+            <div class="stat">
+                <span class="stat-number">60+</span>
+                <span class="stat-label">Packs</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Tools</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Satisfaction</span>
+            </div>
+        </div>
+    </section>
+
+<style>
+    .hero {
+        text-align: center;
+        padding: 60px 20px 50px;
+        border-radius: 32px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-hero);
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease-in-out infinite;
+    }
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        border-radius: 32px;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    .hero h2 {
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: #fff;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        margin-bottom: 12px;
+    }
+    .hero p {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.85);
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    }
+    .hero-badges {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+    .hero-badges .badge {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+    }
+    .hero-badges .badge:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .about {
+        padding: 32px 36px;
+        margin-bottom: 30px;
+        border-radius: var(--radius);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .about::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 40%;
+        height: 200%;
+        background: radial-gradient(ellipse, rgba(108, 92, 231, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .about .about-icon {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+    }
+    .about h2 {
+        color: var(--primary-light);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .about p {
+        color: var(--text-muted);
+        line-height: 2;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .about-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+    .about-stats .stat {
+        text-align: center;
+    }
+    .about-stats .stat-number {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-light);
+    }
+    .about-stats .stat-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+</style>
+<!-- ============================================================
+===== SECTION 8: Cards (Do Not Touch - Manifest Builder Style) =====
+============================================================ -->
+
+    <section class="menu-box">
+        <div class="small-card glass">
+            <div class="card-icon">🎮</div>
+            <h3>Misty Packs for Bedrock</h3>
+            <p>Collection of Misty packs ported to Bedrock Edition</p>
+            <div class="card-actions">
+                <a href="mysmce.html" class="btn-card">View Collection</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">📄</div>
+            <h3>Manifest Builder</h3>
+            <p>Create your manifest.json file without coding</p>
+            <div class="card-actions">
+                <a href="manifest.html" class="btn-card btn-card-gold">Start Building</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">🟦</div>
+            <h3>Java Edition Packs</h3>
+            <p>Browse resource packs for Minecraft Java</p>
+            <div class="card-actions">
+                <a href="java.html" class="btn-card">Browse Java</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">🟩</div>
+            <h3>Bedrock Edition Packs</h3>
+            <p>Download resource packs for Minecraft Bedrock</p>
+            <div class="card-actions">
+                <a href="bedrock.html" class="btn-card btn-card-green">Download</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">🔥</div>
+            <h3>Dewier Collection</h3>
+            <p>Professional Dewier pack collection for Bedrock</p>
+            <div class="card-actions">
+                <a href="dewier.html" class="btn-card btn-card-gold">View Collection</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">📦</div>
+            <h3>My Packs</h3>
+            <p>Exclusive packs created by PackZone MC</p>
+            <div class="card-actions">
+                <a href="my-packs.html" class="btn-card">View Exclusives</a>
+            </div>
+        </div>
+        <div class="small-card glass">
+            <div class="card-icon">📦</div>
+            <h3>pack.mcmeta Builder</h3>
+            <p>Build pack.mcmeta file for Java packs without coding</p>
+            <div class="card-actions">
+                <a href="mcmeta.html" class="btn-card btn-card-gold">Build</a>
+            </div>
+        </div>
+    </section>
+
+<style>
+    .menu-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+        margin-top: 10px;
+    }
+    .small-card {
+        border-radius: var(--radius);
+        padding: 28px 22px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-card);
+    }
+    .small-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-hero);
+        opacity: 0;
+        transition: var(--transition);
+    }
+    .small-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(108, 92, 231, 0.2);
+        box-shadow: var(--shadow-hover);
+    }
+    .small-card:hover::before {
+        opacity: 1;
+    }
+    .small-card .card-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    .small-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+    .small-card p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        margin-bottom: 16px;
+        flex: 1;
+    }
+    .small-card .card-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+    .small-card .btn-card {
+        display: inline-block;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: var(--transition);
+        text-align: center;
+        flex: 1;
+        min-width: 100px;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.1);
+    }
+    .small-card .btn-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 30px rgba(108, 92, 231, 0.2);
+    }
+    .small-card .btn-card-gold {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #1a1a2e;
+        box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
+    }
+    .small-card .btn-card-gold:hover {
+        box-shadow: 0 8px 30px rgba(243, 156, 18, 0.25);
+    }
+    .small-card .btn-card-green {
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
+    }
+    .small-card .btn-card-green:hover {
+        box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
+    }
+</style>
+<!-- ============================================================
+===== SECTION 9: Footer & Additional Styles =====
+============================================================ -->
+
+</div>
+
+<footer class="footer glass">
+    <p>© PackZone MC 💙 — All Rights Reserved</p>
+</footer>
+
+<style>
+    .footer {
+        text-align: center;
+        padding: 24px 20px;
+        border-radius: var(--radius);
+        margin-top: 20px;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.85rem;
+    }
+
+    .toast-message {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(16px);
+        color: #e0e0e0;
+        padding: 14px 32px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        font-size: 0.95rem;
+        z-index: 9999;
+        animation: toastSlideUp 0.4s ease;
+        font-family: inherit !important;
+        text-align: center;
+    }
+    @keyframes toastSlideUp {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+    }
+
     @media (max-width: 768px) {
         .custom-header {
             flex-direction: column;
@@ -555,465 +1033,191 @@ HEADER
             gap: 8px;
         }
         .custom-logo {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
+        }
+        .hero h2 {
+            font-size: 1.8rem;
+        }
+        .hero {
+            padding: 40px 16px 30px;
+        }
+        .about {
+            padding: 24px 18px;
+        }
+        .menu-box {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .small-card {
+            padding: 22px 16px 20px;
+        }
+        .about-stats {
+            gap: 20px;
+        }
+        .hero-badges .badge {
+            font-size: 0.7rem;
+            padding: 4px 14px;
         }
         .language-toggle {
-            top: 12px;
-            right: 12px;
-            padding: 6px 12px;
+            top: 80px;
+            right: 10px;
+            padding: 6px 14px;
             font-size: 0.75rem;
         }
         .language-panel {
-            top: 68px;
-            right: 12px;
+            top: 130px;
+            right: 10px;
             min-width: 200px;
             padding: 16px 18px;
         }
-        .language-toggle .toggle-label {
+        .bg-toggle {
+            top: 80px;
+            left: 10px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+        }
+        .bg-panel {
+            top: 130px;
+            left: 10px;
+            min-width: 200px;
+            padding: 16px 18px;
+        }
+        .bg-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .language-toggle .toggle-label,
+        .bg-toggle .bg-label {
             display: none;
         }
     }
 
     @media (max-width: 400px) {
-        .custom-nav .btn-add-account {
-            padding: 6px 14px;
-            font-size: 0.75rem;
+        .hero h2 {
+            font-size: 1.4rem;
         }
-        .custom-nav .btn-logout {
-            padding: 4px 12px;
-            font-size: 0.75rem;
+        .hero p {
+            font-size: 0.95rem;
         }
-        .user-avatar {
-            width: 32px;
-            height: 32px;
+        .small-card h3 {
+            font-size: 1rem;
         }
-        .user-name {
+        .small-card .btn-card {
             font-size: 0.8rem;
+            padding: 8px 16px;
+        }
+        .custom-nav .btn-signup,
+        .custom-nav .btn-login {
+            font-size: 0.75rem;
+            padding: 6px 14px;
         }
         .language-panel {
             min-width: 180px;
             padding: 14px;
         }
+        .bg-panel {
+            min-width: 180px;
+            padding: 14px;
+        }
+        .bg-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
     }
 </style>
-<!-- ============================================================
-MAIN CONTAINER
-============================================================ -->
-<div class="container">
-
-    <!-- ===== HERO ===== -->
-    <section class="hero glass">
-        <h2>Welcome to PackZone MC 💙</h2>
-        <p>Your hub for Minecraft Java &amp; Bedrock resource packs</p>
-    </section>
-
-    <!-- ===== ABOUT ===== -->
-    <section class="about glass">
-        <h2>📌 About PackZone MC</h2>
-        <p>PackZone MC is a platform dedicated to providing professional resource packs, PvP packs, pack conversions, and useful Minecraft tools. Our goal is to create a better and simpler experience for Minecraft players.</p>
-    </section>
-
-    <style>
-        /* ============================================================
-                   HERO
-                   ============================================================ */
-        .hero {
-            text-align: center;
-            padding: 50px 20px 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 32px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -20%;
-            width: 50%;
-            height: 150%;
-            background: radial-gradient(ellipse, rgba(108, 92, 231, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff, var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ============================================================
-                   ABOUT
-                   ============================================================ */
-        .about {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .about:hover {
-            border-color: rgba(108, 92, 231, 0.12);
-            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.03);
-        }
-
-        .about h2 {
-            color: var(--primary-light);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .about p {
-            color: var(--text-muted);
-            line-height: 1.9;
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            .hero {
-                padding: 30px 16px 25px;
-            }
-            .about {
-                padding: 20px 18px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .hero h2 {
-                font-size: 1.3rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
-        }
-                </style>
-    <!-- ===== GRID CARDS ===== -->
-    <section class="menu-box">
-
-        <div class="small-card glass">
-            <h3>🔥 dewier Collection</h3>
-            <p>A collection of professional dewier packs for Bedrock</p>
-            <div class="card-actions">
-                <a href="dewier.html" class="btn-card btn-card-gold">View Collection</a>
-                <button class="fav-btn" data-pack="dewier Collection" onclick="addFavorite('dewier Collection')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>💎 MysMce Packs</h3>
-            <p>A collection of MysMce packs ported to Bedrock</p>
-            <div class="card-actions">
-                <a href="mysmce.html" class="btn-card">View Collection</a>
-                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📄 Manifest Builder</h3>
-            <p>Build your manifest.json file without coding</p>
-            <div class="card-actions">
-                <a href="manifest.html" class="btn-card btn-card-gold">Start Building</a>
-                <button class="fav-btn" data-pack="Manifest Builder" onclick="addFavorite('Manifest Builder')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>🟦 Java Edition Packs</h3>
-            <p>Browse resource packs for Minecraft Java</p>
-            <div class="card-actions">
-                <a href="java.html" class="btn-card">Browse Java</a>
-                <button class="fav-btn" data-pack="Java Packs" onclick="addFavorite('Java Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>🟩 Bedrock Edition Packs</h3>
-            <p>Download resource packs for Minecraft Bedrock</p>
-            <div class="card-actions">
-                <a href="bedrock.html" class="btn-card btn-card-green">Download</a>
-                <button class="fav-btn" data-pack="Bedrock Packs" onclick="addFavorite('Bedrock Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📦 My Packs</h3>
-            <p>Exclusive packs created by PackZone MC</p>
-            <div class="card-actions">
-                <a href="my-packs.html" class="btn-card">View Exclusives</a>
-                <button class="fav-btn" data-pack="My Packs" onclick="addFavorite('My Packs')">⭐ Save</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>📦 pack.mcmeta Builder</h3>
-            <p>Create pack.mcmeta files for Java resource packs</p>
-            <div class="card-actions">
-                <a href="mcmeta-builder.html" class="btn-card btn-card-gold">Create</a>
-                <button class="fav-btn" data-pack="mcmeta Builder" onclick="addFavorite('mcmeta Builder')">⭐ Save</button>
-            </div>
-        </div>
-
-    </section>
-
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="glass" style="text-align:center;padding:24px 20px;border-radius:var(--radius);margin-top:20px;color:rgba(255,255,255,0.12);font-size:0.85rem;">
-    <p>© PackZone MC 💙 — All rights reserved</p>
-</footer>
-    <style>
-        /* ============================================================
-                   GRID
-                   ============================================================ */
-        .menu-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 22px;
-            margin-top: 10px;
-        }
-
-        /* ============================================================
-                   SMALL CARDS
-                   ============================================================ */
-        .small-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius);
-            padding: 24px 22px 22px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .small-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-hero);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .small-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(108, 92, 231, 0.15);
-            box-shadow: var(--shadow-hover);
-            background: var(--bg-card-hover);
-        }
-
-        .small-card:hover::before {
-            opacity: 1;
-        }
-
-        .small-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .small-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 16px;
-            flex: 1;
-        }
-
-        .small-card .card-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-
-        .small-card .btn-card {
-            display: inline-block;
-            padding: 10px 24px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: var(--transition);
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.08);
-        }
-
-        .small-card .btn-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.15);
-        }
-
-        .small-card .btn-card-gold {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #1a1a2e;
-            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.12);
-        }
-
-        .small-card .btn-card-gold:hover {
-            box-shadow: 0 8px 30px rgba(243, 156, 18, 0.2);
-        }
-
-        .small-card .btn-card-green {
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
-        }
-
-        .small-card .btn-card-green:hover {
-            box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
-        }
-
-        .fav-btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 30px;
-            background: rgba(253, 203, 110, 0.1);
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            border: 1px solid rgba(253, 203, 110, 0.15);
-            min-width: 80px;
-        }
-
-        .fav-btn:hover {
-            background: rgba(253, 203, 110, 0.2);
-            transform: scale(1.04);
-        }
-
-        .fav-btn.saved {
-            background: rgba(253, 203, 110, 0.2);
-            border-color: var(--gold);
-            cursor: default;
-            opacity: 0.7;
-        }
-
-        .fav-btn.saved:hover {
-            transform: none;
-        }
-
-        .fav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* ============================================================
-                   TOAST
-                   ============================================================ */
-        .toast-message {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(13, 32, 56, 0.95);
-            backdrop-filter: blur(16px);
-            color: #e0e0e0;
-            padding: 14px 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            font-size: 0.95rem;
-            z-index: 9999;
-            animation: toastSlideUp 0.4s ease;
-            font-family: inherit !important;
-            text-align: center;
-        }
-
-        @keyframes toastSlideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0) scale(1);
-            }
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 768px) {
-            .menu-box {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .small-card {
-                padding: 20px 16px;
-            }
-            .small-card .btn-card {
-                padding: 8px 18px;
-                font-size: 0.8rem;
-            }
-            .fav-btn {
-                padding: 8px 14px;
-                font-size: 0.75rem;
-                min-width: 60px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .small-card h3 {
-                font-size: 1rem;
-            }
-            .small-card .btn-card {
-                font-size: 0.75rem;
-                padding: 6px 14px;
-            }
-            .fav-btn {
-                font-size: 0.7rem;
-                padding: 6px 10px;
-                min-width: 50px;
-            }
-        }
-    </style>
+    <!-- ============================================================
+    ===== SECTION 10: Complete JavaScript =====
+    ============================================================ -->
 
     <script>
-        // ============================================================
-        // ===== 1. Language Panel Functions =====
-        // ============================================================
+        // ===== 1. User Management =====
+        function getUserData() {
+            return JSON.parse(localStorage.getItem('pzmc_current_user'));
+        }
 
+        // ===== 2. Background Panel Functions =====
+        function toggleBgPanel() {
+            const panel = document.getElementById('bgPanel');
+            panel.classList.toggle('open');
+            const customInput = document.getElementById('customBgInput');
+            if (document.querySelector('.bg-item.active[onclick*="custom"]')) {
+                customInput.style.display = 'flex';
+            } else {
+                customInput.style.display = 'none';
+            }
+        }
+
+        function changeBg(type) {
+            const body = document.body;
+            const items = document.querySelectorAll('.bg-item');
+            items.forEach(el => el.classList.remove('active'));
+
+            let clickedItem = null;
+            items.forEach(el => {
+                if (el.getAttribute('onclick').includes(type)) {
+                    clickedItem = el;
+                }
+            });
+            if (clickedItem) clickedItem.classList.add('active');
+
+            localStorage.setItem('selectedBg', type);
+            applyBackground(type);
+
+            const customInput = document.getElementById('customBgInput');
+            if (type === 'custom') {
+                customInput.style.display = 'flex';
+                const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                document.getElementById('customColor1').value = c1;
+                document.getElementById('customColor2').value = c2;
+            } else {
+                customInput.style.display = 'none';
+            }
+
+            showToast('🎨 Background changed!');
+            document.getElementById('bgPanel').classList.remove('open');
+        }
+
+        function applyBackground(type) {
+            const body = document.body;
+            let bg = '';
+            switch (type) {
+                case 'default': bg = '#0a0a1a'; break;
+                case 'ocean': bg = 'linear-gradient(135deg, #001a3a, #003366)'; break;
+                case 'sunset': bg = 'linear-gradient(135deg, #1a0a00, #4a1a00)'; break;
+                case 'forest': bg = 'linear-gradient(135deg, #001a0a, #00331a)'; break;
+                case 'neon': bg = 'linear-gradient(135deg, #1a001a, #4a004a)'; break;
+                case 'snow': bg = 'linear-gradient(135deg, #1a1a2a, #2a2a3a)'; break;
+                case 'lava': bg = 'linear-gradient(135deg, #2a0a00, #5a1a00)'; break;
+                case 'space': bg = 'linear-gradient(135deg, #00001a, #1a0033)'; break;
+                case 'midnight': bg = 'linear-gradient(135deg, #0a0015, #1a0030, #2a0045)'; break;
+                case 'aurora': bg = 'linear-gradient(135deg, #001a1a, #00332a, #00b894)'; break;
+                case 'candy': bg = 'linear-gradient(135deg, #2a001a, #4a003a, #fd79a8)'; break;
+                case 'golden': bg = 'linear-gradient(135deg, #1a0a00, #3a1a00, #fdcb6e)'; break;
+                case 'galaxy': bg = 'linear-gradient(135deg, #0a001a, #1a003a, #4a0066, #a29bfe)'; break;
+                case 'custom':
+                    const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                    const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                    bg = `linear-gradient(135deg, ${c1}, ${c2})`;
+                    break;
+                default: bg = '#0a0a1a';
+            }
+            body.style.background = bg;
+            body.style.backgroundAttachment = 'fixed';
+        }
+
+        function applyCustomBg() {
+            const c1 = document.getElementById('customColor1').value;
+            const c2 = document.getElementById('customColor2').value;
+            localStorage.setItem('customBgColor1', c1);
+            localStorage.setItem('customBgColor2', c2);
+            localStorage.setItem('selectedBg', 'custom');
+            applyBackground('custom');
+            showToast('✅ Custom background applied!');
+            document.getElementById('bgPanel').classList.remove('open');
+        }
+
+        // ===== 3. Language Panel Functions =====
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
             panel.classList.toggle('open');
@@ -1022,59 +1226,71 @@ MAIN CONTAINER
         document.addEventListener('click', function(event) {
             const panel = document.getElementById('languagePanel');
             const toggle = document.querySelector('.language-toggle');
+            const bgPanel = document.getElementById('bgPanel');
+            const bgToggle = document.querySelector('.bg-toggle');
             if (!toggle.contains(event.target) && !panel.contains(event.target)) {
                 panel.classList.remove('open');
             }
+            if (!bgToggle.contains(event.target) && !bgPanel.contains(event.target)) {
+                bgPanel.classList.remove('open');
+            }
         });
 
-        // ============================================================
-        // ===== 2. Change Theme & Font =====
-        // ============================================================
-
-        function changeTheme(theme) {
-            document.body.className = '';
-            document.body.classList.add('theme-' + theme);
-            localStorage.setItem('selectedTheme', theme);
-            document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ Theme changed successfully!');
-        }
-
+        // ===== 4. Change Font =====
         function changeFont(font) {
-            document.body.classList.remove('font-primary', 'font-secondary', 'font-serif', 'font-minecraft');
+            const body = document.body;
+            const fontClasses = [
+                'font-primary', 'font-secondary', 'font-arabic', 'font-serif',
+                'font-cairo', 'font-minecraft', 'font-playfair', 'font-montserrat',
+                'font-outfit', 'font-space', 'font-dm', 'font-cinzel', 'font-raleway',
+                'font-poppins', 'font-nunito', 'font-quicksand', 'font-orbitron',
+                'font-pressstart', 'font-josefin', 'font-lobster', 'font-pacifico',
+                'font-dancing', 'font-greatvibes', 'font-satisfy', 'font-bangers'
+            ];
+            fontClasses.forEach(cls => body.classList.remove(cls));
+
             let fontClass = '';
             switch (font) {
-                case 'primary':
-                    fontClass = 'font-primary';
-                    break;
-                case 'secondary':
-                    fontClass = 'font-secondary';
-                    break;
-                case 'serif':
-                    fontClass = 'font-serif';
-                    break;
-                case 'minecraft':
-                    fontClass = 'font-minecraft';
-                    break;
+                case 'primary': fontClass = 'font-primary'; break;
+                case 'secondary': fontClass = 'font-secondary'; break;
+                case 'arabic': fontClass = 'font-arabic'; break;
+                case 'serif': fontClass = 'font-serif'; break;
+                case 'cairo': fontClass = 'font-cairo'; break;
+                case 'minecraft': fontClass = 'font-minecraft'; break;
+                case 'playfair': fontClass = 'font-playfair'; break;
+                case 'montserrat': fontClass = 'font-montserrat'; break;
+                case 'outfit': fontClass = 'font-outfit'; break;
+                case 'space': fontClass = 'font-space'; break;
+                case 'dm': fontClass = 'font-dm'; break;
+                case 'cinzel': fontClass = 'font-cinzel'; break;
+                case 'raleway': fontClass = 'font-raleway'; break;
+                case 'poppins': fontClass = 'font-poppins'; break;
+                case 'nunito': fontClass = 'font-nunito'; break;
+                case 'quicksand': fontClass = 'font-quicksand'; break;
+                case 'orbitron': fontClass = 'font-orbitron'; break;
+                case 'pressstart': fontClass = 'font-pressstart'; break;
+                case 'josefin': fontClass = 'font-josefin'; break;
+                case 'lobster': fontClass = 'font-lobster'; break;
+                case 'pacifico': fontClass = 'font-pacifico'; break;
+                case 'dancing': fontClass = 'font-dancing'; break;
+                case 'greatvibes': fontClass = 'font-greatvibes'; break;
+                case 'satisfy': fontClass = 'font-satisfy'; break;
+                case 'bangers': fontClass = 'font-bangers'; break;
             }
-            if (fontClass) document.body.classList.add(fontClass);
+            if (fontClass) body.classList.add(fontClass);
             localStorage.setItem('selectedFont', font);
             document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ Font changed successfully!');
+            showToast('🔤 Font changed!');
         }
 
-        // ============================================================
-        // ===== 3. Toast =====
-        // ============================================================
-
+        // ===== 5. Toast =====
         function showToast(message) {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
-
             const toast = document.createElement('div');
             toast.className = 'toast-message';
             toast.textContent = message;
             document.body.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.5s ease';
@@ -1082,132 +1298,97 @@ MAIN CONTAINER
             }, 3000);
         }
 
-        // ============================================================
-        // ===== 4. Dashboard Header =====
-        // ============================================================
-
-        function updateDashboardHeader() {
+        // ===== 6. Header Management =====
+        function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (!user) {
-                window.location.href = 'index.html';
-                return;
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
+                    '&background=6c5ce7&color=fff&size=40&bold=true';
+                nav.innerHTML = `
+                            <img src="${avatar}" class="user-avatar" onclick="window.location.href='dashboard.html'">
+                            <span class="user-name" onclick="window.location.href='dashboard.html'">${user.name || 'User'}</span>
+                            <a href="dashboard.html" class="btn-dashboard">📊 Dashboard</a>
+                            <button class="btn-logout" onclick="logoutUser()">🚪 Logout</button>
+                        `;
+            } else {
+                nav.innerHTML = `
+                            <a href="signup.html" class="btn-signup">📝 Sign Up</a>
+                            <a href="login.html" class="btn-login">🔐 Login</a>
+                        `;
             }
-
-            const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40&bold=true';
-
-            nav.innerHTML = `
-                <div style="display:flex;align-items:center;gap:12px;flex:1;">
-                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'" title="Profile">
-                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'User'}</span>
-                </div>
-                <a href="signup.html" class="btn-add-account">➕ Add Account</a>
-                <button class="btn-logout" onclick="logoutUser()">🚪 Logout</button>
-            `;
         }
-
-        // ============================================================
-        // ===== 5. Logout =====
-        // ============================================================
 
         function logoutUser() {
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('pzmc_current_user');
-                showToast('👋 You have been logged out successfully');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 500);
+                showToast('👋 You have been logged out');
+                setTimeout(() => window.location.reload(), 500);
             }
         }
 
-        // ============================================================
-        // ===== 6. Save Favorite Pack =====
-        // ============================================================
-
-        function addFavorite(packName) {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (!user) {
-                showToast('❌ Please login first');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) {
-                showToast('❌ User not found');
-                return;
-            }
-
-            if (!users[index].favorites) {
-                users[index].favorites = [];
-            }
-
-            if (users[index].favorites.includes(packName)) {
-                showToast('⚠️ This pack is already saved');
-                return;
-            }
-
-            users[index].favorites.push(packName);
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-            user.favorites = users[index].favorites;
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
-            showToast('✅ Pack "' + packName + '" saved! ⭐');
-
-            const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
-            if (btn) {
-                btn.textContent = '⭐ Saved';
-                btn.classList.add('saved');
-                btn.disabled = true;
-            }
-        }
-
-        // ============================================================
         // ===== 7. Page Load =====
-        // ============================================================
-
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme) document.body.classList.add('theme-' + savedTheme);
-
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
                 const map = {
-                    primary: 'font-primary',
-                    secondary: 'font-secondary',
-                    serif: 'font-serif',
-                    minecraft: 'font-minecraft'
+                    primary: 'font-primary', secondary: 'font-secondary',
+                    arabic: 'font-arabic', serif: 'font-serif',
+                    cairo: 'font-cairo', minecraft: 'font-minecraft',
+                    playfair: 'font-playfair', montserrat: 'font-montserrat',
+                    outfit: 'font-outfit', space: 'font-space', dm: 'font-dm',
+                    cinzel: 'font-cinzel', raleway: 'font-raleway',
+                    poppins: 'font-poppins', nunito: 'font-nunito',
+                    quicksand: 'font-quicksand', orbitron: 'font-orbitron',
+                    pressstart: 'font-pressstart', josefin: 'font-josefin',
+                    lobster: 'font-lobster', pacifico: 'font-pacifico',
+                    dancing: 'font-dancing', greatvibes: 'font-greatvibes',
+                    satisfy: 'font-satisfy', bangers: 'font-bangers'
                 };
-                if (map[savedFont]) document.body.classList.add(map[savedFont]);
-            }
-
-            updateDashboardHeader();
-
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (user) {
-                let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-                const index = users.findIndex(u => u.email === user.email);
-                if (index !== -1) {
-                    const favorites = users[index].favorites || [];
-                    document.querySelectorAll('.fav-btn[data-pack]').forEach(btn => {
-                        const packName = btn.getAttribute('data-pack');
-                        if (favorites.includes(packName)) {
-                            btn.textContent = '⭐ Saved';
-                            btn.classList.add('saved');
-                            btn.disabled = true;
-                        }
-                    });
+                if (map[savedFont]) {
+                    document.body.classList.add(map[savedFont]);
                 }
+            } else {
+                document.body.classList.add('font-primary');
             }
+
+            const savedBg = localStorage.getItem('selectedBg');
+            if (savedBg) {
+                if (savedBg.includes('gradient')) {
+                    document.body.style.background = savedBg;
+                    document.body.style.backgroundAttachment = 'fixed';
+                } else {
+                    applyBackground(savedBg);
+                }
+                const items = document.querySelectorAll('.bg-item');
+                items.forEach(el => {
+                    if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(savedBg)) {
+                        el.classList.add('active');
+                    }
+                });
+                if (savedBg === 'custom') {
+                    document.getElementById('customBgInput').style.display = 'flex';
+                    const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                    const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                    document.getElementById('customColor1').value = c1;
+                    document.getElementById('customColor2').value = c2;
+                }
+            } else {
+                applyBackground('default');
+            }
+
+            updateHeader();
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('languagePanel').classList.remove('open');
+                    document.getElementById('bgPanel').classList.remove('open');
+                }
+            });
         });
+
+        console.log('💙 PackZone MC - Homepage with 10 sections!');
     </script>
 
 </body>
