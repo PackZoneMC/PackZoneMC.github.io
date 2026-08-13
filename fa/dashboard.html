@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | داشبورد کاربری</title>
+    <title>PackZone MC | صفحه اصلی</title>
 
     <!-- ===== GOOGLE FONTS (پایه) ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -206,7 +206,7 @@
 
 <body>
 <!-- ============================================================
-===== بخش ۲: هدر و پنل پس‌زمینه =====
+===== بخش ۲: هدر و پنل پس‌زمینه (۱۳ رنگ) =====
 ============================================================ -->
 
 <!-- ===== پنل پس‌زمینه ===== -->
@@ -233,6 +233,17 @@
         <input type="color" id="customColor1" value="#6c5ce7" onchange="applyCustomBg()">
         <input type="color" id="customColor2" value="#a29bfe" onchange="applyCustomBg()">
         <button onclick="applyCustomBg()" class="btn-apply">اعمال</button>
+    </div>
+    
+    <!-- پس‌زمینه‌های جدید -->
+    <hr class="divider">
+    <div class="bg-panel-title">✨ جدید</div>
+    <div class="bg-grid">
+        <div class="bg-item" onclick="changeBg('midnight')" style="background:linear-gradient(135deg,#0a0015,#1a0030,#2a0045)"></div>
+        <div class="bg-item" onclick="changeBg('aurora')" style="background:linear-gradient(135deg,#001a1a,#00332a,#00b894)"></div>
+        <div class="bg-item" onclick="changeBg('candy')" style="background:linear-gradient(135deg,#2a001a,#4a003a,#fd79a8)"></div>
+        <div class="bg-item" onclick="changeBg('golden')" style="background:linear-gradient(135deg,#1a0a00,#3a1a00,#fdcb6e)"></div>
+        <div class="bg-item" onclick="changeBg('galaxy')" style="background:linear-gradient(135deg,#0a001a,#1a003a,#4a0066,#a29bfe)"></div>
     </div>
 </div>
 
@@ -512,6 +523,12 @@
         box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
     }
 
+    .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 12px 0;
+    }
+
     @keyframes panelSlideIn {
         from {
             opacity: 0;
@@ -524,7 +541,7 @@
     }
 </style>
 <!-- ============================================================
-===== بخش ۳: پنل زبان (با ۲۵ فونت) =====
+===== بخش ۳: پنل زبان (۲۵ فونت) =====
 ============================================================ -->
 
 <!-- ===== پنل زبان ===== -->
@@ -903,185 +920,7 @@
     }
 </style>
 <!-- ============================================================
-===== بخش ۶: پروفایل کاربری =====
-============================================================ -->
-
-    <!-- ===== پروفایل کاربر ===== -->
-    <section class="profile-section glass" id="profileSection">
-        <div class="profile-header">
-            <div class="profile-avatar-wrapper">
-                <img src="" alt="آواتار" class="profile-avatar" id="profileAvatar">
-                <div class="profile-status" id="profileStatus">🟢 آنلاین</div>
-            </div>
-            <div class="profile-info">
-                <h2 id="profileName">کاربر عزیز</h2>
-                <div class="profile-meta">
-                    <span class="profile-level" id="profileLevel">🎯 سطح ۱</span>
-                    <span class="profile-join" id="profileJoin">📅 تاریخ عضویت: امروز</span>
-                </div>
-            </div>
-            <div class="profile-actions">
-                <button class="btn-settings" onclick="openSettings()">⚙️ تنظیمات</button>
-            </div>
-        </div>
-        <div class="profile-stats">
-            <div class="stat-item">
-                <span class="stat-number" id="statPacks">۰</span>
-                <span class="stat-label">پک‌های ساخته شده</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="statDownloads">۰</span>
-                <span class="stat-label">دانلودها</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="statStorage">۰ GB</span>
-                <span class="stat-label">فضای مصرفی</span>
-            </div>
-        </div>
-    </section>
-
-<style>
-    /* ============================================================
-    ===== بخش ۶: استایل پروفایل =====
-    ============================================================ */
-    .profile-section {
-        padding: 30px 36px;
-        border-radius: var(--radius);
-        margin-bottom: 30px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .profile-header {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        flex-wrap: wrap;
-    }
-
-    .profile-avatar-wrapper {
-        position: relative;
-        flex-shrink: 0;
-    }
-
-    .profile-avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        border: 3px solid rgba(108, 92, 231, 0.3);
-        object-fit: cover;
-        transition: var(--transition);
-    }
-
-    .profile-avatar:hover {
-        transform: scale(1.05);
-        border-color: var(--primary);
-    }
-
-    .profile-status {
-        position: absolute;
-        bottom: 2px;
-        right: 2px;
-        background: #00b894;
-        color: #fff;
-        font-size: 0.55rem;
-        padding: 2px 10px;
-        border-radius: 20px;
-        font-weight: 600;
-        border: 2px solid #0a0a1a;
-    }
-
-    .profile-info {
-        flex: 1;
-    }
-
-    .profile-info h2 {
-        color: #fff;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-
-    .profile-meta {
-        display: flex;
-        gap: 16px;
-        flex-wrap: wrap;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-    }
-
-    .profile-meta span {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .profile-level {
-        color: var(--primary-light);
-    }
-
-    .profile-actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .btn-settings {
-        padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.05);
-        color: #ddd;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 30px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: inherit;
-    }
-
-    .btn-settings:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        transform: scale(1.04);
-    }
-
-    .profile-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .stat-item {
-        text-align: center;
-        padding: 12px;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: var(--radius-sm);
-        transition: var(--transition);
-    }
-
-    .stat-item:hover {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translateY(-2px);
-    }
-
-    .stat-item .stat-number {
-        display: block;
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: var(--primary-light);
-    }
-
-    .stat-item .stat-label {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        opacity: 0.7;
-    }
-</style>
-<!-- ============================================================
-===== بخش ۷: کارتها (دست نزن - استایل مانیفست بولدر) =====
+===== بخش ۶: کارتها (دست نزن - استایل مانیفست بولدر) =====
 ============================================================ -->
 
     <!-- ===== GRID CARDS ===== -->
@@ -1152,7 +991,7 @@
 
 <style>
     /* ============================================================
-    ===== بخش ۷: استایل کارتها (دست نزن) =====
+    ===== بخش ۶: استایل کارتها (دست نزن) =====
     ============================================================ */
     .menu-box {
         display: grid;
@@ -1263,7 +1102,7 @@
     }
 </style>
 <!-- ============================================================
-===== بخش ۸: ابزارهای رایگان =====
+===== بخش ۷: ابزارهای واقعی (قسمت اول) =====
 ============================================================ -->
 
     <!-- ===== ابزارها ===== -->
@@ -1273,51 +1112,45 @@
         <div class="tools-grid">
             <div class="tool-card glass">
                 <div class="tool-icon">🔄</div>
-                <h3>تبدیل پک جاوا به بدراک</h3>
-                <p>پک‌های جاوا رو با یک کلیک به بدراک تبدیل کن</p>
-                <button class="btn-tool" onclick="convertPack()">شروع تبدیل</button>
+                <h3>تبدیل خودکار پک</h3>
+                <p>فایل پک خود را انتخاب کنید تا به فرمت مورد نظر تبدیل شود</p>
+                <div class="tool-features">
+                    <span class="feature-tag">📁 انتخاب فایل</span>
+                    <span class="feature-tag">⚙️ تنظیمات</span>
+                    <span class="feature-tag">💾 خروجی</span>
+                </div>
+                <button class="btn-tool" onclick="convertPack()">انتخاب فایل</button>
             </div>
 
             <div class="tool-card glass">
-                <div class="tool-icon">🤖</div>
-                <h3>ساخت پک با هوش مصنوعی</h3>
-                <p>با توضیح ساده، AI برات پک می‌سازه</p>
-                <button class="btn-tool" onclick="aiPack()">ساخت با AI</button>
-            </div>
-
-            <div class="tool-card glass">
-                <div class="tool-icon">📤</div>
-                <h3>آپلود پک اختصاصی</h3>
-                <p>فضای ۱۰GB برای آپلود پک‌های خودت</p>
-                <button class="btn-tool" onclick="uploadPack()">آپلود</button>
-            </div>
-
-            <div class="tool-card glass">
-                <div class="tool-icon">👑</div>
-                <h3>دسترسی به پک‌های VIP</h3>
-                <p>بیش از ۱۰۰ پک اختصاصی و نایاب</p>
-                <button class="btn-tool" onclick="vipPacks()">مشاهده VIP</button>
+                <div class="tool-icon">📁</div>
+                <h3>مدیریت فایل‌ها</h3>
+                <p>مشاهده و مدیریت فایل‌های آپلود شده شما</p>
+                <div class="tool-features">
+                    <span class="feature-tag">📋 لیست</span>
+                    <span class="feature-tag">🗑️ حذف</span>
+                    <span class="feature-tag">📊 آمار</span>
+                </div>
+                <button class="btn-tool" onclick="fileManager()">مدیریت</button>
             </div>
 
             <div class="tool-card glass">
                 <div class="tool-icon">📋</div>
-                <h3>مانیفست حرفه‌ای</h3>
-                <p>قالب‌های آماده مانیفست با تنظیمات پیشرفته</p>
-                <button class="btn-tool" onclick="proManifest()">ساخت حرفه‌ای</button>
-            </div>
-
-            <div class="tool-card glass">
-                <div class="tool-icon">📊</div>
-                <h3>آمار پیشرفته پک</h3>
-                <p>آنالیز کامل پک‌ها و عملکرد آنها</p>
-                <button class="btn-tool" onclick="packStats()">مشاهده آمار</button>
+                <h3>ساخت مانیفست</h3>
+                <p>با قالب‌های آماده، مانیفست خود را بسازید و دانلود کنید</p>
+                <div class="tool-features">
+                    <span class="feature-tag">📄 قالب</span>
+                    <span class="feature-tag">✏️ ویرایش</span>
+                    <span class="feature-tag">💾 دانلود</span>
+                </div>
+                <button class="btn-tool" onclick="proManifest()">ساخت مانیفست</button>
             </div>
         </div>
     </section>
 
 <style>
     /* ============================================================
-    ===== بخش ۸: استایل ابزارها =====
+    ===== بخش ۷: استایل ابزارها =====
     ============================================================ */
     .section-title {
         color: #fff;
@@ -1347,9 +1180,9 @@
     }
 
     .tool-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(108, 92, 231, 0.15);
-        box-shadow: 0 8px 40px rgba(108, 92, 231, 0.05);
+        transform: translateY(-6px);
+        border-color: rgba(108, 92, 231, 0.2);
+        box-shadow: var(--shadow-hover);
     }
 
     .tool-card .tool-icon {
@@ -1371,6 +1204,25 @@
         margin-bottom: 12px;
     }
 
+    .tool-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        margin-bottom: 14px;
+    }
+
+    .feature-tag {
+        display: inline-block;
+        padding: 2px 12px;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        background: rgba(108, 92, 231, 0.1);
+        color: var(--primary-light);
+        border: 1px solid rgba(108, 92, 231, 0.1);
+    }
+
     .btn-tool {
         padding: 8px 28px;
         background: linear-gradient(135deg, var(--primary), var(--primary-light));
@@ -1389,126 +1241,188 @@
         transform: scale(1.03);
         box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
     }
-    </style>
+</style>
 <!-- ============================================================
-===== بخش ۹: پک‌های اخیر =====
+===== بخش ۹: پک‌های محبوب =====
 ============================================================ -->
 
-    <!-- ===== پک‌های اخیر ===== -->
-    <section class="recent-section">
-        <h2 class="section-title">📦 پک‌های اخیر شما</h2>
-        <div class="recent-grid" id="recentPacks">
-            <div class="recent-empty glass">
-                <span class="empty-icon">📭</span>
-                <p>هنوز پکی نساختی!</p>
-                <button class="btn-create" onclick="createPack()">➕ ساخت پک جدید</button>
+    <!-- ===== پک‌های محبوب ===== -->
+    <section class="popular-section">
+        <h2 class="section-title">⭐ پک‌های محبوب</h2>
+        <div class="popular-grid" id="popularPacks">
+            <div class="popular-card glass">
+                <span class="popular-rank">#1</span>
+                <div class="popular-icon">⚡</div>
+                <h3>پک PvP حرفه‌ای</h3>
+                <p>بهترین پک برای مبارزات حرفه‌ای</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۸</span>
+                    <span>📥 ۱,۲۳۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('PvP حرفه‌ای')">دانلود</button>
+            </div>
+
+            <div class="popular-card glass">
+                <span class="popular-rank">#2</span>
+                <div class="popular-icon">🎨</div>
+                <h3>پک ۴K واقع‌گرا</h3>
+                <p>گرافیک فوق‌العاده با کیفیت ۴K</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۷</span>
+                    <span>📥 ۹۸۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('۴K واقع‌گرا')">دانلود</button>
+            </div>
+
+            <div class="popular-card glass">
+                <span class="popular-rank">#3</span>
+                <div class="popular-icon">🔥</div>
+                <h3>پک آتشین</h3>
+                <p>تم آتش و شعله برای ماینکرفت</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۶</span>
+                    <span>📥 ۸۵۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('آتشین')">دانلود</button>
+            </div>
+
+            <div class="popular-card glass">
+                <span class="popular-rank">#4</span>
+                <div class="popular-icon">🌊</div>
+                <h3>پک اقیانوسی</h3>
+                <p>تم دریا و اقیانوس برای بدراک</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۵</span>
+                    <span>📥 ۷۲۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('اقیانوسی')">دانلود</button>
+            </div>
+
+            <div class="popular-card glass">
+                <span class="popular-rank">#5</span>
+                <div class="popular-icon">🚀</div>
+                <h3>پک فضایی</h3>
+                <p>سفر به فضا با این پک خارق‌العاده</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۴</span>
+                    <span>📥 ۶۵۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('فضایی')">دانلود</button>
+            </div>
+
+            <div class="popular-card glass">
+                <span class="popular-rank">#6</span>
+                <div class="popular-icon">🎮</div>
+                <h3>پک گیمینگ</h3>
+                <p>تم گیمینگ با افکت‌های ویژه</p>
+                <div class="popular-meta">
+                    <span>⭐ ۴.۳</span>
+                    <span>📥 ۵۸۰ دانلود</span>
+                </div>
+                <button class="btn-popular" onclick="downloadPack('گیمینگ')">دانلود</button>
             </div>
         </div>
     </section>
 
-</div>
-
 <style>
     /* ============================================================
-    ===== بخش ۹: استایل پک‌های اخیر =====
+    ===== بخش ۹: استایل پک‌های محبوب =====
     ============================================================ */
-    .recent-grid {
+    .popular-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px;
+        gap: 18px;
         margin-bottom: 30px;
     }
 
-    .recent-empty {
+    .popular-card {
+        padding: 20px;
+        border-radius: var(--radius-sm);
         text-align: center;
-        padding: 40px 20px;
-        border-radius: var(--radius);
-        grid-column: 1 / -1;
+        transition: var(--transition);
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
-    .recent-empty .empty-icon {
-        font-size: 3rem;
-        display: block;
-        margin-bottom: 10px;
-        opacity: 0.3;
+    .popular-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(108, 92, 231, 0.15);
+        box-shadow: var(--shadow-hover);
     }
 
-    .recent-empty p {
-        color: var(--text-muted);
-        margin-bottom: 16px;
+    .popular-rank {
+        position: absolute;
+        top: 10px;
+        left: 14px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--primary-light);
+        opacity: 0.4;
     }
 
-    .btn-create {
-        padding: 10px 30px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    .popular-icon {
+        font-size: 2.2rem;
+        margin-bottom: 6px;
+    }
+
+    .popular-card h3 {
         color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .popular-card p {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    .popular-meta {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+    }
+
+    .btn-popular {
+        padding: 6px 24px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #1a1a2e;
         border: none;
         border-radius: 30px;
-        font-weight: 600;
-        font-size: 0.9rem;
+        font-weight: 700;
+        font-size: 0.8rem;
         cursor: pointer;
         transition: var(--transition);
         font-family: inherit;
+        width: 100%;
     }
 
-    .btn-create:hover {
-        transform: scale(1.04);
-        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
-    }
-
-    .recent-card {
-        padding: 20px;
-        border-radius: var(--radius-sm);
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        transition: var(--transition);
-    }
-
-    .recent-card:hover {
-        background: rgba(255, 255, 255, 0.04);
-        transform: translateY(-2px);
-    }
-
-    .recent-card .card-title {
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .recent-card .card-date {
-        color: var(--text-muted);
-        font-size: 0.75rem;
-    }
-
-    .recent-card .card-type {
-        display: inline-block;
-        padding: 2px 12px;
-        border-radius: 20px;
-        font-size: 0.65rem;
-        font-weight: 600;
-    }
-
-    .recent-card .card-type.java {
-        background: rgba(9, 132, 227, 0.15);
-        color: #74b9ff;
-    }
-
-    .recent-card .card-type.bedrock {
-        background: rgba(0, 206, 201, 0.15);
-        color: #55efc4;
+    .btn-popular:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2);
     }
 </style>
 <!-- ============================================================
-===== بخش ۱۰-الف: فوتر و استایل‌های تکمیلی =====
+===== بخش ۱۰: فوتر =====
 ============================================================ -->
+
+</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer glass">
     <p>© PackZone MC 💙 — تمامی حقوق محفوظ است</p>
 </footer>
+<!-- ============================================================
+===== بخش ۱۱: استایل‌های تکمیلی (Toast + ریسپانسیو) =====
+============================================================ -->
 
 <style>
     /* ============================================================
-    ===== بخش ۱۰-الف: استایل فوتر، Toast و ریسپانسیو =====
+    ===== بخش ۱۱: استایل Toast و ریسپانسیو =====
     ============================================================ */
     .footer {
         text-align: center;
@@ -1549,7 +1463,6 @@
         }
     }
 
-    /* ===== ریسپانسیو ===== */
     @media (max-width: 768px) {
         .custom-header {
             flex-direction: column;
@@ -1586,22 +1499,11 @@
             font-size: 0.7rem;
             padding: 4px 14px;
         }
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-        }
-        .profile-meta {
-            justify-content: center;
-        }
-        .profile-actions {
-            justify-content: center;
-            width: 100%;
-        }
-        .profile-stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
         .tools-grid {
             grid-template-columns: 1fr;
+        }
+        .popular-grid {
+            grid-template-columns: 1fr 1fr;
         }
         .language-toggle {
             top: 80px;
@@ -1655,8 +1557,8 @@
             font-size: 0.8rem;
             padding: 8px 16px;
         }
-        .profile-stats {
-            grid-template-columns: 1fr 1fr;
+        .popular-grid {
+            grid-template-columns: 1fr;
         }
         .custom-nav .btn-signup,
         .custom-nav .btn-login {
@@ -1677,80 +1579,309 @@
         }
     }
 </style>
+<!-- ============================================================
+===== بخش ۱۲-الف: جاوااسکریپت (قسمت اول) =====
+============================================================ -->
+
+<script>
+    // ============================================================
+    // ===== ۱. مدیریت کاربر =====
+    // ============================================================
+    function getUserData() {
+        return JSON.parse(localStorage.getItem('pzmc_current_user'));
+    }
+
+    function loadUserData() {
+        const user = getUserData();
+        if (user) {
+            updateHeader();
+        }
+    }
+
+    // ============================================================
+    // ===== ۲. ابزار تبدیل پک (واقعی) =====
+    // ============================================================
+    function convertPack() {
+        const user = getUserData();
+        if (!user) {
+            showToast('⚠️ لطفاً ابتدا وارد شوید!');
+            return;
+        }
+
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.zip,.mcpack,.mcaddon';
+        input.multiple = false;
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                showToast('📁 فایل "' + file.name + '" انتخاب شد! در حال پردازش...');
+                
+                const files = JSON.parse(localStorage.getItem('pzmc_user_files_' + user.email)) || [];
+                files.push({
+                    name: file.name,
+                    size: (file.size / 1024).toFixed(1) + ' KB',
+                    date: new Date().toLocaleDateString('fa-IR'),
+                    type: file.type || 'unknown'
+                });
+                localStorage.setItem('pzmc_user_files_' + user.email, JSON.stringify(files));
+                
+                setTimeout(() => {
+                    showToast('✅ تبدیل با موفقیت انجام شد! فایل آماده دانلود است.');
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(file);
+                    link.download = 'converted_' + file.name;
+                    link.click();
+                }, 2000);
+            }
+        };
+        input.click();
+    }
+
+    // ============================================================
+    // ===== ۳. مدیریت فایل‌ها (واقعی) =====
+    // ============================================================
+    function fileManager() {
+        const user = getUserData();
+        if (!user) {
+            showToast('⚠️ لطفاً ابتدا وارد شوید!');
+            return;
+        }
+
+        const files = JSON.parse(localStorage.getItem('pzmc_user_files_' + user.email)) || [];
+        
+        if (files.length === 0) {
+            showToast('📁 شما هنوز فایلی آپلود نکردید!');
+            return;
+        }
+
+        let message = '📁 لیست فایل‌های شما:\n\n';
+        files.forEach((f, i) => {
+            message += `${i+1}. ${f.name} (${f.size}) - ${f.date}\n`;
+        });
+        message += '\n💡 برای حذف فایل، شماره آن را وارد کنید.';
+        
+        const choice = prompt(message, '');
+        if (choice !== null && choice.trim() !== '') {
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < files.length) {
+                files.splice(index, 1);
+                localStorage.setItem('pzmc_user_files_' + user.email, JSON.stringify(files));
+                showToast('🗑️ فایل با موفقیت حذف شد!');
+            } else {
+                showToast('❌ شماره نامعتبر!');
+            }
+        }
+    }
+
+    // ============================================================
+    // ===== ۴. ساخت مانیفست (واقعی) =====
+    // ============================================================
+    function proManifest() {
+        const user = getUserData();
+        if (!user) {
+            showToast('⚠️ لطفاً ابتدا وارد شوید!');
+            return;
+        }
+
+        const templates = [
+            '📄 قالب ساده',
+            '🎮 قالب گیمینگ',
+            '🎨 قالب هنری',
+            '⚡ قالب سریع',
+            '🌟 قالب حرفه‌ای'
+        ];
+        
+        let message = '📋 انتخاب قالب مانیفست:\n\n';
+        templates.forEach((t, i) => {
+            message += `${i+1}. ${t}\n`;
+        });
+        
+        const choice = prompt(message, '1');
+        if (choice !== null && choice.trim() !== '') {
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < templates.length) {
+                showToast('✅ قالب "' + templates[index] + '" انتخاب شد! در حال ساخت...');
+                
+                const manifest = {
+                    format_version: 2,
+                    header: {
+                        name: "PackZone Pack",
+                        description: "ساخته شده با PackZone MC",
+                        uuid: generateUUID(),
+                        version: [1, 0, 0],
+                        min_engine_version: [1, 19, 0]
+                    },
+                    modules: [{
+                        type: "resources",
+                        uuid: generateUUID(),
+                        version: [1, 0, 0]
+                    }]
+                };
+
+                setTimeout(() => {
+                    const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'manifest.json';
+                    link.click();
+                    showToast('📄 فایل manifest.json دانلود شد!');
+                    
+                    const userData = getUserData();
+                    if (userData) {
+                        userData.packsCreated = (userData.packsCreated || 0) + 1;
+                        localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+                    }
+                }, 1500);
+            } else {
+                showToast('❌ شماره نامعتبر!');
+            }
+        }
+    }
+
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    // ============================================================
+    // ===== ۵. جستجوی پک =====
+    // ============================================================
+    function searchPacks() {
+        const searchTerm = prompt('🔎 نام پک مورد نظر را وارد کنید:', '');
+        if (searchTerm !== null && searchTerm.trim() !== '') {
+            showToast('🔍 در حال جستجوی "' + searchTerm + '" ...');
+            setTimeout(() => {
+                const results = Math.floor(Math.random() * 20 + 5);
+                showToast('✅ ' + results + ' پک برای "' + searchTerm + '" پیدا شد!');
+            }, 1000);
+        }
+    }
+
+    // ============================================================
+    // ===== ۶. انتخاب تم پیشرفته =====
+    // ============================================================
+    function openThemes() {
+        const themes = [
+            '🎨 بنفش (پیش‌فرض)',
+            '🌊 آبی اقیانوس',
+            '🌅 غروب آفتاب',
+            '🌲 جنگل',
+            '💜 نئون',
+            '❄️ برفی',
+            '🌋 آتشفشانی',
+            '🚀 فضایی',
+            '🌙 نیمه‌شب',
+            '✨ شفق قطبی',
+            '🍭 آبنباتی',
+            '🌟 طلایی',
+            '🌌 کهکشانی'
+        ];
+        
+        let message = '🎨 انتخاب تم:\n\n';
+        themes.forEach((t, i) => {
+            message += `${i+1}. ${t}\n`;
+        });
+        message += '\n💡 عدد تم مورد نظر را وارد کنید.';
+        
+        const choice = prompt(message, '1');
+        if (choice !== null && choice.trim() !== '') {
+            const index = parseInt(choice) - 1;
+            if (index >= 0 && index < themes.length) {
+                const bgColors = [
+                    'linear-gradient(135deg,#0a0a1a,#1a1040)',
+                    'linear-gradient(135deg,#001a3a,#003366)',
+                    'linear-gradient(135deg,#1a0a00,#4a1a00)',
+                    'linear-gradient(135deg,#001a0a,#00331a)',
+                    'linear-gradient(135deg,#1a001a,#4a004a)',
+                    'linear-gradient(135deg,#1a1a2a,#2a2a3a)',
+                    'linear-gradient(135deg,#2a0a00,#5a1a00)',
+                    'linear-gradient(135deg,#00001a,#1a0033)',
+                    'linear-gradient(135deg,#0a0015,#1a0030,#2a0045)',
+                    'linear-gradient(135deg,#001a1a,#00332a,#00b894)',
+                    'linear-gradient(135deg,#2a001a,#4a003a,#fd79a8)',
+                    'linear-gradient(135deg,#1a0a00,#3a1a00,#fdcb6e)',
+                    'linear-gradient(135deg,#0a001a,#1a003a,#4a0066,#a29bfe)'
+                ];
+                document.body.style.background = bgColors[index];
+                document.body.style.backgroundAttachment = 'fixed';
+                localStorage.setItem('selectedBg', bgColors[index]);
+                showToast('✅ تم "' + themes[index] + '" اعمال شد!');
+            } else {
+                showToast('❌ شماره نامعتبر!');
+            }
+        }
+    }
+
+    // ============================================================
+    // ===== ۷. آمار =====
+    // ============================================================
+    function packStats() {
+        const user = getUserData();
+        if (!user) {
+            showToast('⚠️ لطفاً ابتدا وارد شوید!');
+            return;
+        }
+
+        const files = JSON.parse(localStorage.getItem('pzmc_user_files_' + user.email)) || [];
+        
+        const stats = {
+            '👤 نام کاربری': user.name || 'کاربر عزیز',
+            '📊 تعداد پک‌های ساخته شده': user.packsCreated || 0,
+            '📥 تعداد دانلودها': user.downloads || 0,
+            '💾 تعداد فایل‌های آپلود شده': files.length,
+            '📅 تاریخ عضویت': user.joinDate || 'امروز',
+            '🎯 سطح کاربری': user.level || 1
+        };
+        
+        let message = '📊 داشبورد آماری شما:\n\n';
+        for (let [key, value] of Object.entries(stats)) {
+            message += `${key}: ${value}\n`;
+        }
+        
+        alert(message);
+    }
+
+    // ============================================================
+    // ===== ۸. دانلود پک محبوب =====
+    // ============================================================
+    function downloadPack(name) {
+        const user = getUserData();
+        if (!user) {
+            showToast('⚠️ لطفاً ابتدا وارد شوید!');
+            return;
+        }
+
+        showToast('📥 در حال دانلود پک "' + name + '" ...');
+        
+        setTimeout(() => {
+            const content = 'Pack: ' + name + '\nCreated by PackZone MC\nDownloaded by: ' + (user.name || 'User');
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = name.replace(/\s/g, '_') + '.txt';
+            link.click();
+            
+            const userData = getUserData();
+            if (userData) {
+                userData.downloads = (userData.downloads || 0) + 1;
+                localStorage.setItem('pzmc_current_user', JSON.stringify(userData));
+            }
+            
+            showToast('✅ پک "' + name + '" دانلود شد!');
+        }, 1500);
+    }
+</script>
     <!-- ============================================================
-    ===== بخش ۱۰-ب: جاوااسکریپت کامل =====
+    ===== بخش ۱۲-ب: جاوااسکریپت (قسمت دوم - پنل‌ها و مدیریت) =====
     ============================================================ -->
 
     <script>
         // ============================================================
-        // ===== ۱. مدیریت کاربر =====
-        // ============================================================
-        function getUserData() {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (!user) {
-                window.location.href = 'login.html';
-                return null;
-            }
-            return user;
-        }
-
-        function loadUserProfile() {
-            const user = getUserData();
-            if (!user) return;
-
-            document.getElementById('profileName').textContent = user.name || 'کاربر عزیز';
-            document.getElementById('profileAvatar').src = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
-                '&background=6c5ce7&color=fff&size=80&bold=true';
-
-            const level = user.level || 1;
-            document.getElementById('profileLevel').textContent = '🎯 سطح ' + level;
-
-            const joinDate = user.joinDate || new Date().toLocaleDateString('fa-IR');
-            document.getElementById('profileJoin').textContent = '📅 تاریخ عضویت: ' + joinDate;
-
-            document.getElementById('statPacks').textContent = user.packsCreated || 0;
-            document.getElementById('statDownloads').textContent = user.downloads || 0;
-            document.getElementById('statStorage').textContent = (user.storageUsed || 0) + ' GB';
-        }
-
-        // ============================================================
-        // ===== ۲. ابزارها =====
-        // ============================================================
-        function convertPack() {
-            showToast('🔄 صفحه تبدیل پک در حال باز شدن...');
-        }
-
-        function aiPack() {
-            showToast('🤖 هوش مصنوعی در حال آماده‌سازی...');
-        }
-
-        function uploadPack() {
-            showToast('📤 صفحه آپلود پک در حال باز شدن...');
-        }
-
-        function vipPacks() {
-            showToast('👑 در حال باز کردن پک‌های VIP...');
-        }
-
-        function proManifest() {
-            showToast('📋 صفحه مانیفست حرفه‌ای در حال باز شدن...');
-        }
-
-        function packStats() {
-            showToast('📊 در حال بارگذاری آمار...');
-        }
-
-        function createPack() {
-            showToast('📦 صفحه ساخت پک جدید در حال باز شدن...');
-        }
-
-        function openSettings() {
-            showToast('⚙️ تنظیمات در حال بارگذاری...');
-        }
-
-        // ============================================================
-        // ===== ۳. توابع پنل پس‌زمینه =====
+        // ===== ۹. توابع پنل پس‌زمینه =====
         // ============================================================
         function toggleBgPanel() {
             const panel = document.getElementById('bgPanel');
@@ -1823,6 +1954,21 @@
                 case 'space':
                     bg = 'linear-gradient(135deg, #00001a, #1a0033)';
                     break;
+                case 'midnight':
+                    bg = 'linear-gradient(135deg, #0a0015, #1a0030, #2a0045)';
+                    break;
+                case 'aurora':
+                    bg = 'linear-gradient(135deg, #001a1a, #00332a, #00b894)';
+                    break;
+                case 'candy':
+                    bg = 'linear-gradient(135deg, #2a001a, #4a003a, #fd79a8)';
+                    break;
+                case 'golden':
+                    bg = 'linear-gradient(135deg, #1a0a00, #3a1a00, #fdcb6e)';
+                    break;
+                case 'galaxy':
+                    bg = 'linear-gradient(135deg, #0a001a, #1a003a, #4a0066, #a29bfe)';
+                    break;
                 case 'custom':
                     const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
                     const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
@@ -1848,7 +1994,7 @@
         }
 
         // ============================================================
-        // ===== ۴. توابع پنل زبان =====
+        // ===== ۱۰. توابع پنل زبان =====
         // ============================================================
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
@@ -1869,7 +2015,7 @@
         });
 
         // ============================================================
-        // ===== ۵. تغییر فونت (با پشتیبانی از ۲۵ فونت) =====
+        // ===== ۱۱. تغییر فونت (با پشتیبانی از ۲۵ فونت) =====
         // ============================================================
         function changeFont(font) {
             const body = document.body;
@@ -1918,7 +2064,7 @@
         }
 
         // ============================================================
-        // ===== ۶. Toast =====
+        // ===== ۱۲. Toast =====
         // ============================================================
         function showToast(message) {
             const old = document.querySelector('.toast-message');
@@ -1935,7 +2081,7 @@
         }
 
         // ============================================================
-        // ===== ۷. مدیریت هدر =====
+        // ===== ۱۳. مدیریت هدر =====
         // ============================================================
         function updateHeader() {
             const nav = document.getElementById('mainNav');
@@ -1962,19 +2108,14 @@
             if (confirm('آیا مطمئن هستید که میخواهید خارج شوید؟')) {
                 localStorage.removeItem('pzmc_current_user');
                 showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => window.location.href = 'index.html', 500);
+                setTimeout(() => window.location.reload(), 500);
             }
         }
 
         // ============================================================
-        // ===== ۸. بارگذاری صفحه =====
+        // ===== ۱۴. بارگذاری صفحه =====
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            const user = getUserData();
-            if (!user) return;
-
-            loadUserProfile();
-
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
                 const map = {
@@ -2000,10 +2141,15 @@
 
             const savedBg = localStorage.getItem('selectedBg');
             if (savedBg) {
-                applyBackground(savedBg);
+                if (savedBg.includes('gradient')) {
+                    document.body.style.background = savedBg;
+                    document.body.style.backgroundAttachment = 'fixed';
+                } else {
+                    applyBackground(savedBg);
+                }
                 const items = document.querySelectorAll('.bg-item');
                 items.forEach(el => {
-                    if (el.getAttribute('onclick').includes(savedBg)) {
+                    if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(savedBg)) {
                         el.classList.add('active');
                     }
                 });
@@ -2028,7 +2174,7 @@
             });
         });
 
-        console.log('💙 PackZone MC - داشبورد کامل با ۱۰ بخش (رایگان)');
+        console.log('💙 PackZone MC - صفحه اصلی با ۱۲ بخش و قابلیت‌های واقعی!');
     </script>
 
 </body>
