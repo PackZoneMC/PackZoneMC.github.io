@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت | PackZone MC</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 24px 20px 20px;
+            border-bottom: 1px solid #21262d;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+
+        .header p {
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .login-box {
+            max-width: 360px;
+            margin: 60px auto;
+            background: #161b22;
+            padding: 30px 28px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        .login-box h2 {
+            color: #f0f6fc;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: #f0f6fc;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 14px;
+            font-family: inherit;
+        }
+
+        .login-box input:focus {
+            border-color: #58a6ff;
+        }
+
+        .login-box .btn-login {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #238636;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .login-box .btn-login:hover {
+            background: #2ea043;
+        }
+
+        .login-box .error-msg {
+            color: #f85149;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .login-box .hint {
+            color: #8b949e;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .login-box .hint span {
+            color: #58a6ff;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #161b22;
+            padding: 16px 12px;
+            border-radius: 10px;
+            border: 1px solid #21262d;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+
+        .stat-card .number.new {
+            color: #f0883e;
+        }
+
+        .stat-card .label {
+            font-size: 0.7rem;
+            color: #8b949e;
+            margin-top: 2px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .panel-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+
+        .panel-header .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .panel-header .actions button {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-refresh {
+            background: #21262d;
+            color: #c9d1d9;
+        }
+
+        .btn-refresh:hover {
+            background: #30363d;
+        }
+
+        .btn-clear-all {
+            background: #21262d;
+            color: #f85149;
+        }
+
+        .btn-clear-all:hover {
+            background: #2d1a1e;
+        }
+
+        .btn-logout {
+            background: #21262d;
+            color: #f85149;
+        }
+
+        .btn-logout:hover {
+            background: #2d1a1e;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .comment-item {
+            background: #161b22;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .comment-item:hover {
+            border-color: #30363d;
+        }
+
+        .comment-item.unread {
+            border-right: 3px solid #58a6ff;
+        }
+
+        .comment-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .comment-item .info .user {
+            font-weight: 600;
+            color: #58a6ff;
+            font-size: 0.9rem;
+        }
+
+        .comment-item .info .pack-name {
+            font-size: 0.75rem;
+            color: #8b949e;
+            margin-right: 6px;
+        }
+
+        .comment-item .info .text {
+            color: #c9d1d9;
+            font-size: 0.9rem;
+            margin-top: 2px;
+            word-wrap: break-word;
+        }
+
+        .comment-item .info .time {
+            font-size: 0.65rem;
+            color: #484f58;
+            margin-top: 4px;
+        }
+
+        .comment-item .actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .comment-item .actions button {
+            background: transparent;
+            border: none;
+            color: #484f58;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .comment-item .actions button:hover {
+            background: #21262d;
+            color: #c9d1d9;
+        }
+
+        .comment-item .actions .del-btn:hover {
+            color: #f85149;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #484f58;
+        }
+
+        .empty-state .icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 10px 22px;
+            border-radius: 8px;
+            color: #c9d1d9;
+            font-size: 0.85rem;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.error {
+            border-color: #f85149;
+        }
+
+        .toast.success {
+            border-color: #238636;
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comment-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .comment-item .actions {
+                justify-content: flex-end;
+                padding-top: 6px;
+                border-top: 1px solid #21262d;
+            }
+            .panel-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 12px 8px;
+            }
+            .stat-card .number {
+                font-size: 1.2rem;
+            }
+            .login-box {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>🔐 پنل مدیریت</h1>
+            <p>مدیریت نظرات و فعالیت‌های سایت</p>
+        </div>
+
+        <div class="login-box" id="loginBox">
+            <h2>🔑 ورود</h2>
+            <input type="password" id="adminPassword" placeholder="رمز عبور..." onkeydown="if(event.key==='Enter') loginAdmin()">
+            <button class="btn-login" onclick="loginAdmin()">ورود</button>
+            <div class="error-msg" id="loginError">❌ رمز اشتباه است!</div>
+            <div class="hint">رمز پیش‌فرض: <span>PZMC2025</span></div>
+        </div>
+
+        <div class="admin-panel" id="adminPanel">
+
+            <div class="stats" id="statsContainer">
+                <div class="stat-card">
+                    <div class="number" id="totalComments">0</div>
+                    <div class="label">📝 کل نظرات</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number new" id="newComments">0</div>
+                    <div class="label">🆕 جدید</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="totalPacks">0</div>
+                    <div class="label">📦 پک</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="totalUsers">0</div>
+                    <div class="label">👤 کاربران</div>
+                </div>
+            </div>
+
+            <div class="panel-header">
+                <h2>📋 نظرات</h2>
+                <div class="actions">
+                    <button class="btn-refresh" onclick="loadComments()">🔄 بروزرسانی</button>
+                    <button class="btn-clear-all" onclick="clearAllComments()">🗑️ حذف همه</button>
+                    <button class="btn-logout" onclick="logoutAdmin()">🚪 خروج</button>
+                </div>
+            </div>
+
+            <div class="comments-list" id="commentsList">
+                <div class="empty-state">
+                    <span class="icon">📭</span>
+                    <p>هیچ نظری ثبت نشده</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script>
+        // ============================================================
+        // ===== CONSTANTS =====
+        // ============================================================
+        const ADMIN_PASSWORD = 'PZMC2025';
+
+        // ============================================================
+        // ===== TOAST =====
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast';
+            if (type === 'error') toast.classList.add('error');
+            if (type === 'success') toast.classList.add('success');
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ============================================================
+        // ===== LOGIN =====
+        // ============================================================
+        function loginAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            const error = document.getElementById('loginError');
+
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                error.style.display = 'none';
+                loadComments();
+                showToast('✅ خوش آمدید!', 'success');
+            } else {
+                error.style.display = 'block';
+                setTimeout(() => error.style.display = 'none', 3000);
+            }
+        }
+
+        function logoutAdmin() {
+            if (confirm('خروج؟')) {
+                document.getElementById('loginBox').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('adminPassword').value = '';
+                showToast('👋 خارج شدید');
+            }
+        }
+
+        // ============================================================
+        // ===== LOAD COMMENTS =====
+        // ============================================================
+        function loadComments() {
+            const allComments = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            const users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+
+            let total = 0,
+                newC = 0;
+            const packs = new Set();
+            const list = [];
+
+            for (const [packName, comments] of Object.entries(allComments)) {
+                if (comments.length > 0) {
+                    packs.add(packName);
+                    comments.forEach(c => {
+                        total++;
+                        if (!c.read) newC++;
+                        list.push({ packName, ...c, read: c.read || false });
+                    });
+                }
+            }
+
+            list.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            document.getElementById('totalComments').textContent = total;
+            document.getElementById('newComments').textContent = newC;
+            document.getElementById('totalPacks').textContent = packs.size;
+            document.getElementById('totalUsers').textContent = users.length;
+
+            const container = document.getElementById('commentsList');
+
+            if (list.length === 0) {
+                container.innerHTML =
+                    `<div class="empty-state"><span class="icon">📭</span><p>هیچ نظری ثبت نشده</p></div>`;
+                return;
+            }
+
+            let html = '';
+            list.forEach(c => {
+                const d = new Date(c.date);
+                const time = d.toLocaleDateString('fa-IR') + ' ' +
+                    d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+
+                html += `
+                    <div class="comment-item ${c.read ? '' : 'unread'}">
+                        <div class="info">
+                            <div>
+                                <span class="user">${esc(c.user)}</span>
+                                <span class="pack-name">📦 ${esc(c.packName)}</span>
+                            </div>
+                            <div class="text">${esc(c.text)}</div>
+                            <div class="time">${time}</div>
+                        </div>
+                        <div class="actions">
+                            <button onclick="markRead('${c.packName}','${c.user}','${c.date}')" title="خوانده شد">✅</button>
+                            <button class="del-btn" onclick="delComment('${c.packName}','${c.user}','${c.date}')" title="حذف">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function esc(text) {
+            const d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
+        }
+
+        // ============================================================
+        // ===== MARK AS READ =====
+        // ============================================================
+        function markRead(packName, userName, date) {
+            const all = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            const comments = all[packName] || [];
+            const idx = comments.findIndex(c => c.user === userName && c.date === date);
+            if (idx !== -1) {
+                comments[idx].read = true;
+                all[packName] = comments;
+                localStorage.setItem('pzmc_comments', JSON.stringify(all));
+                loadComments();
+                showToast('✅ علامت‌گذاری شد', 'success');
+            }
+        }
+
+        // ============================================================
+        // ===== DELETE COMMENT =====
+        // ============================================================
+        function delComment(packName, userName, date) {
+            if (!confirm('حذف شود؟')) return;
+            const all = JSON.parse(localStorage.getItem('pzmc_comments')) || {};
+            const comments = all[packName] || [];
+            const filtered = comments.filter(c => !(c.user === userName && c.date === date));
+            if (filtered.length === 0) delete all[packName];
+            else all[packName] = filtered;
+            localStorage.setItem('pzmc_comments', JSON.stringify(all));
+            loadComments();
+            showToast('🗑️ حذف شد', 'success');
+        }
+
+        // ============================================================
+        // ===== CLEAR ALL =====
+        // ============================================================
+        function clearAllComments() {
+            if (!confirm('همه نظرات حذف شوند؟')) return;
+            if (!confirm('تأیید نهایی؟')) return;
+            localStorage.removeItem('pzmc_comments');
+            loadComments();
+            showToast('🗑️ همه حذف شدند', 'success');
+        }
+
+        // ============================================================
+        // ===== ENTER =====
+        // ============================================================
+        document.getElementById('adminPassword').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') loginAdmin();
+        });
+    </script>
+
+</body>
+</html>
