@@ -4,18 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داشبورد | PackZone MC</title>
+    <title>PackZone MC | داشبورد کاربری</title>
 
-    <!-- ===== GOOGLE FONTS ===== -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- ===== GOOGLE FONTS (پایه) ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+    
+    <!-- ===== GOOGLE FONTS (پریمیوم) ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
-                   RESET & BASE - مانیفست بولدر
-                   ============================================================ */
+        ===== بخش ۱: RESET, متغیرها و فونتها (۲۵ فونت) =====
+        ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -33,27 +55,63 @@
             --gold-light: #ffeaa7;
             --bg-dark: #0a0a1a;
             --bg-card: rgba(255, 255, 255, 0.04);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
             --border-color: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(108, 92, 231, 0.2);
+            --border-hover: rgba(108, 92, 231, 0.25);
             --text-primary: #ffffff;
             --text-secondary: #e0e0e0;
             --text-muted: #888888;
-            --shadow: 0 8px 32px rgba(108, 92, 231, 0.08);
-            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.12);
+            --shadow: 0 8px 32px rgba(108, 92, 231, 0.12);
+            --shadow-hover: 0 12px 48px rgba(108, 92, 231, 0.2);
             --radius: 24px;
             --radius-sm: 14px;
             --radius-xs: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
+            --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
+            --gradient-premium: linear-gradient(135deg, #fdcb6e, #f39c12, #e17055, #fd79a8);
+            
+            /* فونت‌های پایه */
             --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --font-secondary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-arabic: 'Noto Sans Arabic', 'Vazirmatn', sans-serif;
             --font-serif: 'Amiri', 'Vazirmatn', serif;
+            --font-cairo: 'Cairo', 'Vazirmatn', sans-serif;
+            --font-minecraft: 'Minecraft', 'Vazirmatn', sans-serif;
+            --font-playfair: 'Playfair Display', 'Vazirmatn', serif;
+            --font-montserrat: 'Montserrat', 'Vazirmatn', sans-serif;
+            --font-outfit: 'Outfit', 'Vazirmatn', sans-serif;
+            --font-space: 'Space Grotesk', 'Vazirmatn', sans-serif;
+            --font-dm: 'DM Sans', 'Vazirmatn', sans-serif;
+            
+            /* فونت‌های پریمیوم */
+            --font-cinzel: 'Cinzel', 'Vazirmatn', serif;
+            --font-raleway: 'Raleway', 'Vazirmatn', sans-serif;
+            --font-poppins: 'Poppins', 'Vazirmatn', sans-serif;
+            --font-nunito: 'Nunito', 'Vazirmatn', sans-serif;
+            --font-quicksand: 'Quicksand', 'Vazirmatn', sans-serif;
+            --font-orbitron: 'Orbitron', 'Vazirmatn', sans-serif;
+            --font-pressstart: 'Press Start 2P', 'Vazirmatn', cursive;
+            --font-josefin: 'Josefin Sans', 'Vazirmatn', sans-serif;
+            --font-lobster: 'Lobster', 'Vazirmatn', cursive;
+            --font-pacifico: 'Pacifico', 'Vazirmatn', cursive;
+            --font-dancing: 'Dancing Script', 'Vazirmatn', cursive;
+            --font-greatvibes: 'Great Vibes', 'Vazirmatn', cursive;
+            --font-satisfy: 'Satisfy', 'Vazirmatn', cursive;
+            --font-bangers: 'Bangers', 'Vazirmatn', cursive;
+            
+            --bg-body: #0a0a1a;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://minecraft.wiki/images/Minecraft.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
 
         body {
             font-family: var(--font-primary);
-            background: linear-gradient(135deg, #0a0a1a 0%, #12082a 25%, #1a1040 50%, #0d0d2b 75%, #0a0a1a 100%);
+            background: var(--bg-body);
             background-attachment: fixed;
             min-height: 100vh;
             color: var(--text-secondary);
@@ -73,8 +131,9 @@
             right: 0;
             bottom: 0;
             background:
-                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 20%, rgba(108, 92, 231, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(253, 121, 168, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(108, 92, 231, 0.02) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -87,33 +146,56 @@
             z-index: 1;
         }
 
-        /* ===== GLASS EFFECT ===== */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-strong {
             background: rgba(13, 32, 56, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* ===== FONT CLASSES ===== */
-        .font-primary {
-            font-family: var(--font-primary) !important;
-        }
-        .font-secondary {
-            font-family: var(--font-secondary) !important;
-        }
-        .font-serif {
-            font-family: var(--font-serif) !important;
+        .glass-premium {
+            background: rgba(253, 203, 110, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(253, 203, 110, 0.15);
         }
 
-        /* ===== SCROLLBAR ===== */
+        /* کلاس‌های فونت (پایه) */
+        .font-primary { font-family: var(--font-primary) !important; }
+        .font-secondary { font-family: var(--font-secondary) !important; }
+        .font-arabic { font-family: var(--font-arabic) !important; }
+        .font-serif { font-family: var(--font-serif) !important; }
+        .font-cairo { font-family: var(--font-cairo) !important; }
+        .font-minecraft { font-family: var(--font-minecraft) !important; }
+        .font-playfair { font-family: var(--font-playfair) !important; }
+        .font-montserrat { font-family: var(--font-montserrat) !important; }
+        .font-outfit { font-family: var(--font-outfit) !important; }
+        .font-space { font-family: var(--font-space) !important; }
+        .font-dm { font-family: var(--font-dm) !important; }
+        
+        /* کلاس‌های فونت (پریمیوم) */
+        .font-cinzel { font-family: var(--font-cinzel) !important; }
+        .font-raleway { font-family: var(--font-raleway) !important; }
+        .font-poppins { font-family: var(--font-poppins) !important; }
+        .font-nunito { font-family: var(--font-nunito) !important; }
+        .font-quicksand { font-family: var(--font-quicksand) !important; }
+        .font-orbitron { font-family: var(--font-orbitron) !important; }
+        .font-pressstart { font-family: var(--font-pressstart) !important; }
+        .font-josefin { font-family: var(--font-josefin) !important; }
+        .font-lobster { font-family: var(--font-lobster) !important; }
+        .font-pacifico { font-family: var(--font-pacifico) !important; }
+        .font-dancing { font-family: var(--font-dancing) !important; }
+        .font-greatvibes { font-family: var(--font-greatvibes) !important; }
+        .font-satisfy { font-family: var(--font-satisfy) !important; }
+        .font-bangers { font-family: var(--font-bangers) !important; }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -128,785 +210,1848 @@
             background: var(--primary-light);
         }
 
-        /* ============================================================
-                   HEADER
-                   ============================================================ */
-        .custom-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 30px;
-            background: rgba(13, 32, 56, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 2px solid rgba(108, 92, 231, 0.12);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            flex-wrap: wrap;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .custom-header:hover {
-            border-bottom-color: rgba(108, 92, 231, 0.25);
-        }
-
-        .custom-logo {
-            font-size: 1.6rem;
-            font-weight: 900;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
-            transition: var(--transition);
-        }
-
-        .custom-logo:hover {
-            transform: scale(1.02);
-        }
-
-        .custom-nav {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .custom-nav .btn-add-account {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            border-radius: 30px;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
-        }
-
-        .custom-nav .btn-add-account:hover {
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
-        }
-
-        .custom-nav .btn-logout {
-            background: rgba(255, 23, 68, 0.12);
-            color: #ff1744;
-            border: 1px solid rgba(255, 23, 68, 0.2);
-            padding: 6px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: var(--transition);
-            font-family: inherit;
-        }
-
-        .custom-nav .btn-logout:hover {
-            background: #ff1744;
-            color: #fff;
-            border-color: #ff1744;
-            transform: scale(1.04);
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(108, 92, 231, 0.3);
-            object-fit: cover;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .user-avatar:hover {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        .user-name {
-            color: var(--primary-light);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .user-name:hover {
-            color: #fff;
-        }
-
-        /* ============================================================
-                   HERO
-                   ============================================================ */
-        .hero {
-            text-align: center;
-            padding: 50px 20px 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 32px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -20%;
-            width: 50%;
-            height: 150%;
-            background: radial-gradient(ellipse, rgba(108, 92, 231, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff, var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ============================================================
-                   ABOUT
-                   ============================================================ */
-        .about {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .about:hover {
-            border-color: rgba(108, 92, 231, 0.12);
-            box-shadow: 0 8px 40px rgba(108, 92, 231, 0.03);
-        }
-
-        .about h2 {
-            color: var(--primary-light);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .about p {
-            color: var(--text-muted);
-            line-height: 1.9;
-        }
-
-        /* ============================================================
-                   GRID
-                   ============================================================ */
-        .menu-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 22px;
-            margin-top: 10px;
-        }
-
-        /* ============================================================
-                   SMALL CARDS
-                   ============================================================ */
-        .small-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius);
-            padding: 24px 22px 22px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .small-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-hero);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .small-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(108, 92, 231, 0.15);
-            box-shadow: var(--shadow-hover);
-            background: var(--bg-card-hover);
-        }
-
-        .small-card:hover::before {
-            opacity: 1;
-        }
-
-        .small-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .small-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 16px;
-            flex: 1;
-        }
-
-        .small-card .card-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-        .small-card .btn-card {
+        /* Badge پریمیوم */
+        .premium-badge {
             display: inline-block;
-            padding: 10px 24px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
+            background: var(--gradient-premium);
+            padding: 2px 12px;
             border-radius: 30px;
-            text-decoration: none;
-            transition: var(--transition);
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.08);
-        }
-
-        .small-card .btn-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.15);
-        }
-
-        .small-card .btn-card-gold {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            font-size: 0.65rem;
+            font-weight: 700;
             color: #1a1a2e;
-            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.12);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            animation: premiumGlow 2s ease-in-out infinite;
         }
 
-        .small-card .btn-card-gold:hover {
-            box-shadow: 0 8px 30px rgba(243, 156, 18, 0.2);
+        @keyframes premiumGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(253, 203, 110, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(253, 203, 110, 0.6); }
         }
 
-        .small-card .btn-card-green {
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            box-shadow: 0 4px 20px rgba(0, 206, 201, 0.12);
-        }
-
-        .small-card .btn-card-green:hover {
-            box-shadow: 0 8px 30px rgba(0, 206, 201, 0.2);
-        }
-
-        .fav-btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 30px;
-            background: rgba(253, 203, 110, 0.1);
+        .premium-icon {
             color: var(--gold);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            border: 1px solid rgba(253, 203, 110, 0.15);
-            min-width: 80px;
-        }
-
-        .fav-btn:hover {
-            background: rgba(253, 203, 110, 0.2);
-            transform: scale(1.04);
-        }
-
-        .fav-btn.saved {
-            background: rgba(253, 203, 110, 0.2);
-            border-color: var(--gold);
-            cursor: default;
-            opacity: 0.7;
-        }
-
-        .fav-btn.saved:hover {
-            transform: none;
-        }
-
-        .fav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
 <!-- ============================================================
-LANGUAGE TOGGLE
+===== بخش ۲: هدر و پنل پس‌زمینه (با گزینه‌های پریمیوم) =====
 ============================================================ -->
-<div class="language-toggle" onclick="togglePanel()">
-    <span>🇮🇷</span>
-    <span>فارسی</span>
-    <span>▼</span>
+
+<!-- ===== پنل پس‌زمینه ===== -->
+<div class="bg-toggle" onclick="toggleBgPanel()">
+    <span class="bg-icon">🎨</span>
+    <span class="bg-label">پس‌زمینه</span>
+    <span class="bg-arrow">▼</span>
 </div>
 
-<div class="language-panel" id="languagePanel">
-    <div class="panel-title">🌍 انتخاب زبان</div>
-    <a href="../fa/dashboard.html" class="lang-item active">
-        <span>🇮🇷</span>
-        <span>فارسی</span>
-        <span class="lang-code">FA</span>
-    </a>
-    <a href="../en/dashboard.html" class="lang-item">
-        <span>🇺🇸</span>
-        <span>English</span>
-        <span class="lang-code">EN</span>
-    </a>
-
+<div class="bg-panel" id="bgPanel">
+    <div class="bg-panel-title">🎨 انتخاب پس‌زمینه</div>
+    <div class="bg-grid">
+        <div class="bg-item" onclick="changeBg('default')" style="background:linear-gradient(135deg,#0a0a1a,#1a1040)"></div>
+        <div class="bg-item" onclick="changeBg('ocean')" style="background:linear-gradient(135deg,#001a3a,#003366)"></div>
+        <div class="bg-item" onclick="changeBg('sunset')" style="background:linear-gradient(135deg,#1a0a00,#4a1a00)"></div>
+        <div class="bg-item" onclick="changeBg('forest')" style="background:linear-gradient(135deg,#001a0a,#00331a)"></div>
+        <div class="bg-item" onclick="changeBg('neon')" style="background:linear-gradient(135deg,#1a001a,#4a004a)"></div>
+        <div class="bg-item" onclick="changeBg('snow')" style="background:linear-gradient(135deg,#1a1a2a,#2a2a3a)"></div>
+        <div class="bg-item" onclick="changeBg('lava')" style="background:linear-gradient(135deg,#2a0a00,#5a1a00)"></div>
+        <div class="bg-item" onclick="changeBg('space')" style="background:linear-gradient(135deg,#00001a,#1a0033)"></div>
+        <div class="bg-item" onclick="changeBg('custom')" style="background:conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #a29bfe, #fd79a8, #ff6b6b);"></div>
+    </div>
+    <div class="bg-custom-input" id="customBgInput" style="display:none;">
+        <input type="color" id="customColor1" value="#6c5ce7" onchange="applyCustomBg()">
+        <input type="color" id="customColor2" value="#a29bfe" onchange="applyCustomBg()">
+        <button onclick="applyCustomBg()" class="btn-apply">اعمال</button>
+    </div>
+    
+    <!-- گزینه‌های پریمیوم -->
     <hr class="divider">
-
-    <div class="panel-title">🎨 انتخاب تم</div>
-    <div class="theme-item" onclick="changeTheme('default')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>پیش‌فرض (بنفش-آبی)</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('green')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#00b894,#55efc4)"></span>
-        <span>زمردی</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('blue')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#0984e3,#74b9ff)"></span>
-        <span>آبی دریا</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('red')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#e17055,#fd79a8)"></span>
-        <span>گرم</span>
-    </div>
-    <div class="theme-item" onclick="changeTheme('purple')">
-        <span class="color-dot" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe)"></span>
-        <span>سلطنتی</span>
-    </div>
-
-    <hr class="divider">
-
-    <div class="panel-title">🔤 انتخاب فونت</div>
-    <div class="font-item" onclick="changeFont('primary')">
-        <span>📝 وزیرمتن</span>
-    </div>
-    <div class="font-item" onclick="changeFont('secondary')">
-        <span>📝 اینتر</span>
-    </div>
-    <div class="font-item" onclick="changeFont('serif')">
-        <span>📝 امیری</span>
+    <div class="bg-panel-title" style="color: var(--gold);">⭐ پریمیوم</div>
+    <div class="bg-grid">
+        <div class="bg-item premium-bg" onclick="changeBg('premium1')" style="background:linear-gradient(135deg,#1a0033,#4a0066,#6c5ce7)"></div>
+        <div class="bg-item premium-bg" onclick="changeBg('premium2')" style="background:linear-gradient(135deg,#0a0a2a,#1a0a4a,#fd79a8)"></div>
+        <div class="bg-item premium-bg" onclick="changeBg('premium3')" style="background:linear-gradient(135deg,#001a1a,#00333a,#00b894)"></div>
+        <div class="bg-item premium-bg" onclick="changeBg('premium4')" style="background:linear-gradient(135deg,#1a0a00,#3a1a00,#fdcb6e)"></div>
+        <div class="bg-item premium-bg" onclick="changeBg('premium5')" style="background:linear-gradient(135deg,#0a001a,#1a003a,#a29bfe)"></div>
     </div>
 </div>
 
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header class="custom-header glass-strong">
-    <div class="custom-logo">💙 PackZone MC</div>
+<!-- ===== HEADER ===== -->
+<header class="custom-header glass-strong" id="mainHeader">
+    <div class="custom-logo">💙 PackZone MC <span class="premium-badge">پریمیوم</span></div>
     <nav class="custom-nav" id="mainNav">
         <!-- توسط JS پر میشه -->
     </nav>
 </header>
 
+<style>
+    /* ============================================================
+    ===== بخش ۲: استایل هدر و پنل پس‌زمینه =====
+    ============================================================ */
+    .custom-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 30px;
+        border-bottom: 2px solid rgba(108, 92, 231, 0.12);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: var(--transition);
+    }
+
+    .custom-header:hover {
+        border-bottom-color: rgba(108, 92, 231, 0.25);
+    }
+
+    .custom-logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .custom-logo:hover {
+        transform: scale(1.02);
+    }
+
+    .custom-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .custom-nav .btn-signup {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 22px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.15);
+    }
+
+    .custom-nav .btn-signup:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(108, 92, 231, 0.25);
+    }
+
+    .custom-nav .btn-login {
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 18px;
+        transition: var(--transition);
+        border-radius: 30px;
+        font-size: 0.9rem;
+    }
+
+    .custom-nav .btn-login:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .custom-nav .btn-dashboard {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 18px;
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        border-radius: 30px;
+        transition: var(--transition);
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
+    }
+
+    .custom-nav .btn-dashboard:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
+    }
+
+    .custom-nav .btn-logout {
+        background: rgba(255, 23, 68, 0.12);
+        color: #ff1744;
+        border: 1px solid rgba(255, 23, 68, 0.2);
+        padding: 6px 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .custom-nav .btn-logout:hover {
+        background: #ff1744;
+        color: #fff;
+        border-color: #ff1744;
+        transform: scale(1.04);
+    }
+
+    .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid rgba(108, 92, 231, 0.3);
+        object-fit: cover;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-avatar:hover {
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .user-name {
+        color: var(--primary-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .user-name:hover {
+        color: #fff;
+    }
+
+    /* ===== پنل پس‌زمینه ===== */
+    .bg-toggle {
+        position: fixed;
+        top: 85px;
+        left: 20px;
+        z-index: 1000;
+        background: rgba(13, 32, 56, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        border-radius: 50px;
+        padding: 10px 18px;
+        color: #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: var(--transition);
+        font-size: 0.85rem;
+    }
+
+    .bg-toggle:hover {
+        border-color: rgba(108, 92, 231, 0.4);
+        background: rgba(13, 32, 56, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .bg-panel {
+        position: fixed;
+        top: 145px;
+        left: 20px;
+        z-index: 999;
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(108, 92, 231, 0.12);
+        border-radius: 20px;
+        padding: 22px 24px;
+        min-width: 260px;
+        max-width: 300px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        display: none;
+        transition: var(--transition);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .bg-panel.open {
+        display: block;
+        animation: panelSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .bg-panel-title {
+        color: var(--primary-light);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .bg-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .bg-item {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.06);
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .bg-item:hover {
+        transform: scale(1.06);
+        border-color: rgba(108, 92, 231, 0.4);
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.1);
+    }
+
+    .bg-item.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+    }
+
+    .premium-bg {
+        border-color: rgba(253, 203, 110, 0.2);
+    }
+
+    .premium-bg:hover {
+        border-color: rgba(253, 203, 110, 0.6) !important;
+        box-shadow: 0 4px 25px rgba(253, 203, 110, 0.2) !important;
+    }
+
+    .premium-bg.active {
+        border-color: var(--gold) !important;
+        box-shadow: 0 0 30px rgba(253, 203, 110, 0.3) !important;
+    }
+
+    .bg-custom-input {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .bg-custom-input input[type="color"] {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+        background: transparent;
+        padding: 2px;
+    }
+
+    .bg-custom-input .btn-apply {
+        padding: 6px 16px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .bg-custom-input .btn-apply:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+    }
+
+    .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 12px 0;
+    }
+
+    @keyframes panelSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-15px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+</style>
+<!-- ============================================================
+===== بخش ۳: پنل زبان (با ۲۵ فونت) =====
+============================================================ -->
+
+<!-- ===== پنل زبان ===== -->
+<div class="language-toggle" onclick="togglePanel()">
+    <span class="toggle-icon">🌍</span>
+    <span class="toggle-label">فارسی</span>
+    <span class="toggle-arrow">▼</span>
+</div>
+
+<div class="language-panel" id="languagePanel">
+    <div class="panel-title">🌍 انتخاب زبان</div>
+    <a href="../fa/index.html" class="lang-item active">
+        <span class="flag">🇮🇷</span>
+        <span class="lang-name">فارسی</span>
+        <span class="lang-code">FA</span>
+    </a>
+    <a href="../en/index.html" class="lang-item">
+        <span class="flag">🇺🇸</span>
+        <span class="lang-name">English</span>
+        <span class="lang-code">EN</span>
+    </a>
+
+    <hr class="divider">
+
+    <div class="panel-title">🔤 انتخاب فونت <span class="premium-badge" style="font-size:0.5rem;">پریمیوم</span></div>
+    
+    <div class="panel-subtitle">📋 پایه</div>
+    <div class="font-item" onclick="changeFont('primary')"><span>📝 وزیرمتن</span></div>
+    <div class="font-item" onclick="changeFont('secondary')"><span>📝 اینتر</span></div>
+    <div class="font-item" onclick="changeFont('arabic')"><span>📝 نوتو سانس عربی</span></div>
+    <div class="font-item" onclick="changeFont('serif')"><span>📝 امیری</span></div>
+    <div class="font-item" onclick="changeFont('cairo')"><span>📝 قاهره</span></div>
+    <div class="font-item" onclick="changeFont('minecraft')"><span>⛏️ ماینکرفت</span></div>
+    
+    <div class="panel-subtitle" style="color: var(--gold);">⭐ پریمیوم</div>
+    <div class="font-item premium-font" onclick="changeFont('playfair')"><span>📝 پلیفیر <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('montserrat')"><span>📝 مونسرات <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('outfit')"><span>📝 اوتفیت <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('space')"><span>📝 اسپیس گروتسک <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('dm')"><span>📝 دیام سانس <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('cinzel')"><span>📝 سینزل <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('raleway')"><span>📝 رالوی <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('poppins')"><span>📝 پاپینز <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('nunito')"><span>📝 نونیتو <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('quicksand')"><span>📝 کویک‌سند <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('orbitron')"><span>📝 اوربیترون <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('pressstart')"><span>🎮 پرس استارت <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('josefin')"><span>📝 جوزفین <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('lobster')"><span>🦞 لابستر <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('pacifico')"><span>🌊 پاسیفیکو <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('dancing')"><span>💃 دنسینگ <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('greatvibes')"><span>✨ گریت وایبز <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('satisfy')"><span>😊 ساتیسفای <span class="premium-icon">⭐</span></span></div>
+    <div class="font-item premium-font" onclick="changeFont('bangers')"><span>💥 بنگرز <span class="premium-icon">⭐</span></span></div>
+</div>
+
+<style>
+    /* ============================================================
+    ===== بخش ۳: استایل پنل زبان =====
+    ============================================================ */
+    .language-toggle {
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(13, 32, 56, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        border-radius: 50px;
+        padding: 10px 18px;
+        color: #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: var(--transition);
+        font-size: 0.85rem;
+    }
+
+    .language-toggle:hover {
+        border-color: rgba(108, 92, 231, 0.4);
+        background: rgba(13, 32, 56, 0.95);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .language-panel {
+        position: fixed;
+        top: 145px;
+        right: 20px;
+        z-index: 999;
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(108, 92, 231, 0.12);
+        border-radius: 20px;
+        padding: 22px 24px;
+        min-width: 280px;
+        max-width: 320px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        display: none;
+        transition: var(--transition);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .language-panel.open {
+        display: block;
+        animation: panelSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .language-panel .panel-title {
+        color: var(--primary-light);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .language-panel .panel-subtitle {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin: 8px 0 6px 0;
+        padding: 4px 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .language-panel .lang-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        color: #ddd;
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .language-panel .lang-item:hover {
+        background: rgba(108, 92, 231, 0.12);
+        color: #fff;
+    }
+
+    .language-panel .lang-item.active {
+        background: rgba(108, 92, 231, 0.15);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        color: #fff;
+    }
+
+    .language-panel .lang-item .lang-code {
+        margin-right: auto;
+        font-size: 0.65rem;
+        opacity: 0.4;
+        font-weight: 600;
+    }
+
+    .language-panel .divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 12px 0;
+    }
+
+    .language-panel .font-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        color: #ddd;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: var(--transition);
+    }
+
+    .language-panel .font-item:hover {
+        background: rgba(108, 92, 231, 0.12);
+        color: #fff;
+    }
+
+    .language-panel .font-item.premium-font {
+        border-right: 2px solid rgba(253, 203, 110, 0.15);
+    }
+
+    .language-panel .font-item.premium-font:hover {
+        background: rgba(253, 203, 110, 0.08);
+        border-right-color: var(--gold);
+    }
+</style>
+<!-- ============================================================
+===== بخش ۴: هیرو (Hero - مثل صفحه اصلی) =====
+============================================================ -->
+
 <div class="container">
 
     <!-- ===== HERO ===== -->
     <section class="hero glass">
-        <h2>به PackZone MC خوش آمدید 💙</h2>
-        <p>مرکز تخصصی پک‌های منبع برای ماینکرفت جاوا و بدراک</p>
+        <div class="hero-content">
+            <h2>به PackZone MC خوش آمدید 💙</h2>
+            <p>مرکز تخصصی پکهای منبع برای ماینکرفت جاوا و بدراک</p>
+            <div class="hero-badges">
+                <span class="badge">🚀 حرفهای</span>
+                <span class="badge">🎨 ۴K</span>
+                <span class="badge">⚡ ۶۰+ پک</span>
+                <span class="badge">🔥 PvP</span>
+            </div>
+        </div>
     </section>
+
+<style>
+    /* ============================================================
+    ===== بخش ۴: استایل هیرو =====
+    ============================================================ */
+    .hero {
+        text-align: center;
+        padding: 60px 20px 50px;
+        border-radius: 32px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-hero);
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        border-radius: 32px;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero h2 {
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: #fff;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        margin-bottom: 12px;
+    }
+
+    .hero p {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.85);
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-badges {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
+    .hero-badges .badge {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+    }
+
+    .hero-badges .badge:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+    }
+</style>
+<!-- ============================================================
+===== بخش ۵: درباره (About) + پروفایل کاربری =====
+============================================================ -->
 
     <!-- ===== ABOUT ===== -->
     <section class="about glass">
-        <h2>📌 درباره PackZone MC</h2>
-        <p>PackZone MC مجموعه‌ای است که به ارائه پک‌های منبع حرفه‌ای، پک‌های PvP، تبدیل پک‌ها و ابزارهای مفید ماینکرفت اختصاص دارد. هدف ما ایجاد تجربه‌ای بهتر و ساده‌تر برای بازیکنان ماینکرفت است.</p>
+        <div class="about-icon">📌</div>
+        <h2>درباره PackZone MC</h2>
+        <p>PackZone MC مجموعهای است که به ارائه پکهای منبع حرفهای، پکهای PvP، تبدیل پکها و ابزارهای مفید ماینکرفت اختصاص دارد. هدف ما ایجاد تجربهای بهتر و سادهتر برای بازیکنان ماینکرفت است.</p>
+        <div class="about-stats">
+            <div class="stat">
+                <span class="stat-number">۶۰+</span>
+                <span class="stat-label">پک</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">۵</span>
+                <span class="stat-label">ابزار</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">۱۰۰%</span>
+                <span class="stat-label">رضایت</span>
+            </div>
+        </div>
     </section>
+
+    <!-- ===== پروفایل کاربر ===== -->
+    <section class="profile-section glass-premium" id="profileSection">
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                <img src="" alt="آواتار" class="profile-avatar" id="profileAvatar">
+                <div class="profile-status" id="profileStatus">🟢 آنلاین</div>
+            </div>
+            <div class="profile-info">
+                <h2 id="profileName">کاربر عزیز</h2>
+                <div class="profile-meta">
+                    <span class="profile-level" id="profileLevel">🎯 سطح ۱</span>
+                    <span class="profile-premium" id="profilePremium">⭐ رایگان</span>
+                    <span class="profile-join" id="profileJoin">📅 تاریخ عضویت: امروز</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn-premium" onclick="upgradePremium()">⭐ ارتقا به پریمیوم</button>
+                <button class="btn-settings" onclick="openSettings()">⚙️ تنظیمات</button>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-number" id="statPacks">۰</span>
+                <span class="stat-label">پک‌های ساخته شده</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statDownloads">۰</span>
+                <span class="stat-label">دانلودها</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statStorage">۰ GB</span>
+                <span class="stat-label">فضای مصرفی</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="statPremiumDays">۰</span>
+                <span class="stat-label">روز باقیمانده پریمیوم</span>
+            </div>
+        </div>
+    </section>
+
+<style>
+    /* ============================================================
+    ===== بخش ۵: استایل درباره و پروفایل =====
+    ============================================================ */
+    .about {
+        padding: 32px 36px;
+        margin-bottom: 30px;
+        border-radius: var(--radius);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 40%;
+        height: 200%;
+        background: radial-gradient(ellipse, rgba(108, 92, 231, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .about .about-icon {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+    }
+
+    .about h2 {
+        color: var(--primary-light);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .about p {
+        color: var(--text-muted);
+        line-height: 2;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .about-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
+    .about-stats .stat {
+        text-align: center;
+    }
+
+    .about-stats .stat-number {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-light);
+    }
+
+    .about-stats .stat-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+
+    /* ===== پروفایل ===== */
+    .profile-section {
+        padding: 30px 36px;
+        border-radius: var(--radius);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-section::before {
+        content: '⭐';
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        font-size: 8rem;
+        opacity: 0.03;
+        pointer-events: none;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .profile-avatar-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid rgba(108, 92, 231, 0.3);
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .profile-avatar:hover {
+        transform: scale(1.05);
+        border-color: var(--primary);
+    }
+
+    .profile-status {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        background: #00b894;
+        color: #fff;
+        font-size: 0.55rem;
+        padding: 2px 10px;
+        border-radius: 20px;
+        font-weight: 600;
+        border: 2px solid #0a0a1a;
+    }
+
+    .profile-info {
+        flex: 1;
+    }
+
+    .profile-info h2 {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .profile-meta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .profile-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .profile-level {
+        color: var(--primary-light);
+    }
+
+    .profile-premium {
+        color: var(--gold);
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn-premium {
+        padding: 10px 24px;
+        background: var(--gradient-premium);
+        color: #1a1a2e;
+        border: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: inherit;
+        box-shadow: 0 4px 20px rgba(253, 203, 110, 0.15);
+    }
+
+    .btn-premium:hover {
+        transform: scale(1.04) translateY(-2px);
+        box-shadow: 0 8px 35px rgba(253, 203, 110, 0.25);
+    }
+
+    .btn-settings {
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #ddd;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .btn-settings:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transform: scale(1.04);
+    }
+
+    .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+    }
+
+    .stat-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .stat-item .stat-number {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--primary-light);
+    }
+
+    .stat-item .stat-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        opacity: 0.7;
+    }
+    </style>
+<!-- ============================================================
+===== بخش ۶: کارتها (دست نزن - استایل مانیفست بولدر) =====
+============================================================ -->
+
     <!-- ===== GRID CARDS ===== -->
     <section class="menu-box">
-
         <div class="small-card glass">
-            <h3>🔥 کالکشن Deiwer</h3>
-            <p>مجموعه پک‌های حرفه‌ای Deiwer برای بدراک</p>
-            <div class="card-actions">
-                <a href="dewier.html" class="btn-card btn-card-gold">مشاهده مجموعه</a>
-                <button class="fav-btn" data-pack="Deiwer Collection" onclick="addFavorite('Deiwer Collection')">⭐ ذخیره</button>
-            </div>
-        </div>
-
-        <div class="small-card glass">
-            <h3>💎 پک‌های MysMce</h3>
-            <p>مجموعه پک‌های MysMce که به بدراک منتقل شده‌اند</p>
+            <div class="card-icon">🎮</div>
+            <h3>پکهای میستی برای بدراک</h3>
+            <p>مجموعه پکهای میستی که به بدراک پورت شدهاند</p>
             <div class="card-actions">
                 <a href="mysmce.html" class="btn-card">مشاهده مجموعه</a>
-                <button class="fav-btn" data-pack="MysMce Collection" onclick="addFavorite('MysMce Collection')">⭐ ذخیره</button>
             </div>
         </div>
 
         <div class="small-card glass">
-            <h3>📄 مانیفست بیلدر</h3>
+            <div class="card-icon">📄</div>
+            <h3>ساخت مانیفست</h3>
             <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
             <div class="card-actions">
                 <a href="manifest.html" class="btn-card btn-card-gold">شروع ساخت</a>
-                <button class="fav-btn" data-pack="مانیفست بیلدر" onclick="addFavorite('مانیفست بیلدر')">⭐ ذخیره</button>
             </div>
         </div>
 
         <div class="small-card glass">
-            <h3>🟦 پک‌های جاوا</h3>
-            <p>مرور پک‌های منبع برای ماینکرفت جاوا</p>
+            <div class="card-icon">🟦</div>
+            <h3>پکهای جاوا ادیشن</h3>
+            <p>مرور پکهای منبع برای ماینکرفت جاوا</p>
             <div class="card-actions">
                 <a href="java.html" class="btn-card">مرور جاوا</a>
-                <button class="fav-btn" data-pack="پک‌های جاوا" onclick="addFavorite('پک‌های جاوا')">⭐ ذخیره</button>
             </div>
         </div>
 
         <div class="small-card glass">
-            <h3>🟩 پک‌های بدراک</h3>
-            <p>دانلود پک‌های منبع برای ماینکرفت بدراک</p>
+            <div class="card-icon">🟩</div>
+            <h3>پکهای بدراک ادیشن</h3>
+            <p>دانلود پکهای منبع برای ماینکرفت بدراک</p>
             <div class="card-actions">
                 <a href="bedrock.html" class="btn-card btn-card-green">دانلود</a>
-                <button class="fav-btn" data-pack="پک‌های بدراک" onclick="addFavorite('پک‌های بدراک')">⭐ ذخیره</button>
             </div>
         </div>
 
         <div class="small-card glass">
-            <h3>📦 پک‌های من</h3>
-            <p>پک‌های اختصاصی ساخته شده توسط PackZone MC</p>
+            <div class="card-icon">🔥</div>
+            <h3>کالکشن dewier</h3>
+            <p>مجموعه پکهای حرفهای dewier برای بدراک</p>
             <div class="card-actions">
-                <a href="my-packs.html" class="btn-card">مشاهده اختصاصی‌ها</a>
-                <button class="fav-btn" data-pack="پک‌های من" onclick="addFavorite('پک‌های من')">⭐ ذخیره</button>
+                <a href="dewier.html" class="btn-card btn-card-gold">مشاهده مجموعه</a>
             </div>
         </div>
 
         <div class="small-card glass">
-            <h3>📦 پک‌مک‌میتا بیلدر</h3>
-            <p>فایل pack.mcmeta را برای پک‌های جاوا بسازید</p>
+            <div class="card-icon">📦</div>
+            <h3>پکهای من</h3>
+            <p>پکهای اختصاصی ساخته شده توسط PackZone MC</p>
             <div class="card-actions">
-                <a href="mcmeta-builder.html" class="btn-card btn-card-gold">ساخت</a>
-                <button class="fav-btn" data-pack="پک‌مک‌میتا بیلدر" onclick="addFavorite('پک‌مک‌میتا بیلدر')">⭐ ذخیره</button>
+                <a href="my-packs.html" class="btn-card">مشاهده اختصاصیها</a>
             </div>
         </div>
 
+        <div class="small-card glass">
+            <div class="card-icon">📦</div>
+            <h3>ساخت pack.mcmeta جاوا</h3>
+            <p>فایل pack.mcmeta را بدون کدنویسی برای پک جاوا بسازید</p>
+            <div class="card-actions">
+                <a href="mcmeta.html" class="btn-card btn-card-gold">ساخت</a>
+            </div>
+        </div>
+    </section>
+
+<style>
+    /* ============================================================
+    ===== بخش ۶: استایل کارتها (دست نزن) =====
+    ============================================================ */
+    .menu-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+        margin-top: 10px;
+    }
+
+    .small-card {
+        border-radius: var(--radius);
+        padding: 28px 22px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-card);
+    }
+
+    .small-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gradient-hero);
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .small-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(108, 92, 231, 0.2);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .small-card:hover::before {
+        opacity: 1;
+    }
+
+    .small-card .card-icon {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .small-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .small-card p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        margin-bottom: 16px;
+        flex: 1;
+    }
+
+    .small-card .card-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+
+    .small-card .btn-card {
+        display: inline-block;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: var(--transition);
+        text-align: center;
+        flex: 1;
+        min-width: 100px;
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.1);
+    }
+
+    .small-card .btn-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 30px rgba(108, 92, 231, 0.2);
+    }
+
+    .small-card .btn-card-gold {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #1a1a2e;
+        box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
+    }
+
+    .small-card .btn-card-gold:hover {
+        box-shadow: 0 8px 30px rgba(243, 156, 18, 0.25);
+    }
+
+    .small-card .btn-card-green {
+        background: linear-gradient(135deg, #00b894, #00cec9);
+        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
+    }
+
+    .small-card .btn-card-green:hover {
+        box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
+    }
+            </style>
+<!-- ============================================================
+===== بخش ۷: ابزارهای پریمیوم + پک‌های اخیر =====
+============================================================ -->
+
+    <!-- ===== ابزارهای پریمیوم ===== -->
+    <section class="tools-section">
+        <h2 class="section-title">⭐ ابزارهای پریمیوم <span class="premium-badge">فقط پریمیوم</span></h2>
+        
+        <div class="tools-grid">
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">🔄</div>
+                <h3>تبدیل پک جاوا به بدراک</h3>
+                <p>پک‌های جاوا رو با یک کلیک به بدراک تبدیل کن</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="convertPack()">شروع تبدیل</button>
+            </div>
+
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">🤖</div>
+                <h3>ساخت پک با هوش مصنوعی</h3>
+                <p>با توضیح ساده، AI برات پک می‌سازه</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="aiPack()">ساخت با AI</button>
+            </div>
+
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">📤</div>
+                <h3>آپلود پک اختصاصی</h3>
+                <p>فضای ۱۰GB برای آپلود پک‌های خودت</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="uploadPack()">آپلود</button>
+            </div>
+
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">👑</div>
+                <h3>دسترسی به پک‌های VIP</h3>
+                <p>بیش از ۱۰۰ پک اختصاصی و نایاب</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="vipPacks()">مشاهده VIP</button>
+            </div>
+
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">📋</div>
+                <h3>مانیفست حرفه‌ای</h3>
+                <p>قالب‌های آماده مانیفست با تنظیمات پیشرفته</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="proManifest()">ساخت حرفه‌ای</button>
+            </div>
+
+            <div class="tool-card glass-premium">
+                <div class="tool-icon">📊</div>
+                <h3>آمار پیشرفته پک</h3>
+                <p>آنالیز کامل پک‌ها و عملکرد آنها</p>
+                <div class="tool-badge premium-badge">پریمیوم</div>
+                <button class="btn-tool" onclick="packStats()">مشاهده آمار</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== پک‌های اخیر ===== -->
+    <section class="recent-section">
+        <h2 class="section-title">📦 پک‌های اخیر شما</h2>
+        <div class="recent-grid" id="recentPacks">
+            <div class="recent-empty glass">
+                <span class="empty-icon">📭</span>
+                <p>هنوز پکی نساختی!</p>
+                <button class="btn-create" onclick="createPack()">➕ ساخت پک جدید</button>
+            </div>
+        </div>
     </section>
 
 </div>
 
+<style>
+    /* ============================================================
+    ===== بخش ۷: استایل ابزارهای پریمیوم و پک‌های اخیر =====
+    ============================================================ */
+    .section-title {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .tool-card {
+        padding: 24px 20px;
+        border-radius: var(--radius);
+        text-align: center;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(253, 203, 110, 0.06);
+    }
+
+    .tool-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(253, 203, 110, 0.15);
+        box-shadow: 0 8px 40px rgba(253, 203, 110, 0.05);
+    }
+
+    .tool-card .tool-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .tool-card h3 {
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .tool-card p {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+
+    .tool-card .tool-badge {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 0.6rem;
+        padding: 2px 14px;
+    }
+
+    .btn-tool {
+        padding: 8px 28px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #1a1a2e;
+        border: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: inherit;
+        width: 100%;
+    }
+
+    .btn-tool:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 20px rgba(253, 203, 110, 0.2);
+    }
+
+    /* ===== پک‌های اخیر ===== */
+    .recent-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+
+    .recent-empty {
+        text-align: center;
+        padding: 40px 20px;
+        border-radius: var(--radius);
+        grid-column: 1 / -1;
+    }
+
+    .recent-empty .empty-icon {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 10px;
+        opacity: 0.3;
+    }
+
+    .recent-empty p {
+        color: var(--text-muted);
+        margin-bottom: 16px;
+    }
+
+    .btn-create {
+        padding: 10px 30px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .btn-create:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
+    }
+
+    .recent-card {
+        padding: 20px;
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        transition: var(--transition);
+    }
+
+    .recent-card:hover {
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-2px);
+    }
+
+    .recent-card .card-title {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .recent-card .card-date {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+    }
+
+    .recent-card .card-type {
+        display: inline-block;
+        padding: 2px 12px;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 600;
+    }
+
+    .recent-card .card-type.java {
+        background: rgba(9, 132, 227, 0.15);
+        color: #74b9ff;
+    }
+
+    .recent-card .card-type.bedrock {
+        background: rgba(0, 206, 201, 0.15);
+        color: #55efc4;
+    }
+</style>
+<!-- ============================================================
+===== بخش ۸-الف: فوتر و استایل‌های تکمیلی =====
+============================================================ -->
+
 <!-- ===== FOOTER ===== -->
-<footer class="glass" style="text-align:center;padding:24px 20px;border-radius:var(--radius);margin-top:20px;color:rgba(255,255,255,0.12);font-size:0.85rem;">
-    <p>© PackZone MC 💙 — تمامی حقوق محفوظ است</p>
+<footer class="footer glass">
+    <p>© PackZone MC 💙 — تمامی حقوق محفوظ است | <span class="premium-badge">نسخه پریمیوم</span></p>
 </footer>
-    <style>
-        /* ============================================================
-                   LANGUAGE PANEL
-                   ============================================================ */
-        .language-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(13, 32, 56, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            border-radius: 50px;
-            padding: 8px 16px;
-            color: #ddd;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+
+<style>
+    /* ============================================================
+    ===== بخش ۸-الف: استایل فوتر، Toast و ریسپانسیو =====
+    ============================================================ */
+    .footer {
+        text-align: center;
+        padding: 24px 20px;
+        border-radius: var(--radius);
+        margin-top: 20px;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.85rem;
+    }
+
+    .toast-message {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(13, 32, 56, 0.95);
+        backdrop-filter: blur(16px);
+        color: #e0e0e0;
+        padding: 14px 32px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(108, 92, 231, 0.2);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        font-size: 0.95rem;
+        z-index: 9999;
+        animation: toastSlideUp 0.4s ease;
+        font-family: inherit !important;
+        text-align: center;
+    }
+
+    @keyframes toastSlideUp {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+    }
+
+    /* ===== ریسپانسیو ===== */
+    @media (max-width: 768px) {
+        .custom-header {
+            flex-direction: column;
+            padding: 12px 16px;
             gap: 8px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            transition: var(--transition);
-            font-size: 0.85rem;
         }
-
-        .language-toggle:hover {
-            border-color: rgba(108, 92, 231, 0.35);
-            background: rgba(13, 32, 56, 0.95);
-            transform: translateY(-2px);
+        .custom-nav {
+            justify-content: center;
+            gap: 8px;
         }
-
-        .language-panel {
-            position: fixed;
-            top: 75px;
-            right: 20px;
-            z-index: 999;
-            background: rgba(13, 32, 56, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(108, 92, 231, 0.1);
-            border-radius: 20px;
-            padding: 20px 22px;
-            min-width: 240px;
-            max-width: 280px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: none;
-            transition: var(--transition);
-            max-height: 80vh;
-            overflow-y: auto;
+        .custom-logo {
+            font-size: 1.2rem;
         }
-
-        .language-panel.open {
-            display: block;
-            animation: panelSlideIn 0.3s ease;
+        .hero h2 {
+            font-size: 1.8rem;
         }
-
-        @keyframes panelSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-15px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        .hero {
+            padding: 40px 16px 30px;
         }
-
-        .language-panel .panel-title {
-            color: var(--primary-light);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 10px;
-            font-weight: 700;
+        .about {
+            padding: 24px 18px;
         }
-
-        .language-panel .lang-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-            cursor: pointer;
+        .menu-box {
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
-        .language-panel .lang-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
+        .small-card {
+            padding: 22px 16px 20px;
         }
-
-        .language-panel .lang-item.active {
-            background: rgba(108, 92, 231, 0.12);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            color: #fff;
+        .about-stats {
+            gap: 20px;
         }
-
-        .language-panel .lang-item .lang-code {
-            margin-right: auto;
-            font-size: 0.65rem;
-            opacity: 0.4;
-            font-weight: 600;
+        .hero-badges .badge {
+            font-size: 0.7rem;
+            padding: 4px 14px;
         }
-
-        .language-panel .divider {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin: 12px 0;
-        }
-
-        .language-panel .theme-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .language-panel .theme-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
-        }
-
-        .language-panel .theme-item .color-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-        }
-
-        .language-panel .font-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 14px;
-            border-radius: 12px;
-            color: #ddd;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .language-panel .font-item:hover {
-            background: rgba(108, 92, 231, 0.1);
-            color: #fff;
-        }
-
-        /* ============================================================
-                   TOAST
-                   ============================================================ */
-        .toast-message {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(13, 32, 56, 0.95);
-            backdrop-filter: blur(16px);
-            color: #e0e0e0;
-            padding: 14px 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            font-size: 0.95rem;
-            z-index: 9999;
-            animation: toastSlideUp 0.4s ease;
-            font-family: inherit !important;
+        .profile-header {
+            flex-direction: column;
             text-align: center;
         }
-
-        @keyframes toastSlideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0) scale(1);
-            }
+        .profile-meta {
+            justify-content: center;
         }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
-        @media (max-width: 768px) {
-            .custom-header {
-                flex-direction: column;
-                padding: 12px 16px;
-                gap: 8px;
-            }
-            .custom-nav {
-                justify-content: center;
-                gap: 8px;
-            }
-            .custom-logo {
-                font-size: 1.3rem;
-            }
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            .hero {
-                padding: 30px 16px 25px;
-            }
-            .about {
-                padding: 20px 18px;
-            }
-            .menu-box {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .small-card {
-                padding: 20px 16px;
-            }
-            .language-toggle {
-                top: 12px;
-                right: 12px;
-                padding: 6px 12px;
-                font-size: 0.75rem;
-            }
-            .language-panel {
-                top: 68px;
-                right: 12px;
-                min-width: 200px;
-                padding: 16px 18px;
-            }
-            .small-card .btn-card {
-                padding: 8px 18px;
-                font-size: 0.8rem;
-            }
-            .fav-btn {
-                padding: 8px 14px;
-                font-size: 0.75rem;
-                min-width: 60px;
-            }
-            .custom-nav .btn-add-account {
-                padding: 6px 14px;
-                font-size: 0.75rem;
-            }
-            .custom-nav .btn-logout {
-                padding: 4px 12px;
-                font-size: 0.75rem;
-            }
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            .user-name {
-                font-size: 0.8rem;
-            }
+        .profile-actions {
+            justify-content: center;
+            width: 100%;
         }
-
-        @media (max-width: 400px) {
-            .hero h2 {
-                font-size: 1.3rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
-            .small-card h3 {
-                font-size: 1rem;
-            }
-            .small-card .btn-card {
-                font-size: 0.75rem;
-                padding: 6px 14px;
-            }
-            .fav-btn {
-                font-size: 0.7rem;
-                padding: 6px 10px;
-                min-width: 50px;
-            }
-            .language-panel {
-                min-width: 170px;
-                padding: 14px;
-            }
+        .profile-stats {
+            grid-template-columns: repeat(2, 1fr);
         }
-    </style>
+        .tools-grid {
+            grid-template-columns: 1fr;
+        }
+        .language-toggle {
+            top: 80px;
+            right: 10px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+        }
+        .language-panel {
+            top: 130px;
+            right: 10px;
+            min-width: 200px;
+            padding: 16px 18px;
+        }
+        .bg-toggle {
+            top: 80px;
+            left: 10px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+        }
+        .bg-panel {
+            top: 130px;
+            left: 10px;
+            min-width: 200px;
+            padding: 16px 18px;
+        }
+        .bg-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .language-toggle .toggle-label,
+        .bg-toggle .bg-label {
+            display: none;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .hero h2 {
+            font-size: 1.4rem;
+        }
+        .hero p {
+            font-size: 0.95rem;
+        }
+        .small-card h3 {
+            font-size: 1rem;
+        }
+        .small-card .btn-card {
+            font-size: 0.8rem;
+            padding: 8px 16px;
+        }
+        .profile-stats {
+            grid-template-columns: 1fr 1fr;
+        }
+        .custom-nav .btn-signup,
+        .custom-nav .btn-login {
+            font-size: 0.75rem;
+            padding: 6px 14px;
+        }
+        .language-panel {
+            min-width: 180px;
+            padding: 14px;
+        }
+        .bg-panel {
+            min-width: 180px;
+            padding: 14px;
+        }
+        .bg-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+    }
+</style>
+    <!-- ============================================================
+    ===== بخش ۸-ب: جاوااسکریپت کامل =====
+    ============================================================ -->
 
     <script>
         // ============================================================
-        // ===== ۱. توابع پنل زبان =====
+        // ===== ۱. مدیریت کاربر =====
         // ============================================================
+        function getUserData() {
+            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            return user;
+        }
 
+        function loadUserProfile() {
+            const user = getUserData();
+            if (!user) return;
+
+            document.getElementById('profileName').textContent = user.name || 'کاربر عزیز';
+            document.getElementById('profileAvatar').src = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
+                '&background=6c5ce7&color=fff&size=80&bold=true';
+
+            const level = user.level || 1;
+            document.getElementById('profileLevel').textContent = '🎯 سطح ' + level;
+
+            const isPremium = user.isPremium || false;
+            const premiumDays = user.premiumDays || 0;
+            const premiumEl = document.getElementById('profilePremium');
+            if (isPremium) {
+                premiumEl.innerHTML = '⭐ پریمیوم';
+                premiumEl.style.color = 'var(--gold)';
+                document.getElementById('statPremiumDays').textContent = premiumDays + ' روز';
+            } else {
+                premiumEl.innerHTML = '💎 رایگان';
+                premiumEl.style.color = 'var(--text-muted)';
+                document.getElementById('statPremiumDays').textContent = '—';
+            }
+
+            const joinDate = user.joinDate || new Date().toLocaleDateString('fa-IR');
+            document.getElementById('profileJoin').textContent = '📅 تاریخ عضویت: ' + joinDate;
+
+            document.getElementById('statPacks').textContent = user.packsCreated || 0;
+            document.getElementById('statDownloads').textContent = user.downloads || 0;
+            document.getElementById('statStorage').textContent = (user.storageUsed || 0) + ' GB';
+        }
+
+        // ============================================================
+        // ===== ۲. ارتقا به پریمیوم =====
+        // ============================================================
+        function upgradePremium() {
+            const user = getUserData();
+            if (!user) return;
+
+            if (user.isPremium) {
+                showToast('⭐ شما قبلاً پریمیوم هستید!');
+                return;
+            }
+
+            if (confirm('🎉 می‌خوای به نسخه پریمیوم ارتقا بدی؟\nهزینه: ۹۹,۰۰۰ تومان / ماه')) {
+                showToast('⏳ در حال پردازش...');
+                setTimeout(() => {
+                    user.isPremium = true;
+                    user.premiumDays = 30;
+                    localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+                    showToast('🎉 تبریک! شما به پریمیوم ارتقا پیدا کردید! ⭐');
+                    loadUserProfile();
+                    updateHeader();
+                }, 2000);
+            }
+        }
+
+        // ============================================================
+        // ===== ۳. ابزارهای پریمیوم =====
+        // ============================================================
+        function convertPack() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('🔄 صفحه تبدیل پک در حال باز شدن...');
+        }
+
+        function aiPack() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('🤖 هوش مصنوعی در حال آماده‌سازی...');
+        }
+
+        function uploadPack() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('📤 صفحه آپلود پک در حال باز شدن...');
+        }
+
+        function vipPacks() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('👑 در حال باز کردن پک‌های VIP...');
+        }
+
+        function proManifest() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('📋 صفحه مانیفست حرفه‌ای در حال باز شدن...');
+        }
+
+        function packStats() {
+            const user = getUserData();
+            if (!user) return;
+            if (!user.isPremium) {
+                showToast('⚠️ این قابلیت فقط برای کاربران پریمیوم است!');
+                return;
+            }
+            showToast('📊 در حال بارگذاری آمار...');
+        }
+
+        function createPack() {
+            showToast('📦 صفحه ساخت پک جدید در حال باز شدن...');
+        }
+
+        function openSettings() {
+            showToast('⚙️ تنظیمات در حال بارگذاری...');
+        }
+
+        // ============================================================
+        // ===== ۴. توابع پنل پس‌زمینه =====
+        // ============================================================
+        function toggleBgPanel() {
+            const panel = document.getElementById('bgPanel');
+            panel.classList.toggle('open');
+            const customInput = document.getElementById('customBgInput');
+            if (document.querySelector('.bg-item.active[onclick*="custom"]')) {
+                customInput.style.display = 'flex';
+            } else {
+                customInput.style.display = 'none';
+            }
+        }
+
+        function changeBg(type) {
+            const body = document.body;
+            const items = document.querySelectorAll('.bg-item');
+            items.forEach(el => el.classList.remove('active'));
+
+            let clickedItem = null;
+            items.forEach(el => {
+                if (el.getAttribute('onclick').includes(type)) {
+                    clickedItem = el;
+                }
+            });
+            if (clickedItem) clickedItem.classList.add('active');
+
+            localStorage.setItem('selectedBg', type);
+            applyBackground(type);
+
+            const customInput = document.getElementById('customBgInput');
+            if (type === 'custom') {
+                customInput.style.display = 'flex';
+                const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                document.getElementById('customColor1').value = c1;
+                document.getElementById('customColor2').value = c2;
+            } else {
+                customInput.style.display = 'none';
+            }
+
+            showToast('🎨 پس‌زمینه تغییر کرد!');
+            document.getElementById('bgPanel').classList.remove('open');
+        }
+
+        function applyBackground(type) {
+            const body = document.body;
+            let bg = '';
+
+            switch (type) {
+                case 'default':
+                    bg = '#0a0a1a';
+                    break;
+                case 'ocean':
+                    bg = 'linear-gradient(135deg, #001a3a, #003366)';
+                    break;
+                case 'sunset':
+                    bg = 'linear-gradient(135deg, #1a0a00, #4a1a00)';
+                    break;
+                case 'forest':
+                    bg = 'linear-gradient(135deg, #001a0a, #00331a)';
+                    break;
+                case 'neon':
+                    bg = 'linear-gradient(135deg, #1a001a, #4a004a)';
+                    break;
+                case 'snow':
+                    bg = 'linear-gradient(135deg, #1a1a2a, #2a2a3a)';
+                    break;
+                case 'lava':
+                    bg = 'linear-gradient(135deg, #2a0a00, #5a1a00)';
+                    break;
+                case 'space':
+                    bg = 'linear-gradient(135deg, #00001a, #1a0033)';
+                    break;
+                case 'premium1':
+                    bg = 'linear-gradient(135deg, #1a0033, #4a0066, #6c5ce7)';
+                    break;
+                case 'premium2':
+                    bg = 'linear-gradient(135deg, #0a0a2a, #1a0a4a, #fd79a8)';
+                    break;
+                case 'premium3':
+                    bg = 'linear-gradient(135deg, #001a1a, #00333a, #00b894)';
+                    break;
+                case 'premium4':
+                    bg = 'linear-gradient(135deg, #1a0a00, #3a1a00, #fdcb6e)';
+                    break;
+                case 'premium5':
+                    bg = 'linear-gradient(135deg, #0a001a, #1a003a, #a29bfe)';
+                    break;
+                case 'custom':
+                    const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                    const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                    bg = `linear-gradient(135deg, ${c1}, ${c2})`;
+                    break;
+                default:
+                    bg = '#0a0a1a';
+            }
+
+            body.style.background = bg;
+            body.style.backgroundAttachment = 'fixed';
+        }
+
+        function applyCustomBg() {
+            const c1 = document.getElementById('customColor1').value;
+            const c2 = document.getElementById('customColor2').value;
+            localStorage.setItem('customBgColor1', c1);
+            localStorage.setItem('customBgColor2', c2);
+            localStorage.setItem('selectedBg', 'custom');
+            applyBackground('custom');
+            showToast('✅ پس‌زمینه سفارشی اعمال شد!');
+            document.getElementById('bgPanel').classList.remove('open');
+        }
+
+        // ============================================================
+        // ===== ۵. توابع پنل زبان =====
+        // ============================================================
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
             panel.classList.toggle('open');
@@ -915,56 +2060,75 @@ HEADER
         document.addEventListener('click', function(event) {
             const panel = document.getElementById('languagePanel');
             const toggle = document.querySelector('.language-toggle');
+            const bgPanel = document.getElementById('bgPanel');
+            const bgToggle = document.querySelector('.bg-toggle');
             if (!toggle.contains(event.target) && !panel.contains(event.target)) {
                 panel.classList.remove('open');
+            }
+            if (!bgToggle.contains(event.target) && !bgPanel.contains(event.target)) {
+                bgPanel.classList.remove('open');
             }
         });
 
         // ============================================================
-        // ===== ۲. تغییر تم و فونت =====
+        // ===== ۶. تغییر فونت (با پشتیبانی از ۲۵ فونت) =====
         // ============================================================
-
-        function changeTheme(theme) {
-            document.body.className = '';
-            document.body.classList.add('theme-' + theme);
-            localStorage.setItem('selectedTheme', theme);
-            document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ تم با موفقیت تغییر کرد!');
-        }
-
         function changeFont(font) {
-            document.body.classList.remove('font-primary', 'font-secondary', 'font-serif');
+            const body = document.body;
+            const fontClasses = [
+                'font-primary', 'font-secondary', 'font-arabic', 'font-serif',
+                'font-cairo', 'font-minecraft', 'font-playfair', 'font-montserrat',
+                'font-outfit', 'font-space', 'font-dm', 'font-cinzel', 'font-raleway',
+                'font-poppins', 'font-nunito', 'font-quicksand', 'font-orbitron',
+                'font-pressstart', 'font-josefin', 'font-lobster', 'font-pacifico',
+                'font-dancing', 'font-greatvibes', 'font-satisfy', 'font-bangers'
+            ];
+            fontClasses.forEach(cls => body.classList.remove(cls));
+
             let fontClass = '';
             switch (font) {
-                case 'primary':
-                    fontClass = 'font-primary';
-                    break;
-                case 'secondary':
-                    fontClass = 'font-secondary';
-                    break;
-                case 'serif':
-                    fontClass = 'font-serif';
-                    break;
+                case 'primary': fontClass = 'font-primary'; break;
+                case 'secondary': fontClass = 'font-secondary'; break;
+                case 'arabic': fontClass = 'font-arabic'; break;
+                case 'serif': fontClass = 'font-serif'; break;
+                case 'cairo': fontClass = 'font-cairo'; break;
+                case 'minecraft': fontClass = 'font-minecraft'; break;
+                case 'playfair': fontClass = 'font-playfair'; break;
+                case 'montserrat': fontClass = 'font-montserrat'; break;
+                case 'outfit': fontClass = 'font-outfit'; break;
+                case 'space': fontClass = 'font-space'; break;
+                case 'dm': fontClass = 'font-dm'; break;
+                case 'cinzel': fontClass = 'font-cinzel'; break;
+                case 'raleway': fontClass = 'font-raleway'; break;
+                case 'poppins': fontClass = 'font-poppins'; break;
+                case 'nunito': fontClass = 'font-nunito'; break;
+                case 'quicksand': fontClass = 'font-quicksand'; break;
+                case 'orbitron': fontClass = 'font-orbitron'; break;
+                case 'pressstart': fontClass = 'font-pressstart'; break;
+                case 'josefin': fontClass = 'font-josefin'; break;
+                case 'lobster': fontClass = 'font-lobster'; break;
+                case 'pacifico': fontClass = 'font-pacifico'; break;
+                case 'dancing': fontClass = 'font-dancing'; break;
+                case 'greatvibes': fontClass = 'font-greatvibes'; break;
+                case 'satisfy': fontClass = 'font-satisfy'; break;
+                case 'bangers': fontClass = 'font-bangers'; break;
             }
-            if (fontClass) document.body.classList.add(fontClass);
+            if (fontClass) body.classList.add(fontClass);
             localStorage.setItem('selectedFont', font);
             document.getElementById('languagePanel').classList.remove('open');
-            showToast('✅ فونت با موفقیت تغییر کرد!');
+            showToast('🔤 فونت تغییر کرد!');
         }
 
         // ============================================================
-        // ===== ۳. Toast =====
+        // ===== ۷. Toast =====
         // ============================================================
-
         function showToast(message) {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
-
             const toast = document.createElement('div');
             toast.className = 'toast-message';
             toast.textContent = message;
             document.body.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.5s ease';
@@ -973,129 +2137,105 @@ HEADER
         }
 
         // ============================================================
-        // ===== ۴. هدر مخصوص داشبورد =====
+        // ===== ۸. مدیریت هدر =====
         // ============================================================
-
-        function updateDashboardHeader() {
+        function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (!user) {
-                window.location.href = 'index.html';
-                return;
+            if (user) {
+                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
+                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
+                    '&background=6c5ce7&color=fff&size=40&bold=true';
+                const isPremium = user.isPremium ? '⭐' : '';
+                nav.innerHTML = `
+                            <img src="${avatar}" class="user-avatar" onclick="window.location.href='dashboard.html'">
+                            <span class="user-name" onclick="window.location.href='dashboard.html'">${user.name || 'کاربر'} ${isPremium}</span>
+                            <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
+                            <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
+                        `;
+            } else {
+                nav.innerHTML = `
+                            <a href="signup.html" class="btn-signup">📝 ثبتنام</a>
+                            <a href="login.html" class="btn-login">🔐 ورود</a>
+                        `;
             }
-
-            const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40&bold=true';
-
-            nav.innerHTML = `
-                <div style="display:flex;align-items:center;gap:12px;flex:1;">
-                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'" title="پروفایل">
-                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'کاربر'}</span>
-                </div>
-                <a href="signup.html" class="btn-add-account">➕ افزودن حساب جدید</a>
-                <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
-            `;
         }
-
-        // ============================================================
-        // ===== ۵. خروج =====
-        // ============================================================
 
         function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+            if (confirm('آیا مطمئن هستید که میخواهید خارج شوید؟')) {
                 localStorage.removeItem('pzmc_current_user');
                 showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 500);
+                setTimeout(() => window.location.href = 'index.html', 500);
             }
         }
 
         // ============================================================
-        // ===== ۶. ذخیره پک =====
+        // ===== ۹. بارگذاری صفحه =====
         // ============================================================
-
-        function addFavorite(packName) {
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-
-            if (!user) {
-                showToast('❌ لطفاً اول وارد حساب خود شوید');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const index = users.findIndex(u => u.email === user.email);
-
-            if (index === -1) {
-                showToast('❌ کاربر پیدا نشد');
-                return;
-            }
-
-            if (!users[index].favorites) {
-                users[index].favorites = [];
-            }
-
-            if (users[index].favorites.includes(packName)) {
-                showToast('⚠️ این پک قبلاً ذخیره شده است');
-                return;
-            }
-
-            users[index].favorites.push(packName);
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-            user.favorites = users[index].favorites;
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
-            showToast('✅ پک "' + packName + '" ذخیره شد! ⭐');
-
-            const btn = document.querySelector(`.fav-btn[data-pack="${packName}"]`);
-            if (btn) {
-                btn.textContent = '⭐ ذخیره شد';
-                btn.classList.add('saved');
-                btn.disabled = true;
-            }
-        }
-        // ============================================================
-        // ===== ۷. بارگذاری صفحه =====
-        // ============================================================
-
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme) document.body.classList.add('theme-' + savedTheme);
+            const user = getUserData();
+            if (!user) return;
+
+            loadUserProfile();
 
             const savedFont = localStorage.getItem('selectedFont');
             if (savedFont) {
                 const map = {
-                    primary: 'font-primary',
-                    secondary: 'font-secondary',
-                    serif: 'font-serif'
+                    primary: 'font-primary', secondary: 'font-secondary',
+                    arabic: 'font-arabic', serif: 'font-serif',
+                    cairo: 'font-cairo', minecraft: 'font-minecraft',
+                    playfair: 'font-playfair', montserrat: 'font-montserrat',
+                    outfit: 'font-outfit', space: 'font-space', dm: 'font-dm',
+                    cinzel: 'font-cinzel', raleway: 'font-raleway',
+                    poppins: 'font-poppins', nunito: 'font-nunito',
+                    quicksand: 'font-quicksand', orbitron: 'font-orbitron',
+                    pressstart: 'font-pressstart', josefin: 'font-josefin',
+                    lobster: 'font-lobster', pacifico: 'font-pacifico',
+                    dancing: 'font-dancing', greatvibes: 'font-greatvibes',
+                    satisfy: 'font-satisfy', bangers: 'font-bangers'
                 };
-                if (map[savedFont]) document.body.classList.add(map[savedFont]);
+                if (map[savedFont]) {
+                    document.body.classList.add(map[savedFont]);
+                }
+            } else {
+                document.body.classList.add('font-primary');
             }
 
-            updateDashboardHeader();
-
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (user) {
-                let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-                const index = users.findIndex(u => u.email === user.email);
-                if (index !== -1) {
-                    const favorites = users[index].favorites || [];
-                    document.querySelectorAll('.fav-btn[data-pack]').forEach(btn => {
-                        const packName = btn.getAttribute('data-pack');
-                        if (favorites.includes(packName)) {
-                            btn.textContent = '⭐ ذخیره شد';
-                            btn.classList.add('saved');
-                            btn.disabled = true;
-                        }
-                    });
+            const savedBg = localStorage.getItem('selectedBg');
+            if (savedBg) {
+                applyBackground(savedBg);
+                const items = document.querySelectorAll('.bg-item');
+                items.forEach(el => {
+                    if (el.getAttribute('onclick').includes(savedBg)) {
+                        el.classList.add('active');
+                    }
+                });
+                if (savedBg === 'custom') {
+                    document.getElementById('customBgInput').style.display = 'flex';
+                    const c1 = localStorage.getItem('customBgColor1') || '#6c5ce7';
+                    const c2 = localStorage.getItem('customBgColor2') || '#a29bfe';
+                    document.getElementById('customColor1').value = c1;
+                    document.getElementById('customColor2').value = c2;
                 }
+            } else {
+                applyBackground('default');
+            }
+
+            updateHeader();
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('languagePanel').classList.remove('open');
+                    document.getElementById('bgPanel').classList.remove('open');
+                }
+            });
+
+            if (user.isPremium) {
+                document.querySelector('.profile-section').classList.add('glass-premium');
             }
         });
+
+        console.log('💙 PackZone MC - داشبورد کامل با ۸ بخش!');
     </script>
 
 </body>
