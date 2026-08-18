@@ -7,9 +7,10 @@
     <title>PackZone MC | Official MysMce Collection</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
@@ -45,11 +46,12 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --gradient-hero: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8, #fdcb6e);
             --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(253, 121, 168, 0.04));
-            --font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-secondary: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-serif: 'Playfair Display', 'Inter', serif;
-            --font-outfit: 'Outfit', 'Inter', sans-serif;
-            --font-minecraft: 'Minecraft', 'Inter', sans-serif;
+            --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-secondary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-arabic: 'Noto Sans Arabic', 'Vazirmatn', sans-serif;
+            --font-serif: 'Amiri', 'Vazirmatn', serif;
+            --font-cairo: 'Cairo', 'Vazirmatn', sans-serif;
+            --font-minecraft: 'Minecraft', 'Vazirmatn', sans-serif;
         }
 
         @font-face {
@@ -117,11 +119,14 @@
         .font-secondary {
             font-family: var(--font-secondary) !important;
         }
+        .font-arabic {
+            font-family: var(--font-arabic) !important;
+        }
         .font-serif {
             font-family: var(--font-serif) !important;
         }
-        .font-outfit {
-            font-family: var(--font-outfit) !important;
+        .font-cairo {
+            font-family: var(--font-cairo) !important;
         }
         .font-minecraft {
             font-family: var(--font-minecraft) !important;
@@ -145,7 +150,6 @@
         }
     </style>
 </head>
-
 <body>
 <!-- ============================================================
 HEADER
@@ -364,7 +368,6 @@ HEADER
         letter-spacing: 1px;
     }
 </style>
-
 <div class="container">
 
     <div style="text-align:center;">
@@ -375,9 +378,8 @@ HEADER
         <h1 class="main-logo">💙 PackZone MC</h1>
         <a href="index.html" class="home-button">🏠 Home</a>
         <h2>💎 Official MysMce Collection</h2>
-        <p>18 Professional Minecraft Bedrock Resource Packs</p>
+        <p>19 Professional Minecraft Bedrock Resource Packs</p>
     </section>
-
     <section class="menu-box">
 <!-- Abyss -->
 <div class="card" data-pack="Abyss">
@@ -540,173 +542,190 @@ HEADER
         <button class="copy-btn" onclick="copyLink('Gliese 16x', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
     </div>
 </div>
-        <!-- Gliese 32x -->
-        <div class="card" data-pack="Gliese 32x">
-            <img src="../Gliese 32x.jpg" width="300">
-            <h3>🎮 Gliese 32x</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>32x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>4.87 MB</span></p>
-            <a href="../Gliese 32X ـ Bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Gliese 32x')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Gliese 32x')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Gliese 32x', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
 
-        <!-- Jason -->
-        <div class="card" data-pack="Jason">
-            <img src="../Jason.jpg" width="300">
-            <h3>🎮 Jason Voorhees 16x</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>8.75 MB</span></p>
-            <a href="../jason voorhees 16x ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Jason')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Jason')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Jason', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Gliese 32x -->
+<div class="card" data-pack="Gliese 32x">
+    <img src="../Gliese 32x.jpg" width="300">
+    <h3>🎮 Gliese 32x</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>4.87 MB</span></p>
+    <a href="../Gliese 32X ـ Bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Gliese 32x')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Gliese 32x')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Gliese 32x', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+<!-- Jason -->
+<div class="card" data-pack="Jason">
+    <img src="../Jason.jpg" width="300">
+    <h3>🎮 Jason Voorhees 16x</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>8.75 MB</span></p>
+    <a href="../jason voorhees 16x ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Jason')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Jason')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Jason', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- Kepler -->
-        <div class="card" data-pack="Kepler">
-            <img src="../Kepler.jpg" width="300">
-            <h3>🎮 Kepler 7.5k</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>32x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>21.18 MB</span></p>
-            <a href="../Kepler 7.5k ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Kepler')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Kepler')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Kepler', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Kepler -->
+<div class="card" data-pack="Kepler">
+    <img src="../Kepler.jpg" width="300">
+    <h3>🎮 Kepler 7.5k</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>32x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>21.18 MB</span></p>
+    <a href="../Kepler 7.5k ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Kepler')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Kepler')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Kepler', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- M00N -->
-        <div class="card" data-pack="M00N">
-            <img src="../M00N.jpg" width="300">
-            <h3>🎮 M00N 16x</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>21.40 MB</span></p>
-            <a href="../M00N (16x) ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('M00N')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('M00N')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('M00N', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- M00N -->
+<div class="card" data-pack="M00N">
+    <img src="../M00N.jpg" width="300">
+    <h3>🎮 M00N 16x</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>21.40 MB</span></p>
+    <a href="../M00N (16x) ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('M00N')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('M00N')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('M00N', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- Mysticism 5k -->
-        <div class="card" data-pack="Mysticism 5k">
-            <img src="../Mysticism 5k.jpg" width="300">
-            <h3>🎮 Mysticism 5k</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>13.77 MB</span></p>
-            <a href="../Mysticism 5k (16x) ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Mysticism 5k')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Mysticism 5k')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Mysticism 5k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Mysticism 5k -->
+<div class="card" data-pack="Mysticism 5k">
+    <img src="../Mysticism 5k.jpg" width="300">
+    <h3>🎮 Mysticism 5k</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>13.77 MB</span></p>
+    <a href="../Mysticism 5k (16x) ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Mysticism 5k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Mysticism 5k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Mysticism 5k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- MysMce 3k -->
-        <div class="card" data-pack="MysMce 3k">
-            <img src="../MysMce 3k.jpg" width="300">
-            <h3>🎮 MysMce 3k</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>10.56 MB</span></p>
-            <a href="../MysMce_3k.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('MysMce 3k')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('MysMce 3k')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('MysMce 3k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- MysMce 3k -->
+<div class="card" data-pack="MysMce 3k">
+    <img src="../MysMce 3k.jpg" width="300">
+    <h3>🎮 MysMce 3k</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>10.56 MB</span></p>
+    <a href="../MysMce_3k.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('MysMce 3k')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('MysMce 3k')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('MysMce 3k', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- Rigel -->
-        <div class="card" data-pack="Rigel">
-            <img src="../Rigel.jpg" width="300">
-            <h3>🎮 Rigel 16x</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>13.30 MB</span></p>
-            <a href="../Rigel 16x ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Rigel')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Rigel')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Rigel', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Nimbus -->
+<div class="card" data-pack="Nimbus">
+    <img src="https://my.uupload.ir/dl/mbJjXORb" width="300" alt="Nimbus">
+    <h3>🎮 Nimbus</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>64x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>22.3 MB</span></p>
+    <a href="https://my.uupload.ir/dl/NdwRbdoM" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Nimbus')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Nimbus')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Nimbus', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- Saturn -->
-        <div class="card" data-pack="Saturn">
-            <img src="../Saturn.jpg" width="300">
-            <h3>🎮 Saturn 16x</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>27.39 MB</span></p>
-            <a href="https://my.uupload.ir/dl/VXwwdvko" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Saturn')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Saturn')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Saturn', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Rigel -->
+<div class="card" data-pack="Rigel">
+    <img src="../Rigel.jpg" width="300">
+    <h3>🎮 Rigel 16x</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>13.30 MB</span></p>
+    <a href="../Rigel 16x ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Rigel')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Rigel')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Rigel', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
-        <!-- Telalco -->
-        <div class="card" data-pack="Telalco">
-            <img src="../Telalco.jpg" width="300">
-            <h3>🎮 Telalco 13.2k</h3>
-            <p>👤 Creator : <span>MysMce</span></p>
-            <p>🔧 Porter : <span>AmirPZ</span></p>
-            <p>🎮 Version : <span>Bedrock</span></p>
-            <p>⭐ Resolution : <span>16x</span></p>
-            <p>📱 Support : <span>1.16.2+</span></p>
-            <p>📦 Size : <span>5.71 MB</span></p>
-            <a href="../Telalco 13.2k ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
-            <div class="card-actions">
-                <button class="comment-btn" onclick="openCommentModal('Telalco')">💬 Comment</button>
-                <button class="save-btn" onclick="savePack('Telalco')">⭐ Save</button>
-                <button class="copy-btn" onclick="copyLink('Telalco', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
-            </div>
-        </div>
+<!-- Saturn -->
+<div class="card" data-pack="Saturn">
+    <img src="../Saturn.jpg" width="300">
+    <h3>🎮 Saturn 16x</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>27.39 MB</span></p>
+    <a href="https://my.uupload.ir/dl/VXwwdvko" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Saturn')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Saturn')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Saturn', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
+
+<!-- Telalco -->
+<div class="card" data-pack="Telalco">
+    <img src="../Telalco.jpg" width="300">
+    <h3>🎮 Telalco 13.2k</h3>
+    <p>👤 Creator : <span>MysMce</span></p>
+    <p>🔧 Porter : <span>AmirPZ</span></p>
+    <p>🎮 Version : <span>Bedrock</span></p>
+    <p>⭐ Resolution : <span>16x</span></p>
+    <p>📱 Support : <span>1.16.2+</span></p>
+    <p>📦 Size : <span>5.71 MB</span></p>
+    <a href="../Telalco 13.2k ـ bedrocked by PZMC.mcpack" download class="btn-download">⬇️ Download</a>
+    <div class="card-actions">
+        <button class="comment-btn" onclick="openCommentModal('Telalco')">💬 Comment</button>
+        <button class="save-btn" onclick="savePack('Telalco')">⭐ Save</button>
+        <button class="copy-btn" onclick="copyLink('Telalco', this)">🔗 Copy Link <span class="copy-feedback">✓</span></button>
+    </div>
+</div>
 
     </section>
-
     <footer>© PackZone MC 💙</footer>
 
-    </div>
+</div>
 <!-- ===== Comment Modal ===== -->
 <div class="comment-modal" id="commentModal">
     <div class="modal-box">
@@ -873,7 +892,7 @@ HEADER
     .card-actions .copy-feedback {
         font-size: 0.65rem;
         color: #00c853;
-        margin-left: 4px;
+        margin-right: 4px;
         opacity: 0;
         transition: all 0.3s ease;
     }
@@ -1059,7 +1078,7 @@ HEADER
     }
 
     /* ============================================================
-               TOAST
+               TOAST & RESPONSIVE
                ============================================================ */
     .toast-message {
         position: fixed;
@@ -1090,9 +1109,6 @@ HEADER
         }
     }
 
-    /* ============================================================
-               RESPONSIVE
-               ============================================================ */
     @media (max-width: 768px) {
         .card {
             max-width: 100%;
@@ -1145,7 +1161,7 @@ HEADER
     </style>
     <script>
         // ============================================================
-        // Apply saved font from homepage
+        // Apply saved font from main page
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             const savedFont = localStorage.getItem('selectedFont');
@@ -1153,8 +1169,9 @@ HEADER
                 const map = {
                     primary: 'font-primary',
                     secondary: 'font-secondary',
+                    arabic: 'font-arabic',
                     serif: 'font-serif',
-                    outfit: 'font-outfit',
+                    cairo: 'font-cairo',
                     minecraft: 'font-minecraft'
                 };
                 if (map[savedFont]) {
@@ -1240,7 +1257,7 @@ HEADER
             }
             const comments = getComments(currentCommentPack);
             comments.push({
-                user: user.name || 'Anonymous',
+                user: user.name || 'Anonymous User',
                 text: text,
                 date: new Date().toISOString()
             });
@@ -1288,7 +1305,7 @@ HEADER
             if (index === -1) { showToast('❌ User not found!', 'error'); return; }
             if (!users[index].favorites) users[index].favorites = [];
             if (users[index].favorites.includes(packName)) {
-                showToast('⚠️ This pack is already saved');
+                showToast('⚠️ This pack is already saved!');
                 return;
             }
             users[index].favorites.push(packName);
@@ -1362,7 +1379,7 @@ HEADER
         function logoutUser() {
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('pzmc_current_user');
-                showToast('👋 You have been logged out successfully');
+                showToast('👋 You have been logged out');
                 setTimeout(() => { window.location.reload(); }, 500);
             }
         }
@@ -1376,8 +1393,9 @@ HEADER
                 const map = {
                     primary: 'font-primary',
                     secondary: 'font-secondary',
+                    arabic: 'font-arabic',
                     serif: 'font-serif',
-                    outfit: 'font-outfit',
+                    cairo: 'font-cairo',
                     minecraft: 'font-minecraft'
                 };
                 if (map[savedFont]) document.body.classList.add(map[savedFont]);
