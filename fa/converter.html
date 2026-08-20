@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v1.5</title>
+    <title>PackZone MC - Resource Pack Converter v1.6</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -153,8 +153,8 @@
 <body>
 
 <div class="container">
-    <h1>🔄 PackZone <span>Converter</span> v1.5</h1>
-    <p class="sub">تبدیل پک جاوا → بدراک + قابلیت‌های ویژه</p>
+    <h1>🔄 PackZone <span>Converter</span> v1.6</h1>
+    <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky</p>
 
     <div class="drop-zone" id="dropZone">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
@@ -308,12 +308,12 @@
         }
 
         // ============================================================
-        //  پردازش اسکای (Sky) → Cubemap
+        //  پردازش اسکای معمولی (Sky) → Cubemap
         // ============================================================
         async processSky(mcFolder, bedrockPack) {
             const skyFolder = mcFolder.folder('textures/environment/sky');
             if (!skyFolder) {
-                this.addLog('ℹ️ پوشه اسکای یافت نشد', 'info');
+                this.addLog('ℹ️ پوشه اسکای معمولی یافت نشد', 'info');
                 return;
             }
 
@@ -337,7 +337,7 @@
                             data = await this.rotateImage180(data);
                             this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
                         } else {
-                            this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)`, 'special');
+                            this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)', 'special');
                         }
                         bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
                         convertedCount++;
@@ -348,12 +348,124 @@
             }
 
             if (convertedCount > 0) {
-                this.addLog(`✅ ${convertedCount} فایل اسکای به cubemap تبدیل شد`, 'success');
+                this.addLog(`✅ ${convertedCount} فایل اسکای معمولی به cubemap تبدیل شد`, 'success');
             }
         }
 
         // ============================================================
-        //  هسته اصلی تبدیل - نسخه ۱.۵
+        //  پردازش MCPatcher Sky (اسکای اختصاصی) - جدید نسخه ۱.۶
+        // ============================================================
+        async processMcpatcherSky(mcFolder, bedrockPack) {
+            const mcpatcherFolder = mcFolder.folder('mcpatcher');
+            if (!mcpatcherFolder) {
+                this.addLog('ℹ️ پوشه mcpatcher یافت نشد', 'info');
+                return;
+            }
+
+            const skyFolder = mcpatcherFolder.folder('sky/world0');
+            if (!skyFolder) {
+                this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
+                return;
+            }
+
+            // پیدا کردن اولین فایل .png
+            const allFiles = skyFolder.file(/./);
+            let pngFile = null;
+            let pngName = '';
+            
+            for (const file of allFiles) {
+                if (!file.dir && file.name.endsWith('.png')) {
+                    pngFile = file;
+                    pngName = file.name;
+                    break;
+                }
+            }
+
+            if (pngFile) {
+                const data = await pngFile.async('base64');
+                
+                // تبدیل به ۶ تایی cubemap (همه از یک عکس)
+                const cubemapNames = [
+                    'cubemap_0.png',
+                    'cubemap_1.png',
+                    'cubemap_2.png',
+                    'cubemap_3.png',
+                    'cubemap_4.png',
+                    'cubemap_5.png'
+                ];
+                
+                for (const name of cubemapNames) {
+                    bedrockPack.file(`textures/environment/overworld_cubemap/${name}`, data, { base64: true });
+                }
+                
+                this.addLog(`🌤️ McPatcher Sky پیدا شد: ${pngName} → تبدیل به ۶ تایی cubemap`, 'special');
+            } else {
+                this.addLog('ℹ️ هیچ فایل .png در mcpatcher/sky/world0 یافت نشد', 'info');
+            }
+        }
+
+        // ============================================================
+        //  تولید مانیفست
+        // ============================================================
+        generateManifest(packName) {
+            return {
+                format_version: 2,
+                header: {
+                    name: packName,
+                    description: 'RP Converter PackZoneMC!!',
+                    uuid: this.generateUUID(),
+                    version: [1, 0, 0],
+                    min_engine_version: [1, 20, 0]
+                },
+                modules: [
+                    {
+                        type: 'resources',
+                        uuid: this.generateUUID(),
+                        version: [1, 0, 0]
+                    }
+                ]
+            };
+        }
+
+        // ============================================================
+        //  تولید flipbook_textures.json
+        // ============================================================
+        generateFlipbook() {
+            return [
+                { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+            ];
+        }
+
+        // ============================================================
+        //  تولید UUID
+        // ============================================================
+        generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        // ============================================================
+        //  هسته اصلی تبدیل - نسخه ۱.۶
         // ============================================================
         async startConversion() {
             if (this.isConverting || !this.file) return;
@@ -381,7 +493,7 @@
                     bedrockPack.file('pack_icon.png', pngData, { base64: true });
                     this.addLog('✅ pack_icon.png ساخته شد', 'success');
                 } else {
-                    this.addLog('⚠️ pack.png پیدا نشد، یک آیکون پیش‌فرض استفاده می‌شود', 'info');
+                    this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده می‌شود', 'info');
                     const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
                     bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
                 }
@@ -467,9 +579,17 @@
                     }
                 }
 
-                // SKY → cubemap
-                this.addLog('🌤️ پردازش اسکای...', 'info');
+                // ============================================================
+                //  پردازش اسکای (هر دو نوع)
+                // ============================================================
+                
+                // ۱. اسکای معمولی
+                this.addLog('🌤️ پردازش اسکای معمولی...', 'info');
                 await this.processSky(mcFolder, bedrockPack);
+                
+                // ۲. McPatcher Sky (جدید)
+                this.addLog('🌤️ پردازش McPatcher Sky...', 'info');
+                await this.processMcpatcherSky(mcFolder, bedrockPack);
 
                 // ascii.png → default8.png
                 const fontFolder = mcFolder.folder('font');
@@ -504,67 +624,6 @@
                 this.isConverting = false;
                 this.convertBtn.disabled = false;
             }
-        }
-
-        // ============================================================
-        //  تولید مانیفست
-        // ============================================================
-        generateManifest(packName) {
-            return {
-                format_version: 2,
-                header: {
-                    name: packName,
-                    description: 'RP Converter PackZoneMC!!',
-                    uuid: this.generateUUID(),
-                    version: [1, 0, 0],
-                    min_engine_version: [1, 20, 0]
-                },
-                modules: [
-                    {
-                        type: 'resources',
-                        uuid: this.generateUUID(),
-                        version: [1, 0, 0]
-                    }
-                ]
-            };
-        }
-
-        // ============================================================
-        //  تولید flipbook_textures.json
-        // ============================================================
-        generateFlipbook() {
-            return [
-                { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
-            ];
-        }
-
-        // ============================================================
-        //  تولید UUID
-        // ============================================================
-        generateUUID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                const r = Math.random() * 16 | 0;
-                const v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
         }
     }
 
