@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.2</title>
+    <title>PackZone MC - Converter v2.2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap');
-        
         body {
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
             background: #0a0e1a;
             color: #e0e6f0;
             min-height: 100vh;
@@ -19,280 +17,146 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(74, 158, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 45, 99, 0.05) 0%, transparent 50%);
         }
-        
         .container {
-            background: rgba(20, 27, 43, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 28px;
-            max-width: 760px;
+            background: #141b2b;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 700px;
             width: 100%;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.8), 0 0 1px rgba(74, 158, 255, 0.2);
-            border: 1px solid rgba(42, 58, 90, 0.5);
-            transition: all 0.3s;
+            border: 1px solid #2a3a5a;
         }
-        
-        .container:hover {
-            border-color: rgba(74, 158, 255, 0.3);
-        }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        
         h1 {
-            font-size: 28px;
-            font-weight: 700;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 4px;
         }
         h1 span { color: #4a9eff; }
-        
-        .version-badge {
-            background: linear-gradient(135deg, #ff6b35, #ff2e63);
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(255, 45, 99, 0.3);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .badge-wrap { text-align: center; margin: 8px 0 4px; }
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #4a9eff, #2a6eff);
-            padding: 4px 20px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 20px rgba(74, 158, 255, 0.2);
-        }
-        
+        .version { text-align: center; color: #ff2e63; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
         .sub {
             text-align: center;
             color: #8899bb;
-            margin-bottom: 25px;
-            font-size: 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
         }
-        
         .features {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
-            margin: 16px 0 24px;
+            margin: 12px 0 18px;
         }
         .features span {
-            background: rgba(26, 42, 74, 0.6);
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 12px;
+            background: #1a2a4a;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 11px;
             color: #8899bb;
-            border: 1px solid rgba(42, 58, 90, 0.4);
-            transition: all 0.3s;
-            cursor: default;
-            backdrop-filter: blur(5px);
+            border: 1px solid #2a3a5a;
         }
         .features span.active {
             border-color: #4a9eff;
             color: #4a9eff;
-            background: rgba(74, 158, 255, 0.1);
-            box-shadow: 0 0 20px rgba(74, 158, 255, 0.05);
         }
-        .features span:hover {
-            transform: translateY(-2px);
-        }
-        
         .drop-zone {
-            border: 2px dashed rgba(42, 58, 90, 0.6);
-            border-radius: 18px;
-            padding: 45px 20px;
+            border: 2px dashed #2a3a5a;
+            border-radius: 12px;
+            padding: 35px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.4s;
-            background: rgba(15, 22, 38, 0.6);
-            position: relative;
-            overflow: hidden;
+            transition: 0.3s;
+            background: #0f1626;
         }
-        .drop-zone::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(74, 158, 255, 0.03), transparent, rgba(74, 158, 255, 0.03), transparent);
-            animation: rotate 20s linear infinite;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .drop-zone:hover::before,
-        .drop-zone.dragover::before {
-            opacity: 1;
-        }
-        
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-        
         .drop-zone:hover {
             border-color: #4a9eff;
-            background: rgba(24, 32, 58, 0.8);
-            transform: scale(1.01);
+            background: #18203a;
         }
         .drop-zone.dragover {
             border-color: #4a9eff;
-            background: rgba(26, 42, 74, 0.8);
-            transform: scale(1.02);
-            box-shadow: 0 0 50px rgba(74, 158, 255, 0.1);
+            background: #1a2a4a;
         }
-        .drop-zone svg { 
-            width: 60px; 
-            height: 60px; 
-            fill: #4a9eff; 
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 20px rgba(74, 158, 255, 0.2));
-        }
-        .drop-zone p { font-size: 16px; color: #aabbdd; }
-        .drop-zone .hint { font-size: 13px; color: #667799; margin-top: 8px; }
+        .drop-zone svg { width: 50px; height: 50px; fill: #4a9eff; margin-bottom: 10px; }
+        .drop-zone p { font-size: 15px; color: #aabbdd; }
+        .drop-zone .hint { font-size: 12px; color: #667799; margin-top: 6px; }
         #file-input { display: none; }
         
         .file-info {
             display: none;
-            background: rgba(15, 22, 38, 0.8);
-            padding: 16px 24px;
-            border-radius: 14px;
-            margin-top: 16px;
-            border: 1px solid rgba(26, 42, 74, 0.6);
-            backdrop-filter: blur(5px);
-            animation: slideDown 0.3s ease;
+            background: #0f1626;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-top: 14px;
+            border: 1px solid #1a2a4a;
         }
         .file-info.show { display: flex; justify-content: space-between; align-items: center; }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         .file-info .name { color: #4a9eff; font-weight: 600; }
         .file-info .size { color: #667799; font-size: 13px; }
-        .file-info .remove {
-            color: #ff6b6b;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        .file-info .remove:hover { transform: scale(1.2); }
+        .file-info .remove { color: #ff6b6b; cursor: pointer; font-size: 18px; }
         
         .btn-convert {
             width: 100%;
-            padding: 18px;
-            margin-top: 20px;
+            padding: 14px;
+            margin-top: 16px;
             border: none;
-            border-radius: 14px;
+            border-radius: 10px;
             background: linear-gradient(135deg, #4a9eff, #2a6eff);
             color: white;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
             font-family: inherit;
-            position: relative;
-            overflow: hidden;
         }
-        .btn-convert::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
-        .btn-convert:hover:not(:disabled)::after {
-            transform: translateX(100%);
-        }
-        .btn-convert:hover:not(:disabled) { 
-            transform: scale(1.02); 
-            box-shadow: 0 8px 40px rgba(74, 158, 255, 0.4);
-        }
-        .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-convert:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 4px 20px rgba(74, 158, 255, 0.3); }
+        .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; }
         
         .progress-container {
             display: none;
-            margin-top: 20px;
-            background: rgba(15, 22, 38, 0.8);
-            border-radius: 14px;
-            padding: 20px 24px;
-            border: 1px solid rgba(26, 42, 74, 0.6);
-            backdrop-filter: blur(5px);
-            animation: slideDown 0.3s ease;
+            margin-top: 16px;
+            background: #0f1626;
+            border-radius: 10px;
+            padding: 14px 18px;
+            border: 1px solid #1a2a4a;
         }
         .progress-container.show { display: block; }
         .progress-bar-bg {
             width: 100%;
-            height: 8px;
-            background: rgba(26, 42, 74, 0.6);
-            border-radius: 4px;
+            height: 6px;
+            background: #1a2a4a;
+            border-radius: 3px;
             overflow: hidden;
-            margin-top: 12px;
+            margin-top: 8px;
         }
         .progress-bar {
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, #4a9eff, #00d4ff);
-            border-radius: 4px;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+            border-radius: 3px;
+            transition: width 0.3s;
         }
         .progress-text {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
+            font-size: 13px;
             color: #8899bb;
-        }
-        .progress-text .percent {
-            color: #4a9eff;
-            font-weight: 600;
         }
         
         .log {
-            margin-top: 16px;
-            background: rgba(10, 14, 26, 0.9);
-            padding: 14px 18px;
-            border-radius: 12px;
-            font-size: 13px;
+            margin-top: 14px;
+            background: #0a0e1a;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
             color: #667799;
-            max-height: 220px;
+            max-height: 180px;
             overflow-y: auto;
-            font-family: 'Courier New', monospace;
+            font-family: monospace;
             direction: ltr;
             text-align: left;
-            border: 1px solid rgba(26, 42, 58, 0.6);
+            border: 1px solid #1a2a3a;
             display: none;
         }
-        .log.show { display: block; animation: slideDown 0.3s ease; }
-        .log::-webkit-scrollbar { width: 4px; }
-        .log::-webkit-scrollbar-track { background: transparent; }
-        .log::-webkit-scrollbar-thumb { background: #2a3a5a; border-radius: 2px; }
-        
+        .log.show { display: block; }
         .log .success { color: #66ddaa; }
         .log .error { color: #ff6b6b; }
         .log .info { color: #4a9eff; }
@@ -301,96 +165,78 @@
         
         .result {
             display: none;
-            margin-top: 20px;
-            background: rgba(15, 22, 38, 0.8);
-            padding: 24px;
-            border-radius: 14px;
-            border: 1px solid rgba(26, 74, 58, 0.6);
+            margin-top: 16px;
+            background: #0f1626;
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid #1a4a3a;
             text-align: center;
-            animation: slideDown 0.5s ease;
-            backdrop-filter: blur(5px);
         }
         .result.show { display: block; }
-        .result .icon { font-size: 48px; margin-bottom: 8px; }
-        .result .msg { color: #66ddaa; font-weight: 600; font-size: 18px; }
-        .result .detail { color: #8899bb; font-size: 14px; margin: 4px 0 16px; }
+        .result .icon { font-size: 40px; margin-bottom: 4px; }
+        .result .msg { color: #66ddaa; font-weight: 600; font-size: 17px; }
+        .result .detail { color: #8899bb; font-size: 13px; margin: 4px 0 12px; }
         .btn-download {
-            padding: 14px 40px;
+            padding: 12px 35px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #1a4a3a, #1a5a4a);
+            border-radius: 10px;
+            background: #1a4a3a;
             color: #66ddaa;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
             font-family: inherit;
         }
-        .btn-download:hover { 
-            transform: scale(1.05); 
-            box-shadow: 0 8px 30px rgba(102, 221, 170, 0.2);
-        }
+        .btn-download:hover { background: #1a5a4a; transform: scale(1.03); }
         
         .stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(42, 58, 90, 0.3);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #1a2a3a;
         }
         .stats div { text-align: center; }
-        .stats .num { color: #4a9eff; font-weight: 700; font-size: 18px; }
-        .stats .label { color: #667799; font-size: 11px; }
-        
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            h1 { font-size: 22px; }
-            .header { flex-direction: column; gap: 8px; }
-            .features span { font-size: 10px; padding: 3px 10px; }
-        }
+        .stats .num { color: #4a9eff; font-weight: 700; font-size: 16px; }
+        .stats .label { color: #667799; font-size: 10px; }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <h1>🔄 PackZone <span>Converter</span></h1>
-        <span class="version-badge">v2.2</span>
-    </div>
-    <div class="badge-wrap"><span class="badge">⚡ ULTIMATE MODE ⚡</span></div>
-    <p class="sub">تبدیل پیشرفته پک جاوا → بدراک | کاملاً حرفه‌ای</p>
+    <h1>🔄 PackZone <span>Converter</span></h1>
+    <div class="version">نسخه ۲.۲</div>
+    <p class="sub">تبدیل پک جاوا → بدراک</p>
 
     <div class="features">
-        <span class="active">📦 کامل textures</span>
+        <span class="active">📦 textures</span>
         <span class="active">🔊 sounds</span>
         <span class="active">📝 font</span>
         <span class="active">🖼️ destroy_stage</span>
         <span class="active">🔥 flame_atlas</span>
         <span class="active">📄 flipbook</span>
         <span class="active">🌤️ sky → cubemap</span>
-        <span class="active">✨ ascii → default8</span>
     </div>
 
     <div class="drop-zone" id="dropZone">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
-        <p>📁 فایل پک جاوا رو بکشید اینجا یا کلیک کنید</p>
-        <p class="hint">🎯 فقط .zip — حداکثر ۱۰۰ مگابایت</p>
+        <p>📁 فایل پک جاوا رو بکشید یا کلیک کنید</p>
+        <p class="hint">فقط .zip — حداکثر ۱۰۰ مگابایت</p>
     </div>
     <input type="file" id="file-input" accept=".zip">
 
     <div class="file-info" id="fileInfo">
         <span class="name" id="fileName">pack.zip</span>
         <span class="size" id="fileSize">۲.۴ مگابایت</span>
-        <span class="remove" id="removeFile" title="حذف فایل">✕</span>
+        <span class="remove" id="removeFile">✕</span>
     </div>
 
-    <button class="btn-convert" id="convertBtn" disabled>
-        🚀 شروع تبدیل به بدراک
-    </button>
+    <button class="btn-convert" id="convertBtn" disabled>🚀 تبدیل به بدراک</button>
 
     <div class="progress-container" id="progressContainer">
         <div class="progress-text">
-            <span id="progressLabel">⏳ در حال آماده‌سازی...</span>
-            <span class="percent" id="progressPercent">۰%</span>
+            <span id="progressLabel">⏳ در حال پردازش...</span>
+            <span id="progressPercent">۰%</span>
         </div>
         <div class="progress-bar-bg">
             <div class="progress-bar" id="progressBar"></div>
@@ -405,16 +251,235 @@
         <div class="detail" id="resultDetail">پک شما آماده دانلود است</div>
         <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
         <div class="stats">
-            <div><div class="num" id="statTextures">۰</div><div class="label">فایل textures</div></div>
-            <div><div class="num" id="statFonts">۰</div><div class="label">فایل font</div></div>
-            <div><div class="num" id="statSounds">۰</div><div class="label">فایل sounds</div></div>
+            <div><div class="num" id="statTextures">۰</div><div class="label">textures</div></div>
+            <div><div class="num" id="statFonts">۰</div><div class="label">font</div></div>
+            <div><div class="num" id="statSounds">۰</div><div class="label">sounds</div></div>
         </div>
     </div>
 </div>
-        // ============================================================
-        // تابع اصلی تبدیل - نسخه ۲.۲ (ULTIMATE)
-        // ============================================================
-        async startConversion() {
+<script>
+    class PackConverter {
+        constructor() {
+            this.file = null;
+            this.convertedBlob = null;
+            this.stats = { textures: 0, fonts: 0, sounds: 0 };
+            this.isConverting = false;
+
+            this.dropZone = document.getElementById('dropZone');
+            this.fileInput = document.getElementById('file-input');
+            this.fileInfo = document.getElementById('fileInfo');
+            this.fileName = document.getElementById('fileName');
+            this.fileSize = document.getElementById('fileSize');
+            this.removeFile = document.getElementById('removeFile');
+            this.convertBtn = document.getElementById('convertBtn');
+            this.progressContainer = document.getElementById('progressContainer');
+            this.progressBar = document.getElementById('progressBar');
+            this.progressLabel = document.getElementById('progressLabel');
+            this.progressPercent = document.getElementById('progressPercent');
+            this.logEl = document.getElementById('log');
+            this.result = document.getElementById('result');
+            this.downloadBtn = document.getElementById('downloadBtn');
+            this.resultDetail = document.getElementById('resultDetail');
+            this.statTextures = document.getElementById('statTextures');
+            this.statFonts = document.getElementById('statFonts');
+            this.statSounds = document.getElementById('statSounds');
+
+            this.initEvents();
+        }
+
+        initEvents() {
+            this.dropZone.addEventListener('click', () => this.fileInput.click());
+            this.dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                this.dropZone.classList.add('dragover');
+            });
+            this.dropZone.addEventListener('dragleave', () => {
+                this.dropZone.classList.remove('dragover');
+            });
+            this.dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                this.dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    this.handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            this.fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    this.handleFile(e.target.files[0]);
+                }
+            });
+            this.removeFile.addEventListener('click', () => this.clearFile());
+            this.convertBtn.addEventListener('click', () => this.startConversion());
+            this.downloadBtn.addEventListener('click', () => {
+                if (this.convertedBlob) {
+                    const name = this.file ? this.file.name.replace(/\.zip$/, '') : 'converted';
+                    saveAs(this.convertedBlob, `${name}.mcpack`);
+                }
+            });
+        }
+
+        clearFile() {
+            this.file = null;
+            this.fileInfo.classList.remove('show');
+            this.convertBtn.disabled = true;
+            this.result.classList.remove('show');
+            this.logEl.classList.remove('show');
+            this.logEl.innerHTML = '';
+            this.progressContainer.classList.remove('show');
+            this.fileInput.value = '';
+        }
+
+        handleFile(file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (ext !== 'zip') {
+                this.addLog('❌ فقط فرمت ZIP پشتیبانی می‌شود', 'error');
+                return;
+            }
+            if (file.size > 100 * 1024 * 1024) {
+                this.addLog('❌ حجم فایل بیش از ۱۰۰ مگابایت است', 'error');
+                return;
+            }
+
+            this.file = file;
+            this.fileName.textContent = file.name;
+            this.fileSize.textContent = (file.size / 1024 / 1024).toFixed(1) + ' مگابایت';
+            this.fileInfo.classList.add('show');
+            this.convertBtn.disabled = false;
+            this.result.classList.remove('show');
+            this.logEl.classList.remove('show');
+            this.logEl.innerHTML = '';
+            this.addLog('📂 فایل انتخاب شد: ' + file.name, 'success');
+        }
+
+        addLog(msg, type = 'info') {
+            const icons = { success: '✅', error: '❌', warn: '⚠️', info: 'ℹ️', special: '✨' };
+            const prefix = icons[type] || 'ℹ️';
+            this.logEl.innerHTML += `<div class="${type}">${prefix} ${msg}</div>`;
+            this.logEl.classList.add('show');
+            this.logEl.scrollTop = this.logEl.scrollHeight;
+        }
+
+        setProgress(percent, label) {
+            const p = Math.min(percent, 100);
+            this.progressBar.style.width = p + '%';
+            this.progressPercent.textContent = Math.round(p) + '%';
+            if (label) this.progressLabel.textContent = label;
+            this.progressContainer.classList.add('show');
+        }
+
+        async rotateImage180(base64Data) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.translate(canvas.width / 2, canvas.height / 2);
+                        ctx.rotate(Math.PI);
+                        ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2);
+                        resolve(canvas.toDataURL('image/png').split(',')[1]);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
+                img.src = 'data:image/png;base64,' + base64Data;
+            });
+        }
+
+        async processSky(mcFolder, bedrockPack) {
+            const skyFolder = mcFolder.folder('textures/environment/sky');
+            if (!skyFolder) {
+                this.addLog('ℹ️ پوشه اسکای یافت نشد', 'info');
+                return 0;
+            }
+
+            const skyMapping = [
+                ['up.png', 'cubemap_0.png', false],
+                ['front.png', 'cubemap_4.png', true],
+                ['right.png', 'cubemap_1.png', false],
+                ['left.png', 'cubemap_5.png', true],
+                ['down.png', 'cubemap_2.png', false],
+                ['back.png', 'cubemap_3.png', false]
+            ];
+
+            let convertedCount = 0;
+            for (const [javaName, bedrockName, rotate] of skyMapping) {
+                const file = skyFolder.file(javaName);
+                if (file) {
+                    try {
+                        let data = await file.async('base64');
+                        if (rotate) {
+                            data = await this.rotateImage180(data);
+                            this.addLog('🌤️ ' + javaName + ' → ' + bedrockName + ' (۱۸۰°)', 'special');
+                        } else {
+                            this.addLog('🌤️ ' + javaName + ' → ' + bedrockName + ' (بدون چرخش)', 'special');
+                        }
+                        bedrockPack.file('textures/environment/overworld_cubemap/' + bedrockName, data, { base64: true });
+                        convertedCount++;
+                    } catch (err) {
+                        this.addLog('⚠️ خطا در ' + javaName + ': ' + err.message, 'warn');
+                    }
+                }
+            }
+            if (convertedCount > 0) {
+                this.addLog('✅ ' + convertedCount + ' فایل اسکای به cubemap تبدیل شد', 'success');
+            }
+            return convertedCount;
+        }
+
+        generateManifest(packName) {
+            return {
+                format_version: 2,
+                header: {
+                    name: packName,
+                    description: 'RP Converter PackZoneMC!!',
+                    uuid: this.generateUUID(),
+                    version: [1, 0, 0],
+                    min_engine_version: [1, 20, 0]
+                },
+                modules: [{
+                    type: 'resources',
+                    uuid: this.generateUUID(),
+                    version: [1, 0, 0]
+                }]
+            };
+        }
+
+        generateFlipbook() {
+            return [
+                { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+            ];
+        }
+
+        generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+            async startConversion() {
             if (this.isConverting || !this.file) return;
             this.isConverting = true;
             this.convertBtn.disabled = true;
@@ -431,11 +496,9 @@
                 this.addLog('📦 فایل زیپ با موفقیت باز شد', 'success');
 
                 const bedrockPack = new JSZip();
-                this.setProgress(3, '🔄 ایجاد ساختار بدراک...');
+                this.setProgress(5, '🔄 ایجاد ساختار بدراک...');
 
-                // ========================================
-                // ۱. pack.png → pack_icon.png
-                // ========================================
+                // pack.png → pack_icon.png
                 const packPng = zip.file('pack.png');
                 if (packPng) {
                     const pngData = await packPng.async('base64');
@@ -446,69 +509,70 @@
                     bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
                     this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
                 }
-                this.setProgress(7, '🔄 ساخت مانیفست...');
+                this.setProgress(8, '🔄 ساخت مانیفست...');
 
-                // ========================================
-                // ۲. مانیفست
-                // ========================================
+                // مانیفست
                 const packName = this.file.name.replace(/\.zip$/, '');
                 const manifest = this.generateManifest(packName);
                 bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
                 this.addLog('✅ manifest.json ساخته شد', 'success');
 
-                // ========================================
-                // ۳. دسترسی به assets/minecraft
-                // ========================================
                 const mcFolder = zip.folder('assets/minecraft');
                 if (!mcFolder) {
                     throw new Error('❌ پوشه assets/minecraft پیدا نشد!');
                 }
 
                 // ========================================
-                // ۴. کپی کامل textures + قابلیت‌های ویژه
+                // کپی کامل textures + قابلیت‌های ویژه
                 // ========================================
-                this.setProgress(12, '🔄 کپی کامل textures...');
+                this.setProgress(15, '🔄 کپی textures...');
                 const texturesFolder = mcFolder.folder('textures');
                 let textureCount = 0;
 
                 if (texturesFolder) {
-                    // کپی کامل همه فایل‌های textures
                     const allTextureFiles = texturesFolder.file(/./);
                     
                     for (const file of allTextureFiles) {
                         if (!file.dir) {
+                            const name = file.name;
+                            
+                            // رد کردن فایل‌های ویژه (دوبار کپی نشوند)
+                            const isSpecial = 
+                                name.includes('destroy_stage_') ||
+                                name.includes('fire_layer_') ||
+                                name.includes('environment/sky/');
+                            
+                            if (isSpecial) continue;
+                            
                             const data = await file.async('base64');
-                            bedrockPack.file(`textures/${file.name}`, data, { base64: true });
+                            bedrockPack.file('textures/' + file.name, data, { base64: true });
                             textureCount++;
                         }
                     }
                     this.stats.textures = textureCount;
-                    this.addLog(`📁 ${textureCount} فایل textures کپی شد`, 'success');
+                    this.addLog('📁 ' + textureCount + ' فایل textures کپی شد', 'success');
 
-                    // ========================================
-                    // ۵. قابلیت‌های ویژه
-                    // ========================================
-                    this.setProgress(35, '✨ اضافه کردن قابلیت‌های ویژه...');
-                    
+                    // قابلیت‌های ویژه
+                    this.setProgress(40, '✨ اضافه کردن قابلیت‌های ویژه...');
                     const blocksFolder = texturesFolder.folder('blocks');
                     
-                    // ۵-الف: destroy_stage → environment
+                    // destroy_stage → environment
                     if (blocksFolder) {
                         let destroyCount = 0;
                         for (let i = 0; i <= 9; i++) {
-                            const file = blocksFolder.file(`destroy_stage_${i}.png`);
+                            const file = blocksFolder.file('destroy_stage_' + i + '.png');
                             if (file) {
                                 const data = await file.async('base64');
-                                bedrockPack.file(`textures/environment/destroy_stage_${i}.png`, data, { base64: true });
+                                bedrockPack.file('textures/environment/destroy_stage_' + i + '.png', data, { base64: true });
                                 destroyCount++;
                             }
                         }
                         if (destroyCount > 0) {
-                            this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment اضافه شد`, 'special');
+                            this.addLog('🔄 ' + destroyCount + ' فایل destroy_stage به environment منتقل شد', 'special');
                         }
                     }
 
-                    // ۵-ب: fire → flame_atlas
+                    // fire → flame_atlas
                     if (blocksFolder) {
                         const fire0 = blocksFolder.file('fire_layer_0.png');
                         if (fire0) {
@@ -517,34 +581,32 @@
                             
                             const flipbook = this.generateFlipbook();
                             bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
-                            this.addLog('🔥 flame_atlas.png و flipbook_textures.json اضافه شد', 'special');
+                            this.addLog('🔥 flame_atlas.png و flipbook_textures.json ساخته شد', 'special');
                         }
                     }
                 }
 
                 // ========================================
-                // ۶. پردازش SKY (اسکای)
+                // SKY
                 // ========================================
                 this.setProgress(55, '🌤️ پردازش SKY...');
                 await this.processSky(mcFolder, bedrockPack);
 
                 // ========================================
-                // ۷. کپی کامل font
+                // font
                 // ========================================
-                this.setProgress(68, '📝 کپی font...');
+                this.setProgress(70, '📝 کپی font...');
                 const fontFolder = mcFolder.folder('font');
                 let fontCount = 0;
 
                 if (fontFolder) {
                     const fontFiles = fontFolder.file(/./);
-                    
                     for (const file of fontFiles) {
                         if (!file.dir) {
                             const data = await file.async('base64');
-                            bedrockPack.file(`font/${file.name}`, data, { base64: true });
+                            bedrockPack.file('font/' + file.name, data, { base64: true });
                             fontCount++;
                             
-                            // اگر ascii.png بود، یه کپی هم توی textures/font بذار
                             if (file.name === 'ascii.png') {
                                 bedrockPack.file('textures/font/default8.png', data, { base64: true });
                                 this.addLog('📝 ascii.png → default8.png (کپی در textures/font)', 'special');
@@ -552,38 +614,37 @@
                         }
                     }
                     this.stats.fonts = fontCount;
-                    this.addLog(`📁 ${fontCount} فایل font کپی شد`, 'success');
+                    this.addLog('📁 ' + fontCount + ' فایل font کپی شد', 'success');
                 } else {
                     this.addLog('ℹ️ پوشه font یافت نشد', 'info');
                 }
 
                 // ========================================
-                // ۸. کپی کامل sounds
+                // sounds
                 // ========================================
-                this.setProgress(82, '🔊 کپی sounds...');
+                this.setProgress(85, '🔊 کپی sounds...');
                 const soundsFolder = mcFolder.folder('sounds');
                 let soundCount = 0;
 
                 if (soundsFolder) {
                     const soundFiles = soundsFolder.file(/./);
-                    
                     for (const file of soundFiles) {
                         if (!file.dir) {
                             const data = await file.async('base64');
-                            bedrockPack.file(`sounds/${file.name}`, data, { base64: true });
+                            bedrockPack.file('sounds/' + file.name, data, { base64: true });
                             soundCount++;
                         }
                     }
                     this.stats.sounds = soundCount;
-                    this.addLog(`📁 ${soundCount} فایل sounds کپی شد`, 'success');
+                    this.addLog('📁 ' + soundCount + ' فایل sounds کپی شد', 'success');
                 } else {
                     this.addLog('ℹ️ پوشه sounds یافت نشد', 'info');
                 }
 
                 // ========================================
-                // ۹. فشرده‌سازی نهایی
+                // فشرده‌سازی
                 // ========================================
-                this.setProgress(93, '📦 فشرده‌سازی فایل نهایی...');
+                this.setProgress(95, '📦 فشرده‌سازی...');
 
                 this.convertedBlob = await bedrockPack.generateAsync({
                     type: 'blob',
@@ -593,32 +654,29 @@
 
                 this.setProgress(100, '✅ تبدیل کامل شد! 🎉');
                 
-                // نمایش آمار
                 this.statTextures.textContent = this.stats.textures;
                 this.statFonts.textContent = this.stats.fonts;
                 this.statSounds.textContent = this.stats.sounds;
                 this.resultDetail.textContent = 
-                    `${this.stats.textures} فایل texture • ${this.stats.fonts} فایل font • ${this.stats.sounds} فایل sound`;
+                    this.stats.textures + ' فایل texture • ' + 
+                    this.stats.fonts + ' فایل font • ' + 
+                    this.stats.sounds + ' فایل sound';
                 
-                this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'success');
-                this.addLog(`📊 آمار: ${this.stats.textures} texture • ${this.stats.fonts} font • ${this.stats.sounds} sound`, 'info');
+                this.addLog('🎉 تبدیل با موفقیت انجام شد! حجم: ' + (this.convertedBlob.size / 1024 / 1024).toFixed(2) + ' مگابایت', 'success');
                 this.result.classList.add('show');
 
             } catch (err) {
-                this.addLog(`❌ خطا: ${err.message}`, 'error');
+                this.addLog('❌ خطا: ' + err.message, 'error');
                 console.error(err);
                 this.setProgress(0, '❌ خطا در تبدیل');
             } finally {
                 this.isConverting = false;
                 this.convertBtn.disabled = false;
-                this.convertBtn.textContent = '🚀 شروع تبدیل به بدراک';
+                this.convertBtn.textContent = '🚀 تبدیل به بدراک';
             }
         }
     }
 
-    // ============================================================
-    // راه‌اندازی
-    // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         new PackConverter();
     });
