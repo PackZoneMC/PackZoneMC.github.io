@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Converter v2.2</title>
+    <title>PackZone MC - Converter v2.3</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -205,7 +205,7 @@
 <body>
 <div class="container">
     <h1>🔄 PackZone <span>Converter</span></h1>
-    <div class="version">نسخه ۲.۲</div>
+    <div class="version">نسخه ۲.۳</div>
     <p class="sub">تبدیل پک جاوا → بدراک</p>
 
     <div class="features">
@@ -479,7 +479,7 @@
                 return v.toString(16);
             });
         }
-            async startConversion() {
+        async startConversion() {
             if (this.isConverting || !this.file) return;
             this.isConverting = true;
             this.convertBtn.disabled = true;
@@ -523,16 +523,17 @@
                 }
 
                 // ========================================
-                // کپی کامل textures + قابلیت‌های ویژه
+                // ۴. کپی کامل textures با حفظ ساختار (اصلاح شده)
                 // ========================================
                 this.setProgress(15, '🔄 کپی textures...');
                 const texturesFolder = mcFolder.folder('textures');
                 let textureCount = 0;
 
                 if (texturesFolder) {
-                    const allTextureFiles = texturesFolder.file(/./);
+                    // گرفتن همه فایل‌ها با زیرپوشه‌ها
+                    const allFiles = texturesFolder.file(/./);
                     
-                    for (const file of allTextureFiles) {
+                    for (const file of allFiles) {
                         if (!file.dir) {
                             const name = file.name;
                             
@@ -545,18 +546,27 @@
                             if (isSpecial) continue;
                             
                             const data = await file.async('base64');
+                            
+                            // ========================================
+                            // درست: مسیر رو از داخل textures می‌گیریم
+                            // ========================================
+                            // file.name قبلاً از داخل textures هست
+                            // مثلاً: blocks/stone.png یا items/diamond.png
                             bedrockPack.file('textures/' + file.name, data, { base64: true });
                             textureCount++;
                         }
                     }
+                    
                     this.stats.textures = textureCount;
                     this.addLog('📁 ' + textureCount + ' فایل textures کپی شد', 'success');
 
-                    // قابلیت‌های ویژه
+                    // ========================================
+                    // ۵. قابلیت‌های ویژه
+                    // ========================================
                     this.setProgress(40, '✨ اضافه کردن قابلیت‌های ویژه...');
                     const blocksFolder = texturesFolder.folder('blocks');
                     
-                    // destroy_stage → environment
+                    // ۵-الف: destroy_stage → environment
                     if (blocksFolder) {
                         let destroyCount = 0;
                         for (let i = 0; i <= 9; i++) {
@@ -572,7 +582,7 @@
                         }
                     }
 
-                    // fire → flame_atlas
+                    // ۵-ب: fire → flame_atlas
                     if (blocksFolder) {
                         const fire0 = blocksFolder.file('fire_layer_0.png');
                         if (fire0) {
@@ -587,13 +597,13 @@
                 }
 
                 // ========================================
-                // SKY
+                // ۶. SKY
                 // ========================================
                 this.setProgress(55, '🌤️ پردازش SKY...');
                 await this.processSky(mcFolder, bedrockPack);
 
                 // ========================================
-                // font
+                // ۷. font (کامل)
                 // ========================================
                 this.setProgress(70, '📝 کپی font...');
                 const fontFolder = mcFolder.folder('font');
@@ -620,7 +630,7 @@
                 }
 
                 // ========================================
-                // sounds
+                // ۸. sounds (کامل)
                 // ========================================
                 this.setProgress(85, '🔊 کپی sounds...');
                 const soundsFolder = mcFolder.folder('sounds');
@@ -642,7 +652,7 @@
                 }
 
                 // ========================================
-                // فشرده‌سازی
+                // ۹. فشرده‌سازی نهایی
                 // ========================================
                 this.setProgress(95, '📦 فشرده‌سازی...');
 
