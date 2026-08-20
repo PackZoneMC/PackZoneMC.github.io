@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PackZone MC - Resource Pack Converter v1</title>
+    <!-- JSZip برای کار با فایل‌های zip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- FileSaver برای دانلود -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        /* استایل‌های ساده و تمیز */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #0a0e1a;
+            color: #e0e6f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #141b2b;
+            padding: 40px;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            border: 1px solid #2a3a5a;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h1 span { color: #4a9eff; }
+        .sub {
+            text-align: center;
+            color: #8899bb;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .drop-zone {
+            border: 2px dashed #2a3a5a;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #0f1626;
+        }
+        .drop-zone:hover {
+            border-color: #4a9eff;
+            background: #18203a;
+        }
+        .drop-zone.dragover {
+            border-color: #4a9eff;
+            background: #1a2a4a;
+        }
+        .drop-zone svg { width: 60px; height: 60px; fill: #4a9eff; margin-bottom: 12px; }
+        .drop-zone p { font-size: 16px; color: #aabbdd; }
+        .drop-zone .hint { font-size: 13px; color: #667799; margin-top: 8px; }
+        #file-input { display: none; }
+        .file-info {
+            display: none;
+            background: #0f1626;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 1px solid #1a2a4a;
+        }
+        .file-info.show { display: flex; justify-content: space-between; align-items: center; }
+        .file-info .name { color: #4a9eff; font-weight: 500; }
+        .file-info .size { color: #667799; font-size: 13px; }
+        .btn-convert {
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4a9eff, #2a6eff);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-convert:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3); }
+        .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; }
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+            background: #0f1626;
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid #1a2a4a;
+        }
+        .progress-container.show { display: block; }
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #1a2a4a;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4a9eff, #00d4ff);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #8899bb;
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+            background: #0f1626;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1a4a3a;
+            text-align: center;
+        }
+        .result.show { display: block; }
+        .result .icon { font-size: 40px; margin-bottom: 8px; }
+        .result .msg { color: #66ddaa; font-weight: 500; }
+        .btn-download {
+            margin-top: 14px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            background: #1a4a3a;
+            color: #66ddaa;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-download:hover { background: #1a5a4a; transform: scale(1.02); }
+        .log {
+            margin-top: 16px;
+            background: #0a0e1a;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #667799;
+            max-height: 120px;
+            overflow-y: auto;
+            font-family: monospace;
+            direction: ltr;
+            text-align: left;
+            border: 1px solid #1a2a3a;
+            display: none;
+        }
+        .log.show { display: block; }
+        .log .success { color: #66ddaa; }
+        .log .error { color: #ff6b6b; }
+        .log .info { color: #4a9eff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔄 PackZone <span>Converter</span> v1</h1>
+    <p class="sub">تبدیل پک جاوا → بدراک (فقط .zip و .rar)</p>
+
+    <!-- منطقه آپلود -->
+    <div class="drop-zone" id="dropZone">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
+        <p>📁 فایل پک جاوا را بکشید اینجا یا کلیک کنید</p>
+        <p class="hint">فقط .zip و .rar — حداکثر ۱۰۰ مگابایت</p>
+    </div>
+    <input type="file" id="file-input" accept=".zip,.rar">
+
+    <!-- اطلاعات فایل انتخاب شده -->
+    <div class="file-info" id="fileInfo">
+        <span class="name" id="fileName">pack.zip</span>
+        <span class="size" id="fileSize">۲.۴ مگابایت</span>
+    </div>
+
+    <!-- دکمه تبدیل -->
+    <button class="btn-convert" id="convertBtn" disabled>🔄 تبدیل به بدراک</button>
+
+    <!-- نوار پیشرفت -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-text">
+            <span id="progressLabel">در حال پردازش...</span>
+            <span id="progressPercent">۰%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- لاگ عملیات -->
+    <div class="log" id="log"></div>
+
+    <!-- نتیجه نهایی -->
+    <div class="result" id="result">
+        <div class="icon">✅</div>
+        <div class="msg">تبدیل با موفقیت انجام شد!</div>
+        <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    //  کلاس اصلی کانورتر
+    // ============================================================
+    class PackConverter {
+        constructor() {
+            this.file = null;
+            this.convertedBlob = null;
+            this.logs = [];
+            this.progress = 0;
+            this.isConverting = false;
+
+            // المان‌های DOM
+            this.dropZone = document.getElementById('dropZone');
+            this.fileInput = document.getElementById('file-input');
+            this.fileInfo = document.getElementById('fileInfo');
+            this.fileName = document.getElementById('fileName');
+            this.fileSize = document.getElementById('fileSize');
+            this.convertBtn = document.getElementById('convertBtn');
+            this.progressContainer = document.getElementById('progressContainer');
+            this.progressBar = document.getElementById('progressBar');
+            this.progressLabel = document.getElementById('progressLabel');
+            this.progressPercent = document.getElementById('progressPercent');
+            this.logEl = document.getElementById('log');
+            this.result = document.getElementById('result');
+            this.downloadBtn = document.getElementById('downloadBtn');
+
+            this.initEvents();
+        }
+
+        initEvents() {
+            // کلیک روی drop zone
+            this.dropZone.addEventListener('click', () => this.fileInput.click());
+
+            // drag & drop
+            this.dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                this.dropZone.classList.add('dragover');
+            });
+            this.dropZone.addEventListener('dragleave', () => {
+                this.dropZone.classList.remove('dragover');
+            });
+            this.dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                this.dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    this.handleFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            // انتخاب فایل از طریق input
+            this.fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    this.handleFile(e.target.files[0]);
+                }
+            });
+
+            // دکمه تبدیل
+            this.convertBtn.addEventListener('click', () => this.startConversion());
+
+            // دکمه دانلود
+            this.downloadBtn.addEventListener('click', () => {
+                if (this.convertedBlob) {
+                    const name = this.file ? this.file.name.replace(/\.(zip|rar)$/, '') : 'converted';
+                    saveAs(this.convertedBlob, `${name}.mcpack`);
+                }
+            });
+        }
+
+        handleFile(file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!['zip', 'rar'].includes(ext)) {
+                this.addLog('❌ فرمت فایل پشتیبانی نمی‌شود. فقط .zip و .rar', 'error');
+                return;
+            }
+            if (file.size > 100 * 1024 * 1024) {
+                this.addLog('❌ حجم فایل بیش از ۱۰۰ مگابایت است', 'error');
+                return;
+            }
+
+            this.file = file;
+            this.fileName.textContent = file.name;
+            this.fileSize.textContent = (file.size / 1024 / 1024).toFixed(1) + ' مگابایت';
+            this.fileInfo.classList.add('show');
+            this.convertBtn.disabled = false;
+            this.result.classList.remove('show');
+            this.logEl.classList.remove('show');
+            this.addLog(`📂 فایل انتخاب شد: ${file.name}`, 'info');
+        }
+
+        addLog(msg, type = 'info') {
+            const prefix = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            this.logs.push({ msg, type });
+            this.logEl.innerHTML += `<div class="${type}">${prefix} ${msg}</div>`;
+            this.logEl.classList.add('show');
+            this.logEl.scrollTop = this.logEl.scrollHeight;
+        }
+
+        setProgress(percent, label) {
+            this.progress = Math.min(percent, 100);
+            this.progressBar.style.width = this.progress + '%';
+            this.progressPercent.textContent = Math.round(this.progress) + '%';
+            if (label) this.progressLabel.textContent = label;
+            this.progressContainer.classList.add('show');
+        }
+
+        // ============================================================
+        //  هسته اصلی تبدیل
+        // ============================================================
+        async startConversion() {
+            if (this.isConverting || !this.file) return;
+            this.isConverting = true;
+            this.convertBtn.disabled = true;
+            this.result.classList.remove('show');
+            this.logs = [];
+            this.logEl.innerHTML = '';
+            this.logEl.classList.add('show');
+            this.setProgress(0, '⏳ آماده‌سازی...');
+
+            try {
+                const fileData = await this.file.arrayBuffer();
+                const zip = await JSZip.loadAsync(fileData);
+                this.addLog('📦 فایل زیپ با موفقیت باز شد', 'success');
+
+                // ۱. ساختن پک جدید بدراک
+                const bedrockPack = new JSZip();
+                this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
+
+                // ۲. تبدیل pack.png → pack_icon.png
+                const packPng = zip.file('pack.png');
+                if (packPng) {
+                    this.addLog('🖼️ pack.png پیدا شد، در حال تبدیل...', 'info');
+                    const pngData = await packPng.async('base64');
+                    bedrockPack.file('pack_icon.png', pngData, { base64: true });
+                    this.addLog('✅ pack_icon.png ساخته شد', 'success');
+                } else {
+                    this.addLog('⚠️ pack.png پیدا نشد، یک آیکون پیش‌فرض استفاده می‌شود', 'info');
+                    // یه آیکون پیش‌فرض ۱x۱ (میشه بعداً بهترش کرد)
+                    const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+                    bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
+                }
+                this.setProgress(25, '🔄 ساخت مانیفست...');
+
+                // ۳. ساخت manifest.json
+                const packName = this.file.name.replace(/\.(zip|rar)$/, '');
+                const manifest = this.generateManifest(packName);
+                bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
+                this.addLog(`✅ manifest.json ساخته شد (نام: ${packName})`, 'success');
+                this.setProgress(40, '🔄 کپی textures...');
+
+                // ۴. کپی پوشه‌ها از assets/minecraft به ریشه
+                const assetsFolder = zip.folder('assets');
+                if (!assetsFolder) {
+                    throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+                }
+
+                const mcFolder = assetsFolder.folder('minecraft');
+                if (!mcFolder) {
+                    throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+                }
+
+                // لیست پوشه‌هایی که باید کپی بشن
+                const foldersToCopy = ['textures', 'sounds', 'font'];
+                let copiedCount = 0;
+
+                for (const folderName of foldersToCopy) {
+                    const folder = mcFolder.folder(folderName);
+                    if (folder) {
+                        this.addLog(`📁 کپی ${folderName}...`, 'info');
+                        const files = folder.file(/./);
+                        for (const file of files) {
+                            if (!file.dir) {
+                                const data = await file.async('base64');
+                                // مسیر جدید: ریشه/نام پوشه/بقیه مسیر
+                                const newPath = file.name.replace(`assets/minecraft/${folderName}/`, '');
+                                bedrockPack.file(`${folderName}/${newPath}`, data, { base64: true });
+                            }
+                        }
+                        copiedCount++;
+                        this.addLog(`✅ ${folderName} کپی شد (${files.filter(f => !f.dir).length} فایل)`, 'success');
+                    } else {
+                        this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'info');
+                    }
+                    // بروزرسانی progress
+                    const progress = 40 + (copiedCount / foldersToCopy.length) * 50;
+                    this.setProgress(progress, `🔄 کپی ${folderName}...`);
+                }
+
+                this.setProgress(95, '📦 فشرده‌سازی فایل نهایی...');
+
+                // ۵. تولید فایل نهایی
+                this.convertedBlob = await bedrockPack.generateAsync({
+                    type: 'blob',
+                    compression: 'DEFLATE',
+                    compressionOptions: { level: 6 }
+                });
+
+                this.setProgress(100, '✅ تبدیل کامل شد!');
+                this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(1)} مگابایت`, 'success');
+
+                // نمایش دکمه دانلود
+                this.result.classList.add('show');
+
+            } catch (err) {
+                this.addLog(`❌ خطا: ${err.message}`, 'error');
+                this.setProgress(0, '❌ خطا در تبدیل');
+                console.error(err);
+            } finally {
+                this.isConverting = false;
+                this.convertBtn.disabled = false;
+            }
+        }
+
+        // ============================================================
+        //  تولید مانیفست بدراک
+        // ============================================================
+        generateManifest(packName) {
+            // حذف کدهای رنگی از اسم برای uuid (یا می‌تونیم از همون اسم استفاده کنیم)
+            const cleanName = packName.replace(/§[0-9a-fk-or]/g, '');
+            
+            return {
+                format_version: 2,
+                header: {
+                    name: packName, // اسم با کد رنگی می‌مونه
+                    description: 'RP Converter PackZoneMC!!',
+                    uuid: this.generateUUID(),
+                    version: [1, 0, 0],
+                    min_engine_version: [1, 20, 0]
+                },
+                modules: [
+                    {
+                        type: 'resources',
+                        uuid: this.generateUUID(),
+                        version: [1, 0, 0]
+                    }
+                ]
+            };
+        }
+
+        // ============================================================
+        //  تولید UUID (ساده ولی کاربردی)
+        // ============================================================
+        generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+    }
+
+    // ============================================================
+    //  راه‌اندازی
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        new PackConverter();
+    });
+</script>
+
+</body>
+</html>
