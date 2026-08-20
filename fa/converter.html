@@ -387,14 +387,16 @@ async processMcpatcherSky(mcFolder, bedrockPack) {
     const partHeight = Math.floor(imgHeight / 2);
     this.addLog(`📐 ابعاد عکس: ${imgWidth}×${imgHeight}`, 'info');
     this.addLog(`📐 هر تکه: ${partWidth}×${partHeight}`, 'info');
-    const cropMap = [
-        { col: 0, row: 0, name: 'cubemap_0.png', rotate: false },
-        { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
-        { col: 2, row: 0, name: 'cubemap_5.png', rotate: true },
-        { col: 0, row: 1, name: 'cubemap_3.png', rotate: false },
-        { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
-        { col: 2, row: 1, name: 'cubemap_1.png', rotate: false }
-    ];
+const cropMap = [
+    // ردیف اول (بالا)
+    { col: 0, row: 0, name: 'cubemap_5.png', rotate: true },   // بالا سمت چپ
+    { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },   // وسط بالا
+    { col: 2, row: 0, name: 'cubemap_0.png', rotate: false },  // بالا سمت راست
+    // ردیف دوم (پایین)
+    { col: 0, row: 1, name: 'cubemap_1.png', rotate: false },  // پایین سمت چپ
+    { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },  // وسط پایین
+    { col: 2, row: 1, name: 'cubemap_3.png', rotate: false }   // پایین سمت راست
+];
     for (const part of cropMap) {
         const x = part.col * partWidth;
         const y = part.row * partHeight;
