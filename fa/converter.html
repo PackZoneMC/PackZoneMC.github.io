@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v1.5.3.1.2</title>
+    <title>PackZone MC - Resource Pack Converter v1.5.3.2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -152,23 +152,19 @@
 </head>
 <body>
 <div class="container">
-    <h1>🔄 PackZone <span>Converter</span> v1.5.3.1.2</h1>
+    <h1>🔄 PackZone <span>Converter</span> v1.5.3.2</h1>
     <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky</p>
-
     <div class="drop-zone" id="dropZone">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
         <p>📁 فایل پک جاوا را بکشید اینجا یا کلیک کنید</p>
         <p class="hint">فقط .zip — حداکثر ۱۰۰ مگابایت</p>
     </div>
     <input type="file" id="file-input" accept=".zip">
-
     <div class="file-info" id="fileInfo">
         <span class="name" id="fileName">pack.zip</span>
         <span class="size" id="fileSize">۲.۴ مگابایت</span>
     </div>
-
     <button class="btn-convert" id="convertBtn" disabled>🔄 تبدیل به بدراک</button>
-
     <div class="progress-container" id="progressContainer">
         <div class="progress-text">
             <span id="progressLabel">در حال پردازش...</span>
@@ -178,9 +174,7 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
-
     <div class="log" id="log"></div>
-
     <div class="result" id="result">
         <div class="icon">✅</div>
         <div class="msg">تبدیل با موفقیت انجام شد!</div>
@@ -214,12 +208,11 @@
         }
 
         initEvents() {
-            // ✅ درست - با stopPropagation
-            this.dropZone.addEventListener('click', (e) => {
+            const self = this;
+            this.dropZone.addEventListener('click', function(e) {
                 e.stopPropagation();
-                this.fileInput.click();
+                self.fileInput.click();
             });
-
             this.dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 this.dropZone.classList.add('dragover');
@@ -234,15 +227,12 @@
                     this.handleFile(e.dataTransfer.files[0]);
                 }
             });
-
             this.fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
                     this.handleFile(e.target.files[0]);
                 }
             });
-
             this.convertBtn.addEventListener('click', () => this.startConversion());
-
             this.downloadBtn.addEventListener('click', () => {
                 if (this.convertedBlob) {
                     const name = this.file ? this.file.name.replace(/\.zip$/, '') : 'converted';
@@ -261,7 +251,6 @@
                 this.addLog('❌ حجم فایل بیش از ۱۰۰ مگابایت است', 'error');
                 return;
             }
-
             this.file = file;
             this.fileName.textContent = file.name;
             this.fileSize.textContent = (file.size / 1024 / 1024).toFixed(1) + ' مگابایت';
@@ -288,177 +277,139 @@
             if (label) this.progressLabel.textContent = label;
             this.progressContainer.classList.add('show');
         }
-
-        // ============================================================
-        //  چرخش ۱۸۰ درجه تصویر
-        // ============================================================
-        async rotateImage180(base64Data) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.translate(canvas.width / 2, canvas.height / 2);
-                        ctx.rotate(Math.PI);
-                        ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2);
-                        resolve(canvas.toDataURL('image/png').split(',')[1]);
-                    } catch (err) {
-                        reject(err);
-                    }
-                };
-                img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
-                img.src = 'data:image/png;base64,' + base64Data;
-            });
-        }
-
-        // ============================================================
-        //  برش عکس به ۶ تکه (برای McPatcher Sky)
-        // ============================================================
-        async cropImage(base64Data, x, y, width, height) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, x, y, width, height, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/png').split(',')[1]);
-                    } catch (err) {
-                        reject(err);
-                    }
-                };
-                img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
-                img.src = 'data:image/png;base64,' + base64Data;
-            });
-        }
-
-        // ============================================================
-        //  پردازش اسکای معمولی (Sky) → Cubemap
-        // ============================================================
-        async processSky(mcFolder, bedrockPack) {
-            const skyFolder = mcFolder.folder('textures/environment/sky');
-            if (!skyFolder) {
-                this.addLog('ℹ️ پوشه اسکای معمولی یافت نشد', 'info');
-                return;
+async rotateImage180(base64Data) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(Math.PI);
+                ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2);
+                resolve(canvas.toDataURL('image/png').split(',')[1]);
+            } catch (err) {
+                reject(err);
             }
+        };
+        img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
+        img.src = 'data:image/png;base64,' + base64Data;
+    });
+}
 
-            const skyMapping = [
-                ['up.png', 'cubemap_0.png', false],
-                ['front.png', 'cubemap_4.png', true],
-                ['right.png', 'cubemap_1.png', false],
-                ['left.png', 'cubemap_5.png', true],
-                ['down.png', 'cubemap_2.png', false],
-                ['back.png', 'cubemap_3.png', false]
-            ];
-
-            let convertedCount = 0;
-
-            for (const [javaName, bedrockName, rotate] of skyMapping) {
-                const file = skyFolder.file(javaName);
-                if (file) {
-                    try {
-                        let data = await file.async('base64');
-                        if (rotate) {
-                            data = await this.rotateImage180(data);
-                            this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
-                        } else {
-                            this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)', 'special');
-                        }
-                        bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
-                        convertedCount++;
-                    } catch (err) {
-                        this.addLog(`⚠️ خطا در ${javaName}: ${err.message}`, 'error');
-                    }
-                }
+async cropImage(base64Data, x, y, width, height) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, x, y, width, height, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/png').split(',')[1]);
+            } catch (err) {
+                reject(err);
             }
+        };
+        img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
+        img.src = 'data:image/png;base64,' + base64Data;
+    });
+}
 
-            if (convertedCount > 0) {
-                this.addLog(`✅ ${convertedCount} فایل اسکای معمولی به cubemap تبدیل شد`, 'success');
-            }
-        }
-
-        // ============================================================
-        //  پردازش MCPatcher Sky - تبدیل ۳×۲ به ۶ تکه
-        // ============================================================
-        async processMcpatcherSky(mcFolder, bedrockPack) {
-            const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
-            if (!skyFolder) {
-                this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
-                return;
-            }
-
-            const allFiles = skyFolder.file(/./);
-            let pngFile = null;
-            let pngName = '';
-            
-            for (const file of allFiles) {
-                if (!file.dir && file.name.endsWith('.png')) {
-                    pngFile = file;
-                    pngName = file.name;
-                    break;
-                }
-            }
-
-            if (!pngFile) {
-                this.addLog('ℹ️ هیچ فایل .png در mcpatcher/sky/world0 یافت نشد', 'info');
-                return;
-            }
-
-            const data = await pngFile.async('base64');
-            
-            const img = new Image();
-            img.src = 'data:image/png;base64,' + data;
-            
-            await new Promise((resolve) => {
-                img.onload = resolve;
-            });
-
-            const imgWidth = img.width;
-            const imgHeight = img.height;
-            const partWidth = Math.floor(imgWidth / 3);
-            const partHeight = Math.floor(imgHeight / 2);
-
-            this.addLog(`📐 ابعاد عکس: ${imgWidth}×${imgHeight}`, 'info');
-            this.addLog(`📐 هر تکه: ${partWidth}×${partHeight}`, 'info');
-
-            // نقشه تبدیل: [تکه, cubemap, چرخش]
-            // ستون ۱ (چپ), ستون ۲ (وسط), ستون ۳ (راست)
-            // ردیف ۱ (بالا), ردیف ۲ (پایین)
-            const cropMap = [
-                { col: 0, row: 0, name: 'cubemap_0.png', rotate: false },
-                { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
-                { col: 2, row: 0, name: 'cubemap_5.png', rotate: true },
-                { col: 0, row: 1, name: 'cubemap_3.png', rotate: false },
-                { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
-                { col: 2, row: 1, name: 'cubemap_1.png', rotate: false }
-            ];
-
-            for (const part of cropMap) {
-                const x = part.col * partWidth;
-                const y = part.row * partHeight;
-                
-                let cropped = await this.cropImage(data, x, y, partWidth, partHeight);
-                
-                if (part.rotate) {
-                    cropped = await this.rotateImage180(cropped);
-                    this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (۱۸۰°)`, 'special');
+async processSky(mcFolder, bedrockPack) {
+    const skyFolder = mcFolder.folder('textures/environment/sky');
+    if (!skyFolder) {
+        this.addLog('ℹ️ پوشه اسکای معمولی یافت نشد', 'info');
+        return;
+    }
+    const skyMapping = [
+        ['up.png', 'cubemap_0.png', false],
+        ['front.png', 'cubemap_4.png', true],
+        ['right.png', 'cubemap_1.png', false],
+        ['left.png', 'cubemap_5.png', true],
+        ['down.png', 'cubemap_2.png', false],
+        ['back.png', 'cubemap_3.png', false]
+    ];
+    let convertedCount = 0;
+    for (const [javaName, bedrockName, rotate] of skyMapping) {
+        const file = skyFolder.file(javaName);
+        if (file) {
+            try {
+                let data = await file.async('base64');
+                if (rotate) {
+                    data = await this.rotateImage180(data);
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
                 } else {
-                    this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (بدون چرخش)`, 'special');
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)`, 'special');
                 }
-                
-                bedrockPack.file(`textures/environment/overworld_cubemap/${part.name}`, cropped, { base64: true });
+                bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
+                convertedCount++;
+            } catch (err) {
+                this.addLog(`⚠️ خطا در ${javaName}: ${err.message}`, 'error');
             }
-
-            this.addLog(`✅ McPatcher Sky به ۶ تکه cubemap تبدیل شد`, 'success');
         }
-// ============================================================
-//  تولید مانیفست
-// ============================================================
+    }
+    if (convertedCount > 0) {
+        this.addLog(`✅ ${convertedCount} فایل اسکای معمولی به cubemap تبدیل شد`, 'success');
+    }
+}
+
+async processMcpatcherSky(mcFolder, bedrockPack) {
+    const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
+    if (!skyFolder) {
+        this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
+        return;
+    }
+    const allFiles = skyFolder.file(/./);
+    let pngFile = null;
+    let pngName = '';
+    for (const file of allFiles) {
+        if (!file.dir && file.name.endsWith('.png')) {
+            pngFile = file;
+            pngName = file.name;
+            break;
+        }
+    }
+    if (!pngFile) {
+        this.addLog('ℹ️ هیچ فایل .png در mcpatcher/sky/world0 یافت نشد', 'info');
+        return;
+    }
+    const data = await pngFile.async('base64');
+    const img = new Image();
+    img.src = 'data:image/png;base64,' + data;
+    await new Promise((resolve) => { img.onload = resolve; });
+    const imgWidth = img.width;
+    const imgHeight = img.height;
+    const partWidth = Math.floor(imgWidth / 3);
+    const partHeight = Math.floor(imgHeight / 2);
+    this.addLog(`📐 ابعاد عکس: ${imgWidth}×${imgHeight}`, 'info');
+    this.addLog(`📐 هر تکه: ${partWidth}×${partHeight}`, 'info');
+    const cropMap = [
+        { col: 0, row: 0, name: 'cubemap_0.png', rotate: false },
+        { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
+        { col: 2, row: 0, name: 'cubemap_5.png', rotate: true },
+        { col: 0, row: 1, name: 'cubemap_3.png', rotate: false },
+        { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
+        { col: 2, row: 1, name: 'cubemap_1.png', rotate: false }
+    ];
+    for (const part of cropMap) {
+        const x = part.col * partWidth;
+        const y = part.row * partHeight;
+        let cropped = await this.cropImage(data, x, y, partWidth, partHeight);
+        if (part.rotate) {
+            cropped = await this.rotateImage180(cropped);
+            this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (۱۸۰°)`, 'special');
+        } else {
+            this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (بدون چرخش)`, 'special');
+        }
+        bedrockPack.file(`textures/environment/overworld_cubemap/${part.name}`, cropped, { base64: true });
+    }
+    this.addLog(`✅ McPatcher Sky به ۶ تکه cubemap تبدیل شد`, 'success');
+}
+
 generateManifest(packName) {
     return {
         format_version: 2,
@@ -469,17 +420,10 @@ generateManifest(packName) {
             version: [1, 0, 0],
             min_engine_version: [1, 20, 0]
         },
-        modules: [{
-            type: 'resources',
-            uuid: this.generateUUID(),
-            version: [1, 0, 0]
-        }]
+        modules: [{ type: 'resources', uuid: this.generateUUID(), version: [1, 0, 0] }]
     };
 }
 
-// ============================================================
-//  تولید flipbook_textures.json
-// ============================================================
 generateFlipbook() {
     return [
         { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
@@ -504,19 +448,13 @@ generateFlipbook() {
     ];
 }
 
-// ============================================================
-//  تولید UUID
-// ============================================================
 generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         const r = Math.random() * 16 | 0;
         const v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
-}
-        // ============================================================
-        //  هسته اصلی تبدیل - نسخه ۱.۵.۳.۱.۲
-        // ============================================================
+    }
         async startConversion() {
             if (this.isConverting || !this.file) return;
             this.isConverting = true;
@@ -535,7 +473,6 @@ generateUUID() {
                 const bedrockPack = new JSZip();
                 this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
 
-                // pack.png → pack_icon.png
                 const packPng = zip.file('pack.png');
                 if (packPng) {
                     this.addLog('🖼️ pack.png پیدا شد، در حال تبدیل...', 'info');
@@ -549,19 +486,16 @@ generateUUID() {
                 }
                 this.setProgress(25, '🔄 ساخت مانیفست...');
 
-                // manifest.json
                 const packName = this.file.name.replace(/\.zip$/, '');
                 const manifest = this.generateManifest(packName);
                 bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
                 this.addLog(`✅ manifest.json ساخته شد (نام: ${packName})`, 'success');
                 this.setProgress(30, '🔄 کپی textures...');
 
-                // کپی پوشه‌ها از assets/minecraft
                 const assetsFolder = zip.folder('assets');
                 if (!assetsFolder) {
                     throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
                 }
-
                 const mcFolder = assetsFolder.folder('minecraft');
                 if (!mcFolder) {
                     throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
@@ -569,7 +503,6 @@ generateUUID() {
 
                 const foldersToCopy = ['textures', 'sounds', 'font'];
                 let copiedCount = 0;
-
                 for (const folderName of foldersToCopy) {
                     const folder = mcFolder.folder(folderName);
                     if (folder) {
@@ -591,12 +524,7 @@ generateUUID() {
                     this.setProgress(progress, `🔄 کپی ${folderName}...`);
                 }
 
-                // ============================================================
-                //  قابلیت‌های ویژه
-                // ============================================================
                 this.setProgress(75, '✨ اضافه کردن قابلیت‌های ویژه...');
-
-                // destroy_stage → environment
                 const texturesFolder = mcFolder.folder('textures');
                 if (texturesFolder) {
                     const blocksFolder = texturesFolder.folder('blocks');
@@ -614,14 +542,11 @@ generateUUID() {
                             this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment اضافه شد`, 'special');
                         }
                     }
-
-                    // fire → flame_atlas
                     if (blocksFolder) {
                         const fire0 = blocksFolder.file('fire_layer_0.png');
                         if (fire0) {
                             const data = await fire0.async('base64');
                             bedrockPack.file('textures/flame_atlas.png', data, { base64: true });
-                            
                             const flipbook = this.generateFlipbook();
                             bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
                             this.addLog('🔥 flame_atlas.png و flipbook_textures.json اضافه شد', 'special');
@@ -629,19 +554,11 @@ generateUUID() {
                     }
                 }
 
-                // ============================================================
-                //  پردازش اسکای (هر دو نوع)
-                // ============================================================
-                
-                // ۱. اسکای معمولی
                 this.addLog('🌤️ پردازش اسکای معمولی...', 'info');
                 await this.processSky(mcFolder, bedrockPack);
-                
-                // ۲. McPatcher Sky (تبدیل ۳×۲ به ۶ تکه)
                 this.addLog('🌤️ پردازش McPatcher Sky...', 'info');
                 await this.processMcpatcherSky(mcFolder, bedrockPack);
 
-                // ascii.png → default8.png
                 const fontFolder = mcFolder.folder('font');
                 if (fontFolder) {
                     const asciiFile = fontFolder.file('ascii.png');
@@ -654,7 +571,6 @@ generateUUID() {
                 }
 
                 this.setProgress(95, '📦 فشرده‌سازی فایل نهایی...');
-
                 this.convertedBlob = await bedrockPack.generateAsync({
                     type: 'blob',
                     compression: 'DEFLATE',
@@ -663,7 +579,6 @@ generateUUID() {
 
                 this.setProgress(100, '✅ تبدیل کامل شد!');
                 this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(1)} مگابایت`, 'success');
-
                 this.result.classList.add('show');
 
             } catch (err) {
