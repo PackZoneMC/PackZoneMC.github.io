@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v1.6</title>
+    <title>PackZone MC - Resource Pack Converter v1.6.5</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -30,6 +30,7 @@
         h1 { text-align: center; font-size: 28px; margin-bottom: 10px; }
         h1 span { color: #4a9eff; }
         .sub { text-align: center; color: #8899bb; margin-bottom: 30px; font-size: 14px; }
+        
         .drop-zone {
             border: 2px dashed #2a3a5a;
             border-radius: 16px;
@@ -45,6 +46,7 @@
         .drop-zone p { font-size: 16px; color: #aabbdd; }
         .drop-zone .hint { font-size: 13px; color: #667799; margin-top: 8px; }
         #file-input { display: none; }
+        
         .file-info {
             display: none;
             background: #0f1626;
@@ -56,6 +58,9 @@
         .file-info.show { display: flex; justify-content: space-between; align-items: center; }
         .file-info .name { color: #4a9eff; font-weight: 500; }
         .file-info .size { color: #667799; font-size: 13px; }
+        .file-info .remove { color: #ff6b6b; cursor: pointer; font-size: 18px; font-weight: 700; }
+        .file-info .remove:hover { transform: scale(1.2); }
+        
         .btn-convert {
             width: 100%;
             padding: 16px;
@@ -72,6 +77,7 @@
         }
         .btn-convert:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3); }
         .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; }
+        
         .progress-container {
             display: none;
             margin-top: 20px;
@@ -102,6 +108,7 @@
             font-size: 14px;
             color: #8899bb;
         }
+        
         .result {
             display: none;
             margin-top: 20px;
@@ -128,6 +135,7 @@
             font-family: inherit;
         }
         .btn-download:hover { background: #1a5a4a; transform: scale(1.02); }
+        
         .log {
             margin-top: 16px;
             background: #0a0e1a;
@@ -151,9 +159,8 @@
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h1>🔄 PackZone <span>Converter</span> v1.6</h1>
+    <h1>🔄 PackZone <span>Converter</span> v1.6.5</h1>
     <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky</p>
 
     <div class="drop-zone" id="dropZone">
@@ -166,6 +173,7 @@
     <div class="file-info" id="fileInfo">
         <span class="name" id="fileName">pack.zip</span>
         <span class="size" id="fileSize">۲.۴ مگابایت</span>
+        <span class="remove" id="removeFile">✕</span>
     </div>
 
     <button class="btn-convert" id="convertBtn" disabled>🔄 تبدیل به بدراک</button>
@@ -197,11 +205,13 @@
             this.progress = 0;
             this.isConverting = false;
 
+            // المان‌های DOM
             this.dropZone = document.getElementById('dropZone');
             this.fileInput = document.getElementById('file-input');
             this.fileInfo = document.getElementById('fileInfo');
             this.fileName = document.getElementById('fileName');
             this.fileSize = document.getElementById('fileSize');
+            this.removeFile = document.getElementById('removeFile');
             this.convertBtn = document.getElementById('convertBtn');
             this.progressContainer = document.getElementById('progressContainer');
             this.progressBar = document.getElementById('progressBar');
@@ -215,7 +225,12 @@
         }
 
         initEvents() {
-            this.dropZone.addEventListener('click', () => this.fileInput.click());
+            // کلیک روی drop zone → باز کردن file input
+            this.dropZone.addEventListener('click', () => {
+                this.fileInput.click();
+            });
+
+            // drag & drop
             this.dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 this.dropZone.classList.add('dragover');
@@ -230,18 +245,40 @@
                     this.handleFile(e.dataTransfer.files[0]);
                 }
             });
+
+            // انتخاب فایل از طریق input
             this.fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
                     this.handleFile(e.target.files[0]);
                 }
             });
+
+            // حذف فایل
+            this.removeFile.addEventListener('click', () => {
+                this.clearFile();
+            });
+
+            // دکمه تبدیل
             this.convertBtn.addEventListener('click', () => this.startConversion());
+
+            // دکمه دانلود
             this.downloadBtn.addEventListener('click', () => {
                 if (this.convertedBlob) {
                     const name = this.file ? this.file.name.replace(/\.(zip|rar)$/, '') : 'converted';
                     saveAs(this.convertedBlob, `${name}.mcpack`);
                 }
             });
+        }
+
+        clearFile() {
+            this.file = null;
+            this.fileInfo.classList.remove('show');
+            this.convertBtn.disabled = true;
+            this.result.classList.remove('show');
+            this.logEl.classList.remove('show');
+            this.logEl.innerHTML = '';
+            this.progressContainer.classList.remove('show');
+            this.fileInput.value = '';
         }
 
         handleFile(file) {
@@ -262,7 +299,8 @@
             this.convertBtn.disabled = false;
             this.result.classList.remove('show');
             this.logEl.classList.remove('show');
-            this.addLog(`📂 فایل انتخاب شد: ${file.name}`, 'info');
+            this.logEl.innerHTML = '';
+            this.addLog(`📂 فایل انتخاب شد: ${file.name}`, 'success');
         }
 
         addLog(msg, type = 'info') {
@@ -353,7 +391,7 @@
         }
 
         // ============================================================
-        //  پردازش MCPatcher Sky (اسکای اختصاصی) - جدید نسخه ۱.۶
+        //  پردازش MCPatcher Sky (اسکای اختصاصی)
         // ============================================================
         async processMcpatcherSky(mcFolder, bedrockPack) {
             const mcpatcherFolder = mcFolder.folder('mcpatcher');
@@ -384,7 +422,6 @@
             if (pngFile) {
                 const data = await pngFile.async('base64');
                 
-                // تبدیل به ۶ تایی cubemap (همه از یک عکس)
                 const cubemapNames = [
                     'cubemap_0.png',
                     'cubemap_1.png',
@@ -465,12 +502,13 @@
             });
         }
         // ============================================================
-        //  هسته اصلی تبدیل - نسخه ۱.۶
+        //  هسته اصلی تبدیل - نسخه ۱.۶.۵
         // ============================================================
         async startConversion() {
             if (this.isConverting || !this.file) return;
             this.isConverting = true;
             this.convertBtn.disabled = true;
+            this.convertBtn.textContent = '⏳ در حال پردازش...';
             this.result.classList.remove('show');
             this.logs = [];
             this.logEl.innerHTML = '';
@@ -587,7 +625,7 @@
                 this.addLog('🌤️ پردازش اسکای معمولی...', 'info');
                 await this.processSky(mcFolder, bedrockPack);
                 
-                // ۲. McPatcher Sky (جدید)
+                // ۲. McPatcher Sky
                 this.addLog('🌤️ پردازش McPatcher Sky...', 'info');
                 await this.processMcpatcherSky(mcFolder, bedrockPack);
 
@@ -623,6 +661,7 @@
             } finally {
                 this.isConverting = false;
                 this.convertBtn.disabled = false;
+                this.convertBtn.textContent = '🔄 تبدیل به بدراک';
             }
         }
     }
