@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2 (God Mode)</title>
+    <title>PackZone MC - Resource Pack Converter v2.1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -46,6 +46,12 @@
             letter-spacing: 1px;
         }
         .badge-wrap { text-align: center; }
+        .version {
+            text-align: center;
+            color: #8899bb;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
         .sub {
             text-align: center;
             color: #8899bb;
@@ -199,9 +205,10 @@
 </head>
 <body>
 <div class="container">
-    <h1>🔄 PackZone <span>Converter</span> <span style="font-size:18px;color:#ff2e63;">v2</span></h1>
+    <h1>🔄 PackZone <span>Converter</span></h1>
+    <div class="version">نسخه ۲.۱</div>
     <div class="badge-wrap"><span class="badge">⚡ GOD MODE ⚡</span></div>
-    <p class="sub">تبدیل پیشرفته پک جاوا → بدراک + اسکای</p>
+    <p class="sub">تبدیل پیشرفته پک جاوا → بدراک</p>
 
     <div class="features">
         <span class="active">🖼️ destroy_stage → environment</span>
@@ -209,6 +216,7 @@
         <span class="active">📝 ascii → default8</span>
         <span class="active">📄 flipbook.json</span>
         <span class="active">🌤️ Sky → cubemap</span>
+        <span class="active">📁 font + sounds</span>
     </div>
 
     <div class="drop-zone" id="dropZone">
@@ -360,7 +368,7 @@
         }
 
         // ============================================================
-        // پردازش اسکای
+        // پردازش اسکای (Sky) → Cubemap
         // ============================================================
         async processSky(mcFolder, bedrockPack) {
             const skyFolder = mcFolder.folder('textures/environment/sky');
@@ -369,7 +377,6 @@
                 return;
             }
 
-            // [نام فایل جاوا, نام فایل بدراک, نیاز به چرخش]
             const skyMapping = [
                 ['up.png', 'cubemap_0.png', false],
                 ['front.png', 'cubemap_4.png', true],
@@ -463,9 +470,8 @@
                 return v.toString(16);
             });
         }
-
-        // ============================================================
-        // تابع اصلی تبدیل
+            // ============================================================
+        // تابع اصلی تبدیل - نسخه ۲.۱ (کامل)
         // ============================================================
         async startConversion() {
             if (this.isConverting || !this.file) return;
@@ -484,7 +490,9 @@
                 const bedrockPack = new JSZip();
                 this.setProgress(5, '🔄 ایجاد ساختار بدراک...');
 
-                // pack.png → pack_icon.png
+                // ========================================
+                // ۱. pack.png → pack_icon.png
+                // ========================================
                 const packPng = zip.file('pack.png');
                 if (packPng) {
                     const pngData = await packPng.async('base64');
@@ -497,12 +505,17 @@
                 }
                 this.setProgress(10, '🔄 ساخت مانیفست...');
 
-                // مانیفست
+                // ========================================
+                // ۲. مانیفست
+                // ========================================
                 const packName = this.file.name.replace(/\.zip$/, '');
                 const manifest = this.generateManifest(packName);
                 bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
                 this.addLog('✅ manifest.json ساخته شد', 'success');
 
+                // ========================================
+                // ۳. دسترسی به assets/minecraft
+                // ========================================
                 const mcFolder = zip.folder('assets/minecraft');
                 if (!mcFolder) {
                     throw new Error('پوشه assets/minecraft پیدا نشد!');
@@ -510,85 +523,120 @@
 
                 this.setProgress(15, '🔄 پردازش textures...');
 
-                // destroy_stage
-                const blocksFolder = mcFolder.folder('textures/blocks');
-                if (blocksFolder) {
-                    for (let i = 0; i <= 9; i++) {
-                        const file = blocksFolder.file(`destroy_stage_${i}.png`);
-                        if (file) {
-                            const data = await file.async('base64');
-                            bedrockPack.file(`textures/environment/destroy_stage_${i}.png`, data, { base64: true });
-                        }
-                    }
-                    this.addLog('🔄 destroy_stage به environment منتقل شد', 'success');
-                }
-
-                this.setProgress(30, '🔄 پردازش fire...');
-
-                // fire → flame_atlas
-                if (blocksFolder) {
-                    const fire0 = blocksFolder.file('fire_layer_0.png');
-                    if (fire0) {
-                        const data = await fire0.async('base64');
-                        bedrockPack.file('textures/flame_atlas.png', data, { base64: true });
-                        const flipbook = this.generateFlipbook();
-                        bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
-                        this.addLog('🔥 flame_atlas و flipbook ساخته شد', 'success');
-                    }
-                }
-
-                this.setProgress(45, '🔄 کپی textures...');
-
-                // کپی textures
+                // ========================================
+                // ۴. پردازش textures
+                // ========================================
                 const texturesFolder = mcFolder.folder('textures');
                 if (texturesFolder) {
-                    const allFiles = texturesFolder.file(/./);
-                    for (const file of allFiles) {
+                    const blocksFolder = texturesFolder.folder('blocks');
+                    
+                    // ۴-الف: destroy_stage → environment
+                    if (blocksFolder) {
+                        let destroyCount = 0;
+                        for (let i = 0; i <= 9; i++) {
+                            const file = blocksFolder.file(`destroy_stage_${i}.png`);
+                            if (file) {
+                                const data = await file.async('base64');
+                                bedrockPack.file(`textures/environment/destroy_stage_${i}.png`, data, { base64: true });
+                                destroyCount++;
+                            }
+                        }
+                        if (destroyCount > 0) {
+                            this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment منتقل شد`, 'success');
+                        }
+                    }
+
+                    // ۴-ب: fire → flame_atlas
+                    if (blocksFolder) {
+                        const fire0 = blocksFolder.file('fire_layer_0.png');
+                        if (fire0) {
+                            const data = await fire0.async('base64');
+                            bedrockPack.file('textures/flame_atlas.png', data, { base64: true });
+                            
+                            const flipbook = this.generateFlipbook();
+                            bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
+                            this.addLog('🔥 flame_atlas.png و flipbook_textures.json ساخته شد', 'success');
+                        }
+                    }
+
+                    // ۴-ج: کپی کامل همه فایل‌های textures (به جز موارد پردازش شده)
+                    this.setProgress(30, '🔄 کپی textures...');
+                    const allTextureFiles = texturesFolder.file(/./);
+                    let textureCount = 0;
+                    
+                    for (const file of allTextureFiles) {
                         if (!file.dir) {
                             const name = file.name;
                             if (name.includes('destroy_stage_') || name.includes('fire_layer_')) continue;
                             if (name.includes('environment/sky/')) continue;
+                            
                             const data = await file.async('base64');
-                            const newPath = file.name.replace(/^textures\//, '');
-                            bedrockPack.file(`textures/${newPath}`, data, { base64: true });
+                            bedrockPack.file(`textures/${file.name}`, data, { base64: true });
+                            textureCount++;
                         }
                     }
+                    this.addLog(`📁 ${textureCount} فایل textures کپی شد`, 'success');
                 }
 
-                this.setProgress(60, '🔄 پردازش SKY...');
-
-                // اسکای
+                // ========================================
+                // ۵. پردازش SKY (اسکای)
+                // ========================================
+                this.setProgress(50, '🔄 پردازش SKY...');
                 await this.processSky(mcFolder, bedrockPack);
 
-                this.setProgress(70, '🔄 پردازش font...');
-
-                // فونت
+                // ========================================
+                // ۶. پردازش font
+                // ========================================
+                this.setProgress(65, '🔄 پردازش font...');
                 const fontFolder = mcFolder.folder('font');
                 if (fontFolder) {
-                    const asciiFile = fontFolder.file('ascii.png');
-                    if (asciiFile) {
-                        const data = await asciiFile.async('base64');
-                        bedrockPack.file('textures/font/default8.png', data, { base64: true });
-                        bedrockPack.file('font/default8.png', data, { base64: true });
-                        this.addLog('📝 ascii.png → default8.png', 'success');
+                    const fontFiles = fontFolder.file(/./);
+                    let fontCount = 0;
+                    
+                    for (const file of fontFiles) {
+                        if (!file.dir) {
+                            const data = await file.async('base64');
+                            
+                            if (file.name === 'ascii.png') {
+                                bedrockPack.file('textures/font/default8.png', data, { base64: true });
+                                bedrockPack.file('font/default8.png', data, { base64: true });
+                                this.addLog('📝 ascii.png → default8.png (در دو مسیر)', 'success');
+                            } else {
+                                bedrockPack.file(`font/${file.name}`, data, { base64: true });
+                            }
+                            fontCount++;
+                        }
                     }
+                    this.addLog(`📁 ${fontCount} فایل font کپی شد`, 'success');
+                } else {
+                    this.addLog('ℹ️ پوشه font یافت نشد', 'info');
                 }
 
-                this.setProgress(85, '🔄 کپی sounds...');
-
-                // sounds
+                // ========================================
+                // ۷. پردازش sounds
+                // ========================================
+                this.setProgress(80, '🔄 کپی sounds...');
                 const soundsFolder = mcFolder.folder('sounds');
                 if (soundsFolder) {
                     const soundFiles = soundsFolder.file(/./);
+                    let soundCount = 0;
+                    
                     for (const file of soundFiles) {
                         if (!file.dir) {
                             const data = await file.async('base64');
                             bedrockPack.file(`sounds/${file.name}`, data, { base64: true });
+                            soundCount++;
                         }
                     }
+                    this.addLog(`📁 ${soundCount} فایل sounds کپی شد`, 'success');
+                } else {
+                    this.addLog('ℹ️ پوشه sounds یافت نشد', 'info');
                 }
 
-                this.setProgress(95, '📦 فشرده‌سازی...');
+                // ========================================
+                // ۸. فشرده‌سازی نهایی
+                // ========================================
+                this.setProgress(95, '📦 فشرده‌سازی فایل نهایی...');
 
                 this.convertedBlob = await bedrockPack.generateAsync({
                     type: 'blob',
@@ -597,7 +645,7 @@
                 });
 
                 this.setProgress(100, '✅ تبدیل کامل شد!');
-                this.addLog(`🎉 تبدیل موفق! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(1)} مگابایت`, 'success');
+                this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(1)} مگابایت`, 'success');
                 this.result.classList.add('show');
 
             } catch (err) {
