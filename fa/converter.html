@@ -855,7 +855,7 @@ async arrayBufferToBase64(buffer) {
         reader.onloadend = () => resolve(reader.result.split(',')[1]);
         reader.readAsDataURL(blob);
     });
-    }
+                                }
         // ============================================================
 //  پردازش اسکای معمولی (فقط بالای ۵۰۰KB)
 // ============================================================
@@ -1068,7 +1068,7 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
 
     this.addLog(`✅ ${skyData.length} فایل اسکای برای ساب‌پک انتخاب شد`, 'success');
     return skyData;
-                       }
+                                      }
         // ============================================================
 //  پردازش armor (با دیتابیس)
 // ============================================================
