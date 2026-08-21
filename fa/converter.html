@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.1</title>
+    <title>PackZone MC - Resource Pack Converter v2.2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -162,7 +162,7 @@
 <body>
     <div class="container">
         <h1>🔄 PackZone <span>Converter</span></h1>
-        <div class="version">نسخه ۲.۱</div>
+        <div class="version">نسخه ۲.۲</div>
         <p class="sub">تبدیل هوشمند پک جاوا → بدراک + ساب‌پک + فیکس خودکار</p>
 
         <div class="drop-zone" id="dropZone">
@@ -198,7 +198,7 @@
             <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
         </div>
     </div>
-<script>
+    <script>
     class PackConverter {
         constructor() {
             this.file = null;
@@ -419,14 +419,13 @@ async processSky(mcFolder, bedrockPack) {
 // ============================================================
 //  پردازش McPatcher Sky (۳×۲ → ۶ تکه) با ساب‌پک
 // ============================================================
-async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
+async processMcpatcherSkyWithSubpacks(mcFolder) {
     const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
     if (!skyFolder) {
         this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
         return null;
     }
 
-    // پیدا کردن همه فایل‌های .png
     const allFiles = skyFolder.file(/./);
     const pngFiles = [];
     for (const file of allFiles) {
@@ -440,9 +439,12 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
         return null;
     }
 
-    // حداقل ۲ تا فایل برای ساب‌پک
     const skyData = [];
-    for (let i = 0; i < Math.min(pngFiles.length, 2); i++) {
+    const subpackNames = ['Day Sky', 'Sunset Sky', 'Starfield I', 'Starfield II'];
+    const subpackColors = ['§b§l', '§6§l', '§7§l', '§f§l'];
+    const subpackFolders = ['daysky', 'sunsetsky', 'starfield1', 'starfield2'];
+
+    for (let i = 0; i < Math.min(pngFiles.length, 4); i++) {
         const file = pngFiles[i];
         const data = await file.async('base64');
         const img = new Image();
@@ -473,16 +475,19 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
             }
             subpackData[part.name] = cropped;
         }
+
         skyData.push({
             fileName: file.name,
-            subpackName: `sky${i + 1}`,
+            folderName: subpackFolders[i] || `sky${i + 1}`,
+            name: (subpackColors[i] || '§f§l') + (subpackNames[i] || `Sky ${i + 1}`),
+            memoryTier: 0,
             data: subpackData
         });
     }
 
     this.addLog(`🌤️ ${skyData.length} فایل اسکای برای ساب‌پک شناسایی شد`, 'special');
     return skyData;
-            }
+        }
         // ============================================================
 //  پردازش هوشمند armor (فقط تغییر اسم با دیتابیس)
 // ============================================================
@@ -534,10 +539,8 @@ async processFont(mcFolder, bedrockPack) {
             const data = await file.async('base64');
             const name = file.name;
 
-            // داخل textures/font
             bedrockPack.file(`textures/font/${name}`, data, { base64: true });
 
-            // ریشه (بیرون textures)
             if (name === 'ascii.png') {
                 bedrockPack.file(`font/default8.png`, data, { base64: true });
                 this.addLog(`📝 ascii.png → font/default8.png (ریشه)`, 'special');
@@ -613,36 +616,49 @@ async fixBugs(texturesFolder, bedrockPack) {
 }
 
 // ============================================================
-//  تولید مانیفست با ساب‌پک
+//  تولید مانیفست با ساب‌پک (رفع باگ‌ها)
 // ============================================================
 generateManifestWithSubpacks(packName, skyData) {
+    // UUIDهای منحصربفرد
+    const headerUUID = this.generateUUID();
+    const moduleUUID = this.generateUUID();
+
     const manifest = {
         format_version: 2,
         header: {
             name: packName,
-            description: 'RP Converter PackZoneMC v2.1!!',
-            uuid: this.generateUUID(),
+            description: 'RP Converter PackZoneMC v2.2!!',
+            uuid: headerUUID,
             version: [1, 0, 0],
             min_engine_version: [1, 20, 0]
         },
         modules: [{
             type: 'resources',
-            uuid: this.generateUUID(),
+            uuid: moduleUUID,
             version: [1, 0, 0]
         }]
     };
 
-    // اضافه کردن ساب‌پک‌ها
+    // اضافه کردن ساب‌پک‌ها با ساختار درست
     if (skyData && skyData.length > 0) {
         const subpacks = [];
+        const settingsText = [];
+
         for (const sky of skyData) {
             subpacks.push({
-                name: sky.subpackName,
-                folder: `subpacks/${sky.subpackName}`,
-                description: `اسکای ${sky.subpackName}`
+                folder_name: sky.folderName,
+                name: sky.name,
+                memory_tier: 0
             });
+            settingsText.push(sky.name.replace(/§[0-9a-fk-or]/g, '').trim());
         }
+
         manifest.subpacks = subpacks;
+        manifest.settings = [{
+            type: "label",
+            text: `§b§l${packName}\n§7تبدیل شده توسط PackZoneMC\n\n${settingsText.join(' • ')}`
+        }];
+
         this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
     }
 
@@ -716,105 +732,103 @@ generateUUID() {
         return v.toString(16);
     });
 }
-                    // ============================================================
-            //  تابع اصلی تبدیل هوشمند - نسخه ۲.۱
-            // ============================================================
-            async startConversion() {
-                if (this.isConverting || !this.file) return;
-                this.isConverting = true;
-                this.convertBtn.disabled = true;
-                this.result.classList.remove('show');
-                this.logs = [];
-                this.logEl.innerHTML = '';
-                this.logEl.classList.add('show');
-                this.startTime = Date.now();
-                this.setProgress(0, '⏳ آماده‌سازی...');
+        // ============================================================
+//  تابع اصلی تبدیل هوشمند - نسخه ۲.۲ (قسمت اول)
+// ============================================================
+async startConversion() {
+    if (this.isConverting || !this.file) return;
+    this.isConverting = true;
+    this.convertBtn.disabled = true;
+    this.result.classList.remove('show');
+    this.logs = [];
+    this.logEl.innerHTML = '';
+    this.logEl.classList.add('show');
+    this.startTime = Date.now();
+    this.setProgress(0, '⏳ آماده‌سازی...');
 
-                try {
-                    const fileData = await this.file.arrayBuffer();
-                    const zip = await JSZip.loadAsync(fileData);
-                    this.addLog('📦 فایل زیپ با موفقیت باز شد', 'success');
+    try {
+        const fileData = await this.file.arrayBuffer();
+        const zip = await JSZip.loadAsync(fileData);
+        this.addLog('📦 فایل زیپ با موفقیت باز شد', 'success');
 
-                    // ========================================
-                    // چک کردن pack.mcmeta
-                    // ========================================
-                    const mcmetaFile = zip.file('pack.mcmeta');
-                    if (mcmetaFile) {
-                        try {
-                            const mcmetaContent = await mcmetaFile.async('string');
-                            const mcmetaJson = JSON.parse(mcmetaContent);
-                            const packFormat = mcmetaJson?.pack?.pack_format;
-                            if (packFormat && packFormat > 1) {
-                                this.addLog(`❌ این پک با فرمت ${packFormat} است. فقط پک‌های فرمت ۱ (۱.۸.۹ و پایین‌تر) پشتیبانی می‌شوند.`,
-                                    'error');
-                                this.setProgress(0, '❌ فرمت پک پشتیبانی نمی‌شود');
-                                this.isConverting = false;
-                                this.convertBtn.disabled = false;
-                                return;
-                            }
-                            this.addLog(`✅ pack_format: ${packFormat || 'نامشخص'} (پشتیبانی می‌شود)`, 'success');
-                        } catch (e) {
-                            this.addLog('⚠️ خطا در خواندن pack.mcmeta، ادامه می‌دهیم...', 'warn');
-                        }
-                    } else {
-                        this.addLog('ℹ️ فایل pack.mcmeta یافت نشد، ادامه می‌دهیم...', 'info');
-                    }
+        // ========================================
+        // چک کردن pack.mcmeta
+        // ========================================
+        const mcmetaFile = zip.file('pack.mcmeta');
+        if (mcmetaFile) {
+            try {
+                const mcmetaContent = await mcmetaFile.async('string');
+                const mcmetaJson = JSON.parse(mcmetaContent);
+                const packFormat = mcmetaJson?.pack?.pack_format;
+                if (packFormat && packFormat > 1) {
+                    this.addLog(`❌ این پک با فرمت ${packFormat} است. فقط پک‌های فرمت ۱ (۱.۸.۹ و پایین‌تر) پشتیبانی می‌شوند.`,
+                        'error');
+                    this.setProgress(0, '❌ فرمت پک پشتیبانی نمی‌شود');
+                    this.isConverting = false;
+                    this.convertBtn.disabled = false;
+                    return;
+                }
+                this.addLog(`✅ pack_format: ${packFormat || 'نامشخص'} (پشتیبانی می‌شود)`, 'success');
+            } catch (e) {
+                this.addLog('⚠️ خطا در خواندن pack.mcmeta، ادامه می‌دهیم...', 'warn');
+            }
+        } else {
+            this.addLog('ℹ️ فایل pack.mcmeta یافت نشد، ادامه می‌دهیم...', 'info');
+        }
 
-                    const bedrockPack = new JSZip();
-                    this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
+        const bedrockPack = new JSZip();
+        this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
 
-                    // pack.png → pack_icon.png
-                    const packPng = zip.file('pack.png');
-                    if (packPng) {
-                        const pngData = await packPng.async('base64');
-                        bedrockPack.file('pack_icon.png', pngData, { base64: true });
-                        this.addLog('🖼️ pack_icon.png ساخته شد', 'success');
-                    } else {
-                        const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-                        bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
-                        this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
-                    }
-                    this.setProgress(15, '🔄 ساخت مانیفست...');
+        // pack.png → pack_icon.png
+        const packPng = zip.file('pack.png');
+        if (packPng) {
+            const pngData = await packPng.async('base64');
+            bedrockPack.file('pack_icon.png', pngData, { base64: true });
+            this.addLog('🖼️ pack_icon.png ساخته شد', 'success');
+        } else {
+            const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+            bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
+            this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
+        }
+        this.setProgress(15, '🔄 پردازش اسکای...');
 
-                    const assetsFolder = zip.folder('assets');
-                    if (!assetsFolder) {
-                        throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
-                    }
-                    const mcFolder = assetsFolder.folder('minecraft');
-                    if (!mcFolder) {
-                        throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
-                    }
+        const assetsFolder = zip.folder('assets');
+        if (!assetsFolder) {
+            throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+        }
+        const mcFolder = assetsFolder.folder('minecraft');
+        if (!mcFolder) {
+            throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+        }
 
-                    // ========================================
-                    // پردازش McPatcher Sky و ساخت ساب‌پک
-                    // ========================================
-                    this.setProgress(20, '🌤️ پردازش اسکای و ساب‌پک...');
-                    const skyData = await this.processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack);
+        // ========================================
+        // پردازش McPatcher Sky و ساخت ساب‌پک
+        // ========================================
+        const skyData = await this.processMcpatcherSkyWithSubpacks(mcFolder);
 
-                    // ========================================
-                    // ساخت مانیفست با ساب‌پک
-                    // ========================================
-                    const packName = this.file.name.replace(/\.zip$/, '');
-                    const manifest = this.generateManifestWithSubpacks(packName, skyData);
-                    bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
-                    this.addLog(`✅ manifest.json با ساب‌پک ساخته شد`, 'success');
+        // ========================================
+        // ساخت مانیفست با ساب‌پک
+        // ========================================
+        const packName = this.file.name.replace(/\.zip$/, '');
+        const manifest = this.generateManifestWithSubpacks(packName, skyData);
+        bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
+        this.addLog(`✅ manifest.json با ساب‌پک ساخته شد`, 'success');
 
-                    // ========================================
-                    // اضافه کردن ساب‌پک‌ها به پک
-                    // ========================================
-                    if (skyData && skyData.length > 0) {
-                        for (const sky of skyData) {
-                            const subpackFolder = `subpacks/${sky.subpackName}/textures/environment/overworld_cubemap/`;
-                            for (const [name, data] of Object.entries(sky.data)) {
-                                bedrockPack.file(`${subpackFolder}${name}`, data, { base64: true });
-                            }
-                            this.addLog(`📁 ساب‌پک ${sky.subpackName} با ${Object.keys(sky.data).length} فایل ساخته شد`, 'special');
-                        }
-                    }
+        // ========================================
+        // اضافه کردن ساب‌پک‌ها به پک
+        // ========================================
+        if (skyData && skyData.length > 0) {
+            for (const sky of skyData) {
+                const subpackFolder = `subpacks/${sky.folderName}/textures/environment/overworld_cubemap/`;
+                for (const [name, data] of Object.entries(sky.data)) {
+                    bedrockPack.file(`${subpackFolder}${name}`, data, { base64: true });
+                }
+                this.addLog(`📁 ساب‌پک ${sky.folderName} با ${Object.keys(sky.data).length} فایل ساخته شد`, 'special');
+            }
+        }
 
-                    this.setProgress(40, '🔄 کپی فایل‌ها...');
-
-                    // ========================================
+        this.setProgress(35, '🔄 کپی فایل‌ها...');
+                            // ========================================
                     // کپی پوشه‌های اصلی
                     // ========================================
                     const foldersToCopy = ['textures', 'sounds'];
@@ -837,7 +851,7 @@ generateUUID() {
                         } else {
                             this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'warn');
                         }
-                        const progress = 40 + (copiedCount / foldersToCopy.length) * 20;
+                        const progress = 35 + (copiedCount / foldersToCopy.length) * 25;
                         this.setProgress(progress, `🔄 کپی ${folderName}...`);
                     }
 
