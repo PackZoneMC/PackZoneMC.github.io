@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.6</title>
+    <title>PackZone MC - Resource Pack Converter v2.6.1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <!-- کتابخونه RAR -->
     <script src="https://cdn.jsdelivr.net/npm/unrar-js@0.2.1/dist/unrar.js"></script>
     <style>
         * {
@@ -56,7 +55,6 @@
             font-size: 14px;
         }
 
-        /* پنل تنظیمات */
         .settings-panel {
             background: #0f1626;
             padding: 16px 20px;
@@ -306,7 +304,6 @@
             transform: scale(1.03);
         }
 
-        /* تاریخچه */
         .history-section {
             margin-top: 25px;
             border-top: 1px solid #1a2a4a;
@@ -448,10 +445,9 @@
 <body>
     <div class="container">
         <h1>🔄 PackZone <span>Converter</span></h1>
-        <div class="version">نسخه ۲.۶</div>
+        <div class="version">نسخه ۲.۶.۱</div>
         <p class="sub">تبدیل هوشمند پک جاوا → بدراک + سفارشی‌سازی کامل</p>
 
-        <!-- ====== پنل تنظیمات ====== -->
         <div class="settings-panel">
             <label>
                 🏷️ اسم پک
@@ -486,13 +482,12 @@
             </label>
         </div>
 
-        <!-- ====== آپلود ====== -->
         <div class="drop-zone" id="dropZone">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
             <p>📁 فایل پک جاوا را بکشید یا کلیک کنید</p>
             <p class="hint">پشتیبانی از .zip و .rar — حداکثر ۱۰۰ مگابایت</p>
         </div>
-        <input type="file" id="file-input" accept=".zip,.rar">
+        <input type="file" id="file-input" accept=".zip">
 
         <div class="file-info" id="fileInfo">
             <span class="name" id="fileName">pack.zip</span>
@@ -520,7 +515,6 @@
             <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
         </div>
 
-        <!-- ====== تاریخچه ====== -->
         <div class="history-section">
             <div class="history-header">
                 <h2>📂 <span>تاریخچه</span> تبدیل‌ها</h2>
@@ -570,7 +564,7 @@
     }
 
     // ============================================================
-    //  کلاس اصلی کانورتر - نسخه ۲.۶
+    //  کلاس اصلی کانورتر - نسخه ۲.۶.۱
     // ============================================================
     class PackConverter {
         constructor() {
@@ -582,7 +576,6 @@
             this.startTime = 0;
             this.rarSupported = typeof UNRAR !== 'undefined';
 
-            // تنظیمات پیش‌فرض
             this.defaultSettings = {
                 packName: '',
                 color: '#4a9eff',
@@ -591,7 +584,6 @@
             };
             this.currentSettings = { ...this.defaultSettings };
 
-            // دیتابیس مسیرهای تبدیل
             this.pathDatabase = {
                 'textures/models/armor/chainmail_layer_1.png': 'textures/models/armor/chain_1.png',
                 'textures/models/armor/chainmail_layer_2.png': 'textures/models/armor/chain_2.png',
@@ -625,7 +617,6 @@
                 { "flipbook_texture": "textures/items/netherite_sword", "atlas_tile": "netherite_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
             ];
 
-            // DOM
             this.dropZone = document.getElementById('dropZone');
             this.fileInput = document.getElementById('file-input');
             this.fileInfo = document.getElementById('fileInfo');
@@ -644,8 +635,6 @@
             this.historyList = document.getElementById('historyList');
             this.historySearch = document.getElementById('historySearch');
             this.clearHistoryBtn = document.getElementById('clearHistoryBtn');
-
-            // تنظیمات DOM
             this.packNameInput = document.getElementById('packNameInput');
             this.packColorInput = document.getElementById('packColorInput');
             this.packFontInput = document.getElementById('packFontInput');
@@ -656,13 +645,12 @@
             this.loadSettings();
             this.renderHistory();
         }
-        // ============================================================
+    // ============================================================
 //  رویدادها و متدهای اولیه
 // ============================================================
 initEvents() {
     const self = this;
 
-    // انتخاب فایل
     this.dropZone.addEventListener('click', function(e) {
         e.stopPropagation();
         self.fileInput.click();
@@ -687,11 +675,9 @@ initEvents() {
         }
     });
 
-    // تبدیل و دانلود
     this.convertBtn.addEventListener('click', () => this.startConversion());
     this.downloadBtn.addEventListener('click', () => this.downloadPack());
 
-    // تنظیمات
     this.packNameInput.addEventListener('input', () => this.saveSettings());
     this.packColorInput.addEventListener('input', () => this.saveSettings());
     this.packFontInput.addEventListener('change', () => this.saveSettings());
@@ -701,7 +687,6 @@ initEvents() {
         this.saveSettings();
     });
 
-    // تاریخچه
     this.historySearch.addEventListener('input', () => this.renderHistory());
     this.clearHistoryBtn.addEventListener('click', () => {
         if (confirm('همه تاریخچه پاک شود؟')) {
@@ -711,9 +696,6 @@ initEvents() {
     });
 }
 
-// ============================================================
-//  مدیریت تنظیمات کاربر
-// ============================================================
 loadSettings() {
     try {
         const saved = JSON.parse(localStorage.getItem('packSettings') || 'null');
@@ -744,7 +726,6 @@ getFormattedPackName() {
     const color = this.currentSettings.color || '#4a9eff';
     const font = this.currentSettings.font || 'bold';
 
-    // تبدیل رنگ هگز به کد ماینکرفت
     const hexToMcColor = (hex) => {
         const colors = {
             '#000000': '0', '#0000AA': '1', '#00AA00': '2', '#00AAAA': '3',
@@ -855,8 +836,8 @@ async arrayBufferToBase64(buffer) {
         reader.onloadend = () => resolve(reader.result.split(',')[1]);
         reader.readAsDataURL(blob);
     });
-                                }
-        // ============================================================
+    }
+// ============================================================
 //  پردازش اسکای معمولی (فقط بالای ۵۰۰KB)
 // ============================================================
 async processSky(mcFolder, bedrockPack) {
@@ -933,9 +914,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
         return null;
     }
 
-    // ============================================================
-    //  نمایش پیش‌نمایش به کاربر (در لاگ)
-    // ============================================================
     this.addLog(`🖼️ ${pngFiles.length} فایل اسکای در mcpatcher/sky/world0 یافت شد:`, 'info');
     for (let i = 0; i < pngFiles.length; i++) {
         const file = pngFiles[i];
@@ -945,9 +923,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
         this.addLog(`   ${i+1}. ${file.name} (${fileSizeKB.toFixed(0)}KB) ${status}`, 'info');
     }
 
-    // ============================================================
-    //  انتخاب دستی یا خودکار
-    // ============================================================
     const useManual = confirm(
         `🔍 ${pngFiles.length} فایل اسکای پیدا شد!\n\n` +
         `آیا می‌خواهید خودتان انتخاب کنید کدام‌ها بدراک شوند؟\n` +
@@ -957,7 +932,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
 
     let selectedFiles = [];
     if (useManual) {
-        // انتخاب دستی با prompt
         const options = pngFiles.map((f, i) => `${i+1}. ${f.name}`).join('\n');
         const input = prompt(
             `شماره فایل‌های مورد نظر را با کاما وارد کنید:\n\n${options}\n\n` +
@@ -970,7 +944,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
             selectedFiles = pngFiles;
         }
     } else {
-        // خودکار: همه فایل‌های بالای ۵۰۰KB
         for (const file of pngFiles) {
             const fileData = await file.async('arraybuffer');
             const fileSizeKB = fileData.byteLength / 1024;
@@ -985,9 +958,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
         return null;
     }
 
-    // ============================================================
-    //  تبدیل فایل‌های انتخاب شده
-    // ============================================================
     const skyData = [];
     const subpackNames = ['Day Sky', 'Sunset Sky', 'Starfield I', 'Starfield II'];
     const subpackColors = ['§b§l', '§6§l', '§7§l', '§f§l'];
@@ -1034,9 +1004,6 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
             subpackData[part.name] = cropped;
         }
 
-        // ============================================================
-        //  انتخاب اسم توی بازی
-        // ============================================================
         let displayName = subpackNames[validCount] || `Sky ${validCount + 1}`;
         if (selectedFiles.length > 1) {
             const customName = prompt(
@@ -1068,522 +1035,365 @@ async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
 
     this.addLog(`✅ ${skyData.length} فایل اسکای برای ساب‌پک انتخاب شد`, 'success');
     return skyData;
-                                      }
-        // ============================================================
-//  پردازش armor (با دیتابیس)
-// ============================================================
-async processArmor(texturesFolder, bedrockPack) {
-    const armorFolder = texturesFolder.folder('models/armor');
-    if (!armorFolder) return;
-
-    const files = armorFolder.file(/./);
-    let convertedCount = 0;
-
-    for (const file of files) {
-        if (!file.dir) {
-            const name = file.name;
-            const data = await file.async('base64');
-            const javaPath = `textures/models/armor/${name}`;
-            if (this.pathDatabase[javaPath]) {
-                const bedrockPath = this.pathDatabase[javaPath];
-                bedrockPack.file(bedrockPath, data, { base64: true });
-                convertedCount++;
-                this.addLog(`🛡️ ${name} → ${bedrockPath.split('/').pop()}`, 'special');
-            } else {
-                bedrockPack.file(`textures/models/armor/${name}`, data, { base64: true });
-            }
-        }
+                }
     }
-
-    if (convertedCount > 0) {
-        this.addLog(`✅ ${convertedCount} فایل armor با دیتابیس تبدیل شد`, 'success');
-    }
-}
-
-// ============================================================
-//  پردازش font (داخل textures + ریشه)
-// ============================================================
-async processFont(mcFolder, bedrockPack) {
-    const fontFolder = mcFolder.folder('font');
-    if (!fontFolder) {
-        this.addLog('ℹ️ پوشه font یافت نشد', 'info');
-        return;
-    }
-
-    const fontFiles = fontFolder.file(/./);
-    let fontCount = 0;
-
-    for (const file of fontFiles) {
-        if (!file.dir) {
-            const data = await file.async('base64');
-            const name = file.name;
-
-            // داخل textures/font
-            bedrockPack.file(`textures/font/${name}`, data, { base64: true });
-
-            // ریشه (بیرون textures)
-            if (name === 'ascii.png') {
-                bedrockPack.file(`font/default8.png`, data, { base64: true });
-                this.addLog(`📝 ascii.png → font/default8.png (ریشه)`, 'special');
-            } else {
-                bedrockPack.file(`font/${name}`, data, { base64: true });
-            }
-            fontCount++;
-        }
-    }
-    this.addLog(`📁 ${fontCount} فایل font کپی شد (داخل textures و ریشه)`, 'success');
-}
-
-// ============================================================
-//  فیکس باگ‌های شمشیرها
-// ============================================================
-async fixBugs(texturesFolder, bedrockPack) {
-    const itemsFolder = texturesFolder.folder('items');
-    if (!itemsFolder) return;
-
-    let fixedCount = 0;
-
-    for (const buggyFile of this.buggyFiles) {
-        const fileName = buggyFile.split('/').pop();
-        const file = itemsFolder.file(fileName);
-        if (file) {
-            const data = await file.async('base64');
-            const bedrockPath = `textures/items/${fileName}`;
-            bedrockPack.file(bedrockPath, data, { base64: true });
-            fixedCount++;
-            this.addLog(`🔧 فیکس شد: ${fileName}`, 'special');
-        }
-    }
-
-    if (fixedCount > 0) {
-        this.addLog(`✅ ${fixedCount} فایل باگ‌دار فیکس شد`, 'success');
-        bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(this.flipbookTemplate, null, 2));
-        this.addLog(`📄 flipbook_textures.json برای شمشیرها ساخته شد`, 'special');
-    }
-}
-
-// ============================================================
-//  کپی assets/minecraft/textures/gui/container به بدراک
-// ============================================================
-async copyGuiContainer(mcFolder, bedrockPack) {
-    const guiContainerFolder = mcFolder.folder('textures/gui/container');
-    if (!guiContainerFolder) {
-        this.addLog('ℹ️ پوشه textures/gui/container در جاوا یافت نشد', 'info');
-        return;
-    }
-
-    const files = guiContainerFolder.file(/./);
-    let fileCount = 0;
-    let skippedCount = 0;
-
-    for (const file of files) {
-        if (!file.dir) {
-            const name = file.name;
-            if (name === 'container' || name === 'gui' || name === 'textures') {
-                skippedCount++;
-                continue;
-            }
-            const data = await file.async('base64');
-            bedrockPack.file(`assets/minecraft/textures/gui/container/${name}`, data, { base64: true });
-            fileCount++;
-        }
-    }
-
-    if (fileCount > 0) {
-        this.addLog(`📁 ${fileCount} فایل از textures/gui/container به assets/minecraft/textures/gui/container/ کپی شد`, 'success');
-    }
-}
             // ============================================================
-    //  تولید مانیفست با تنظیمات کاربر
-    // ============================================================
-    generateManifestWithSettings(packName, skyData) {
-        const headerUUID = this.generateUUID();
-        const moduleUUID = this.generateUUID();
-        const versionStr = this.currentSettings.version || '1.20';
-        const versionArr = versionStr.split('.').map(Number);
-        if (versionArr.length < 3) versionArr.push(0);
+            //  تولید مانیفست با تنظیمات کاربر
+            // ============================================================
+            generateManifestWithSettings(packName, skyData) {
+                const headerUUID = this.generateUUID();
+                const moduleUUID = this.generateUUID();
+                const versionStr = this.currentSettings.version || '1.20';
+                const versionArr = versionStr.split('.').map(Number);
+                if (versionArr.length < 3) versionArr.push(0);
 
-        const formattedName = this.getFormattedPackName();
+                const formattedName = this.getFormattedPackName();
 
-        const manifest = {
-            format_version: 2,
-            header: {
-                name: formattedName,
-                description: '§bPackZoneMC §fConverter!! §7| §eThe Ultimate Resource Pack Converter',
-                uuid: headerUUID,
-                version: [1, 0, 0],
-                min_engine_version: versionArr
-            },
-            modules: [{
-                type: 'resources',
-                uuid: moduleUUID,
-                version: [1, 0, 0]
-            }]
+                const manifest = {
+                    format_version: 2,
+                    header: {
+                        name: formattedName,
+                        description: '§bPackZoneMC §fConverter!! §7| §eThe Ultimate Resource Pack Converter',
+                        uuid: headerUUID,
+                        version: [1, 0, 0],
+                        min_engine_version: versionArr
+                    },
+                    modules: [{
+                        type: 'resources',
+                        uuid: moduleUUID,
+                        version: [1, 0, 0]
+                    }]
+                };
+
+                if (skyData && skyData.length > 0) {
+                    const subpacks = [];
+                    const settingsText = [];
+
+                    for (const sky of skyData) {
+                        subpacks.push({
+                            folder_name: sky.folderName,
+                            name: sky.name,
+                            memory_tier: 0
+                        });
+                        settingsText.push(sky.name.replace(/§[0-9a-fk-or]/g, '').trim());
+                    }
+
+                    manifest.subpacks = subpacks;
+                    manifest.settings = [{
+                        type: "label",
+                        text: `§b§l${packName}\n§7Converted by PackZoneMC v2.6.1\n\n${settingsText.join(' • ')}`
+                    }];
+
+                    this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
+                }
+
+                return manifest;
+            }
+
+            generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            generateCompleteFlipbook() {
+                return [
+                    ...this.flipbookTemplate,
+                    { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+                ];
+            }
+
+            renderHistory() {
+                const query = this.historySearch ? this.historySearch.value : '';
+                const history = PackStorage.search(query);
+
+                if (history.length === 0) {
+                    this.historyList.innerHTML = `<div class="history-empty">${query.trim() ? '🔍 پکی با این نام یافت نشد.' : 'هنوز هیچ پکی تبدیل نشده است.'}</div>`;
+                    return;
+                }
+
+                let html = '';
+                for (const item of history) {
+                    const date = new Date(item.date);
+                    const dateStr = date.toLocaleDateString('fa-IR') + ' ' + date.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+                    html += `
+                        <div class="history-item">
+                            <div class="info">
+                                <div class="name">🎨 ${item.name}</div>
+                                <div class="meta">
+                                    <span>📅 ${dateStr}</span>
+                                    <span>📦 ${item.size} مگابایت</span>
+                                    <span>⏱️ ${item.time} ثانیه</span>
+                                    ${item.hasSky ? '<span>🌤️ اسکای</span>' : ''}
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn-download-history" onclick="window.downloadHistoryPack('${item.id}')">📥 دانلود</button>
+                                <button class="btn-delete-history" onclick="window.deleteHistoryPack('${item.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }
+                this.historyList.innerHTML = html;
+            }
+
+            downloadPack() {
+                if (this.convertedBlob) {
+                    const name = this.currentSettings.packName || this.file?.name.replace(/\.(zip|rar)$/, '') || 'converted';
+                    saveAs(this.convertedBlob, `${name}.mcpack`);
+                }
+            }
+
+            blobToBase64(blob) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(blob);
+                });
+            }
+
+            // ============================================================
+            //  تابع اصلی تبدیل
+            // ============================================================
+            async startConversion() {
+                if (this.isConverting || !this.file) return;
+                this.isConverting = true;
+                this.convertBtn.disabled = true;
+                this.result.classList.remove('show');
+                this.logs = [];
+                this.logEl.innerHTML = '';
+                this.logEl.classList.add('show');
+                this.startTime = Date.now();
+                this.setProgress(0, '⏳ آماده‌سازی...');
+
+                try {
+                    let zipData;
+                    const ext = this.file.name.split('.').pop().toLowerCase();
+
+                    if (ext === 'rar') {
+                        if (!this.rarSupported) {
+                            throw new Error('کتابخونه RAR پشتیبانی نمی‌شود. لطفاً از ZIP استفاده کنید.');
+                        }
+                        this.addLog('📦 در حال استخراج فایل RAR...', 'info');
+                        const rarData = await this.file.arrayBuffer();
+                        const rar = await UNRAR({
+                            data: new Uint8Array(rarData)
+                        });
+                        const files = await rar.getFiles();
+                        if (!files || files.length === 0) {
+                            throw new Error('فایل RAR خالی است یا قابل خواندن نیست');
+                        }
+                        zipData = new JSZip();
+                        for (const file of files) {
+                            if (!file.isDirectory) {
+                                const content = await file.getContent();
+                                zipData.file(file.name, content);
+                            }
+                        }
+                        this.addLog(`✅ ${files.length} فایل از RAR استخراج شد`, 'success');
+                    } else {
+                        const fileData = await this.file.arrayBuffer();
+                        zipData = await JSZip.loadAsync(fileData);
+                        this.addLog('📦 فایل ZIP با موفقیت باز شد', 'success');
+                    }
+
+                    const bedrockPack = new JSZip();
+                    this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
+
+                    const packPng = zipData.file('pack.png');
+                    if (packPng) {
+                        const pngData = await packPng.async('base64');
+                        bedrockPack.file('pack_icon.png', pngData, { base64: true });
+                        this.addLog('🖼️ pack_icon.png ساخته شد', 'success');
+                    } else {
+                        const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+                        bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
+                        this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
+                    }
+
+                    this.setProgress(15, '🔄 پردازش اسکای...');
+                    const assetsFolder = zipData.folder('assets');
+                    if (!assetsFolder) {
+                        throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+                    }
+                    const mcFolder = assetsFolder.folder('minecraft');
+                    if (!mcFolder) {
+                        throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
+                    }
+
+                    const skyData = await this.processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack);
+
+                    const packName = this.currentSettings.packName || this.file.name.replace(/\.(zip|rar)$/, '');
+                    const manifest = this.generateManifestWithSettings(packName, skyData);
+                    bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
+                    this.addLog(`✅ manifest.json با تنظیمات کاربر ساخته شد`, 'success');
+
+                    if (skyData && skyData.length > 0) {
+                        for (const sky of skyData) {
+                            const subpackFolder = `subpacks/${sky.folderName}/textures/environment/overworld_cubemap/`;
+                            for (const [name, data] of Object.entries(sky.data)) {
+                                bedrockPack.file(`${subpackFolder}${name}`, data, { base64: true });
+                            }
+                            this.addLog(`📁 ساب‌پک ${sky.folderName} با ${Object.keys(sky.data).length} فایل ساخته شد`, 'special');
+                        }
+                    }
+
+                    this.setProgress(35, '🔄 کپی فایل‌ها...');
+
+                    const foldersToCopy = ['textures', 'sounds'];
+                    let copiedCount = 0;
+
+                    for (const folderName of foldersToCopy) {
+                        const folder = mcFolder.folder(folderName);
+                        if (folder) {
+                            this.addLog(`📁 کپی ${folderName}...`, 'info');
+                            const files = folder.file(/./);
+                            for (const file of files) {
+                                if (!file.dir) {
+                                    const data = await file.async('base64');
+                                    const newPath = file.name.replace(`assets/minecraft/${folderName}/`, '');
+                                    bedrockPack.file(`${folderName}/${newPath}`, data, { base64: true });
+                                }
+                            }
+                            copiedCount++;
+                            this.addLog(`✅ ${folderName} کپی شد (${files.filter(f => !f.dir).length} فایل)`, 'success');
+                        } else {
+                            this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'warn');
+                        }
+                        const progress = 35 + (copiedCount / foldersToCopy.length) * 20;
+                        this.setProgress(progress, `🔄 کپی ${folderName}...`);
+                    }
+
+                    const texturesFolder = mcFolder.folder('textures');
+
+                    await this.copyGuiContainer(mcFolder, bedrockPack);
+
+                    if (texturesFolder) {
+                        await this.processArmor(texturesFolder, bedrockPack);
+                    }
+
+                    await this.processFont(mcFolder, bedrockPack);
+
+                    if (texturesFolder) {
+                        await this.fixBugs(texturesFolder, bedrockPack);
+                    }
+
+                    this.setProgress(75, '🔄 پردازش اسکای معمولی...');
+
+                    if (!skyData || skyData.length === 0) {
+                        await this.processSky(mcFolder, bedrockPack);
+                    } else {
+                        this.addLog('ℹ️ اسکای معمولی به دلیل وجود ساب‌پک، نادیده گرفته شد', 'info');
+                    }
+
+                    if (texturesFolder) {
+                        const blocksFolder = texturesFolder.folder('blocks');
+                        if (blocksFolder) {
+                            let destroyCount = 0;
+                            for (let i = 0; i <= 9; i++) {
+                                const file = blocksFolder.file(`destroy_stage_${i}.png`);
+                                if (file) {
+                                    const data = await file.async('base64');
+                                    bedrockPack.file(`textures/environment/destroy_stage_${i}.png`, data, { base64: true });
+                                    destroyCount++;
+                                }
+                            }
+                            if (destroyCount > 0) {
+                                this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment اضافه شد`, 'special');
+                            }
+
+                            const fire0 = blocksFolder.file('fire_layer_0.png');
+                            if (fire0) {
+                                const data = await fire0.async('base64');
+                                bedrockPack.file('textures/flame_atlas.png', data, { base64: true });
+                                const flipbook = this.generateCompleteFlipbook();
+                                bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
+                                this.addLog('🔥 flame_atlas.png و flipbook_textures.json کامل اضافه شد', 'special');
+                            }
+                        }
+                    }
+
+                    this.setProgress(92, '📦 فشرده‌سازی...');
+
+                    this.convertedBlob = await bedrockPack.generateAsync({
+                        type: 'blob',
+                        compression: 'DEFLATE',
+                        compressionOptions: { level: 6 }
+                    });
+
+                    const elapsedTime = ((Date.now() - this.startTime) / 1000).toFixed(1);
+                    this.setProgress(100, '✅ تبدیل کامل شد!');
+
+                    const finalPackName = this.currentSettings.packName || this.file.name.replace(/\.(zip|rar)$/, '');
+                    this.addLog(`🎉 تبدیل با موفقیت انجام شد! زمان: ${elapsedTime} ثانیه`, 'success');
+                    this.addLog(`📦 حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'info');
+
+                    this.convertTime.textContent = elapsedTime;
+                    this.resultDetail.innerHTML =
+                        `⏱️ زمان تبدیل: <span id="convertTime">${elapsedTime}</span> ثانیه • حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`;
+                    this.result.classList.add('show');
+
+                    const historyData = {
+                        name: finalPackName,
+                        size: (this.convertedBlob.size / 1024 / 1024).toFixed(2),
+                        time: elapsedTime,
+                        blob: await this.blobToBase64(this.convertedBlob),
+                        hasSky: skyData && skyData.length > 0
+                    };
+                    PackStorage.save(historyData);
+                    this.renderHistory();
+
+                } catch (err) {
+                    this.addLog(`❌ خطا: ${err.message}`, 'error');
+                    this.setProgress(0, '❌ خطا در تبدیل');
+                    console.error(err);
+                } finally {
+                    this.isConverting = false;
+                    this.convertBtn.disabled = false;
+                }
+            }
+        }
+
+        window.downloadHistoryPack = async function(id) {
+            const history = PackStorage.getAll();
+            const item = history.find(p => p.id === id);
+            if (item && item.blob) {
+                const blob = await fetch(item.blob).then(r => r.blob());
+                saveAs(blob, `${item.name}.mcpack`);
+            }
         };
 
-        if (skyData && skyData.length > 0) {
-            const subpacks = [];
-            const settingsText = [];
-
-            for (const sky of skyData) {
-                subpacks.push({
-                    folder_name: sky.folderName,
-                    name: sky.name,
-                    memory_tier: 0
-                });
-                settingsText.push(sky.name.replace(/§[0-9a-fk-or]/g, '').trim());
+        window.deleteHistoryPack = function(id) {
+            if (confirm('آیا مطمئن هستید؟')) {
+                PackStorage.delete(id);
+                const converter = new PackConverter();
+                converter.renderHistory();
             }
+        };
 
-            manifest.subpacks = subpacks;
-            manifest.settings = [{
-                type: "label",
-                text: `§b§l${packName}\n§7Converted by PackZoneMC v2.6\n\n${settingsText.join(' • ')}`
-            }];
-
-            this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
-        }
-
-        return manifest;
-    }
-
-    // ============================================================
-    //  تولید UUID
-    // ============================================================
-    generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            const r = Math.random() * 16 | 0;
-            const v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
+        document.addEventListener('DOMContentLoaded', () => {
+            new PackConverter();
         });
-    }
-
-    // ============================================================
-    //  تولید flipbook_textures.json کامل
-    // ============================================================
-    generateCompleteFlipbook() {
-        return [
-            ...this.flipbookTemplate,
-            { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-            { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
-        ];
-    }
-
-    // ============================================================
-    //  تاریخچه
-    // ============================================================
-    renderHistory() {
-        const query = this.historySearch ? this.historySearch.value : '';
-        const history = PackStorage.search(query);
-
-        if (history.length === 0) {
-            this.historyList.innerHTML = `<div class="history-empty">${query.trim() ? '🔍 پکی با این نام یافت نشد.' : 'هنوز هیچ پکی تبدیل نشده است.'}</div>`;
-            return;
-        }
-
-        let html = '';
-        for (const item of history) {
-            const date = new Date(item.date);
-            const dateStr = date.toLocaleDateString('fa-IR') + ' ' + date.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-            html += `
-                <div class="history-item">
-                    <div class="info">
-                        <div class="name">🎨 ${item.name}</div>
-                        <div class="meta">
-                            <span>📅 ${dateStr}</span>
-                            <span>📦 ${item.size} مگابایت</span>
-                            <span>⏱️ ${item.time} ثانیه</span>
-                            ${item.hasSky ? '<span>🌤️ اسکای</span>' : ''}
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button class="btn-download-history" onclick="window.downloadHistoryPack('${item.id}')">📥 دانلود</button>
-                        <button class="btn-delete-history" onclick="window.deleteHistoryPack('${item.id}')">🗑️</button>
-                    </div>
-                </div>
-            `;
-        }
-        this.historyList.innerHTML = html;
-    }
-
-    // ============================================================
-    //  دانلود پک
-    // ============================================================
-    downloadPack() {
-        if (this.convertedBlob) {
-            const name = this.currentSettings.packName || this.file?.name.replace(/\.(zip|rar)$/, '') || 'converted';
-            saveAs(this.convertedBlob, `${name}.mcpack`);
-        }
-    }
-
-    blobToBase64(blob) {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-        });
-    }
-}
-
-// ============================================================
-//  توابع سراسری تاریخچه
-// ============================================================
-window.downloadHistoryPack = async function(id) {
-    const history = PackStorage.getAll();
-    const item = history.find(p => p.id === id);
-    if (item && item.blob) {
-        const blob = await fetch(item.blob).then(r => r.blob());
-        saveAs(blob, `${item.name}.mcpack`);
-    }
-};
-
-window.deleteHistoryPack = function(id) {
-    if (confirm('آیا مطمئن هستید؟')) {
-        PackStorage.delete(id);
-        const converter = new PackConverter();
-        converter.renderHistory();
-    }
-};
-            // ============================================================
-        //  تابع اصلی تبدیل
-        // ============================================================
-        async startConversion() {
-            if (this.isConverting || !this.file) return;
-            this.isConverting = true;
-            this.convertBtn.disabled = true;
-            this.result.classList.remove('show');
-            this.logs = [];
-            this.logEl.innerHTML = '';
-            this.logEl.classList.add('show');
-            this.startTime = Date.now();
-            this.setProgress(0, '⏳ آماده‌سازی...');
-
-            try {
-                let zipData;
-                const ext = this.file.name.split('.').pop().toLowerCase();
-
-                if (ext === 'rar') {
-                    // ============================================================
-                    //  پردازش RAR با unrar.js
-                    // ============================================================
-                    if (!this.rarSupported) {
-                        throw new Error('کتابخونه RAR پشتیبانی نمی‌شود. لطفاً از ZIP استفاده کنید.');
-                    }
-                    this.addLog('📦 در حال استخراج فایل RAR...', 'info');
-                    const rarData = await this.file.arrayBuffer();
-                    const rar = await UNRAR({
-                        data: new Uint8Array(rarData)
-                    });
-                    const files = await rar.getFiles();
-                    if (!files || files.length === 0) {
-                        throw new Error('فایل RAR خالی است یا قابل خواندن نیست');
-                    }
-                    zipData = new JSZip();
-                    for (const file of files) {
-                        if (!file.isDirectory) {
-                            const content = await file.getContent();
-                            zipData.file(file.name, content);
-                        }
-                    }
-                    this.addLog(`✅ ${files.length} فایل از RAR استخراج شد`, 'success');
-                } else {
-                    // ZIP
-                    const fileData = await this.file.arrayBuffer();
-                    zipData = await JSZip.loadAsync(fileData);
-                    this.addLog('📦 فایل ZIP با موفقیت باز شد', 'success');
-                }
-
-                // ============================================================
-                //  ادامه پردازش
-                // ============================================================
-                const bedrockPack = new JSZip();
-                this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
-
-                // pack.png → pack_icon.png
-                const packPng = zipData.file('pack.png');
-                if (packPng) {
-                    const pngData = await packPng.async('base64');
-                    bedrockPack.file('pack_icon.png', pngData, { base64: true });
-                    this.addLog('🖼️ pack_icon.png ساخته شد', 'success');
-                } else {
-                    const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-                    bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
-                    this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
-                }
-
-                this.setProgress(15, '🔄 پردازش اسکای...');
-                const assetsFolder = zipData.folder('assets');
-                if (!assetsFolder) {
-                    throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
-                }
-                const mcFolder = assetsFolder.folder('minecraft');
-                if (!mcFolder) {
-                    throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
-                }
-
-                // پردازش McPatcher Sky
-                const skyData = await this.processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack);
-
-                // ساخت مانیفست با تنظیمات کاربر
-                const packName = this.currentSettings.packName || this.file.name.replace(/\.(zip|rar)$/, '');
-                const manifest = this.generateManifestWithSettings(packName, skyData);
-                bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
-                this.addLog(`✅ manifest.json با تنظیمات کاربر ساخته شد`, 'success');
-
-                // اضافه کردن ساب‌پک‌ها
-                if (skyData && skyData.length > 0) {
-                    for (const sky of skyData) {
-                        const subpackFolder = `subpacks/${sky.folderName}/textures/environment/overworld_cubemap/`;
-                        for (const [name, data] of Object.entries(sky.data)) {
-                            bedrockPack.file(`${subpackFolder}${name}`, data, { base64: true });
-                        }
-                        this.addLog(`📁 ساب‌پک ${sky.folderName} با ${Object.keys(sky.data).length} فایل ساخته شد`, 'special');
-                    }
-                }
-
-                this.setProgress(35, '🔄 کپی فایل‌ها...');
-
-                // کپی پوشه‌های اصلی
-                const foldersToCopy = ['textures', 'sounds'];
-                let copiedCount = 0;
-
-                for (const folderName of foldersToCopy) {
-                    const folder = mcFolder.folder(folderName);
-                    if (folder) {
-                        this.addLog(`📁 کپی ${folderName}...`, 'info');
-                        const files = folder.file(/./);
-                        for (const file of files) {
-                            if (!file.dir) {
-                                const data = await file.async('base64');
-                                const newPath = file.name.replace(`assets/minecraft/${folderName}/`, '');
-                                bedrockPack.file(`${folderName}/${newPath}`, data, { base64: true });
-                            }
-                        }
-                        copiedCount++;
-                        this.addLog(`✅ ${folderName} کپی شد (${files.filter(f => !f.dir).length} فایل)`, 'success');
-                    } else {
-                        this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'warn');
-                    }
-                    const progress = 35 + (copiedCount / foldersToCopy.length) * 20;
-                    this.setProgress(progress, `🔄 کپی ${folderName}...`);
-                }
-
-                const texturesFolder = mcFolder.folder('textures');
-
-                // کپی assets/minecraft/textures/gui/container
-                await this.copyGuiContainer(mcFolder, bedrockPack);
-
-                // پردازش armor
-                if (texturesFolder) {
-                    await this.processArmor(texturesFolder, bedrockPack);
-                }
-
-                // پردازش font
-                await this.processFont(mcFolder, bedrockPack);
-
-                // فیکس باگ‌ها
-                if (texturesFolder) {
-                    await this.fixBugs(texturesFolder, bedrockPack);
-                }
-
-                this.setProgress(75, '🔄 پردازش اسکای معمولی...');
-
-                // اسکای معمولی (اگه ساب‌پک نباشه)
-                if (!skyData || skyData.length === 0) {
-                    await this.processSky(mcFolder, bedrockPack);
-                } else {
-                    this.addLog('ℹ️ اسکای معمولی به دلیل وجود ساب‌پک، نادیده گرفته شد', 'info');
-                }
-
-                // قابلیت‌های ویژه
-                if (texturesFolder) {
-                    const blocksFolder = texturesFolder.folder('blocks');
-                    if (blocksFolder) {
-                        let destroyCount = 0;
-                        for (let i = 0; i <= 9; i++) {
-                            const file = blocksFolder.file(`destroy_stage_${i}.png`);
-                            if (file) {
-                                const data = await file.async('base64');
-                                bedrockPack.file(`textures/environment/destroy_stage_${i}.png`, data, { base64: true });
-                                destroyCount++;
-                            }
-                        }
-                        if (destroyCount > 0) {
-                            this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment اضافه شد`, 'special');
-                        }
-
-                        const fire0 = blocksFolder.file('fire_layer_0.png');
-                        if (fire0) {
-                            const data = await fire0.async('base64');
-                            bedrockPack.file('textures/flame_atlas.png', data, { base64: true });
-                            const flipbook = this.generateCompleteFlipbook();
-                            bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(flipbook, null, 2));
-                            this.addLog('🔥 flame_atlas.png و flipbook_textures.json کامل اضافه شد', 'special');
-                        }
-                    }
-                }
-
-                this.setProgress(92, '📦 فشرده‌سازی...');
-
-                this.convertedBlob = await bedrockPack.generateAsync({
-                    type: 'blob',
-                    compression: 'DEFLATE',
-                    compressionOptions: { level: 6 }
-                });
-
-                const elapsedTime = ((Date.now() - this.startTime) / 1000).toFixed(1);
-                this.setProgress(100, '✅ تبدیل کامل شد!');
-
-                const finalPackName = this.currentSettings.packName || this.file.name.replace(/\.(zip|rar)$/, '');
-                this.addLog(`🎉 تبدیل با موفقیت انجام شد! زمان: ${elapsedTime} ثانیه`, 'success');
-                this.addLog(`📦 حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'info');
-
-                this.convertTime.textContent = elapsedTime;
-                this.resultDetail.innerHTML =
-                    `⏱️ زمان تبدیل: <span id="convertTime">${elapsedTime}</span> ثانیه • حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`;
-                this.result.classList.add('show');
-
-                // ذخیره در تاریخچه
-                const historyData = {
-                    name: finalPackName,
-                    size: (this.convertedBlob.size / 1024 / 1024).toFixed(2),
-                    time: elapsedTime,
-                    blob: await this.blobToBase64(this.convertedBlob),
-                    hasSky: skyData && skyData.length > 0
-                };
-                PackStorage.save(historyData);
-                this.renderHistory();
-
-            } catch (err) {
-                this.addLog(`❌ خطا: ${err.message}`, 'error');
-                this.setProgress(0, '❌ خطا در تبدیل');
-                console.error(err);
-            } finally {
-                this.isConverting = false;
-                this.convertBtn.disabled = false;
-            }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        new PackConverter();
-    });
-</script>
+    </script>
 </body>
 </html>
