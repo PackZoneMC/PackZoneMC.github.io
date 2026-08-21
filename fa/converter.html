@@ -158,7 +158,6 @@
         }
         .btn-download:hover { background: #1a5a4a; transform: scale(1.03); }
         
-        /* ========== History ========== */
         .history-section {
             margin-top: 25px;
             border-top: 1px solid #1a2a4a;
@@ -172,10 +171,7 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .history-header h2 {
-            font-size: 18px;
-            color: #e0e6f0;
-        }
+        .history-header h2 { font-size: 18px; color: #e0e6f0; }
         .history-header h2 span { color: #4a9eff; }
         .history-search {
             padding: 6px 14px;
@@ -223,11 +219,7 @@
             flex: 1;
             min-width: 150px;
         }
-        .history-item .info .name {
-            color: #e0e6f0;
-            font-weight: 500;
-            font-size: 14px;
-        }
+        .history-item .info .name { color: #e0e6f0; font-weight: 500; font-size: 14px; }
         .history-item .info .meta {
             color: #667799;
             font-size: 12px;
@@ -236,11 +228,7 @@
             gap: 12px;
         }
         .history-item .info .meta span { display: inline-flex; align-items: center; gap: 4px; }
-        .history-item .actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
+        .history-item .actions { display: flex; gap: 6px; flex-wrap: wrap; }
         .history-item .actions button {
             padding: 4px 12px;
             border: none;
@@ -251,15 +239,9 @@
             transition: 0.3s;
             font-family: inherit;
         }
-        .btn-download-history {
-            background: #1a4a3a;
-            color: #66ddaa;
-        }
+        .btn-download-history { background: #1a4a3a; color: #66ddaa; }
         .btn-download-history:hover { background: #1a5a4a; }
-        .btn-delete-history {
-            background: #3a1a1a;
-            color: #ff6b6b;
-        }
+        .btn-delete-history { background: #3a1a1a; color: #ff6b6b; }
         .btn-delete-history:hover { background: #4a2a2a; }
         .btn-clear-history {
             padding: 6px 16px;
@@ -274,12 +256,7 @@
             font-family: inherit;
         }
         .btn-clear-history:hover { background: #4a2a2a; }
-        .history-empty {
-            text-align: center;
-            color: #667799;
-            font-size: 14px;
-            padding: 20px 0;
-        }
+        .history-empty { text-align: center; color: #667799; font-size: 14px; padding: 20px 0; }
         
         @media (max-width: 600px) {
             .container { padding: 20px; }
@@ -295,7 +272,6 @@
     <div class="version">نسخه ۱.۶</div>
     <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky + ذخیره‌سازی</p>
 
-    <!-- ====== آپلود ====== -->
     <div class="drop-zone" id="dropZone">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
         <p>📁 فایل پک جاوا را بکشید اینجا یا کلیک کنید</p>
@@ -329,7 +305,6 @@
         <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
     </div>
 
-    <!-- ====== History ====== -->
     <div class="history-section">
         <div class="history-header">
             <h2>📂 <span>تاریخچه</span> تبدیل‌ها</h2>
@@ -502,7 +477,7 @@
             if (label) this.progressLabel.textContent = label;
             this.progressContainer.classList.add('show');
         }
-// ============================================================
+    // ============================================================
 //  متدهای کمکی
 // ============================================================
 async rotateImage180(base64Data) {
@@ -570,7 +545,7 @@ async processSky(mcFolder, bedrockPack) {
                     data = await this.rotateImage180(data);
                     this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
                 } else {
-                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)', 'special');
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)`, 'special');
                 }
                 bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
                 convertedCount++;
@@ -682,7 +657,6 @@ async processArmor(texturesFolder, bedrockPack) {
                 convertedCount++;
                 this.addLog(`🛡️ ${name} → ${armorMap[name]}`, 'special');
             } else {
-                // کپی معمولی
                 const data = await file.async('base64');
                 bedrockPack.file(`textures/models/armor/${name}`, data, { base64: true });
             }
@@ -692,8 +666,8 @@ async processArmor(texturesFolder, bedrockPack) {
     if (convertedCount > 0) {
         this.addLog(`✅ ${convertedCount} فایل armor تبدیل شد`, 'success');
     }
-}
-        // ============================================================
+                              }
+            // ============================================================
         //  تابع اصلی تبدیل
         // ============================================================
         async startConversion() {
@@ -812,9 +786,7 @@ async processArmor(texturesFolder, bedrockPack) {
                     for (const file of fontFiles) {
                         if (!file.dir) {
                             const data = await file.async('base64');
-                            // داخل textures/font
                             bedrockPack.file(`textures/font/${file.name}`, data, { base64: true });
-                            // بیرون از textures (ریشه)
                             if (file.name === 'ascii.png') {
                                 bedrockPack.file(`font/default8.png`, data, { base64: true });
                                 this.addLog('📝 ascii.png → default8.png (ریشه)', 'special');
@@ -883,7 +855,6 @@ async processArmor(texturesFolder, bedrockPack) {
                 this.addLog(`🎉 تبدیل با موفقیت انجام شد! زمان: ${elapsedTime} ثانیه`, 'success');
                 this.addLog(`📦 حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'info');
 
-                // نمایش نتیجه
                 this.convertTime.textContent = elapsedTime;
                 this.resultDetail.innerHTML = `⏱️ زمان تبدیل: <span id="convertTime">${elapsedTime}</span> ثانیه • حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`;
                 this.result.classList.add('show');
@@ -912,9 +883,6 @@ async processArmor(texturesFolder, bedrockPack) {
             }
         }
 
-        // ============================================================
-        //  دانلود پک
-        // ============================================================
         downloadPack() {
             if (this.convertedBlob) {
                 const name = this.file ? this.file.name.replace(/\.zip$/, '') : 'converted';
@@ -922,9 +890,6 @@ async processArmor(texturesFolder, bedrockPack) {
             }
         }
 
-        // ============================================================
-        //  تبدیل Blob به Base64
-        // ============================================================
         blobToBase64(blob) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -933,9 +898,6 @@ async processArmor(texturesFolder, bedrockPack) {
             });
         }
 
-        // ============================================================
-        //  رندر تاریخچه
-        // ============================================================
         renderHistory() {
             const query = this.historySearch ? this.historySearch.value : '';
             const history = PackStorage.search(query);
@@ -970,9 +932,6 @@ async processArmor(texturesFolder, bedrockPack) {
             this.historyList.innerHTML = html;
         }
 
-        // ============================================================
-        //  تولید مانیفست
-        // ============================================================
         generateManifest(packName) {
             return {
                 format_version: 2,
@@ -987,9 +946,6 @@ async processArmor(texturesFolder, bedrockPack) {
             };
         }
 
-        // ============================================================
-        //  تولید flipbook_textures.json
-        // ============================================================
         generateFlipbook() {
             return [
                 { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
@@ -1014,9 +970,6 @@ async processArmor(texturesFolder, bedrockPack) {
             ];
         }
 
-        // ============================================================
-        //  تولید UUID
-        // ============================================================
         generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 const r = Math.random() * 16 | 0;
@@ -1041,7 +994,6 @@ async processArmor(texturesFolder, bedrockPack) {
     window.deleteHistoryPack = function(id) {
         if (confirm('آیا مطمئن هستید که این پک از تاریخچه حذف شود؟')) {
             PackStorage.delete(id);
-            // رفرش تاریخچه
             const converter = new PackConverter();
             converter.renderHistory();
         }
