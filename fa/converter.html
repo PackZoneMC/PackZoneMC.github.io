@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v1.5.3.2</title>
+    <title>PackZone MC - Resource Pack Converter v1.6</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -15,25 +15,28 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
         }
         .container {
             background: #141b2b;
-            padding: 40px;
+            padding: 30px;
             border-radius: 24px;
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.7);
             border: 1px solid #2a3a5a;
+            margin-top: 20px;
         }
-        h1 { text-align: center; font-size: 28px; margin-bottom: 10px; }
+        h1 { text-align: center; font-size: 28px; margin-bottom: 5px; }
         h1 span { color: #4a9eff; }
-        .sub { text-align: center; color: #8899bb; margin-bottom: 30px; font-size: 14px; }
+        .version { text-align: center; color: #ff2e63; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+        .sub { text-align: center; color: #8899bb; margin-bottom: 20px; font-size: 14px; }
+        
         .drop-zone {
             border: 2px dashed #2a3a5a;
             border-radius: 16px;
-            padding: 40px 20px;
+            padding: 35px 20px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -41,30 +44,32 @@
         }
         .drop-zone:hover { border-color: #4a9eff; background: #18203a; }
         .drop-zone.dragover { border-color: #4a9eff; background: #1a2a4a; }
-        .drop-zone svg { width: 60px; height: 60px; fill: #4a9eff; margin-bottom: 12px; }
-        .drop-zone p { font-size: 16px; color: #aabbdd; }
-        .drop-zone .hint { font-size: 13px; color: #667799; margin-top: 8px; }
+        .drop-zone svg { width: 55px; height: 55px; fill: #4a9eff; margin-bottom: 10px; }
+        .drop-zone p { font-size: 15px; color: #aabbdd; }
+        .drop-zone .hint { font-size: 12px; color: #667799; margin-top: 6px; }
         #file-input { display: none; }
+        
         .file-info {
             display: none;
             background: #0f1626;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
-            margin-top: 16px;
+            margin-top: 14px;
             border: 1px solid #1a2a4a;
         }
         .file-info.show { display: flex; justify-content: space-between; align-items: center; }
         .file-info .name { color: #4a9eff; font-weight: 500; }
         .file-info .size { color: #667799; font-size: 13px; }
+        
         .btn-convert {
             width: 100%;
-            padding: 16px;
-            margin-top: 20px;
+            padding: 14px;
+            margin-top: 16px;
             border: none;
             border-radius: 12px;
             background: linear-gradient(135deg, #4a9eff, #2a6eff);
             color: white;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
@@ -72,70 +77,46 @@
         }
         .btn-convert:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3); }
         .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; }
+        
         .progress-container {
             display: none;
-            margin-top: 20px;
+            margin-top: 16px;
             background: #0f1626;
             border-radius: 12px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border: 1px solid #1a2a4a;
         }
         .progress-container.show { display: block; }
         .progress-bar-bg {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #1a2a4a;
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .progress-bar {
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, #4a9eff, #00d4ff);
-            border-radius: 4px;
+            border-radius: 3px;
             transition: width 0.3s;
         }
         .progress-text {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
+            font-size: 13px;
             color: #8899bb;
         }
-        .result {
-            display: none;
-            margin-top: 20px;
-            background: #0f1626;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #1a4a3a;
-            text-align: center;
-        }
-        .result.show { display: block; }
-        .result .icon { font-size: 40px; margin-bottom: 8px; }
-        .result .msg { color: #66ddaa; font-weight: 500; }
-        .btn-download {
-            margin-top: 14px;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            background: #1a4a3a;
-            color: #66ddaa;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-        .btn-download:hover { background: #1a5a4a; transform: scale(1.02); }
+        
         .log {
-            margin-top: 16px;
+            margin-top: 14px;
             background: #0a0e1a;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             color: #667799;
-            max-height: 120px;
+            max-height: 150px;
             overflow-y: auto;
             font-family: monospace;
             direction: ltr;
@@ -148,40 +129,268 @@
         .log .error { color: #ff6b6b; }
         .log .info { color: #4a9eff; }
         .log .special { color: #ff6bff; }
+        .log .warn { color: #ffd93d; }
+        
+        .result {
+            display: none;
+            margin-top: 16px;
+            background: #0f1626;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #1a4a3a;
+            text-align: center;
+        }
+        .result.show { display: block; }
+        .result .icon { font-size: 40px; margin-bottom: 4px; }
+        .result .msg { color: #66ddaa; font-weight: 500; font-size: 17px; }
+        .result .detail { color: #8899bb; font-size: 13px; margin: 4px 0 12px; }
+        .btn-download {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            background: #1a4a3a;
+            color: #66ddaa;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-download:hover { background: #1a5a4a; transform: scale(1.03); }
+        
+        /* ========== History ========== */
+        .history-section {
+            margin-top: 25px;
+            border-top: 1px solid #1a2a4a;
+            padding-top: 20px;
+        }
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .history-header h2 {
+            font-size: 18px;
+            color: #e0e6f0;
+        }
+        .history-header h2 span { color: #4a9eff; }
+        .history-search {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid #2a3a5a;
+            background: #0f1626;
+            color: #e0e6f0;
+            font-family: inherit;
+            font-size: 13px;
+            width: 200px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .history-search:focus { border-color: #4a9eff; }
+        .history-search::placeholder { color: #667799; }
+        
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .history-list::-webkit-scrollbar { width: 4px; }
+        .history-list::-webkit-scrollbar-track { background: transparent; }
+        .history-list::-webkit-scrollbar-thumb { background: #2a3a5a; border-radius: 2px; }
+        
+        .history-item {
+            background: #0f1626;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #1a2a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .history-item:hover { border-color: #2a3a5a; }
+        .history-item .info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 150px;
+        }
+        .history-item .info .name {
+            color: #e0e6f0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .history-item .info .meta {
+            color: #667799;
+            font-size: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .history-item .info .meta span { display: inline-flex; align-items: center; gap: 4px; }
+        .history-item .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .history-item .actions button {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-download-history {
+            background: #1a4a3a;
+            color: #66ddaa;
+        }
+        .btn-download-history:hover { background: #1a5a4a; }
+        .btn-delete-history {
+            background: #3a1a1a;
+            color: #ff6b6b;
+        }
+        .btn-delete-history:hover { background: #4a2a2a; }
+        .btn-clear-history {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #3a1a1a;
+            color: #ff6b6b;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-clear-history:hover { background: #4a2a2a; }
+        .history-empty {
+            text-align: center;
+            color: #667799;
+            font-size: 14px;
+            padding: 20px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .history-item { flex-direction: column; align-items: stretch; }
+            .history-item .actions { justify-content: flex-start; }
+            .history-search { width: 100%; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🔄 PackZone <span>Converter</span> v1.5.3.2</h1>
-    <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky</p>
+    <h1>🔄 PackZone <span>Converter</span></h1>
+    <div class="version">نسخه ۱.۶</div>
+    <p class="sub">تبدیل پک جاوا → بدراک + McPatcher Sky + ذخیره‌سازی</p>
+
+    <!-- ====== آپلود ====== -->
     <div class="drop-zone" id="dropZone">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
         <p>📁 فایل پک جاوا را بکشید اینجا یا کلیک کنید</p>
         <p class="hint">فقط .zip — حداکثر ۱۰۰ مگابایت</p>
     </div>
     <input type="file" id="file-input" accept=".zip">
+
     <div class="file-info" id="fileInfo">
         <span class="name" id="fileName">pack.zip</span>
         <span class="size" id="fileSize">۲.۴ مگابایت</span>
     </div>
-    <button class="btn-convert" id="convertBtn" disabled>🔄 تبدیل به بدراک</button>
+
+    <button class="btn-convert" id="convertBtn" disabled>🚀 شروع تبدیل</button>
+
     <div class="progress-container" id="progressContainer">
         <div class="progress-text">
-            <span id="progressLabel">در حال پردازش...</span>
+            <span id="progressLabel">⏳ در حال پردازش...</span>
             <span id="progressPercent">۰%</span>
         </div>
         <div class="progress-bar-bg">
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
+
     <div class="log" id="log"></div>
+
     <div class="result" id="result">
-        <div class="icon">✅</div>
+        <div class="icon">🎉</div>
         <div class="msg">تبدیل با موفقیت انجام شد!</div>
+        <div class="detail" id="resultDetail">زمان تبدیل: <span id="convertTime">۰</span> ثانیه</div>
         <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
+    </div>
+
+    <!-- ====== History ====== -->
+    <div class="history-section">
+        <div class="history-header">
+            <h2>📂 <span>تاریخچه</span> تبدیل‌ها</h2>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <input type="text" class="history-search" id="historySearch" placeholder="🔍 جستجو در پک‌ها..." />
+                <button class="btn-clear-history" id="clearHistoryBtn">🗑️ حذف همه</button>
+            </div>
+        </div>
+        <div class="history-list" id="historyList">
+            <div class="history-empty">هنوز هیچ پکی تبدیل نشده است.</div>
+        </div>
     </div>
 </div>
 <script>
+    // ============================================================
+    //  کلاس Storage (مدیریت تاریخچه)
+    // ============================================================
+    class PackStorage {
+        static getKey() { return 'packHistory'; }
+
+        static getAll() {
+            try {
+                return JSON.parse(localStorage.getItem(this.getKey()) || '[]');
+            } catch { return []; }
+        }
+
+        static save(packData) {
+            const history = this.getAll();
+            history.push({
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2, 4),
+                ...packData,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem(this.getKey(), JSON.stringify(history));
+            return history;
+        }
+
+        static delete(id) {
+            let history = this.getAll().filter(p => p.id !== id);
+            localStorage.setItem(this.getKey(), JSON.stringify(history));
+            return history;
+        }
+
+        static clear() {
+            localStorage.removeItem(this.getKey());
+            return [];
+        }
+
+        static search(query) {
+            if (!query.trim()) return this.getAll();
+            const q = query.trim().toLowerCase();
+            return this.getAll().filter(p => 
+                p.name.toLowerCase().includes(q) ||
+                (p.description && p.description.toLowerCase().includes(q))
+            );
+        }
+    }
+
+    // ============================================================
+    //  کلاس اصلی کانورتر - نسخه ۱.۶
+    // ============================================================
     class PackConverter {
         constructor() {
             this.file = null;
@@ -189,7 +398,9 @@
             this.logs = [];
             this.progress = 0;
             this.isConverting = false;
+            this.startTime = 0;
 
+            // DOM
             this.dropZone = document.getElementById('dropZone');
             this.fileInput = document.getElementById('file-input');
             this.fileInfo = document.getElementById('fileInfo');
@@ -203,8 +414,14 @@
             this.logEl = document.getElementById('log');
             this.result = document.getElementById('result');
             this.downloadBtn = document.getElementById('downloadBtn');
+            this.convertTime = document.getElementById('convertTime');
+            this.resultDetail = document.getElementById('resultDetail');
+            this.historyList = document.getElementById('historyList');
+            this.historySearch = document.getElementById('historySearch');
+            this.clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
             this.initEvents();
+            this.renderHistory();
         }
 
         initEvents() {
@@ -213,6 +430,7 @@
                 e.stopPropagation();
                 self.fileInput.click();
             });
+
             this.dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 this.dropZone.classList.add('dragover');
@@ -227,16 +445,21 @@
                     this.handleFile(e.dataTransfer.files[0]);
                 }
             });
+
             this.fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
                     this.handleFile(e.target.files[0]);
                 }
             });
+
             this.convertBtn.addEventListener('click', () => this.startConversion());
-            this.downloadBtn.addEventListener('click', () => {
-                if (this.convertedBlob) {
-                    const name = this.file ? this.file.name.replace(/\.zip$/, '') : 'converted';
-                    saveAs(this.convertedBlob, `${name}.mcpack`);
+            this.downloadBtn.addEventListener('click', () => this.downloadPack());
+
+            this.historySearch.addEventListener('input', () => this.renderHistory());
+            this.clearHistoryBtn.addEventListener('click', () => {
+                if (confirm('آیا مطمئن هستید که همه تاریخچه پاک شود؟')) {
+                    PackStorage.clear();
+                    this.renderHistory();
                 }
             });
         }
@@ -251,6 +474,7 @@
                 this.addLog('❌ حجم فایل بیش از ۱۰۰ مگابایت است', 'error');
                 return;
             }
+
             this.file = file;
             this.fileName.textContent = file.name;
             this.fileSize.textContent = (file.size / 1024 / 1024).toFixed(1) + ' مگابایت';
@@ -258,11 +482,12 @@
             this.convertBtn.disabled = false;
             this.result.classList.remove('show');
             this.logEl.classList.remove('show');
+            this.logEl.innerHTML = '';
             this.addLog(`📂 فایل انتخاب شد: ${file.name}`, 'info');
         }
 
         addLog(msg, type = 'info') {
-            const icons = { success: '✅', error: '❌', info: 'ℹ️', special: '✨' };
+            const icons = { success: '✅', error: '❌', info: 'ℹ️', special: '✨', warn: '⚠️' };
             const prefix = icons[type] || 'ℹ️';
             this.logs.push({ msg, type });
             this.logEl.innerHTML += `<div class="${type}">${prefix} ${msg}</div>`;
@@ -277,6 +502,9 @@
             if (label) this.progressLabel.textContent = label;
             this.progressContainer.classList.add('show');
         }
+// ============================================================
+//  متدهای کمکی
+// ============================================================
 async rotateImage180(base64Data) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -290,9 +518,7 @@ async rotateImage180(base64Data) {
                 ctx.rotate(Math.PI);
                 ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2);
                 resolve(canvas.toDataURL('image/png').split(',')[1]);
-            } catch (err) {
-                reject(err);
-            }
+            } catch (err) { reject(err); }
         };
         img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
         img.src = 'data:image/png;base64,' + base64Data;
@@ -310,15 +536,16 @@ async cropImage(base64Data, x, y, width, height) {
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, x, y, width, height, 0, 0, width, height);
                 resolve(canvas.toDataURL('image/png').split(',')[1]);
-            } catch (err) {
-                reject(err);
-            }
+            } catch (err) { reject(err); }
         };
         img.onerror = () => reject(new Error('خطا در بارگذاری تصویر'));
         img.src = 'data:image/png;base64,' + base64Data;
     });
 }
 
+// ============================================================
+//  پردازش اسکای معمولی
+// ============================================================
 async processSky(mcFolder, bedrockPack) {
     const skyFolder = mcFolder.folder('textures/environment/sky');
     if (!skyFolder) {
@@ -343,7 +570,7 @@ async processSky(mcFolder, bedrockPack) {
                     data = await this.rotateImage180(data);
                     this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
                 } else {
-                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)`, 'special');
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)', 'special');
                 }
                 bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
                 convertedCount++;
@@ -357,12 +584,16 @@ async processSky(mcFolder, bedrockPack) {
     }
 }
 
+// ============================================================
+//  پردازش McPatcher Sky (۳×۲ → ۶ تکه)
+// ============================================================
 async processMcpatcherSky(mcFolder, bedrockPack) {
     const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
     if (!skyFolder) {
         this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
         return;
     }
+
     const allFiles = skyFolder.file(/./);
     let pngFile = null;
     let pngName = '';
@@ -377,86 +608,94 @@ async processMcpatcherSky(mcFolder, bedrockPack) {
         this.addLog('ℹ️ هیچ فایل .png در mcpatcher/sky/world0 یافت نشد', 'info');
         return;
     }
+
     const data = await pngFile.async('base64');
     const img = new Image();
     img.src = 'data:image/png;base64,' + data;
     await new Promise((resolve) => { img.onload = resolve; });
+
     const imgWidth = img.width;
     const imgHeight = img.height;
     const partWidth = Math.floor(imgWidth / 3);
     const partHeight = Math.floor(imgHeight / 2);
+
     this.addLog(`📐 ابعاد عکس: ${imgWidth}×${imgHeight}`, 'info');
-    this.addLog(`📐 هر تکه: ${partWidth}×${partHeight}`, 'info');
-const cropMap = [
-    // ردیف اول (بالا)
-    { col: 0, row: 0, name: 'cubemap_5.png', rotate: true },   // بالا سمت چپ
-    { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },   // وسط بالا
-    { col: 2, row: 0, name: 'cubemap_0.png', rotate: false },  // بالا سمت راست
-    // ردیف دوم (پایین)
-    { col: 0, row: 1, name: 'cubemap_1.png', rotate: false },  // پایین سمت چپ
-    { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },  // وسط پایین
-    { col: 2, row: 1, name: 'cubemap_3.png', rotate: false }   // پایین سمت راست
-];
+
+    const cropMap = [
+        { col: 0, row: 0, name: 'cubemap_5.png', rotate: true },
+        { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
+        { col: 2, row: 0, name: 'cubemap_0.png', rotate: false },
+        { col: 0, row: 1, name: 'cubemap_1.png', rotate: false },
+        { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
+        { col: 2, row: 1, name: 'cubemap_3.png', rotate: false }
+    ];
+
     for (const part of cropMap) {
         const x = part.col * partWidth;
         const y = part.row * partHeight;
         let cropped = await this.cropImage(data, x, y, partWidth, partHeight);
         if (part.rotate) {
             cropped = await this.rotateImage180(cropped);
-            this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (۱۸۰°)`, 'special');
+            this.addLog(`🌤️ ${part.name} (۱۸۰°)`, 'special');
         } else {
-            this.addLog(`🌤️ تکه (${part.col+1},${part.row+1}) → ${part.name} (بدون چرخش)`, 'special');
+            this.addLog(`🌤️ ${part.name} (بدون چرخش)`, 'special');
         }
         bedrockPack.file(`textures/environment/overworld_cubemap/${part.name}`, cropped, { base64: true });
     }
     this.addLog(`✅ McPatcher Sky به ۶ تکه cubemap تبدیل شد`, 'success');
 }
 
-generateManifest(packName) {
-    return {
-        format_version: 2,
-        header: {
-            name: packName,
-            description: 'RP Converter PackZoneMC!!',
-            uuid: this.generateUUID(),
-            version: [1, 0, 0],
-            min_engine_version: [1, 20, 0]
-        },
-        modules: [{ type: 'resources', uuid: this.generateUUID(), version: [1, 0, 0] }]
-    };
-}
-
-generateFlipbook() {
-    return [
-        { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-        { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
-    ];
-}
-
-generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
+// ============================================================
+//  تبدیل armor (models)
+// ============================================================
+async processArmor(texturesFolder, bedrockPack) {
+    const armorFolder = texturesFolder.folder('models/armor');
+    if (!armorFolder) {
+        this.addLog('ℹ️ پوشه models/armor یافت نشد', 'info');
+        return;
     }
+
+    const armorMap = {
+        'chainmail_layer_1.png': 'chain_1.png',
+        'chainmail_layer_2.png': 'chain_2.png',
+        'diamond_layer_1.png': 'diamond_1.png',
+        'diamond_layer_2.png': 'diamond_2.png',
+        'gold_layer_1.png': 'gold_1.png',
+        'gold_layer_2.png': 'gold_2.png',
+        'iron_layer_1.png': 'iron_1.png',
+        'iron_layer_2.png': 'iron_2.png',
+        'leather_layer_1.png': 'leather_1.png',
+        'leather_layer_2.png': 'leather_2.png',
+        'leather_layer_1_overlay.png': 'leather_1_overlay.png',
+        'leather_layer_2_overlay.png': 'leather_2_overlay.png'
+    };
+
+    const files = armorFolder.file(/./);
+    let convertedCount = 0;
+
+    for (const file of files) {
+        if (!file.dir) {
+            const name = file.name;
+            if (armorMap[name]) {
+                const data = await file.async('base64');
+                bedrockPack.file(`textures/models/armor/${armorMap[name]}`, data, { base64: true });
+                convertedCount++;
+                this.addLog(`🛡️ ${name} → ${armorMap[name]}`, 'special');
+            } else {
+                // کپی معمولی
+                const data = await file.async('base64');
+                bedrockPack.file(`textures/models/armor/${name}`, data, { base64: true });
+            }
+        }
+    }
+
+    if (convertedCount > 0) {
+        this.addLog(`✅ ${convertedCount} فایل armor تبدیل شد`, 'success');
+    }
+}
+        // ============================================================
+        //  تابع اصلی تبدیل
+        // ============================================================
         async startConversion() {
             if (this.isConverting || !this.file) return;
             this.isConverting = true;
@@ -465,6 +704,7 @@ generateUUID() {
             this.logs = [];
             this.logEl.innerHTML = '';
             this.logEl.classList.add('show');
+            this.startTime = Date.now();
             this.setProgress(0, '⏳ آماده‌سازی...');
 
             try {
@@ -472,27 +712,51 @@ generateUUID() {
                 const zip = await JSZip.loadAsync(fileData);
                 this.addLog('📦 فایل زیپ با موفقیت باز شد', 'success');
 
+                // ========================================
+                // چک کردن pack.mcmeta
+                // ========================================
+                const mcmetaFile = zip.file('pack.mcmeta');
+                if (mcmetaFile) {
+                    try {
+                        const mcmetaContent = await mcmetaFile.async('string');
+                        const mcmetaJson = JSON.parse(mcmetaContent);
+                        const packFormat = mcmetaJson?.pack?.pack_format;
+                        if (packFormat && packFormat > 1) {
+                            this.addLog(`❌ این پک با فرمت ${packFormat} است. فقط پک‌های فرمت ۱ (۱.۸.۹ و پایین‌تر) پشتیبانی می‌شوند.`, 'error');
+                            this.setProgress(0, '❌ فرمت پک پشتیبانی نمی‌شود');
+                            this.isConverting = false;
+                            this.convertBtn.disabled = false;
+                            return;
+                        }
+                        this.addLog(`✅ pack_format: ${packFormat || 'نامشخص'} (پشتیبانی می‌شود)`, 'success');
+                    } catch (e) {
+                        this.addLog('⚠️ خطا در خواندن pack.mcmeta، ادامه می‌دهیم...', 'warn');
+                    }
+                } else {
+                    this.addLog('ℹ️ فایل pack.mcmeta یافت نشد، ادامه می‌دهیم...', 'info');
+                }
+
                 const bedrockPack = new JSZip();
                 this.setProgress(10, '🔄 ایجاد ساختار بدراک...');
 
+                // pack.png → pack_icon.png
                 const packPng = zip.file('pack.png');
                 if (packPng) {
-                    this.addLog('🖼️ pack.png پیدا شد، در حال تبدیل...', 'info');
                     const pngData = await packPng.async('base64');
                     bedrockPack.file('pack_icon.png', pngData, { base64: true });
-                    this.addLog('✅ pack_icon.png ساخته شد', 'success');
+                    this.addLog('🖼️ pack_icon.png ساخته شد', 'success');
                 } else {
-                    this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده می‌شود', 'info');
                     const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
                     bedrockPack.file('pack_icon.png', defaultIcon, { base64: true });
+                    this.addLog('⚠️ pack.png پیدا نشد، آیکون پیش‌فرض استفاده شد', 'warn');
                 }
-                this.setProgress(25, '🔄 ساخت مانیفست...');
+                this.setProgress(15, '🔄 ساخت مانیفست...');
 
                 const packName = this.file.name.replace(/\.zip$/, '');
                 const manifest = this.generateManifest(packName);
                 bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
-                this.addLog(`✅ manifest.json ساخته شد (نام: ${packName})`, 'success');
-                this.setProgress(30, '🔄 کپی textures...');
+                this.addLog(`✅ manifest.json ساخته شد`, 'success');
+                this.setProgress(20, '🔄 کپی فایل‌ها...');
 
                 const assetsFolder = zip.folder('assets');
                 if (!assetsFolder) {
@@ -503,8 +767,12 @@ generateUUID() {
                     throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
                 }
 
-                const foldersToCopy = ['textures', 'sounds', 'font'];
+                // ========================================
+                // کپی پوشه‌ها
+                // ========================================
+                const foldersToCopy = ['textures', 'sounds'];
                 let copiedCount = 0;
+
                 for (const folderName of foldersToCopy) {
                     const folder = mcFolder.folder(folderName);
                     if (folder) {
@@ -520,14 +788,60 @@ generateUUID() {
                         copiedCount++;
                         this.addLog(`✅ ${folderName} کپی شد (${files.filter(f => !f.dir).length} فایل)`, 'success');
                     } else {
-                        this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'info');
+                        this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'warn');
                     }
-                    const progress = 30 + (copiedCount / foldersToCopy.length) * 40;
+                    const progress = 20 + (copiedCount / foldersToCopy.length) * 30;
                     this.setProgress(progress, `🔄 کپی ${folderName}...`);
                 }
 
-                this.setProgress(75, '✨ اضافه کردن قابلیت‌های ویژه...');
+                // ========================================
+                // پردازش armor
+                // ========================================
                 const texturesFolder = mcFolder.folder('textures');
+                if (texturesFolder) {
+                    await this.processArmor(texturesFolder, bedrockPack);
+                }
+
+                // ========================================
+                // پردازش font (دو جا)
+                // ========================================
+                const fontFolder = mcFolder.folder('font');
+                if (fontFolder) {
+                    const fontFiles = fontFolder.file(/./);
+                    let fontCount = 0;
+                    for (const file of fontFiles) {
+                        if (!file.dir) {
+                            const data = await file.async('base64');
+                            // داخل textures/font
+                            bedrockPack.file(`textures/font/${file.name}`, data, { base64: true });
+                            // بیرون از textures (ریشه)
+                            if (file.name === 'ascii.png') {
+                                bedrockPack.file(`font/default8.png`, data, { base64: true });
+                                this.addLog('📝 ascii.png → default8.png (ریشه)', 'special');
+                            } else {
+                                bedrockPack.file(`font/${file.name}`, data, { base64: true });
+                            }
+                            fontCount++;
+                        }
+                    }
+                    this.addLog(`📁 ${fontCount} فایل font کپی شد (داخل textures و ریشه)`, 'success');
+                }
+
+                this.setProgress(65, '🔄 پردازش اسکای...');
+
+                // ========================================
+                // اسکای معمولی
+                // ========================================
+                await this.processSky(mcFolder, bedrockPack);
+
+                // ========================================
+                // McPatcher Sky
+                // ========================================
+                await this.processMcpatcherSky(mcFolder, bedrockPack);
+
+                // ========================================
+                // قابلیت‌های ویژه (destroy_stage, flame_atlas)
+                // ========================================
                 if (texturesFolder) {
                     const blocksFolder = texturesFolder.folder('blocks');
                     if (blocksFolder) {
@@ -543,8 +857,7 @@ generateUUID() {
                         if (destroyCount > 0) {
                             this.addLog(`🔄 ${destroyCount} فایل destroy_stage به environment اضافه شد`, 'special');
                         }
-                    }
-                    if (blocksFolder) {
+
                         const fire0 = blocksFolder.file('fire_layer_0.png');
                         if (fire0) {
                             const data = await fire0.async('base64');
@@ -556,32 +869,38 @@ generateUUID() {
                     }
                 }
 
-                this.addLog('🌤️ پردازش اسکای معمولی...', 'info');
-                await this.processSky(mcFolder, bedrockPack);
-                this.addLog('🌤️ پردازش McPatcher Sky...', 'info');
-                await this.processMcpatcherSky(mcFolder, bedrockPack);
+                this.setProgress(92, '📦 فشرده‌سازی...');
 
-                const fontFolder = mcFolder.folder('font');
-                if (fontFolder) {
-                    const asciiFile = fontFolder.file('ascii.png');
-                    if (asciiFile) {
-                        const data = await asciiFile.async('base64');
-                        bedrockPack.file('textures/font/default8.png', data, { base64: true });
-                        bedrockPack.file('font/default8.png', data, { base64: true });
-                        this.addLog('📝 ascii.png → default8.png (در دو مسیر)', 'special');
-                    }
-                }
-
-                this.setProgress(95, '📦 فشرده‌سازی فایل نهایی...');
                 this.convertedBlob = await bedrockPack.generateAsync({
                     type: 'blob',
                     compression: 'DEFLATE',
                     compressionOptions: { level: 6 }
                 });
 
+                const elapsedTime = ((Date.now() - this.startTime) / 1000).toFixed(1);
                 this.setProgress(100, '✅ تبدیل کامل شد!');
-                this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(1)} مگابایت`, 'success');
+
+                this.addLog(`🎉 تبدیل با موفقیت انجام شد! زمان: ${elapsedTime} ثانیه`, 'success');
+                this.addLog(`📦 حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'info');
+
+                // نمایش نتیجه
+                this.convertTime.textContent = elapsedTime;
+                this.resultDetail.innerHTML = `⏱️ زمان تبدیل: <span id="convertTime">${elapsedTime}</span> ثانیه • حجم: ${(this.convertedBlob.size / 1024 / 1024).toFixed(2)} مگابایت`;
                 this.result.classList.add('show');
+
+                // ========================================
+                // ذخیره در تاریخچه
+                // ========================================
+                const historyData = {
+                    name: packName,
+                    size: (this.convertedBlob.size / 1024 / 1024).toFixed(2),
+                    time: elapsedTime,
+                    blob: await this.blobToBase64(this.convertedBlob),
+                    hasSky: true,
+                    description: `پک ${packName} با ${this.logs.filter(l => l.type === 'special').length} قابلیت ویژه`
+                };
+                PackStorage.save(historyData);
+                this.renderHistory();
 
             } catch (err) {
                 this.addLog(`❌ خطا: ${err.message}`, 'error');
@@ -592,7 +911,141 @@ generateUUID() {
                 this.convertBtn.disabled = false;
             }
         }
+
+        // ============================================================
+        //  دانلود پک
+        // ============================================================
+        downloadPack() {
+            if (this.convertedBlob) {
+                const name = this.file ? this.file.name.replace(/\.zip$/, '') : 'converted';
+                saveAs(this.convertedBlob, `${name}.mcpack`);
+            }
+        }
+
+        // ============================================================
+        //  تبدیل Blob به Base64
+        // ============================================================
+        blobToBase64(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // ============================================================
+        //  رندر تاریخچه
+        // ============================================================
+        renderHistory() {
+            const query = this.historySearch ? this.historySearch.value : '';
+            const history = PackStorage.search(query);
+
+            if (history.length === 0) {
+                this.historyList.innerHTML = `<div class="history-empty">${query.trim() ? '🔍 پکی با این نام یافت نشد.' : 'هنوز هیچ پکی تبدیل نشده است.'}</div>`;
+                return;
+            }
+
+            let html = '';
+            for (const item of history) {
+                const date = new Date(item.date);
+                const dateStr = date.toLocaleDateString('fa-IR') + ' ' + date.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+                html += `
+                    <div class="history-item">
+                        <div class="info">
+                            <div class="name">🎨 ${item.name}</div>
+                            <div class="meta">
+                                <span>📅 ${dateStr}</span>
+                                <span>📦 ${item.size} مگابایت</span>
+                                <span>⏱️ ${item.time} ثانیه</span>
+                                ${item.hasSky ? '<span>🌤️ اسکای</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-download-history" onclick="window.downloadHistoryPack('${item.id}')">📥 دانلود</button>
+                            <button class="btn-delete-history" onclick="window.deleteHistoryPack('${item.id}')">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }
+            this.historyList.innerHTML = html;
+        }
+
+        // ============================================================
+        //  تولید مانیفست
+        // ============================================================
+        generateManifest(packName) {
+            return {
+                format_version: 2,
+                header: {
+                    name: packName,
+                    description: 'RP Converter PackZoneMC!!',
+                    uuid: this.generateUUID(),
+                    version: [1, 0, 0],
+                    min_engine_version: [1, 20, 0]
+                },
+                modules: [{ type: 'resources', uuid: this.generateUUID(), version: [1, 0, 0] }]
+            };
+        }
+
+        // ============================================================
+        //  تولید flipbook_textures.json
+        // ============================================================
+        generateFlipbook() {
+            return [
+                { "flipbook_texture": "textures/blocks/fire_0", "atlas_tile": "fire_0", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/fire_1", "atlas_tile": "fire_1", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_flow", "atlas_tile": "lava_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/lava_still", "atlas_tile": "lava_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/portal", "atlas_tile": "portal", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/sea_lantern", "atlas_tile": "sea_lantern", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_flowing", "atlas_tile": "water_flowing", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/blocks/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/compass_atlas", "atlas_tile": "compass_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/diamond", "atlas_tile": "diamond", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/emerald", "atlas_tile": "emerald", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/ender_eye", "atlas_tile": "ender_eye", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/gold_ingot", "atlas_tile": "gold_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/iron_ingot", "atlas_tile": "iron_ingot", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/magma_cream", "atlas_tile": "magma_cream", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/watch_atlas", "atlas_tile": "watch_atlas", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_flow", "atlas_tile": "water_flow", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+            ];
+        }
+
+        // ============================================================
+        //  تولید UUID
+        // ============================================================
+        generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
     }
+
+    // ============================================================
+    //  توابع سراسری برای تاریخچه
+    // ============================================================
+    window.downloadHistoryPack = async function(id) {
+        const history = PackStorage.getAll();
+        const item = history.find(p => p.id === id);
+        if (item && item.blob) {
+            const blob = await fetch(item.blob).then(r => r.blob());
+            saveAs(blob, `${item.name}.mcpack`);
+        }
+    };
+
+    window.deleteHistoryPack = function(id) {
+        if (confirm('آیا مطمئن هستید که این پک از تاریخچه حذف شود؟')) {
+            PackStorage.delete(id);
+            // رفرش تاریخچه
+            const converter = new PackConverter();
+            converter.renderHistory();
+        }
+    };
 
     document.addEventListener('DOMContentLoaded', () => {
         new PackConverter();
