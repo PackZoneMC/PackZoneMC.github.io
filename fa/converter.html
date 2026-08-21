@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.3</title>
+    <title>PackZone MC - Resource Pack Converter v2.4</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -162,8 +162,8 @@
 <body>
     <div class="container">
         <h1>🔄 PackZone <span>Converter</span></h1>
-        <div class="version">نسخه ۲.۳</div>
-        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + ساب‌پک + assets کامل</p>
+        <div class="version">نسخه ۲.۴</div>
+        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + ساب‌پک + assets کامل + ui/uidx</p>
 
         <div class="drop-zone" id="dropZone">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
@@ -212,7 +212,6 @@
             //  دیتابیس مسیرهای تبدیل (جاوا → بدراک)
             // ============================================================
             this.pathDatabase = {
-                // Armor
                 'textures/models/armor/chainmail_layer_1.png': 'textures/models/armor/chain_1.png',
                 'textures/models/armor/chainmail_layer_2.png': 'textures/models/armor/chain_2.png',
                 'textures/models/armor/diamond_layer_1.png': 'textures/models/armor/diamond_1.png',
@@ -228,7 +227,7 @@
             };
 
             // ============================================================
-            //  لیست فایل‌های باگ‌دار (برای فیکس)
+            //  لیست فایل‌های باگ‌دار
             // ============================================================
             this.buggyFiles = [
                 'textures/items/diamond_sword.png',
@@ -240,7 +239,7 @@
             ];
 
             // ============================================================
-            //  قالب flipbook_textures.json
+            //  قالب flipbook
             // ============================================================
             this.flipbookTemplate = [
                 { "flipbook_texture": "textures/items/diamond_sword", "atlas_tile": "diamond_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
@@ -252,28 +251,104 @@
             ];
 
             // ============================================================
-            //  دیتابیس فایل‌های گم‌شده (از گیت)
+            //  فایل‌های گم‌شده از گیت (با لینک‌های جدید)
             // ============================================================
             this.missingFilesDB = {
-                // assets/minecraft/textures/gui/container/recipe_book/
-                'assets/minecraft/textures/gui/container/recipe_book/creative_item_search.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/creative_item_search.png',
-                'assets/minecraft/textures/gui/container/recipe_book/creative_items.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/creative_items.png',
-                'assets/minecraft/textures/gui/container/recipe_book/recipe_item_search.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/recipe_item_search.png',
-                'assets/minecraft/textures/gui/container/recipe_book/recipe_item_search_no_filter.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/recipe_item_search_no_filter.png',
-                'assets/minecraft/textures/gui/container/recipe_book/recipe_items.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/recipe_items.png',
-                'assets/minecraft/textures/gui/container/recipe_book/widgets.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/recipe_book/widgets.png',
+                // assets/uidx/ (بیرون recipe_book)
+                'assets/uidx/textures/gui/container/ender_chest.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/ender_chest.png',
+                'assets/uidx/textures/gui/container/small_chest.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/small_chest.png',
+                'assets/uidx/textures/gui/container/generic_54.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/generic_54.png',
+                'assets/uidx/textures/gui/container/inventory.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/inventory.png',
                 
-                // assets/uidx/ (همه فایل‌ها)
-                'assets/uidx/textures/gui/container/ender_chest.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/ender_chest.png',
-                'assets/uidx/textures/gui/container/generic_54.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/generic_54.png',
-                'assets/uidx/textures/gui/container/small_chest.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/small_chest.png',
-                'assets/uidx/textures/gui/container/inventory.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/inventory.png',
-                'assets/uidx/textures/gui/container/recipe_book/creative_item_search.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/creative_item_search.png',
-                'assets/uidx/textures/gui/container/recipe_book/creative_items.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/creative_items.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/recipe_item_search.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search_no_filter.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/recipe_item_search_no_filter.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_items.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/recipe_items.png',
-                'assets/uidx/textures/gui/container/recipe_book/widgets.png': 'https://raw.githubusercontent.com/PackZoneMC/bedrock-assets/main/uidx/recipe_book/widgets.png'
+                // assets/uidx/recipe_book/
+                'assets/uidx/textures/gui/container/recipe_book/creative_item_search.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_item_search.png',
+                'assets/uidx/textures/gui/container/recipe_book/creative_items.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_items.png',
+                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search.png',
+                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search_no_filter.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search_no_filter.png',
+                'assets/uidx/textures/gui/container/recipe_book/recipe_items.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_items.png',
+                'assets/uidx/textures/gui/container/recipe_book/widgets.png':
+                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/widgets.png'
+            };
+
+            // ============================================================
+            //  محتوای پیش‌فرض برای پوشه‌های ui و uidx (برای بدراک)
+            // ============================================================
+            this.defaultUiContent = {
+                '_global_variables.json': JSON.stringify({
+                    "$base_screen_width": 1280,
+                    "$base_screen_height": 720,
+                    "$screen_width": "($base_screen_width * $scale)",
+                    "$screen_height": "($base_screen_height * $scale)",
+                    "$safe_zone": 30,
+                    "$safe_zone_sides": 60
+                }, null, 2),
+                '_ui_defs.json': JSON.stringify({
+                    "ui_defs": [
+                        "ui/anvil_screen.json",
+                        "ui/brewing_stand_screen.json",
+                        "ui/chest_screen.json",
+                        "ui/enchanting_screen.json",
+                        "ui/furnace_screen.json",
+                        "ui/horse_screen.json",
+                        "ui/hud_screen.json",
+                        "ui/inventory_screen.json",
+                        "ui/ui_common.json"
+                    ]
+                }, null, 2),
+                'ui_common.json': JSON.stringify({
+                    "namespace": "common",
+                    "common_tooltip": {
+                        "type": "label",
+                        "text": "#tooltip_text",
+                        "font_type": "Minecraft",
+                        "font_size": "small",
+                        "color": "$ui_tooltip_color",
+                        "shadow": true
+                    }
+                }, null, 2),
+                'hud_screen.json': JSON.stringify({
+                    "namespace": "hud",
+                    "hud_screen": {
+                        "type": "screen",
+                        "controls": [
+                            { "hud_root@hud.hud_root": {} }
+                        ]
+                    }
+                }, null, 2),
+                'inventory_screen.json': JSON.stringify({
+                    "namespace": "inventory",
+                    "inventory_screen": {
+                        "type": "screen",
+                        "controls": [
+                            { "inventory_root@inventory.inventory_root": {} }
+                        ]
+                    }
+                }, null, 2),
+                'chest_screen.json': JSON.stringify({
+                    "namespace": "chest",
+                    "chest_screen": {
+                        "type": "screen",
+                        "controls": [
+                            { "chest_root@chest.chest_root": {} }
+                        ]
+                    }
+                }, null, 2)
+            };
+
+            this.defaultUidxContent = {
+                'common_sections/ui_common.uidx': "// UI Common Sections\n// Default UIDX for PackZoneMC",
+                'inventory_screens/inventory_screen.uidx': "// Inventory Screen UIDX\n// Default UIDX for PackZoneMC",
+                'java_gui_sections/container/inventory.uidx': "// Java GUI Inventory Section\n// Default UIDX for PackZoneMC",
+                'main_screens/hud_sections/hud_screen.uidx': "// HUD Screen UIDX\n// Default UIDX for PackZoneMC"
             };
 
             // DOM
@@ -420,7 +495,7 @@ async fetchMissingFile(url) {
     } catch {
         return null;
     }
-}
+            }
         // ============================================================
 //  پردازش اسکای معمولی
 // ============================================================
@@ -533,7 +608,7 @@ async processMcpatcherSkyWithSubpacks(mcFolder) {
 
     this.addLog(`🌤️ ${skyData.length} فایل اسکای برای ساب‌پک شناسایی شد`, 'special');
     return skyData;
-                    }
+             }
         // ============================================================
 //  پردازش armor (با دیتابیس)
 // ============================================================
@@ -632,8 +707,29 @@ async processGui(texturesFolder, bedrockPack) {
             }
         }
     }
-}
+        }
         // ============================================================
+//  ساخت پوشه‌های ui و uidx با محتوای پیش‌فرض
+// ============================================================
+async createUiAndUidx(bedrockPack) {
+    // ========================================
+    // پوشه ui
+    // ========================================
+    for (const [filename, content] of Object.entries(this.defaultUiContent)) {
+        bedrockPack.file(`ui/${filename}`, content);
+    }
+    this.addLog(`📁 پوشه ui با ${Object.keys(this.defaultUiContent).length} فایل ساخته شد`, 'special');
+
+    // ========================================
+    // پوشه uidx
+    // ========================================
+    for (const [filename, content] of Object.entries(this.defaultUidxContent)) {
+        bedrockPack.file(`uidx/${filename}`, content);
+    }
+    this.addLog(`📁 پوشه uidx با ${Object.keys(this.defaultUidxContent).length} فایل ساخته شد`, 'special');
+}
+
+// ============================================================
 //  فیکس باگ‌های شمشیرها
 // ============================================================
 async fixBugs(texturesFolder, bedrockPack) {
@@ -662,7 +758,7 @@ async fixBugs(texturesFolder, bedrockPack) {
 }
 
 // ============================================================
-//  اضافه کردن فایل‌های گم‌شده از گیت (assets/uidx + recipe_book)
+//  اضافه کردن فایل‌های گم‌شده از گیت (assets/uidx)
 // ============================================================
 async addMissingAssets(bedrockPack) {
     let addedCount = 0;
@@ -681,9 +777,8 @@ async addMissingAssets(bedrockPack) {
         this.addLog(`📦 ${addedCount} فایل گم‌شده از گیت دانلود و اضافه شد`, 'success');
     }
 }
-
-// ============================================================
-//  تولید مانیفست با ساب‌پک (رفع باگ‌ها)
+        // ============================================================
+//  تولید مانیفست با ساب‌پک
 // ============================================================
 generateManifestWithSubpacks(packName, skyData) {
     const headerUUID = this.generateUUID();
@@ -693,7 +788,7 @@ generateManifestWithSubpacks(packName, skyData) {
         format_version: 2,
         header: {
             name: packName,
-            description: 'RP Converter PackZoneMC v2.3!!',
+            description: 'RP Converter PackZoneMC v2.4!!',
             uuid: headerUUID,
             version: [1, 0, 0],
             min_engine_version: [1, 20, 0]
@@ -721,7 +816,7 @@ generateManifestWithSubpacks(packName, skyData) {
         manifest.subpacks = subpacks;
         manifest.settings = [{
             type: "label",
-            text: `§b§l${packName}\n§7تبدیل شده توسط PackZoneMC v2.3\n\n${settingsText.join(' • ')}`
+            text: `§b§l${packName}\n§7تبدیل شده توسط PackZoneMC v2.4\n\n${settingsText.join(' • ')}`
         }];
 
         this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
@@ -786,7 +881,7 @@ generateCompleteFlipbook() {
         { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0,
             "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
     ];
-        }
+         }
                     // ============================================================
             //  تابع اصلی تبدیل
             // ============================================================
@@ -938,6 +1033,11 @@ generateCompleteFlipbook() {
                     if (texturesFolder) {
                         await this.fixBugs(texturesFolder, bedrockPack);
                     }
+
+                    // ========================================
+                    // ساخت پوشه‌های ui و uidx
+                    // ========================================
+                    await this.createUiAndUidx(bedrockPack);
 
                     // ========================================
                     // اضافه کردن فایل‌های گم‌شده از گیت
