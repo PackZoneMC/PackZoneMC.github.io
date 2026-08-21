@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.4</title>
+    <title>PackZone MC - Resource Pack Converter v2.5</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -162,8 +162,8 @@
 <body>
     <div class="container">
         <h1>🔄 PackZone <span>Converter</span></h1>
-        <div class="version">نسخه ۲.۴</div>
-        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + ساب‌پک + assets کامل + ui/uidx</p>
+        <div class="version">نسخه ۲.۵</div>
+        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + اسکای (فقط بالای ۱MB) + uidx کامل</p>
 
         <div class="drop-zone" id="dropZone">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
@@ -198,179 +198,460 @@
             <button class="btn-download" id="downloadBtn">📥 دانلود پک بدراک (.mcpack)</button>
         </div>
     </div>
-    <script>
-    class PackConverter {
-        constructor() {
-            this.file = null;
-            this.convertedBlob = null;
-            this.logs = [];
-            this.progress = 0;
-            this.isConverting = false;
-            this.startTime = 0;
+        <script>
+        class PackConverter {
+            constructor() {
+                this.file = null;
+                this.convertedBlob = null;
+                this.logs = [];
+                this.progress = 0;
+                this.isConverting = false;
+                this.startTime = 0;
 
-            // ============================================================
-            //  دیتابیس مسیرهای تبدیل (جاوا → بدراک)
-            // ============================================================
-            this.pathDatabase = {
-                'textures/models/armor/chainmail_layer_1.png': 'textures/models/armor/chain_1.png',
-                'textures/models/armor/chainmail_layer_2.png': 'textures/models/armor/chain_2.png',
-                'textures/models/armor/diamond_layer_1.png': 'textures/models/armor/diamond_1.png',
-                'textures/models/armor/diamond_layer_2.png': 'textures/models/armor/diamond_2.png',
-                'textures/models/armor/gold_layer_1.png': 'textures/models/armor/gold_1.png',
-                'textures/models/armor/gold_layer_2.png': 'textures/models/armor/gold_2.png',
-                'textures/models/armor/iron_layer_1.png': 'textures/models/armor/iron_1.png',
-                'textures/models/armor/iron_layer_2.png': 'textures/models/armor/iron_2.png',
-                'textures/models/armor/leather_layer_1.png': 'textures/models/armor/leather_1.png',
-                'textures/models/armor/leather_layer_2.png': 'textures/models/armor/leather_2.png',
-                'textures/models/armor/leather_layer_1_overlay.png': 'textures/models/armor/leather_1_overlay.png',
-                'textures/models/armor/leather_layer_2_overlay.png': 'textures/models/armor/leather_2_overlay.png'
-            };
+                // ============================================================
+                //  دیتابیس مسیرهای تبدیل (جاوا → بدراک)
+                // ============================================================
+                this.pathDatabase = {
+                    'textures/models/armor/chainmail_layer_1.png': 'textures/models/armor/chain_1.png',
+                    'textures/models/armor/chainmail_layer_2.png': 'textures/models/armor/chain_2.png',
+                    'textures/models/armor/diamond_layer_1.png': 'textures/models/armor/diamond_1.png',
+                    'textures/models/armor/diamond_layer_2.png': 'textures/models/armor/diamond_2.png',
+                    'textures/models/armor/gold_layer_1.png': 'textures/models/armor/gold_1.png',
+                    'textures/models/armor/gold_layer_2.png': 'textures/models/armor/gold_2.png',
+                    'textures/models/armor/iron_layer_1.png': 'textures/models/armor/iron_1.png',
+                    'textures/models/armor/iron_layer_2.png': 'textures/models/armor/iron_2.png',
+                    'textures/models/armor/leather_layer_1.png': 'textures/models/armor/leather_1.png',
+                    'textures/models/armor/leather_layer_2.png': 'textures/models/armor/leather_2.png',
+                    'textures/models/armor/leather_layer_1_overlay.png': 'textures/models/armor/leather_1_overlay.png',
+                    'textures/models/armor/leather_layer_2_overlay.png': 'textures/models/armor/leather_2_overlay.png'
+                };
 
-            // ============================================================
-            //  لیست فایل‌های باگ‌دار
-            // ============================================================
-            this.buggyFiles = [
-                'textures/items/diamond_sword.png',
-                'textures/items/iron_sword.png',
-                'textures/items/golden_sword.png',
-                'textures/items/stone_sword.png',
-                'textures/items/wooden_sword.png',
-                'textures/items/netherite_sword.png'
-            ];
+                // ============================================================
+                //  لیست فایل‌های باگ‌دار
+                // ============================================================
+                this.buggyFiles = [
+                    'textures/items/diamond_sword.png',
+                    'textures/items/iron_sword.png',
+                    'textures/items/golden_sword.png',
+                    'textures/items/stone_sword.png',
+                    'textures/items/wooden_sword.png',
+                    'textures/items/netherite_sword.png'
+                ];
 
-            // ============================================================
-            //  قالب flipbook
-            // ============================================================
-            this.flipbookTemplate = [
-                { "flipbook_texture": "textures/items/diamond_sword", "atlas_tile": "diamond_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/iron_sword", "atlas_tile": "iron_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/golden_sword", "atlas_tile": "golden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/stone_sword", "atlas_tile": "stone_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/wooden_sword", "atlas_tile": "wooden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
-                { "flipbook_texture": "textures/items/netherite_sword", "atlas_tile": "netherite_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
-            ];
+                // ============================================================
+                //  قالب flipbook
+                // ============================================================
+                this.flipbookTemplate = [
+                    { "flipbook_texture": "textures/items/diamond_sword", "atlas_tile": "diamond_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/iron_sword", "atlas_tile": "iron_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/golden_sword", "atlas_tile": "golden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/stone_sword", "atlas_tile": "stone_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/wooden_sword", "atlas_tile": "wooden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                    { "flipbook_texture": "textures/items/netherite_sword", "atlas_tile": "netherite_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+                ];
 
-            // ============================================================
-            //  فایل‌های گم‌شده از گیت (با لینک‌های جدید)
-            // ============================================================
-            this.missingFilesDB = {
-                // assets/uidx/ (بیرون recipe_book)
-                'assets/uidx/textures/gui/container/ender_chest.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/ender_chest.png',
-                'assets/uidx/textures/gui/container/small_chest.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/small_chest.png',
-                'assets/uidx/textures/gui/container/generic_54.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/generic_54.png',
-                'assets/uidx/textures/gui/container/inventory.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/inventory.png',
-                
-                // assets/uidx/recipe_book/
-                'assets/uidx/textures/gui/container/recipe_book/creative_item_search.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_item_search.png',
-                'assets/uidx/textures/gui/container/recipe_book/creative_items.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_items.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_item_search_no_filter.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search_no_filter.png',
-                'assets/uidx/textures/gui/container/recipe_book/recipe_items.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_items.png',
-                'assets/uidx/textures/gui/container/recipe_book/widgets.png':
-                    'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/widgets.png'
-            };
+                // ============================================================
+                //  فایل‌های گم‌شده از گیت (assets/uidx)
+                // ============================================================
+                this.missingFilesDB = {
+                    'assets/uidx/textures/gui/container/ender_chest.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/ender_chest.png',
+                    'assets/uidx/textures/gui/container/small_chest.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/small_chest.png',
+                    'assets/uidx/textures/gui/container/generic_54.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/generic_54.png',
+                    'assets/uidx/textures/gui/container/inventory.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/inventory.png',
+                    'assets/uidx/textures/gui/container/recipe_book/creative_item_search.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_item_search.png',
+                    'assets/uidx/textures/gui/container/recipe_book/creative_items.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/creative_items.png',
+                    'assets/uidx/textures/gui/container/recipe_book/recipe_item_search.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search.png',
+                    'assets/uidx/textures/gui/container/recipe_book/recipe_item_search_no_filter.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_item_search_no_filter.png',
+                    'assets/uidx/textures/gui/container/recipe_book/recipe_items.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/recipe_items.png',
+                    'assets/uidx/textures/gui/container/recipe_book/widgets.png':
+                        'https://raw.githubusercontent.com/PackZoneMC/PackZoneMC.github.io/main/converter/widgets.png'
+                };
 
-            // ============================================================
-            //  محتوای پیش‌فرض برای پوشه‌های ui و uidx (برای بدراک)
-            // ============================================================
-            this.defaultUiContent = {
-                '_global_variables.json': JSON.stringify({
-                    "$base_screen_width": 1280,
-                    "$base_screen_height": 720,
-                    "$screen_width": "($base_screen_width * $scale)",
-                    "$screen_height": "($base_screen_height * $scale)",
-                    "$safe_zone": 30,
-                    "$safe_zone_sides": 60
-                }, null, 2),
-                '_ui_defs.json': JSON.stringify({
-                    "ui_defs": [
-                        "ui/anvil_screen.json",
-                        "ui/brewing_stand_screen.json",
-                        "ui/chest_screen.json",
-                        "ui/enchanting_screen.json",
-                        "ui/furnace_screen.json",
-                        "ui/horse_screen.json",
-                        "ui/hud_screen.json",
-                        "ui/inventory_screen.json",
-                        "ui/ui_common.json"
-                    ]
-                }, null, 2),
-                'ui_common.json': JSON.stringify({
-                    "namespace": "common",
-                    "common_tooltip": {
-                        "type": "label",
-                        "text": "#tooltip_text",
-                        "font_type": "Minecraft",
-                        "font_size": "small",
-                        "color": "$ui_tooltip_color",
-                        "shadow": true
-                    }
-                }, null, 2),
-                'hud_screen.json': JSON.stringify({
-                    "namespace": "hud",
-                    "hud_screen": {
-                        "type": "screen",
-                        "controls": [
-                            { "hud_root@hud.hud_root": {} }
-                        ]
-                    }
-                }, null, 2),
-                'inventory_screen.json': JSON.stringify({
-                    "namespace": "inventory",
-                    "inventory_screen": {
-                        "type": "screen",
-                        "controls": [
-                            { "inventory_root@inventory.inventory_root": {} }
-                        ]
-                    }
-                }, null, 2),
-                'chest_screen.json': JSON.stringify({
-                    "namespace": "chest",
-                    "chest_screen": {
-                        "type": "screen",
-                        "controls": [
-                            { "chest_root@chest.chest_root": {} }
-                        ]
-                    }
-                }, null, 2)
-            };
-
-            this.defaultUidxContent = {
-                'common_sections/ui_common.uidx': "// UI Common Sections\n// Default UIDX for PackZoneMC",
-                'inventory_screens/inventory_screen.uidx': "// Inventory Screen UIDX\n// Default UIDX for PackZoneMC",
-                'java_gui_sections/container/inventory.uidx': "// Java GUI Inventory Section\n// Default UIDX for PackZoneMC",
-                'main_screens/hud_sections/hud_screen.uidx': "// HUD Screen UIDX\n// Default UIDX for PackZoneMC"
-            };
-
-            // DOM
-            this.dropZone = document.getElementById('dropZone');
-            this.fileInput = document.getElementById('file-input');
-            this.fileInfo = document.getElementById('fileInfo');
-            this.fileName = document.getElementById('fileName');
-            this.fileSize = document.getElementById('fileSize');
-            this.convertBtn = document.getElementById('convertBtn');
-            this.progressContainer = document.getElementById('progressContainer');
-            this.progressBar = document.getElementById('progressBar');
-            this.progressLabel = document.getElementById('progressLabel');
-            this.progressPercent = document.getElementById('progressPercent');
-            this.logEl = document.getElementById('log');
-            this.result = document.getElementById('result');
-            this.downloadBtn = document.getElementById('downloadBtn');
-            this.convertTime = document.getElementById('convertTime');
-            this.resultDetail = document.getElementById('resultDetail');
-
-            this.initEvents();
+                // ============================================================
+                //  محتوای کامل UIDX (کدهای واقعی)
+                // ============================================================
+                this.uidxContent = {
+                    // common_sections
+                    'common_sections/ui_common.uidx': `// PackZoneMC UI Common Sections
+define_screen("common", {
+    background: {
+        type: "image",
+        texture: "textures/ui/screen_background",
+        size: ["100%", "100%"]
+    }
+});`,
+                    'common_sections/ui_template_buttons.uidx': `// PackZoneMC Button Templates
+define_template("button_default", {
+    type: "button",
+    texture: "textures/ui/button_default",
+    hover_texture: "textures/ui/button_hover",
+    pressed_texture: "textures/ui/button_pressed",
+    size: [120, 30]
+});`,
+                    'common_sections/ui_template_durability.uidx': `// PackZoneMC Durability Templates
+define_template("durability_bar", {
+    type: "image",
+    texture: "textures/ui/durability_bar",
+    size: [100, 10],
+    nine_slice: [5, 0, 5, 0]
+});`,
+                    'common_sections/ui_template_menus.uidx': `// PackZoneMC Menu Templates
+define_template("menu_item", {
+    type: "button",
+    texture: "textures/ui/menu_item",
+    size: [200, 40],
+    font_type: "Minecraft",
+    font_size: "medium",
+    color: "#FFFFFF"
+});`,
+                    'common_sections/ui_template_screens.uidx': `// PackZoneMC Screen Templates
+define_template("screen_default", {
+    type: "screen",
+    background: {
+        type: "image",
+        texture: "textures/ui/screen_background",
+        size: ["100%", "100%"]
+    }
+});`,
+                    'common_sections/ui_template_scroll.uidx': `// PackZoneMC Scroll Templates
+define_template("scroll_bar", {
+    type: "image",
+    texture: "textures/ui/scroll_bar",
+    size: [12, 200],
+    nine_slice: [0, 5, 0, 5]
+});`,
+                    'common_sections/ui_template_slider.uidx': `// PackZoneMC Slider Templates
+define_template("slider_default", {
+    type: "image",
+    texture: "textures/ui/slider",
+    size: [200, 20],
+    nine_slice: [10, 0, 10, 0]
+});`,
+                    'common_sections/ui_template_toggles.uidx': `// PackZoneMC Toggle Templates
+define_template("toggle_on", {
+    type: "image",
+    texture: "textures/ui/toggle_on",
+    size: [40, 20]
+});
+define_template("toggle_off", {
+    type: "image",
+    texture: "textures/ui/toggle_off",
+    size: [40, 20]
+});`,
+                    'common_sections/ui_template_tooltip.uidx': `// PackZoneMC Tooltip Templates
+define_template("tooltip_default", {
+    type: "label",
+    font_type: "Minecraft",
+    font_size: "small",
+    color: "#FFFFAA",
+    shadow: true
+});`,
+                    
+                    // inventory_screens
+                    'inventory_screens/inventory_screen.uidx': `// PackZoneMC Inventory Screen
+define_screen("inventory_screen", {
+    template: "common.screen_default",
+    controls: {
+        inventory_grid: {
+            type: "grid",
+            template: "inventory.inventory_slot",
+            size: [176, 166],
+            dimensions: [9, 4]
+        },
+        hotbar: {
+            type: "grid",
+            template: "inventory.hotbar_slot",
+            size: [176, 22],
+            dimensions: [9, 1]
+        },
+        armor_slots: {
+            type: "grid",
+            template: "inventory.armor_slot",
+            size: [20, 80],
+            dimensions: [1, 4]
         }
-        initEvents() {
+    }
+});`,
+                    'inventory_screens/chest_screen.uidx': `// PackZoneMC Chest Screen
+define_screen("chest_screen", {
+    template: "common.screen_default",
+    controls: {
+        chest_grid: {
+            type: "grid",
+            template: "chest.chest_slot",
+            size: [176, 166],
+            dimensions: [9, 4]
+        },
+        hotbar: {
+            type: "grid",
+            template: "inventory.hotbar_slot",
+            size: [176, 22],
+            dimensions: [9, 1]
+        }
+    }
+});`,
+                    'inventory_screens/furnace_screen.uidx': `// PackZoneMC Furnace Screen
+define_screen("furnace_screen", {
+    template: "common.screen_default",
+    controls: {
+        input_slot: {
+            type: "slot",
+            template: "furnace.input_slot",
+            size: [18, 18]
+        },
+        output_slot: {
+            type: "slot",
+            template: "furnace.output_slot",
+            size: [18, 18]
+        },
+        fuel_slot: {
+            type: "slot",
+            template: "furnace.fuel_slot",
+            size: [18, 18]
+        }
+    }
+});`,
+                    'inventory_screens/crafting_screen.uidx': `// PackZoneMC Crafting Screen
+define_screen("crafting_screen", {
+    template: "common.screen_default",
+    controls: {
+        crafting_grid: {
+            type: "grid",
+            template: "crafting.slot",
+            size: [108, 72],
+            dimensions: [3, 2]
+        },
+        output_slot: {
+            type: "slot",
+            template: "crafting.output_slot",
+            size: [18, 18]
+        }
+    }
+});`,
+                    'inventory_screens/anvil_screen.uidx': `// PackZoneMC Anvil Screen
+define_screen("anvil_screen", {
+    template: "common.screen_default",
+    controls: {
+        input_slot: {
+            type: "slot",
+            template: "anvil.input_slot",
+            size: [18, 18]
+        },
+        material_slot: {
+            type: "slot",
+            template: "anvil.material_slot",
+            size: [18, 18]
+        },
+        output_slot: {
+            type: "slot",
+            template: "anvil.output_slot",
+            size: [18, 18]
+        }
+    }
+});`,
+                    'inventory_screens/enchanting_screen.uidx': `// PackZoneMC Enchanting Screen
+define_screen("enchanting_screen", {
+    template: "common.screen_default",
+    controls: {
+        input_slot: {
+            type: "slot",
+            template: "enchant.input_slot",
+            size: [18, 18]
+        },
+        lapis_slot: {
+            type: "slot",
+            template: "enchant.lapis_slot",
+            size: [18, 18]
+        }
+    }
+});`,
+                    'inventory_screens/brewing_stand_screen.uidx': `// PackZoneMC Brewing Stand Screen
+define_screen("brewing_stand_screen", {
+    template: "common.screen_default",
+    controls: {
+        ingredient_slot: {
+            type: "slot",
+            template: "brewing.ingredient_slot",
+            size: [18, 18]
+        },
+        fuel_slot: {
+            type: "slot",
+            template: "brewing.fuel_slot",
+            size: [18, 18]
+        },
+        bottle_grid: {
+            type: "grid",
+            template: "brewing.bottle_slot",
+            size: [54, 72],
+            dimensions: [3, 4]
+        }
+    }
+});`,
+                    'inventory_screens/horse_screen.uidx': `// PackZoneMC Horse Screen
+define_screen("horse_screen", {
+    template: "common.screen_default",
+    controls: {
+        horse_slots: {
+            type: "grid",
+            template: "horse.slot",
+            size: [54, 72],
+            dimensions: [3, 4]
+        }
+    }
+});`,
+                    'inventory_screens/beacon_screen.uidx': `// PackZoneMC Beacon Screen
+define_screen("beacon_screen", {
+    template: "common.screen_default",
+    controls: {
+        effect_grid: {
+            type: "grid",
+            template: "beacon.effect_slot",
+            size: [162, 54],
+            dimensions: [9, 3]
+        },
+        payment_slot: {
+            type: "slot",
+            template: "beacon.payment_slot",
+            size: [18, 18]
+        }
+    }
+});`,
+                    'inventory_screens/creative_new_screen.uidx': `// PackZoneMC Creative Screen
+define_screen("creative_screen", {
+    template: "common.screen_default",
+    controls: {
+        tab_bar: {
+            type: "grid",
+            template: "creative.tab",
+            size: [160, 24],
+            dimensions: [8, 1]
+        },
+        item_grid: {
+            type: "grid",
+            template: "creative.item_slot",
+            size: [160, 160],
+            dimensions: [10, 10]
+        }
+    }
+});`,
+                    
+                    // java_gui_sections/container
+                    'java_gui_sections/container/inventory.uidx': `// PackZoneMC Java Inventory Section
+define_section("inventory", {
+    slots: {
+        type: "grid",
+        template: "inventory.slot",
+        size: [162, 72],
+        dimensions: [9, 4]
+    }
+});`,
+                    'java_gui_sections/container/ender_chest.uidx': `// PackZoneMC Ender Chest Section
+define_section("ender_chest", {
+    slots: {
+        type: "grid",
+        template: "ender_chest.slot",
+        size: [162, 72],
+        dimensions: [9, 4]
+    }
+});`,
+                    'java_gui_sections/container/generic_54.uidx': `// PackZoneMC Generic 54 Section
+define_section("generic_54", {
+    slots: {
+        type: "grid",
+        template: "generic.slot",
+        size: [162, 108],
+        dimensions: [9, 6]
+    }
+});`,
+                    'java_gui_sections/container/anvil.uidx': `// PackZoneMC Anvil Section
+define_section("anvil", {
+    input_slot: {
+        type: "slot",
+        template: "anvil.input_slot",
+        size: [18, 18]
+    },
+    output_slot: {
+        type: "slot",
+        template: "anvil.output_slot",
+        size: [18, 18]
+    }
+});`,
+                    
+                    // main_screens/hud_sections
+                    'main_screens/hud_sections/hud_screen.uidx': `// PackZoneMC HUD Screen
+define_screen("hud_screen", {
+    template: "common.screen_default",
+    controls: {
+        xp_bar: {
+            type: "image",
+            texture: "textures/ui/experiencebarfull",
+            size: [100, 10],
+            animation: "hud.xp_bar_animation"
+        },
+        health_bar: {
+            type: "image",
+            texture: "textures/ui/health_bar",
+            size: [80, 10]
+        },
+        hunger_bar: {
+            type: "image",
+            texture: "textures/ui/hunger_bar",
+            size: [80, 10]
+        }
+    }
+});`,
+                    'main_screens/hud_sections/bars_bindings.uidx': `// PackZoneMC Bars Bindings
+define_binding("health", {
+    source: "player.health",
+    format: "{value}%"
+});
+define_binding("hunger", {
+    source: "player.hunger",
+    format: "{value}%"
+});
+define_binding("xp", {
+    source: "player.experience",
+    format: "{value}%"
+});`,
+                    'main_screens/hud_sections/chat_panel.uidx': `// PackZoneMC Chat Panel
+define_template("chat_message", {
+    type: "label",
+    font_type: "Minecraft",
+    font_size: "small",
+    color: "#FFFFFF",
+    shadow: true
+});`
+                };
+                    // DOM
+    this.dropZone = document.getElementById('dropZone');
+    this.fileInput = document.getElementById('file-input');
+    this.fileInfo = document.getElementById('fileInfo');
+    this.fileName = document.getElementById('fileName');
+    this.fileSize = document.getElementById('fileSize');
+    this.convertBtn = document.getElementById('convertBtn');
+    this.progressContainer = document.getElementById('progressContainer');
+    this.progressBar = document.getElementById('progressBar');
+    this.progressLabel = document.getElementById('progressLabel');
+    this.progressPercent = document.getElementById('progressPercent');
+    this.logEl = document.getElementById('log');
+    this.result = document.getElementById('result');
+    this.downloadBtn = document.getElementById('downloadBtn');
+    this.convertTime = document.getElementById('convertTime');
+    this.resultDetail = document.getElementById('resultDetail');
+
+    this.initEvents();
+}
+
+initEvents() {
     const self = this;
     this.dropZone.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -495,9 +776,9 @@ async fetchMissingFile(url) {
     } catch {
         return null;
     }
-            }
-        // ============================================================
-//  پردازش اسکای معمولی
+                    }
+            // ============================================================
+//  پردازش اسکای معمولی (فقط بالای ۱MB)
 // ============================================================
 async processSky(mcFolder, bedrockPack) {
     const skyFolder = mcFolder.folder('textures/environment/sky');
@@ -505,6 +786,7 @@ async processSky(mcFolder, bedrockPack) {
         this.addLog('ℹ️ پوشه اسکای معمولی یافت نشد', 'info');
         return;
     }
+
     const skyMapping = [
         ['up.png', 'cubemap_0.png', false],
         ['front.png', 'cubemap_4.png', true],
@@ -513,17 +795,32 @@ async processSky(mcFolder, bedrockPack) {
         ['down.png', 'cubemap_2.png', false],
         ['back.png', 'cubemap_3.png', false]
     ];
+
     let convertedCount = 0;
+    let skippedCount = 0;
+
     for (const [javaName, bedrockName, rotate] of skyMapping) {
         const file = skyFolder.file(javaName);
         if (file) {
             try {
-                let data = await file.async('base64');
+                // ============================================
+                //  چک کردن سایز فایل (باید بالای ۱MB باشه)
+                // ============================================
+                const fileData = await file.async('arraybuffer');
+                const fileSizeMB = fileData.byteLength / (1024 * 1024);
+
+                if (fileSizeMB < 1) {
+                    this.addLog(`⚠️ ${javaName} سایز ${fileSizeMB.toFixed(2)}MB دارد (کمتر از ۱MB)، رد شد`, 'warn');
+                    skippedCount++;
+                    continue;
+                }
+
+                let data = await this.arrayBufferToBase64(fileData);
                 if (rotate) {
                     data = await this.rotateImage180(data);
-                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°)`, 'special');
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (۱۸۰°) - ${fileSizeMB.toFixed(2)}MB`, 'special');
                 } else {
-                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش)`, 'special');
+                    this.addLog(`🌤️ ${javaName} → ${bedrockName} (بدون چرخش) - ${fileSizeMB.toFixed(2)}MB`, 'special');
                 }
                 bedrockPack.file(`textures/environment/overworld_cubemap/${bedrockName}`, data, { base64: true });
                 convertedCount++;
@@ -532,13 +829,29 @@ async processSky(mcFolder, bedrockPack) {
             }
         }
     }
+
     if (convertedCount > 0) {
         this.addLog(`✅ ${convertedCount} فایل اسکای معمولی به cubemap تبدیل شد`, 'success');
+    }
+    if (skippedCount > 0) {
+        this.addLog(`⚠️ ${skippedCount} فایل اسکای به دلیل سایز زیر ۱MB رد شد`, 'warn');
     }
 }
 
 // ============================================================
-//  پردازش McPatcher Sky (۳×۲ → ۶ تکه) با ساب‌پک
+//  تبدیل ArrayBuffer به Base64
+// ============================================================
+async arrayBufferToBase64(buffer) {
+    const blob = new Blob([buffer], { type: 'image/png' });
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]);
+        reader.readAsDataURL(blob);
+    });
+}
+
+// ============================================================
+//  پردازش McPatcher Sky (با چک سایز ۱MB)
 // ============================================================
 async processMcpatcherSkyWithSubpacks(mcFolder) {
     const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
@@ -565,9 +878,23 @@ async processMcpatcherSkyWithSubpacks(mcFolder) {
     const subpackColors = ['§b§l', '§6§l', '§7§l', '§f§l'];
     const subpackFolders = ['daysky', 'sunsetsky', 'starfield1', 'starfield2'];
 
+    let validCount = 0;
+
     for (let i = 0; i < Math.min(pngFiles.length, 4); i++) {
         const file = pngFiles[i];
-        const data = await file.async('base64');
+        
+        // ============================================
+        //  چک کردن سایز فایل
+        // ============================================
+        const fileData = await file.async('arraybuffer');
+        const fileSizeMB = fileData.byteLength / (1024 * 1024);
+
+        if (fileSizeMB < 1) {
+            this.addLog(`⚠️ ${file.name} سایز ${fileSizeMB.toFixed(2)}MB دارد (کمتر از ۱MB)، رد شد`, 'warn');
+            continue;
+        }
+
+        const data = await this.arrayBufferToBase64(fileData);
         const img = new Image();
         img.src = 'data:image/png;base64,' + data;
         await new Promise((resolve) => { img.onload = resolve; });
@@ -599,17 +926,26 @@ async processMcpatcherSkyWithSubpacks(mcFolder) {
 
         skyData.push({
             fileName: file.name,
-            folderName: subpackFolders[i] || `sky${i + 1}`,
-            name: (subpackColors[i] || '§f§l') + (subpackNames[i] || `Sky ${i + 1}`),
+            folderName: subpackFolders[validCount] || `sky${validCount + 1}`,
+            name: (subpackColors[validCount] || '§f§l') + (subpackNames[validCount] || `Sky ${validCount + 1}`),
             memoryTier: 0,
-            data: subpackData
+            data: subpackData,
+            sizeMB: fileSizeMB
         });
+
+        validCount++;
+        this.addLog(`🌤️ ${file.name} (${fileSizeMB.toFixed(2)}MB) برای ساب‌پک ${subpackFolders[validCount-1]} آماده شد`, 'special');
     }
 
-    this.addLog(`🌤️ ${skyData.length} فایل اسکای برای ساب‌پک شناسایی شد`, 'special');
+    if (skyData.length === 0) {
+        this.addLog('⚠️ هیچ فایل اسکای با سایز بالای ۱MB یافت نشد', 'warn');
+        return null;
+    }
+
+    this.addLog(`🌤️ ${skyData.length} فایل اسکای (بالای ۱MB) برای ساب‌پک شناسایی شد`, 'special');
     return skyData;
              }
-        // ============================================================
+            // ============================================================
 //  پردازش armor (با دیتابیس)
 // ============================================================
 async processArmor(texturesFolder, bedrockPack) {
@@ -658,10 +994,8 @@ async processFont(mcFolder, bedrockPack) {
             const data = await file.async('base64');
             const name = file.name;
 
-            // داخل textures/font
             bedrockPack.file(`textures/font/${name}`, data, { base64: true });
 
-            // ریشه (بیرون textures)
             if (name === 'ascii.png') {
                 bedrockPack.file(`font/default8.png`, data, { base64: true });
                 this.addLog(`📝 ascii.png → font/default8.png (ریشه)`, 'special');
@@ -707,26 +1041,15 @@ async processGui(texturesFolder, bedrockPack) {
             }
         }
     }
-        }
-        // ============================================================
-//  ساخت پوشه‌های ui و uidx با محتوای پیش‌فرض
+}
+            // ============================================================
+//  ساخت پوشه uidx با کدهای واقعی
 // ============================================================
-async createUiAndUidx(bedrockPack) {
-    // ========================================
-    // پوشه ui
-    // ========================================
-    for (const [filename, content] of Object.entries(this.defaultUiContent)) {
-        bedrockPack.file(`ui/${filename}`, content);
-    }
-    this.addLog(`📁 پوشه ui با ${Object.keys(this.defaultUiContent).length} فایل ساخته شد`, 'special');
-
-    // ========================================
-    // پوشه uidx
-    // ========================================
-    for (const [filename, content] of Object.entries(this.defaultUidxContent)) {
+async createUidx(bedrockPack) {
+    for (const [filename, content] of Object.entries(this.uidxContent)) {
         bedrockPack.file(`uidx/${filename}`, content);
     }
-    this.addLog(`📁 پوشه uidx با ${Object.keys(this.defaultUidxContent).length} فایل ساخته شد`, 'special');
+    this.addLog(`📁 پوشه uidx با ${Object.keys(this.uidxContent).length} فایل UIDX ساخته شد`, 'special');
 }
 
 // ============================================================
@@ -777,7 +1100,7 @@ async addMissingAssets(bedrockPack) {
         this.addLog(`📦 ${addedCount} فایل گم‌شده از گیت دانلود و اضافه شد`, 'success');
     }
 }
-        // ============================================================
+            // ============================================================
 //  تولید مانیفست با ساب‌پک
 // ============================================================
 generateManifestWithSubpacks(packName, skyData) {
@@ -788,7 +1111,7 @@ generateManifestWithSubpacks(packName, skyData) {
         format_version: 2,
         header: {
             name: packName,
-            description: 'RP Converter PackZoneMC v2.4!!',
+            description: 'RP Converter PackZoneMC v2.5!!',
             uuid: headerUUID,
             version: [1, 0, 0],
             min_engine_version: [1, 20, 0]
@@ -816,7 +1139,7 @@ generateManifestWithSubpacks(packName, skyData) {
         manifest.subpacks = subpacks;
         manifest.settings = [{
             type: "label",
-            text: `§b§l${packName}\n§7تبدیل شده توسط PackZoneMC v2.4\n\n${settingsText.join(' • ')}`
+            text: `§b§l${packName}\n§7تبدیل شده توسط PackZoneMC v2.5\n\n${settingsText.join(' • ')}`
         }];
 
         this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
@@ -881,8 +1204,8 @@ generateCompleteFlipbook() {
         { "flipbook_texture": "textures/items/water_still", "atlas_tile": "water_still", "atlas_index": 0,
             "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
     ];
-         }
-                    // ============================================================
+        }
+                        // ============================================================
             //  تابع اصلی تبدیل
             // ============================================================
             async startConversion() {
@@ -980,7 +1303,7 @@ generateCompleteFlipbook() {
                     this.setProgress(35, '🔄 کپی فایل‌ها...');
 
                     // ========================================
-                    // کپی پوشه‌های اصلی
+                    // کپی پوشه‌های اصلی (textures, sounds)
                     // ========================================
                     const foldersToCopy = ['textures', 'sounds'];
                     let copiedCount = 0;
@@ -1035,12 +1358,12 @@ generateCompleteFlipbook() {
                     }
 
                     // ========================================
-                    // ساخت پوشه‌های ui و uidx
+                    // ساخت پوشه uidx با کدهای واقعی
                     // ========================================
-                    await this.createUiAndUidx(bedrockPack);
+                    await this.createUidx(bedrockPack);
 
                     // ========================================
-                    // اضافه کردن فایل‌های گم‌شده از گیت
+                    // اضافه کردن فایل‌های گم‌شده از گیت (assets/uidx)
                     // ========================================
                     this.addLog('📦 اضافه کردن فایل‌های گم‌شده از گیت...', 'info');
                     await this.addMissingAssets(bedrockPack);
