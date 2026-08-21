@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PackZone MC - Resource Pack Converter v2.0</title>
+    <title>PackZone MC - Resource Pack Converter v2.1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Vazirmatn', sans-serif;
             background: #0a0e1a;
@@ -28,32 +24,15 @@
             border-radius: 24px;
             max-width: 750px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
             border: 1px solid #2a3a5a;
             margin-top: 20px;
         }
-        h1 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        h1 span {
-            color: #4a9eff;
-        }
-        .version {
-            text-align: center;
-            color: #ff2e63;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .sub {
-            text-align: center;
-            color: #8899bb;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
+        h1 { text-align: center; font-size: 28px; margin-bottom: 5px; }
+        h1 span { color: #4a9eff; }
+        .version { text-align: center; color: #ff2e63; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+        .sub { text-align: center; color: #8899bb; margin-bottom: 20px; font-size: 14px; }
+        
         .drop-zone {
             border: 2px dashed #2a3a5a;
             border-radius: 16px;
@@ -63,33 +42,13 @@
             transition: 0.3s;
             background: #0f1626;
         }
-        .drop-zone:hover {
-            border-color: #4a9eff;
-            background: #18203a;
-        }
-        .drop-zone.dragover {
-            border-color: #4a9eff;
-            background: #1a2a4a;
-        }
-        .drop-zone svg {
-            width: 55px;
-            height: 55px;
-            fill: #4a9eff;
-            margin-bottom: 10px;
-        }
-        .drop-zone p {
-            font-size: 15px;
-            color: #aabbdd;
-        }
-        .drop-zone .hint {
-            font-size: 12px;
-            color: #667799;
-            margin-top: 6px;
-        }
-        #file-input {
-            display: none;
-        }
-
+        .drop-zone:hover { border-color: #4a9eff; background: #18203a; }
+        .drop-zone.dragover { border-color: #4a9eff; background: #1a2a4a; }
+        .drop-zone svg { width: 55px; height: 55px; fill: #4a9eff; margin-bottom: 10px; }
+        .drop-zone p { font-size: 15px; color: #aabbdd; }
+        .drop-zone .hint { font-size: 12px; color: #667799; margin-top: 6px; }
+        #file-input { display: none; }
+        
         .file-info {
             display: none;
             background: #0f1626;
@@ -98,20 +57,10 @@
             margin-top: 14px;
             border: 1px solid #1a2a4a;
         }
-        .file-info.show {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .file-info .name {
-            color: #4a9eff;
-            font-weight: 500;
-        }
-        .file-info .size {
-            color: #667799;
-            font-size: 13px;
-        }
-
+        .file-info.show { display: flex; justify-content: space-between; align-items: center; }
+        .file-info .name { color: #4a9eff; font-weight: 500; }
+        .file-info .size { color: #667799; font-size: 13px; }
+        
         .btn-convert {
             width: 100%;
             padding: 14px;
@@ -126,15 +75,9 @@
             transition: 0.3s;
             font-family: inherit;
         }
-        .btn-convert:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3);
-        }
-        .btn-convert:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        .btn-convert:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 30px rgba(74, 158, 255, 0.3); }
+        .btn-convert:disabled { opacity: 0.5; cursor: not-allowed; }
+        
         .progress-container {
             display: none;
             margin-top: 16px;
@@ -143,9 +86,7 @@
             padding: 14px 18px;
             border: 1px solid #1a2a4a;
         }
-        .progress-container.show {
-            display: block;
-        }
+        .progress-container.show { display: block; }
         .progress-bar-bg {
             width: 100%;
             height: 6px;
@@ -167,7 +108,7 @@
             font-size: 13px;
             color: #8899bb;
         }
-
+        
         .log {
             margin-top: 14px;
             background: #0a0e1a;
@@ -183,25 +124,13 @@
             border: 1px solid #1a2a3a;
             display: none;
         }
-        .log.show {
-            display: block;
-        }
-        .log .success {
-            color: #66ddaa;
-        }
-        .log .error {
-            color: #ff6b6b;
-        }
-        .log .info {
-            color: #4a9eff;
-        }
-        .log .special {
-            color: #ff6bff;
-        }
-        .log .warn {
-            color: #ffd93d;
-        }
-
+        .log.show { display: block; }
+        .log .success { color: #66ddaa; }
+        .log .error { color: #ff6b6b; }
+        .log .info { color: #4a9eff; }
+        .log .special { color: #ff6bff; }
+        .log .warn { color: #ffd93d; }
+        
         .result {
             display: none;
             margin-top: 16px;
@@ -211,23 +140,10 @@
             border: 1px solid #1a4a3a;
             text-align: center;
         }
-        .result.show {
-            display: block;
-        }
-        .result .icon {
-            font-size: 40px;
-            margin-bottom: 4px;
-        }
-        .result .msg {
-            color: #66ddaa;
-            font-weight: 500;
-            font-size: 17px;
-        }
-        .result .detail {
-            color: #8899bb;
-            font-size: 13px;
-            margin: 4px 0 12px;
-        }
+        .result.show { display: block; }
+        .result .icon { font-size: 40px; margin-bottom: 4px; }
+        .result .msg { color: #66ddaa; font-weight: 500; font-size: 17px; }
+        .result .detail { color: #8899bb; font-size: 13px; margin: 4px 0 12px; }
         .btn-download {
             padding: 12px 30px;
             border: none;
@@ -240,17 +156,14 @@
             transition: 0.3s;
             font-family: inherit;
         }
-        .btn-download:hover {
-            background: #1a5a4a;
-            transform: scale(1.03);
-        }
+        .btn-download:hover { background: #1a5a4a; transform: scale(1.03); }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔄 PackZone <span>Converter</span></h1>
-        <div class="version">نسخه ۲.۰</div>
-        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + فیکس خودکار</p>
+        <div class="version">نسخه ۲.۱</div>
+        <p class="sub">تبدیل هوشمند پک جاوا → بدراک + ساب‌پک + فیکس خودکار</p>
 
         <div class="drop-zone" id="dropZone">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
@@ -286,9 +199,6 @@
         </div>
     </div>
 <script>
-    // ============================================================
-    //  کلاس اصلی کانورتر هوشمند - نسخه ۲.۰
-    // ============================================================
     class PackConverter {
         constructor() {
             this.file = null;
@@ -300,7 +210,6 @@
 
             // دیتابیس مسیرهای تبدیل (جاوا → بدراک)
             this.pathDatabase = {
-                // مدل‌ها (armor)
                 'textures/models/armor/chainmail_layer_1.png': 'textures/models/armor/chain_1.png',
                 'textures/models/armor/chainmail_layer_2.png': 'textures/models/armor/chain_2.png',
                 'textures/models/armor/diamond_layer_1.png': 'textures/models/armor/diamond_1.png',
@@ -315,7 +224,7 @@
                 'textures/models/armor/leather_layer_2_overlay.png': 'textures/models/armor/leather_2_overlay.png'
             };
 
-            // لیست فایل‌هایی که باید فیکس بشن (باگ‌دار)
+            // لیست فایل‌های باگ‌دار
             this.buggyFiles = [
                 'textures/items/diamond_sword.png',
                 'textures/items/iron_sword.png',
@@ -325,50 +234,15 @@
                 'textures/items/netherite_sword.png'
             ];
 
-            // قالب flipbook_textures.json برای فیکس شمشیرها
-            this.flipbookTemplate = [{
-                "flipbook_texture": "textures/items/diamond_sword",
-                "atlas_tile": "diamond_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }, {
-                "flipbook_texture": "textures/items/iron_sword",
-                "atlas_tile": "iron_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }, {
-                "flipbook_texture": "textures/items/golden_sword",
-                "atlas_tile": "golden_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }, {
-                "flipbook_texture": "textures/items/stone_sword",
-                "atlas_tile": "stone_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }, {
-                "flipbook_texture": "textures/items/wooden_sword",
-                "atlas_tile": "wooden_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }, {
-                "flipbook_texture": "textures/items/netherite_sword",
-                "atlas_tile": "netherite_sword",
-                "atlas_index": 0,
-                "atlas_tile_variant": 0,
-                "replicate": 1,
-                "blend_frames": false
-            }];
+            // قالب flipbook
+            this.flipbookTemplate = [
+                { "flipbook_texture": "textures/items/diamond_sword", "atlas_tile": "diamond_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/iron_sword", "atlas_tile": "iron_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/golden_sword", "atlas_tile": "golden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/stone_sword", "atlas_tile": "stone_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/wooden_sword", "atlas_tile": "wooden_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false },
+                { "flipbook_texture": "textures/items/netherite_sword", "atlas_tile": "netherite_sword", "atlas_index": 0, "atlas_tile_variant": 0, "replicate": 1, "blend_frames": false }
+            ];
 
             // DOM
             this.dropZone = document.getElementById('dropZone');
@@ -460,7 +334,7 @@
             if (label) this.progressLabel.textContent = label;
             this.progressContainer.classList.add('show');
         }
-    // ============================================================
+        // ============================================================
 //  متدهای کمکی پردازش تصویر
 // ============================================================
 async rotateImage180(base64Data) {
@@ -502,7 +376,7 @@ async cropImage(base64Data, x, y, width, height) {
 }
 
 // ============================================================
-//  پردازش اسکای معمولی
+//  پردازش اسکای معمولی (بدون ساب‌پک)
 // ============================================================
 async processSky(mcFolder, bedrockPack) {
     const skyFolder = mcFolder.folder('textures/environment/sky');
@@ -543,64 +417,73 @@ async processSky(mcFolder, bedrockPack) {
 }
 
 // ============================================================
-//  پردازش McPatcher Sky (۳×۲ → ۶ تکه)
+//  پردازش McPatcher Sky (۳×۲ → ۶ تکه) با ساب‌پک
 // ============================================================
-async processMcpatcherSky(mcFolder, bedrockPack) {
+async processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack) {
     const skyFolder = mcFolder.folder('mcpatcher/sky/world0');
     if (!skyFolder) {
         this.addLog('ℹ️ پوشه mcpatcher/sky/world0 یافت نشد', 'info');
-        return;
+        return null;
     }
 
+    // پیدا کردن همه فایل‌های .png
     const allFiles = skyFolder.file(/./);
-    let pngFile = null;
+    const pngFiles = [];
     for (const file of allFiles) {
         if (!file.dir && file.name.endsWith('.png')) {
-            pngFile = file;
-            break;
+            pngFiles.push(file);
         }
     }
-    if (!pngFile) {
+
+    if (pngFiles.length === 0) {
         this.addLog('ℹ️ هیچ فایل .png در mcpatcher/sky/world0 یافت نشد', 'info');
-        return;
+        return null;
     }
 
-    const data = await pngFile.async('base64');
-    const img = new Image();
-    img.src = 'data:image/png;base64,' + data;
-    await new Promise((resolve) => { img.onload = resolve; });
+    // حداقل ۲ تا فایل برای ساب‌پک
+    const skyData = [];
+    for (let i = 0; i < Math.min(pngFiles.length, 2); i++) {
+        const file = pngFiles[i];
+        const data = await file.async('base64');
+        const img = new Image();
+        img.src = 'data:image/png;base64,' + data;
+        await new Promise((resolve) => { img.onload = resolve; });
 
-    const imgWidth = img.width;
-    const imgHeight = img.height;
-    const partWidth = Math.floor(imgWidth / 3);
-    const partHeight = Math.floor(imgHeight / 2);
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+        const partWidth = Math.floor(imgWidth / 3);
+        const partHeight = Math.floor(imgHeight / 2);
 
-    this.addLog(`📐 ابعاد عکس: ${imgWidth}×${imgHeight}`, 'info');
+        const cropMap = [
+            { col: 0, row: 0, name: 'cubemap_5.png', rotate: true },
+            { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
+            { col: 2, row: 0, name: 'cubemap_0.png', rotate: false },
+            { col: 0, row: 1, name: 'cubemap_1.png', rotate: false },
+            { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
+            { col: 2, row: 1, name: 'cubemap_3.png', rotate: false }
+        ];
 
-    const cropMap = [
-        { col: 0, row: 0, name: 'cubemap_5.png', rotate: true },
-        { col: 1, row: 0, name: 'cubemap_4.png', rotate: true },
-        { col: 2, row: 0, name: 'cubemap_0.png', rotate: false },
-        { col: 0, row: 1, name: 'cubemap_1.png', rotate: false },
-        { col: 1, row: 1, name: 'cubemap_2.png', rotate: false },
-        { col: 2, row: 1, name: 'cubemap_3.png', rotate: false }
-    ];
-
-    for (const part of cropMap) {
-        const x = part.col * partWidth;
-        const y = part.row * partHeight;
-        let cropped = await this.cropImage(data, x, y, partWidth, partHeight);
-        if (part.rotate) {
-            cropped = await this.rotateImage180(cropped);
-            this.addLog(`🌤️ ${part.name} (۱۸۰°)`, 'special');
-        } else {
-            this.addLog(`🌤️ ${part.name} (بدون چرخش)`, 'special');
+        const subpackData = {};
+        for (const part of cropMap) {
+            const x = part.col * partWidth;
+            const y = part.row * partHeight;
+            let cropped = await this.cropImage(data, x, y, partWidth, partHeight);
+            if (part.rotate) {
+                cropped = await this.rotateImage180(cropped);
+            }
+            subpackData[part.name] = cropped;
         }
-        bedrockPack.file(`textures/environment/overworld_cubemap/${part.name}`, cropped, { base64: true });
+        skyData.push({
+            fileName: file.name,
+            subpackName: `sky${i + 1}`,
+            data: subpackData
+        });
     }
-    this.addLog(`✅ McPatcher Sky به ۶ تکه cubemap تبدیل شد`, 'success');
-                    }
-    // ============================================================
+
+    this.addLog(`🌤️ ${skyData.length} فایل اسکای برای ساب‌پک شناسایی شد`, 'special');
+    return skyData;
+            }
+        // ============================================================
 //  پردازش هوشمند armor (فقط تغییر اسم با دیتابیس)
 // ============================================================
 async processArmor(texturesFolder, bedrockPack) {
@@ -616,7 +499,6 @@ async processArmor(texturesFolder, bedrockPack) {
         if (!file.dir) {
             const name = file.name;
             const data = await file.async('base64');
-            // چک کردن در دیتابیس
             const javaPath = `textures/models/armor/${name}`;
             if (this.pathDatabase[javaPath]) {
                 const bedrockPath = this.pathDatabase[javaPath];
@@ -624,7 +506,6 @@ async processArmor(texturesFolder, bedrockPack) {
                 convertedCount++;
                 this.addLog(`🛡️ ${name} → ${bedrockPath.split('/').pop()}`, 'special');
             } else {
-                // کپی معمولی با همان اسم
                 bedrockPack.file(`textures/models/armor/${name}`, data, { base64: true });
             }
         }
@@ -676,7 +557,6 @@ async processGui(texturesFolder, bedrockPack) {
     const guiFolder = texturesFolder.folder('gui');
     if (!guiFolder) return;
 
-    // title/minecraft.png → textures/ui/title.png
     const titleFolder = guiFolder.folder('title');
     if (titleFolder) {
         const minecraftPng = titleFolder.file('minecraft.png');
@@ -686,7 +566,6 @@ async processGui(texturesFolder, bedrockPack) {
             this.addLog('🖼️ minecraft.png → textures/ui/title.png', 'special');
         }
 
-        // title/background/panorama_0.png تا panorama_5.png → textures/ui/
         const bgFolder = titleFolder.folder('background');
         if (bgFolder) {
             let panoramaCount = 0;
@@ -705,24 +584,82 @@ async processGui(texturesFolder, bedrockPack) {
         }
     }
 }
+        // ============================================================
+//  فیکس خودکار باگ‌ها (شمشیرها و آیتم‌های باگ‌دار)
 // ============================================================
-//  تولید مانیفست
+async fixBugs(texturesFolder, bedrockPack) {
+    const itemsFolder = texturesFolder.folder('items');
+    if (!itemsFolder) return;
+
+    let fixedCount = 0;
+
+    for (const buggyFile of this.buggyFiles) {
+        const fileName = buggyFile.split('/').pop();
+        const file = itemsFolder.file(fileName);
+        if (file) {
+            const data = await file.async('base64');
+            const bedrockPath = `textures/items/${fileName}`;
+            bedrockPack.file(bedrockPath, data, { base64: true });
+            fixedCount++;
+            this.addLog(`🔧 فیکس شد: ${fileName} → ${bedrockPath}`, 'special');
+        }
+    }
+
+    if (fixedCount > 0) {
+        this.addLog(`✅ ${fixedCount} فایل باگ‌دار فیکس شد`, 'success');
+        bedrockPack.file('textures/flipbook_textures.json', JSON.stringify(this.flipbookTemplate, null, 2));
+        this.addLog(`📄 flipbook_textures.json برای شمشیرها ساخته شد`, 'special');
+    }
+}
+
 // ============================================================
-generateManifest(packName) {
-    return {
+//  تولید مانیفست با ساب‌پک
+// ============================================================
+generateManifestWithSubpacks(packName, skyData) {
+    const manifest = {
         format_version: 2,
         header: {
             name: packName,
-            description: 'RP Converter PackZoneMC v2.0!!',
+            description: 'RP Converter PackZoneMC v2.1!!',
             uuid: this.generateUUID(),
             version: [1, 0, 0],
             min_engine_version: [1, 20, 0]
         },
-        modules: [{ type: 'resources', uuid: this.generateUUID(), version: [1, 0, 0] }]
+        modules: [{
+            type: 'resources',
+            uuid: this.generateUUID(),
+            version: [1, 0, 0]
+        }]
     };
+
+    // اضافه کردن ساب‌پک‌ها
+    if (skyData && skyData.length > 0) {
+        const subpacks = [];
+        for (const sky of skyData) {
+            subpacks.push({
+                name: sky.subpackName,
+                folder: `subpacks/${sky.subpackName}`,
+                description: `اسکای ${sky.subpackName}`
+            });
+        }
+        manifest.subpacks = subpacks;
+        this.addLog(`📦 ${subpacks.length} ساب‌پک به مانیفست اضافه شد`, 'success');
+    }
+
+    return manifest;
 }
 
 // ============================================================
+//  تولید UUID
+// ============================================================
+generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+        // ============================================================
 //  تولید flipbook_textures.json کامل
 // ============================================================
 generateCompleteFlipbook() {
@@ -778,9 +715,9 @@ generateUUID() {
         const v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
-        }
-                // ============================================================
-            //  تابع اصلی تبدیل هوشمند - نسخه ۲.۰
+}
+                    // ============================================================
+            //  تابع اصلی تبدیل هوشمند - نسخه ۲.۱
             // ============================================================
             async startConversion() {
                 if (this.isConverting || !this.file) return;
@@ -839,12 +776,6 @@ generateUUID() {
                     }
                     this.setProgress(15, '🔄 ساخت مانیفست...');
 
-                    const packName = this.file.name.replace(/\.zip$/, '');
-                    const manifest = this.generateManifest(packName);
-                    bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
-                    this.addLog(`✅ manifest.json ساخته شد`, 'success');
-                    this.setProgress(20, '🔄 کپی فایل‌ها...');
-
                     const assetsFolder = zip.folder('assets');
                     if (!assetsFolder) {
                         throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
@@ -853,6 +784,35 @@ generateUUID() {
                     if (!mcFolder) {
                         throw new Error('پوشه assets/minecraft در پک پیدا نشد!');
                     }
+
+                    // ========================================
+                    // پردازش McPatcher Sky و ساخت ساب‌پک
+                    // ========================================
+                    this.setProgress(20, '🌤️ پردازش اسکای و ساب‌پک...');
+                    const skyData = await this.processMcpatcherSkyWithSubpacks(mcFolder, bedrockPack);
+
+                    // ========================================
+                    // ساخت مانیفست با ساب‌پک
+                    // ========================================
+                    const packName = this.file.name.replace(/\.zip$/, '');
+                    const manifest = this.generateManifestWithSubpacks(packName, skyData);
+                    bedrockPack.file('manifest.json', JSON.stringify(manifest, null, 2));
+                    this.addLog(`✅ manifest.json با ساب‌پک ساخته شد`, 'success');
+
+                    // ========================================
+                    // اضافه کردن ساب‌پک‌ها به پک
+                    // ========================================
+                    if (skyData && skyData.length > 0) {
+                        for (const sky of skyData) {
+                            const subpackFolder = `subpacks/${sky.subpackName}/textures/environment/overworld_cubemap/`;
+                            for (const [name, data] of Object.entries(sky.data)) {
+                                bedrockPack.file(`${subpackFolder}${name}`, data, { base64: true });
+                            }
+                            this.addLog(`📁 ساب‌پک ${sky.subpackName} با ${Object.keys(sky.data).length} فایل ساخته شد`, 'special');
+                        }
+                    }
+
+                    this.setProgress(40, '🔄 کپی فایل‌ها...');
 
                     // ========================================
                     // کپی پوشه‌های اصلی
@@ -877,21 +837,21 @@ generateUUID() {
                         } else {
                             this.addLog(`⚠️ پوشه ${folderName} پیدا نشد، رد می‌شود`, 'warn');
                         }
-                        const progress = 20 + (copiedCount / foldersToCopy.length) * 30;
+                        const progress = 40 + (copiedCount / foldersToCopy.length) * 20;
                         this.setProgress(progress, `🔄 کپی ${folderName}...`);
                     }
 
                     const texturesFolder = mcFolder.folder('textures');
 
                     // ========================================
-                    // پردازش armor با دیتابیس
+                    // پردازش armor
                     // ========================================
                     if (texturesFolder) {
                         await this.processArmor(texturesFolder, bedrockPack);
                     }
 
                     // ========================================
-                    // پردازش font
+                    // پردازش font (داخل textures + ریشه)
                     // ========================================
                     await this.processFont(mcFolder, bedrockPack);
 
@@ -907,20 +867,18 @@ generateUUID() {
                     // ========================================
                     if (texturesFolder) {
                         await this.fixBugs(texturesFolder, bedrockPack);
-                        await this.fixStructure(texturesFolder, bedrockPack);
                     }
 
-                    this.setProgress(65, '🔄 پردازش اسکای...');
+                    this.setProgress(75, '🔄 پردازش اسکای معمولی...');
 
                     // ========================================
-                    // اسکای معمولی
+                    // اسکای معمولی (اگه ساب‌پک نباشه)
                     // ========================================
-                    await this.processSky(mcFolder, bedrockPack);
-
-                    // ========================================
-                    // McPatcher Sky
-                    // ========================================
-                    await this.processMcpatcherSky(mcFolder, bedrockPack);
+                    if (!skyData || skyData.length === 0) {
+                        await this.processSky(mcFolder, bedrockPack);
+                    } else {
+                        this.addLog('ℹ️ اسکای معمولی به دلیل وجود ساب‌پک، نادیده گرفته شد', 'info');
+                    }
 
                     // ========================================
                     // قابلیت‌های ویژه (destroy_stage, flame_atlas)
