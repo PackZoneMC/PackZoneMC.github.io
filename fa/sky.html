@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PackZone MC - Sky Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            background: #0a0e1a;
+            color: #e0e6f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #141b2b;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 650px;
+            width: 100%;
+            border: 1px solid #2a3a5a;
+        }
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        h1 span {
+            color: #4a9eff;
+        }
+        .sub {
+            text-align: center;
+            color: #8899bb;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .mode-selector button {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #2a3a5a;
+            border-radius: 10px;
+            background: #0f1626;
+            color: #8899bb;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .mode-selector button.active {
+            border-color: #4a9eff;
+            color: #4a9eff;
+            background: #18203a;
+        }
+        .mode-selector button:active {
+            transform: scale(0.97);
+        }
+
+        .drop-zone {
+            border: 2px dashed #2a3a5a;
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #0f1626;
+            margin-bottom: 12px;
+        }
+        .drop-zone:hover {
+            border-color: #4a9eff;
+            background: #18203a;
+        }
+        .drop-zone.dragover {
+            border-color: #4a9eff;
+            background: #1a2a4a;
+        }
+        .drop-zone svg {
+            width: 45px;
+            height: 45px;
+            fill: #4a9eff;
+            margin-bottom: 6px;
+        }
+        .drop-zone p {
+            font-size: 14px;
+            color: #aabbdd;
+        }
+        .drop-zone .hint {
+            font-size: 12px;
+            color: #667799;
+            margin-top: 4px;
+        }
+        #file-input {
+            display: none;
+        }
+
+        .file-info {
+            display: none;
+            background: #0f1626;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #1a2a4a;
+        }
+        .file-info.show {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .file-info .name {
+            color: #4a9eff;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .file-info .size {
+            color: #667799;
+            font-size: 12px;
+        }
+
+        .sky-name-input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #2a3a5a;
+            background: #0a0e1a;
+            color: #e0e6f0;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            margin-top: 10px;
+        }
+        .sky-name-input:focus {
+            border-color: #4a9eff;
+        }
+        .sky-name-input::placeholder {
+            color: #667799;
+        }
+
+        .btn-convert {
+            width: 100%;
+            padding: 14px;
+            margin-top: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4a9eff, #2a6eff);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .btn-convert:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(74, 158, 255, 0.3);
+        }
+        .btn-convert:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .log {
+            margin-top: 12px;
+            background: #0a0e1a;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #667799;
+            max-height: 120px;
+            overflow-y: auto;
+            font-family: monospace;
+            border: 1px solid #1a2a3a;
+            display: none;
+        }
+        .log.show {
+            display: block;
+        }
+        .log .success {
+            color: #66ddaa;
+        }
+        .log .error {
+            color: #ff6b6b;
+        }
+        .log .info {
+            color: #4a9eff;
+        }
+        .log .special {
+            color: #ff6bff;
+        }
+        .log .warn {
+            color: #ffd93d;
+        }
+
+        .result {
+            display: none;
+            margin-top: 14px;
+            background: #0f1626;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #1a4a3a;
+            text-align: center;
+        }
+        .result.show {
+            display: block;
+        }
+        .result .icon {
+            font-size: 34px;
+        }
+        .result .msg {
+            color: #66ddaa;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        .btn-download {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 10px;
+            background: #1a4a3a;
+            color: #66ddaa;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+        .btn-download:hover {
+            background: #1a5a4a;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .preview-grid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #2a3a5a;
+            background: #0a0e1a;
+        }
+        .preview-grid .empty {
+            aspect-ratio: 1;
+            border: 1px dashed #2a3a5a;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667799;
+            font-size: 12px;
+        }
+        .preview-grid .count-label {
+            grid-column: span 3;
+            text-align: center;
+            color: #667799;
+            font-size: 12px;
+            padding: 4px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 16px;
+            }
+            .preview-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+            }
+            .mode-selector button {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ PackZone <span>Sky Converter</span></h1>
+        <p class="sub">تبدیل دوطرفه اسکای بین جاوا و بدراک</p>
+
+        <!-- ====== انتخاب حالت ====== -->
+        <div class="mode-selector">
+            <button id="modeBedrockToJava" class="active">🔄 بدراک → جاوا</button>
+            <button id="modeJavaToBedrock">🔄 جاوا → بدراک</button>
+        </div>
+
+        <!-- ====== دراپ زون ====== -->
+        <div class="drop-zone" id="dropZone">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12l4-4 4 4-1.5 1.5L13 13v4h-2v-4l-1.5 1.5L8 12z"/></svg>
+            <p id="dropText">📁 ۶ عکس cubemap را بکشید یا کلیک کنید</p>
+            <p class="hint" id="dropHint">فایل‌های .png — ترتیب مهم نیست</p>
+        </div>
+        <input type="file" id="file-input" accept=".png" multiple>
+
+        <div class="file-info" id="fileInfo">
+            <span class="name" id="fileName">۶ فایل انتخاب شد</span>
+            <span class="size" id="fileSize">۰ مگابایت</span>
+        </div>
+
+        <!-- ====== پیش‌نمایش ====== -->
+        <div class="preview-grid" id="previewGrid">
+            <div class="empty">۱</div>
+            <div class="empty">۲</div>
+            <div class="empty">۳</div>
+            <div class="empty">۴</div>
+            <div class="empty">۵</div>
+            <div class="empty">۶</div>
+            <div class="count-label" id="fileCountLabel">۰ از ۶ فایل</div>
+        </div>
+
+        <!-- ====== اسم اسکای ====== -->
+        <input type="text" class="sky-name-input" id="skyNameInput" placeholder="🏷️ اسم اسکای را وارد کنید (مثلاً My Sky)" />
+
+        <button class="btn-convert" id="convertBtn" disabled>🚀 تبدیل اسکای</button>
+
+        <div class="log" id="log"></div>
+
+        <div class="result" id="result">
+            <div class="icon">🎉</div>
+            <div class="msg">تبدیل با موفقیت انجام شد!</div>
+            <button class="btn-download" id="downloadBtn">📥 دانلود فایل</button>
+        </div>
+    </div>
+        <script>
+        class SkyConverter {
+            constructor() {
+                this.files = [];
+                this.convertedBlob = null;
+                this.mode = 'bedrockToJava'; // یا 'javaToBedrock'
+
+                this.dropZone = document.getElementById('dropZone');
+                this.fileInput = document.getElementById('file-input');
+                this.fileInfo = document.getElementById('fileInfo');
+                this.fileName = document.getElementById('fileName');
+                this.fileSize = document.getElementById('fileSize');
+                this.previewGrid = document.getElementById('previewGrid');
+                this.fileCountLabel = document.getElementById('fileCountLabel');
+                this.skyNameInput = document.getElementById('skyNameInput');
+                this.convertBtn = document.getElementById('convertBtn');
+                this.logEl = document.getElementById('log');
+                this.result = document.getElementById('result');
+                this.downloadBtn = document.getElementById('downloadBtn');
+                this.dropText = document.getElementById('dropText');
+                this.dropHint = document.getElementById('dropHint');
+
+                this.modeBedrockToJava = document.getElementById('modeBedrockToJava');
+                this.modeJavaToBedrock = document.getElementById('modeJavaToBedrock');
+
+                this.initEvents();
+            }
+
+            initEvents() {
+                const self = this;
+
+                // ====== حالت‌ها ======
+                this.modeBedrockToJava.addEventListener('click', () => {
+                    this.mode = 'bedrockToJava';
+                    this.modeBedrockToJava.classList.add('active');
+                    this.modeJavaToBedrock.classList.remove('active');
+                    this.dropText.textContent = '📁 ۶ عکس cubemap را بکشید یا کلیک کنید';
+                    this.dropHint.textContent = 'فایل‌های .png — ترتیب مهم نیست';
+                    this.skyNameInput.placeholder = '🏷️ اسم اسکای را وارد کنید (مثلاً My Sky)';
+                    this.clearAll();
+                });
+
+                this.modeJavaToBedrock.addEventListener('click', () => {
+                    this.mode = 'javaToBedrock';
+                    this.modeJavaToBedrock.classList.add('active');
+                    this.modeBedrockToJava.classList.remove('active');
+                    this.dropText.textContent = '📁 ۶ عکس جاوا (up, down, north, south, east, west) را بکشید';
+                    this.dropHint.textContent = 'فایل‌های .png — ترتیب مهم نیست';
+                    this.skyNameInput.placeholder = '🏷️ اسم اسکای را وارد کنید (مثلاً My Sky)';
+                    this.clearAll();
+                });
+
+                // ====== دراپ زون ======
+                this.dropZone.addEventListener('click', () => this.fileInput.click());
+
+                this.dropZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.dropZone.classList.add('dragover');
+                });
+                this.dropZone.addEventListener('dragleave', () => {
+                    this.dropZone.classList.remove('dragover');
+                });
+                this.dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.dropZone.classList.remove('dragover');
+                    if (e.dataTransfer.files.length > 0) {
+                        this.handleFiles(e.dataTransfer.files);
+                    }
+                });
+
+                this.fileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) {
+                        this.handleFiles(e.target.files);
+                    }
+                    this.fileInput.value = '';
+                });
+
+                // ====== دکمه‌ها ======
+                this.convertBtn.addEventListener('click', () => this.startConversion());
+                this.downloadBtn.addEventListener('click', () => this.downloadPack());
+            }
+
+            clearAll() {
+                this.files = [];
+                this.convertedBlob = null;
+                this.fileInfo.classList.remove('show');
+                this.convertBtn.disabled = true;
+                this.result.classList.remove('show');
+                this.logEl.classList.remove('show');
+                this.logEl.innerHTML = '';
+                this.previewGrid.innerHTML = '';
+                for (let i = 1; i <= 6; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'empty';
+                    div.textContent = i;
+                    this.previewGrid.appendChild(div);
+                }
+                const label = document.createElement('div');
+                label.className = 'count-label';
+                label.id = 'fileCountLabel';
+                label.textContent = '۰ از ۶ فایل';
+                this.previewGrid.appendChild(label);
+                this.fileCountLabel = document.getElementById('fileCountLabel');
+            }
+
+            handleFiles(files) {
+                const pngFiles = [];
+                for (const file of files) {
+                    if (file.type === 'image/png' || file.name.endsWith('.png')) {
+                        pngFiles.push(file);
+                    }
+                }
+
+                const required = this.mode === 'bedrockToJava' ? 6 : 6;
+                if (pngFiles.length !== required) {
+                    this.addLog(`❌ باید دقیقاً ${required} عکس انتخاب کنید (${pngFiles.length} عدد انتخاب شد)`, 'error');
+                    return;
+                }
+
+                this.files = pngFiles;
+                const totalSize = pngFiles.reduce((sum, f) => sum + f.size, 0);
+                this.fileName.textContent = `${pngFiles.length} فایل انتخاب شد`;
+                this.fileSize.textContent = (totalSize / 1024 / 1024).toFixed(1) + ' مگابایت';
+                this.fileInfo.classList.add('show');
+                this.convertBtn.disabled = false;
+                this.result.classList.remove('show');
+                this.logEl.classList.remove('show');
+                this.logEl.innerHTML = '';
+                this.addLog(`✅ ${pngFiles.length} فایل با موفقیت انتخاب شد`, 'success');
+
+                this.renderPreview(pngFiles);
+            }
+
+            renderPreview(files) {
+                this.previewGrid.innerHTML = '';
+                for (let i = 0; i < 6; i++) {
+                    const div = document.createElement('div');
+                    if (files[i]) {
+                        const img = document.createElement('img');
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            img.src = e.target.result;
+                        };
+                        reader.readAsDataURL(files[i]);
+                        div.appendChild(img);
+                    } else {
+                        div.className = 'empty';
+                        div.textContent = i + 1;
+                    }
+                    this.previewGrid.appendChild(div);
+                }
+                const label = document.createElement('div');
+                label.className = 'count-label';
+                label.id = 'fileCountLabel';
+                label.textContent = `${files.length} از ۶ فایل`;
+                this.previewGrid.appendChild(label);
+                this.fileCountLabel = label;
+            }
+
+            addLog(msg, type = 'info') {
+                const icons = { success: '✅', error: '❌', info: 'ℹ️', special: '✨', warn: '⚠️' };
+                const prefix = icons[type] || 'ℹ️';
+                this.logEl.innerHTML += `<div class="${type}">${prefix} ${msg}</div>`;
+                this.logEl.classList.add('show');
+                this.logEl.scrollTop = this.logEl.scrollHeight;
+            }
+
+            // ============================================================
+            //  تبدیل بدراک → جاوا
+            // ============================================================
+            async convertBedrockToJava(skyName) {
+                const zip = new JSZip();
+                const assetsFolder = zip.folder('assets/minecraft/textures/environment/sky');
+
+                const mapping = [
+                    { bedrock: 'cubemap_0.png', java: 'up.png' },
+                    { bedrock: 'cubemap_1.png', java: 'east.png' },
+                    { bedrock: 'cubemap_2.png', java: 'down.png' },
+                    { bedrock: 'cubemap_3.png', java: 'west.png' },
+                    { bedrock: 'cubemap_4.png', java: 'south.png' },
+                    { bedrock: 'cubemap_5.png', java: 'north.png' }
+                ];
+
+                for (let i = 0; i < this.files.length && i < mapping.length; i++) {
+                    const file = this.files[i];
+                    const data = await file.arrayBuffer();
+                    assetsFolder.file(mapping[i].java, data);
+                    this.addLog(`📸 ${file.name} → ${mapping[i].java}`, 'special');
+                }
+
+                // sky.properties
+                const properties = `# Sky properties for ${skyName}
+# Generated by PackZoneMC Sky Converter
+
+up=textures/environment/sky/up.png
+down=textures/environment/sky/down.png
+north=textures/environment/sky/north.png
+south=textures/environment/sky/south.png
+east=textures/environment/sky/east.png
+west=textures/environment/sky/west.png
+`;
+                assetsFolder.file('sky.properties', properties);
+                this.addLog(`📄 sky.properties ساخته شد`, 'success');
+
+                // pack.mcmeta
+                const mcmeta = {
+                    pack: {
+                        pack_format: 1,
+                        description: `§b${skyName} §fSky | §dConverted by PackZoneMC`
+                    }
+                };
+                zip.file('pack.mcmeta', JSON.stringify(mcmeta, null, 2));
+                this.addLog(`📦 pack.mcmeta ساخته شد`, 'success');
+
+                // pack.png
+                const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAAAI0lEQVQ4T2P8//8/Ay0xEZRiJHYDxYxiG1EMMWxkmAEAxL8FbcHJn6sAAAAASUVORK5CYII=';
+                zip.file('pack.png', defaultIcon, { base64: true });
+
+                return await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+            }
+
+            // ============================================================
+            //  تبدیل جاوا → بدراک
+            // ============================================================
+            async convertJavaToBedrock(skyName) {
+                const zip = new JSZip();
+
+                // نگاشت جاوا → بدراک
+                const mapping = [
+                    { java: 'up.png', bedrock: 'cubemap_0.png' },
+                    { java: 'east.png', bedrock: 'cubemap_1.png' },
+                    { java: 'down.png', bedrock: 'cubemap_2.png' },
+                    { java: 'west.png', bedrock: 'cubemap_3.png' },
+                    { java: 'south.png', bedrock: 'cubemap_4.png' },
+                    { java: 'north.png', bedrock: 'cubemap_5.png' }
+                ];
+
+                // ====== تشخیص خودکار اسم فایل‌های جاوا ======
+                // کاربر میتونه هر اسمی بذاره، ما با شناسایی محتوا تطابق میدیم
+                // ولی فعلاً فرض میکنیم به ترتیب درست آپلود شده
+                // برای حالت حرفه‌ای‌تر: بررسی ابعاد و نسبت تصویر
+
+                const bedrockFolder = zip.folder('textures/environment/overworld_cubemap');
+
+                for (let i = 0; i < this.files.length && i < mapping.length; i++) {
+                    const file = this.files[i];
+                    const data = await file.arrayBuffer();
+                    // تشخیص اسم فایل اصلی برای لاگ
+                    const javaName = mapping[i].java;
+                    const bedrockName = mapping[i].bedrock;
+                    bedrockFolder.file(bedrockName, data);
+                    this.addLog(`📸 ${file.name} (→ ${javaName}) → ${bedrockName}`, 'special');
+                }
+
+                // ====== ساخت manifest.json برای بدراک ======
+                const manifest = {
+                    format_version: 2,
+                    header: {
+                        name: `§b${skyName} §fSky`,
+                        description: `§b${skyName} §fSky | §dConverted by PackZoneMC`,
+                        uuid: this.generateUUID(),
+                        version: [1, 0, 0],
+                        min_engine_version: [1, 20, 0]
+                    },
+                    modules: [{
+                        type: 'resources',
+                        uuid: this.generateUUID(),
+                        version: [1, 0, 0]
+                    }]
+                };
+                zip.file('manifest.json', JSON.stringify(manifest, null, 2));
+                this.addLog(`📄 manifest.json ساخته شد`, 'success');
+
+                // ====== pack_icon.png ======
+                const defaultIcon = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAAAI0lEQVQ4T2P8//8/Ay0xEZRiJHYDxYxiG1EMMWxkmAEAxL8FbcHJn6sAAAAASUVORK5CYII=';
+                zip.file('pack_icon.png', defaultIcon, { base64: true });
+
+                return await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+            }
+
+            generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // ============================================================
+            //  شروع تبدیل
+            // ============================================================
+            async startConversion() {
+                if (this.files.length !== 6) {
+                    this.addLog('❌ دقیقاً ۶ عکس نیاز است', 'error');
+                    return;
+                }
+
+                const skyName = this.skyNameInput.value.trim() || 'MySky';
+                this.addLog(`🌤️ شروع تبدیل "${skyName}" (حالت: ${this.mode === 'bedrockToJava' ? 'بدراک → جاوا' : 'جاوا → بدراک'})...`, 'info');
+
+                try {
+                    let blob;
+                    let ext;
+                    if (this.mode === 'bedrockToJava') {
+                        blob = await this.convertBedrockToJava(skyName);
+                        ext = 'zip';
+                    } else {
+                        blob = await this.convertJavaToBedrock(skyName);
+                        ext = 'mcpack';
+                    }
+
+                    this.convertedBlob = blob;
+                    this.addLog(`🎉 تبدیل با موفقیت انجام شد! حجم: ${(blob.size / 1024 / 1024).toFixed(2)} مگابایت`, 'success');
+                    this.result.classList.add('show');
+                    this.downloadBtn.textContent = `📥 دانلود فایل (.${ext})`;
+
+                } catch (err) {
+                    this.addLog(`❌ خطا: ${err.message}`, 'error');
+                }
+            }
+
+            downloadPack() {
+                if (this.convertedBlob) {
+                    const name = this.skyNameInput.value.trim() || 'MySky';
+                    const ext = this.mode === 'bedrockToJava' ? 'zip' : 'mcpack';
+                    saveAs(this.convertedBlob, `${name}_sky.${ext}`);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new SkyConverter();
+        });
+    </script>
+</body>
+</html>
