@@ -1,49 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fa" dir="rtl">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PackZone MC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #05010f;
+            background-image: radial-gradient(ellipse at 30% 20%, rgba(120, 50, 255, 0.15), transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(200, 50, 255, 0.08), transparent 50%);
+            position: relative;
+        }
 
-<title>PackZone MC</title>
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(1.5px 1.5px at 20% 30%, rgba(180, 130, 255, 0.2), transparent),
+                radial-gradient(1.5px 1.5px at 50% 70%, rgba(180, 130, 255, 0.15), transparent),
+                radial-gradient(1.5px 1.5px at 80% 20%, rgba(180, 130, 255, 0.2), transparent);
+            background-size: 200px 200px;
+            z-index: 0;
+            animation: drift 20s linear infinite;
+        }
 
-<link rel="stylesheet" href="style.css">
+        @keyframes drift {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-200px);
+            }
+        }
 
+        .language-box {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(10, 5, 25, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 32px;
+            padding: 40px 32px 36px;
+            border: 1px solid rgba(180, 130, 255, 0.08);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(120, 50, 255, 0.03);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: 0.4s ease;
+        }
+
+        .language-box:hover {
+            border-color: rgba(180, 130, 255, 0.18);
+            transform: translateY(-3px);
+        }
+
+        .language-box h1 {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #c084fc, #7c3aed, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .language-box .sub {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .language-box .sub i {
+            color: #a78bfa;
+            font-style: normal;
+        }
+
+        .language-box h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #c8c0e0;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .buttons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 0;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .buttons a:first-child {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            color: #fff;
+            box-shadow: 0 4px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .buttons a:first-child::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: 0.7s;
+        }
+
+        .buttons a:first-child:hover::after {
+            transform: translateX(100%);
+        }
+
+        .buttons a:first-child:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 50px rgba(124, 58, 237, 0.3);
+        }
+
+        .buttons a:first-child:active {
+            transform: scale(0.96);
+        }
+
+        .buttons a:last-child {
+            background: rgba(255, 255, 255, 0.04);
+            color: #c8c0e0;
+            border: 1px solid rgba(180, 130, 255, 0.08);
+        }
+
+        .buttons a:last-child:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(180, 130, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons a:last-child:active {
+            transform: scale(0.96);
+        }
+
+        .buttons a .flag {
+            font-size: 24px;
+        }
+
+        .footer {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 12px;
+            color: #444;
+            letter-spacing: 0.5px;
+        }
+
+        .footer i {
+            color: #7c3aed;
+            font-style: normal;
+        }
+
+        @media (max-width: 480px) {
+            .language-box {
+                padding: 28px 20px 24px;
+                border-radius: 24px;
+            }
+            .language-box h1 {
+                font-size: 26px;
+            }
+            .language-box .sub {
+                font-size: 13px;
+            }
+            .language-box h2 {
+                font-size: 14px;
+            }
+            .buttons a {
+                font-size: 16px;
+                padding: 14px 0;
+            }
+            .buttons a .flag {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .language-box {
+                padding: 20px 14px 18px;
+            }
+            .language-box h1 {
+                font-size: 22px;
+            }
+            .buttons a {
+                font-size: 14px;
+                padding: 12px 0;
+            }
+        }
+    </style>
 </head>
-
-
 <body>
 
-<div class="language-box">
+    <div class="language-box">
+        <h1>⚡ PackZone MC</h1>
+        <p class="sub"><i>✦</i> Professional Minecraft Resource Packs <i>✦</i></p>
+        <h2>🌍 انتخاب زبان / Choose Language</h2>
+        <div class="buttons">
+            <a href="fa/index.html" onclick="saveLanguage('fa')">
+                <span class="flag">🇮🇷</span> فارسی
+            </a>
+            <a href="en/index.html" onclick="saveLanguage('en')">
+                <span class="flag">🇺🇸</span> English
+            </a>
+        </div>
+        <div class="footer">
+            <i>❤</i> PackZone © ۲۰۲۶
+        </div>
+    </div>
 
-<h1>💙 PackZone MC</h1>
+    <script>
+        function saveLanguage(lang) {
+            localStorage.setItem('packzone-lang', lang);
+        }
 
-<p>Professional Minecraft Resource Pack Website</p>
-
-<h2>Choose Your Language</h2>
-
-
-<div class="buttons">
-
-<a href="fa/index.html" onclick="saveLanguage('fa')">
-🇮🇷 فارسی
-</a>
-
-
-<a href="en/index.html" onclick="saveLanguage('en')">
-🇺🇸 English
-</a>
-
-
-</div>
-
-</div>
-
-
-
-<script src="script.js"></script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('packzone-lang');
+            if (saved === 'fa') {
+                window.location.href = 'fa/index.html';
+            } else if (saved === 'en') {
+                window.location.href = 'en/index.html';
+            }
+        });
+    </script>
 
 </body>
-
 </html>
