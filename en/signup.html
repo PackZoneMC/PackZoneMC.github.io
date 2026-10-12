@@ -315,6 +315,7 @@ body {
 </style>
 </head>
 <body>
+<div id="pzNavbar" style="position:absolute;top:0;left:0;right:0;z-index:900"></div>
 
 <div class="pz-loader" id="pzLoader">
     <div class="pz-loader-inner">
@@ -405,126 +406,8 @@ body {
 
 <div class="toast" id="toast"></div>
 
-<script>
-function showToast(message, type) {
-    var toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.className = 'toast';
-    if (type === 'error') toast.classList.add('error');
-    if (type === 'success') toast.classList.add('success');
-    toast.classList.add('show');
-    clearTimeout(toast._timer);
-    toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
-}
 
-document.querySelectorAll('.eye-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var input = document.getElementById(this.dataset.target);
-        input.type = input.type === 'password' ? 'text' : 'password';
-        this.style.color = input.type === 'text' ? '#22d3ee' : '';
-    });
-});
 
-var strengthLabels = ['Strength', 'Weak', 'Fair', 'Good', 'Strong'];
-document.getElementById('password').addEventListener('input', function() {
-    var v = this.value;
-    var score = 0;
-    if (v.length >= 6) score++;
-    if (v.length >= 10) score++;
-    if (/[0-9]/.test(v) && /[a-zA-Z]/.test(v)) score++;
-    if (/[^a-zA-Z0-9]/.test(v) && v.length >= 8) score++;
-    if (!v.length) score = 0;
-    var box = document.getElementById('strength');
-    box.className = 'strength' + (score ? ' s' + score : '');
-    document.getElementById('strengthLabel').textContent = strengthLabels[score];
-});
-
-document.getElementById('confirmPassword').addEventListener('input', function() {
-    var f = document.getElementById('f-confirm');
-    if (!this.value) { f.className = 'field'; return; }
-    f.className = 'field ' + (this.value === document.getElementById('password').value ? 'valid' : 'invalid');
-});
-
-function setFieldState(id, ok) {
-    var f = document.getElementById(id);
-    f.classList.remove('valid', 'invalid');
-    if (ok === true) f.classList.add('valid');
-    if (ok === false) f.classList.add('invalid');
-}
-
-document.getElementById('signupForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var name = document.getElementById('fullname').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value;
-    var confirm = document.getElementById('confirmPassword').value;
-    var btn = document.getElementById('signupBtn');
-
-    if (!name || name.length < 3) {
-        setFieldState('f-name', false);
-        showToast('❌ Full name must be at least 3 characters', 'error');
-        return;
-    }
-    setFieldState('f-name', true);
-
-    if (!email || !email.includes('@') || !email.includes('.')) {
-        setFieldState('f-email', false);
-        showToast('❌ Please enter a valid email address', 'error');
-        return;
-    }
-    setFieldState('f-email', true);
-
-    if (password.length < 6) {
-        setFieldState('f-pass', false);
-        showToast('❌ Password must be at least 6 characters', 'error');
-        return;
-    }
-    setFieldState('f-pass', true);
-
-    if (password !== confirm) {
-        setFieldState('f-confirm', false);
-        showToast('❌ Passwords do not match', 'error');
-        return;
-    }
-    setFieldState('f-confirm', true);
-
-    var users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-    if (users.find(function(u) { return u.email === email; })) {
-        setFieldState('f-email', false);
-        showToast('❌ This email is already registered', 'error');
-        return;
-    }
-
-    var newUser = {
-        name: name,
-        email: email,
-        password: password,
-        createdAt: new Date().toLocaleDateString('en-US'),
-        id: Date.now(),
-        favorites: []
-    };
-    users.push(newUser);
-    localStorage.setItem('pzmc_users', JSON.stringify(users));
-
-    btn.disabled = true;
-    btn.innerHTML = 'Redirecting<span class="spinner"></span>';
-    showToast('✅ Sign up successful! Welcome ' + name, 'success');
-    setTimeout(function() { window.location.href = 'login.html'; }, 1500);
-});
-
-window.addEventListener('DOMContentLoaded', function() {
-    var currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
-    if (currentUser) window.location.href = 'profile.html';
-});
-(function() {
-    function hide() {
-        var l = document.getElementById('pzLoader');
-        if (l) { l.classList.add('is-hidden'); setTimeout(function() { l.remove(); }, 700); }
-    }
-    window.addEventListener('load', function() { setTimeout(hide, 450); });
-    setTimeout(hide, 2400);
-})();
-</script>
-
+<script src="../global.js"></script>
 </body>
 </html>
