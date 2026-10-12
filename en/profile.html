@@ -667,6 +667,7 @@
 <link rel="stylesheet" href="/pzmc-global.css">
 </head>
 <body>
+<div id="pzNavbar"></div>
 <div class="pz-loader" id="pzLoader">
     <div class="pz-loader-inner">
         <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
@@ -687,23 +688,11 @@
     <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
     <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
 </div>
-<script>
-(function(){
-    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
-    window.addEventListener('load',function(){setTimeout(hide,450);});
-    setTimeout(hide,2400);
-    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
-})();
-</script>
+
 
 <div class="toast" id="toast"></div>
 
-<header class="header" id="mainHeader">
-    <div class="logo">💙 PackZone MC</div>
-    <nav class="nav-links" id="navLinks">
 
-    </nav>
-</header>
 
 <main class="profile-container">
     <section class="profile-box">
@@ -829,13 +818,7 @@
             loadProfile(user);
         }
 
-        function logoutUser() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('pzmc_current_user');
-                showToast('� You have been logged out successfully', 'success');
-                setTimeout(() => window.location.href = 'index.html', 1000);
-            }
-        }
+        
 
         function loadProfile(user) {
             document.getElementById('profileNameText').textContent = user.name || '---';
@@ -1093,5 +1076,6 @@
             if (e.key === 'Enter') savePassword();
         });
     </script>
+<script src="../global.js"></script>
 </body>
 </html>
