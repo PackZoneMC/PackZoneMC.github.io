@@ -1,117 +1,240 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackZone MC | صفحه اصلی</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PackZone MC | داشبورد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Orbitron:wght@500..900&family=Lalezar&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../pzmc-global.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    <style>
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100vh;
+    padding: 0 16px 20px;
+    line-height: 1.75;
+    overflow-x: hidden;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+.container { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
 
-        :root {
-            --primary: #38bdf8;
-            --primary-light: #7dd3fc;
-            --primary-dark: #0369a1;
-            --secondary: #22d3ee;
-            --secondary-light: #67e8f9;
-            --gold: #fbbf24;
-            --gold-dark: #f59e0b;
-            --gold-light: #fde68a;
-            --bg-dark: #0a0f1e;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(56, 189, 248, 0.25);
-            --text-primary: #ffffff;
-            --text-secondary: #e0e0e0;
-            --text-muted: #888888;
-            --shadow: 0 8px 32px rgba(56, 189, 248, 0.12);
-            --shadow-hover: 0 12px 48px rgba(56, 189, 248, 0.2);
-            --radius: 24px;
-            --radius-sm: 14px;
-            --radius-xs: 10px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --gradient-hero: linear-gradient(135deg, #38bdf8, #7dd3fc, #22d3ee, #fbbf24);
-            --gradient-card: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(34, 211, 238, 0.04));
-            --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --bg-body: #0a0f1e;
-        }
+@keyframes pzUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
-        body {
-            font-family: var(--font-primary);
-            background: var(--bg-body);
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            padding: 0;
-            margin: 0;
-            transition: var(--transition);
-            position: relative;
-            overflow-x: hidden;
-        }
+.hero {
+    text-align: center;
+    padding: 56px 22px 50px;
+    border-radius: 28px;
+    margin-bottom: 46px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(600px 240px at 50% -40px, rgba(56, 189, 248, 0.16), transparent 70%),
+        linear-gradient(160deg, rgba(8, 47, 73, 0.5), rgba(2, 132, 199, 0.18) 55%, rgba(139, 92, 246, 0.10));
+    border: 1px solid var(--pz-border);
+    animation: pzUp 0.6s ease both;
+}
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(56, 189, 248, 0.02) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 18% 28%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(2px 2px at 72% 60%, rgba(255,255,255,0.22), transparent),
+        radial-gradient(1.5px 1.5px at 44% 80%, rgba(255,255,255,0.3), transparent);
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-            position: relative;
-            z-index: 1;
-        }
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 18px;
+    border-radius: 50px;
+    background: rgba(56, 189, 248, 0.10);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #7dd3fc;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
 
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.hero h1 {
+    font-family: 'Lalezar', 'Vazirmatn', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 2.7rem;
+    line-height: 1.35;
+    color: #fff;
+    text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
+    margin-bottom: 8px;
+}
 
-        .glass-strong {
-            background: rgba(18, 27, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+.hero h1 em {
+    font-style: normal;
+    background: linear-gradient(120deg, #7dd3fc, #22d3ee 50%, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-light);
-        }
-    </style>
-    <link rel="stylesheet" href="../pzmc-theme.css">
-<link rel="stylesheet" href="/pzmc-global.css">
+.hero p { font-size: 1.06rem; color: rgba(255, 255, 255, 0.82); max-width: 560px; margin: 0 auto 26px; }
+
+.hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 30px;
+    border-radius: 14px;
+    font-size: 0.98rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: var(--pz-tr);
+}
+
+.btn-hero-blue { color: #06121f; background: linear-gradient(135deg, #7dd3fc, #22d3ee); box-shadow: 0 8px 30px rgba(34, 211, 238, 0.3); }
+.btn-hero-blue:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(34, 211, 238, 0.45); }
+
+.btn-hero-ghost { color: #dce8f8; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.14); }
+.btn-hero-ghost:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.1); border-color: rgba(56, 189, 248, 0.4); }
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 38px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+}
+
+.hstat b { display: block; font-size: 1.5rem; font-weight: 900; color: #22d3ee; font-family: 'Orbitron', 'Vazirmatn', sans-serif; }
+.hstat span { font-size: 0.78rem; color: var(--pz-muted); }
+
+.section { margin-bottom: 46px; animation: pzUp 0.6s ease both; }
+
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.section-ico {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.04));
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    flex-shrink: 0;
+}
+
+.section-head h2 { font-size: 1.55rem; color: #fff; }
+.section-head p { font-size: 0.9rem; color: var(--pz-muted); }
+
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--pz-border), transparent); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+.card {
+    border-radius: 20px;
+    padding: 24px 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    transition: var(--pz-tr);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    background: var(--ac, #38bdf8);
+    opacity: 0;
+    transition: var(--pz-tr);
+}
+
+.card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--ac, #38bdf8) 35%, transparent); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35); }
+.card:hover::before { opacity: 1; }
+
+.card-ico {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+    background: color-mix(in srgb, var(--ac, #38bdf8) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ac, #38bdf8) 22%, transparent);
+}
+
+.card h3 { font-size: 1.12rem; color: #fff; margin-bottom: 6px; }
+.card p { font-size: 0.88rem; color: var(--pz-muted); margin-bottom: 16px; flex: 1; }
+
+.card-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ac, #38bdf8);
+}
+
+.card-go svg { width: 14px; height: 14px; transition: var(--pz-tr); }
+.card:hover .card-go svg { transform: translateX(-4px); }
+
+.ac-blue { --ac: #38bdf8; }
+.ac-cyan { --ac: #22d3ee; }
+.ac-gold { --ac: #fbbf24; }
+.ac-green { --ac: #10b981; }
+.ac-purple { --ac: #a78bfa; }
+.ac-pink { --ac: #f472b6; }
+
+.footer {
+    text-align: center;
+    padding: 22px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.28);
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+    .hero { padding: 40px 16px 34px; border-radius: 22px; }
+    .hero h1 { font-size: 1.85rem; }
+    .hero p { font-size: 0.95rem; }
+    .hero-stats { gap: 22px; }
+    .hstat b { font-size: 1.2rem; }
+    .section-head h2 { font-size: 1.25rem; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { padding: 18px 14px 16px; }
+    .card p { font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.5rem; }
+    .btn-hero { width: 100%; justify-content: center; }
+}
+</style>
 </head>
-
 <body>
+<div id="pzNavbar"></div>
+
 <div class="pz-loader" id="pzLoader">
     <div class="pz-loader-inner">
         <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
@@ -119,820 +242,147 @@
         <div class="pz-loader-bar"><span></span></div>
     </div>
 </div>
+
 <div class="pz-progress"><span id="pzProgress"></span></div>
+
 <div class="pz-bg">
     <div class="pz-bg-grid"></div>
     <div class="pz-bg-glow pz-bg-glow--a"></div>
     <div class="pz-bg-glow pz-bg-glow--b"></div>
-    <div class="pz-bg-glow pz-bg-glow--c"></div>
-    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
-    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
-    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
-    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
-    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
-    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
-</div>
-<script>
-(function(){
-    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
-    window.addEventListener('load',function(){setTimeout(hide,450);});
-    setTimeout(hide,2400);
-    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
-})();
-</script>
-
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-
-    .font-cinzel { font-family: 'Cinzel', 'Vazirmatn', serif !important; }
-    .font-raleway { font-family: 'Raleway', 'Vazirmatn', sans-serif !important; }
-    .font-poppins { font-family: 'Poppins', 'Vazirmatn', sans-serif !important; }
-    .font-nunito { font-family: 'Nunito', 'Vazirmatn', sans-serif !important; }
-    .font-quicksand { font-family: 'Quicksand', 'Vazirmatn', sans-serif !important; }
-    .font-orbitron { font-family: 'Orbitron', 'Vazirmatn', sans-serif !important; }
-    .font-pressstart { font-family: 'Press Start 2P', 'Vazirmatn', cursive !important; }
-    .font-josefin { font-family: 'Josefin Sans', 'Vazirmatn', sans-serif !important; }
-    .font-lobster { font-family: 'Lobster', 'Vazirmatn', cursive !important; }
-    .font-pacifico { font-family: 'Pacifico', 'Vazirmatn', cursive !important; }
-    .font-dancing { font-family: 'Dancing Script', 'Vazirmatn', cursive !important; }
-    .font-greatvibes { font-family: 'Great Vibes', 'Vazirmatn', cursive !important; }
-    .font-satisfy { font-family: 'Satisfy', 'Vazirmatn', cursive !important; }
-    .font-bangers { font-family: 'Bangers', 'Vazirmatn', cursive !important; }
-</style>
-
-<header class="custom-header glass-strong" id="mainHeader">
-    <div class="custom-logo">💙 PackZone MC</div>
-    <nav class="custom-nav" id="mainNav">
-
-    </nav>
-</header>
-
-<style>
-    .custom-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 30px;
-        border-bottom: 2px solid rgba(56, 189, 248, 0.12);
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        flex-wrap: wrap;
-        gap: 10px;
-        transition: var(--transition);
-    }
-    .custom-header:hover {
-        border-bottom-color: rgba(56, 189, 248, 0.25);
-    }
-    .custom-logo {
-        font-size: 1.8rem;
-        font-weight: 900;
-        background: var(--gradient-hero);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 0.5px;
-        transition: var(--transition);
-    }
-    .custom-logo:hover {
-        transform: scale(1.02);
-    }
-    .custom-nav {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .custom-nav .btn-signup {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 22px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        border-radius: 30px;
-        transition: var(--transition);
-        font-size: 0.9rem;
-        box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
-    }
-    .custom-nav .btn-signup:hover {
-        transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 35px rgba(56, 189, 248, 0.25);
-    }
-    .custom-nav .btn-login {
-        color: #ddd;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 8px 18px;
-        transition: var(--transition);
-        border-radius: 30px;
-        font-size: 0.9rem;
-    }
-    .custom-nav .btn-login:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.05);
-    }
-    .custom-nav .btn-dashboard {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 18px;
-        background: linear-gradient(135deg, #00b894, #00cec9);
-        border-radius: 30px;
-        transition: var(--transition);
-        font-size: 0.85rem;
-        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
-    }
-    .custom-nav .btn-dashboard:hover {
-        transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
-    }
-    .custom-nav .btn-logout {
-        background: rgba(255, 23, 68, 0.12);
-        color: #ff1744;
-        border: 1px solid rgba(255, 23, 68, 0.2);
-        padding: 6px 18px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.85rem;
-        transition: var(--transition);
-        font-family: inherit;
-    }
-    .custom-nav .btn-logout:hover {
-        background: #ff1744;
-        color: #fff;
-        border-color: #ff1744;
-        transform: scale(1.04);
-    }
-    .user-avatar {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        border: 2px solid rgba(56, 189, 248, 0.3);
-        object-fit: cover;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    .user-avatar:hover {
-        border-color: var(--primary);
-        transform: scale(1.05);
-    }
-    .user-name {
-        color: var(--primary-light);
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    .user-name:hover {
-        color: #fff;
-    }.divider {
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        margin: 12px 0;
-    }
-    @keyframes panelSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-15px) scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-</style>
-
-<div class="language-toggle" onclick="togglePanel()">
-    <span class="toggle-icon">🌍</span>
-    <span class="toggle-label">فارسی</span>
-    <span class="toggle-arrow">▼</span>
 </div>
 
-<div class="language-panel" id="languagePanel">
-    <div class="panel-title">🌍 انتخاب زبان</div>
-    <a href="../fa/index.html" class="lang-item active">
-        <span class="flag">🇮🇷</span>
-        <span class="lang-name">فارسی</span>
-        <span class="lang-code">FA</span>
-    </a>
-    <a href="../en/index.html" class="lang-item">
-        <span class="flag">🇺🇸</span>
-        <span class="lang-name">English</span>
-        <span class="lang-code">EN</span>
-    </a>
-    <div class="panel-subtitle">📋 پایه</div>
-    <div class="panel-subtitle">⭐ اضافی</div>
-</div>
-
-<style>
-    .language-toggle {
-        position: fixed;
-        top: 85px;
-        right: 20px;
-        z-index: 1000;
-        background: rgba(18, 27, 42, 0.8);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        border-radius: 50px;
-        padding: 10px 18px;
-        color: #ddd;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        transition: var(--transition);
-        font-size: 0.85rem;
-    }
-    .language-toggle:hover {
-        border-color: rgba(56, 189, 248, 0.4);
-        background: rgba(18, 27, 42, 0.95);
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-    }
-    .language-panel {
-        position: fixed;
-        top: 145px;
-        right: 20px;
-        z-index: 999;
-        background: rgba(18, 27, 42, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(56, 189, 248, 0.12);
-        border-radius: 20px;
-        padding: 22px 24px;
-        min-width: 280px;
-        max-width: 320px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-        display: none;
-        transition: var(--transition);
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-    .language-panel.open {
-        display: block;
-        animation: panelSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .language-panel .panel-title {
-        color: var(--primary-light);
-        font-size: 0.65rem;
-        text-transform: uppercase;
-        letter-spacing: 2.5px;
-        margin-bottom: 12px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        padding-bottom: 10px;
-        font-weight: 700;
-    }
-    .language-panel .panel-subtitle {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        margin: 8px 0 6px 0;
-        padding: 4px 14px;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-    .language-panel .lang-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 8px 14px;
-        border-radius: 12px;
-        color: #ddd;
-        text-decoration: none;
-        transition: var(--transition);
-        cursor: pointer;
-    }
-    .language-panel .lang-item:hover {
-        background: rgba(56, 189, 248, 0.12);
-        color: #fff;
-    }
-    .language-panel .lang-item.active {
-        background: rgba(56, 189, 248, 0.15);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        color: #fff;
-    }
-    .language-panel .lang-item .lang-code {
-        margin-right: auto;
-        font-size: 0.65rem;
-        opacity: 0.4;
-        font-weight: 600;
-    }
-    .language-panel .divider {
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        margin: 12px 0;
-    }</style>
 
 <div class="container">
 
-    <section class="hero glass">
-        <div class="hero-content">
-            <h2>به PackZone MC خوش آمدید 💙</h2>
-            <p>مرکز تخصصی پکهای منبع برای ماینکرفت جاوا و بدراک</p>
-            <div class="hero-badges">
-                <span class="badge">🚀 حرفهای</span>
-                <span class="badge">🎨 ۴K</span>
-                <span class="badge">⚡ ۶۰+ پک</span>
-                <span class="badge">🔥 PvP</span>
-            </div>
+    <section class="hero">
+        <div class="hero-kicker">📊 داشبورد PackZone MC</div>
+        <h1 id="welcomeTitle">سلام <em>دوست من</em> 👋</h1>
+        <p>به مرکز پکها و ابزارهای ماینکرفت خوش اومدی — همه چیز یه کلیک فاصله داره</p>
+        <div class="hero-cta">
+            <a href="#packs" class="btn-hero btn-hero-blue">🎮 مشاهده پکها</a>
+            <a href="profile.html" class="btn-hero btn-hero-ghost">👤 پروفایل من</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hstat"><b>۶۰+</b><span>پک منبع</span></div>
+            <div class="hstat"><b>۵</b><span>ابزار حرفهای</span></div>
+            <div class="hstat"><b>۲</b><span>پلتفرم</span></div>
+            <div class="hstat"><b>۱۰۰٪</b><span>رایگان</span></div>
         </div>
     </section>
 
-    <section class="about glass">
-        <div class="about-icon">📌</div>
-        <h2>درباره PackZone MC</h2>
-        <p>PackZone MC مجموعهای است که به ارائه پکهای منبع حرفهای، پکهای PvP، تبدیل پکها و ابزارهای مفید ماینکرفت اختصاص دارد. هدف ما ایجاد تجربهای بهتر و سادهتر برای بازیکنان ماینکرفت است.</p>
-        <div class="about-stats">
-            <div class="stat">
-                <span class="stat-number">۶۰+</span>
-                <span class="stat-label">پک</span>
+    <section class="section" id="packs">
+        <div class="section-head">
+            <div class="section-ico">🎮</div>
+            <div>
+                <h2>پکها</h2>
+                <p>مجموعههای اختصاصی برای بدراک و جاوا</p>
             </div>
-            <div class="stat">
-                <span class="stat-number">۵</span>
-                <span class="stat-label">ابزار</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">۱۰۰%</span>
-                <span class="stat-label">رضایت</span>
-            </div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <a href="my-packs.html" class="card ac-blue">
+                <div class="card-ico">📦</div>
+                <h3>پکهای من</h3>
+                <p>پکهای اختصاصی ساخته شده توسط خود PackZone MC</p>
+                <span class="card-go">مشاهده <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="mysmce.html" class="card ac-cyan">
+                <div class="card-ico">🎮</div>
+                <h3>کالکشن میستی</h3>
+                <p>پکهای میستی معروف که برای بدراک پورت شدن</p>
+                <span class="card-go">مشاهده <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="dewier.html" class="card ac-gold">
+                <div class="card-ico">🔥</div>
+                <h3>کالکشن دیویر</h3>
+                <p>پکهای حرفهای dewier مخصوص بدراک ادیشن</p>
+                <span class="card-go">مشاهده <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="bedrock.html" class="card ac-green">
+                <div class="card-ico">🟩</div>
+                <h3>پکهای MCBE</h3>
+                <p>دانلود پکهای منبع برای ماینکرفت بدراک</p>
+                <span class="card-go">دانلود <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="java.html" class="card ac-purple">
+                <div class="card-ico">🟦</div>
+                <h3>پکهای جاوا</h3>
+                <p>مرور و دانلود پکهای منبع ماینکرفت جاوا</p>
+                <span class="card-go">مشاهده <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
         </div>
     </section>
 
-<style>
-    .hero {
-        text-align: center;
-        padding: 60px 20px 50px;
-        border-radius: 32px;
-        margin-bottom: 30px;
-        position: relative;
-        overflow: hidden;
-        background: var(--gradient-hero);
-        background-size: 300% 300%;
-        animation: gradientShift 8s ease-in-out infinite;
-    }
-    @keyframes gradientShift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
-        pointer-events: none;
-        border-radius: 32px;
-    }
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
-    .hero h2 {
-        font-size: 2.8rem;
-        font-weight: 900;
-        color: #fff;
-        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        margin-bottom: 12px;
-    }
-    .hero p {
-        font-size: 1.15rem;
-        color: rgba(255, 255, 255, 0.85);
-        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    }
-    .hero-badges {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-top: 18px;
-        flex-wrap: wrap;
-    }
-    .hero-badges .badge {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 6px 18px;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: var(--transition);
-    }
-    .hero-badges .badge:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
-    }
-
-    .about {
-        padding: 32px 36px;
-        margin-bottom: 30px;
-        border-radius: var(--radius);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    .about::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 40%;
-        height: 200%;
-        background: radial-gradient(ellipse, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
-        pointer-events: none;
-    }
-    .about .about-icon {
-        font-size: 2.5rem;
-        margin-bottom: 8px;
-    }
-    .about h2 {
-        color: var(--primary-light);
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    .about p {
-        color: var(--text-muted);
-        line-height: 2;
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    .about-stats {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        margin-top: 18px;
-        flex-wrap: wrap;
-    }
-    .about-stats .stat {
-        text-align: center;
-    }
-    .about-stats .stat-number {
-        display: block;
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--primary-light);
-    }
-    .about-stats .stat-label {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        opacity: 0.6;
-    }
-</style>
-
-    <section class="menu-box">
-        <div class="small-card glass">
-            <div class="card-icon">🎮</div>
-            <h3>پکهای میستی برای بدراک</h3>
-            <p>مجموعه پکهای میستی که به بدراک پورت شدهاند</p>
-            <div class="card-actions">
-                <a href="mysmce.html" class="btn-card">مشاهده مجموعه</a>
+    <section class="section" id="tools">
+        <div class="section-head">
+            <div class="section-ico">🛠️</div>
+            <div>
+                <h2>ابزارها</h2>
+                <p>ابزارهای آنلاین ساخت و تبدیل — بدون کدنویسی</p>
             </div>
+            <div class="section-line"></div>
         </div>
-        <div class="small-card glass">
-            <div class="card-icon">📄</div>
-            <h3>ساخت مانیفست</h3>
-            <p>فایل manifest.json خود را بدون کدنویسی بسازید</p>
-            <div class="card-actions">
-                <a href="manifest.html" class="btn-card btn-card-gold">شروع ساخت</a>
-            </div>
-        </div>
-        <div class="small-card glass">
-            <div class="card-icon">🟦</div>
-            <h3>پکهای جاوا ادیشن</h3>
-            <p>مرور پکهای منبع برای ماینکرفت جاوا</p>
-            <div class="card-actions">
-                <a href="java.html" class="btn-card">مرور جاوا</a>
-            </div>
-        </div>
-        <div class="small-card glass">
-            <div class="card-icon">🟩</div>
-            <h3>پکهای بدراک ادیشن</h3>
-            <p>دانلود پکهای منبع برای ماینکرفت بدراک</p>
-            <div class="card-actions">
-                <a href="bedrock.html" class="btn-card btn-card-green">دانلود</a>
-            </div>
-        </div>
-        <div class="small-card glass">
-            <div class="card-icon">🔥</div>
-            <h3>کالکشن dewier</h3>
-            <p>مجموعه پکهای حرفهای dewier برای بدراک</p>
-            <div class="card-actions">
-                <a href="dewier.html" class="btn-card btn-card-gold">مشاهده مجموعه</a>
-            </div>
-        </div>
-        <div class="small-card glass">
-            <div class="card-icon">📦</div>
-            <h3>پکهای من</h3>
-            <p>پکهای اختصاصی ساخته شده توسط PackZone MC</p>
-            <div class="card-actions">
-                <a href="my-packs.html" class="btn-card">مشاهده اختصاصیها</a>
-            </div>
-        </div>
-        <div class="small-card glass">
-            <div class="card-icon">📦</div>
-            <h3>ساخت pack.mcmeta جاوا</h3>
-            <p>فایل pack.mcmeta را بدون کدنویسی برای پک جاوا بسازید</p>
-            <div class="card-actions">
-                <a href="mcmeta.html" class="btn-card btn-card-gold">ساخت</a>
-            </div>
+        <div class="grid">
+            <a href="fa_converter.html" class="card ac-cyan">
+                <div class="card-ico">🔄</div>
+                <h3>کانورتر پک</h3>
+                <p>تبدیل پک جاوا به بدراک در چند کلیک</p>
+                <span class="card-go">تبدیل کن <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="manifest.html" class="card ac-gold">
+                <div class="card-ico">📄</div>
+                <h3>مانیفست بیلدر</h3>
+                <p>ساخت manifest.json بدون حتی یک خط کد</p>
+                <span class="card-go">بساز <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="mcmeta.html" class="card ac-purple">
+                <div class="card-ico">🧩</div>
+                <h3>mcmeta بیلدر</h3>
+                <p>ساخت pack.mcmeta مخصوص پکهای جاوا</p>
+                <span class="card-go">بساز <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
+            <a href="sky-converter.html" class="card ac-pink">
+                <div class="card-ico">🌤️</div>
+                <h3>کانورتر اسکای</h3>
+                <p>تبدیل اسکای جاوا به ۶ تکه cubemap بدراک</p>
+                <span class="card-go">تبدیل کن <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span>
+            </a>
         </div>
     </section>
 
-<style>
-    .menu-box {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 22px;
-        margin-top: 10px;
-    }
-    .small-card {
-        border-radius: var(--radius);
-        padding: 28px 22px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        transition: var(--transition);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
-        background: var(--gradient-card);
-    }
-    .small-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: var(--gradient-hero);
-        opacity: 0;
-        transition: var(--transition);
-    }
-    .small-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(56, 189, 248, 0.2);
-        box-shadow: var(--shadow-hover);
-    }
-    .small-card:hover::before {
-        opacity: 1;
-    }
-    .small-card .card-icon {
-        font-size: 2rem;
-        margin-bottom: 8px;
-    }
-    .small-card h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 8px;
-    }
-    .small-card p {
-        font-size: 0.92rem;
-        color: var(--text-muted);
-        line-height: 1.8;
-        margin-bottom: 16px;
-        flex: 1;
-    }
-    .small-card .card-actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: auto;
-    }
-    .small-card .btn-card {
-        display: inline-block;
-        padding: 10px 24px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        color: #fff;
-        font-weight: 600;
-        font-size: 0.9rem;
-        border-radius: 30px;
-        text-decoration: none;
-        transition: var(--transition);
-        text-align: center;
-        flex: 1;
-        min-width: 100px;
-        box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
-    }
-    .small-card .btn-card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 30px rgba(56, 189, 248, 0.2);
-    }
-    .small-card .btn-card-gold {
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: #0f1724;
-        box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
-    }
-    .small-card .btn-card-gold:hover {
-        box-shadow: 0 8px 30px rgba(243, 156, 18, 0.25);
-    }
-    .small-card .btn-card-green {
-        background: linear-gradient(135deg, #00b894, #00cec9);
-        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
-    }
-    .small-card .btn-card-green:hover {
-        box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
-    }
-</style>
+    <section class="pz-social-section">
+        <h3 class="pz-social-title">ما را دنبال کنید 💙</h3>
+        <p class="pz-social-sub">جدیدترین ویدیوها و اخبار پکها در آپارات و روبیکا</p>
+        <div class="pz-social-row">
+            <a href="https://www.aparat.com/PackZoneMC" target="_blank" rel="noopener" class="pz-social pz-social--aparat">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.7"/><path d="M10 8.6v6.8l5.6-3.4L10 8.6z" fill="currentColor"/></svg>
+                <span>آپارات</span>
+            </a>
+            <a href="https://rubika.ir/packzonemc" target="_blank" rel="noopener" class="pz-social pz-social--rubika">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.7"/><path d="M9 17V7h4.2a2.9 2.9 0 0 1 0 5.8H9m4.6 0L16.5 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>روبیکا</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© PackZone MC 💙 — تمامی حقوق محفوظ است</p>
+    </footer>
 
 </div>
 
-<footer class="footer glass">
-    <p>© PackZone MC 💙 — تمامی حقوق محفوظ است</p>
-</footer>
-
-<style>
-    .footer {
-        text-align: center;
-        padding: 24px 20px;
-        border-radius: var(--radius);
-        margin-top: 20px;
-        color: rgba(255, 255, 255, 0.2);
-        font-size: 0.85rem;
-    }
-
-    .toast-message {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(18, 27, 42, 0.95);
-        backdrop-filter: blur(16px);
-        color: #e0e0e0;
-        padding: 14px 32px;
-        border-radius: var(--radius-sm);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-        font-size: 0.95rem;
-        z-index: 9999;
-        animation: toastSlideUp 0.4s ease;
-        font-family: inherit !important;
-        text-align: center;
-    }
-    @keyframes toastSlideUp {
-        from {
-            opacity: 0;
-            transform: translateX(-50%) translateY(20px) scale(0.95);
+<script src="../global.js"></script>
+<script>
+(function() {
+    try {
+        var u = JSON.parse(localStorage.getItem('pzmc_current_user'));
+        if (u && u.name) {
+            var em = document.querySelector('#welcomeTitle em');
+            if (em) em.textContent = u.name;
         }
-        to {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0) scale(1);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .custom-header {
-            flex-direction: column;
-            padding: 12px 16px;
-            gap: 8px;
-        }
-        .custom-nav {
-            justify-content: center;
-            gap: 8px;
-        }
-        .custom-logo {
-            font-size: 1.2rem;
-        }
-        .hero h2 {
-            font-size: 1.8rem;
-        }
-        .hero {
-            padding: 40px 16px 30px;
-        }
-        .about {
-            padding: 24px 18px;
-        }
-        .menu-box {
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-        .small-card {
-            padding: 22px 16px 20px;
-        }
-        .about-stats {
-            gap: 20px;
-        }
-        .hero-badges .badge {
-            font-size: 0.7rem;
-            padding: 4px 14px;
-        }
-        .language-toggle {
-            top: 80px;
-            right: 10px;
-            padding: 6px 14px;
-            font-size: 0.75rem;
-        }
-        .language-panel {
-            top: 130px;
-            right: 10px;
-            min-width: 200px;
-            padding: 16px 18px;
-        }}
-
-    @media (max-width: 400px) {
-        .hero h2 {
-            font-size: 1.4rem;
-        }
-        .hero p {
-            font-size: 0.95rem;
-        }
-        .small-card h3 {
-            font-size: 1rem;
-        }
-        .small-card .btn-card {
-            font-size: 0.8rem;
-            padding: 8px 16px;
-        }
-        .custom-nav .btn-signup,
-        .custom-nav .btn-login {
-            font-size: 0.75rem;
-            padding: 6px 14px;
-        }
-        .language-panel {
-            min-width: 180px;
-            padding: 14px;
-        }}
-</style>
-
-    <script>
-
-        function getUserData() {
-            return JSON.parse(localStorage.getItem('pzmc_current_user'));
-        }
-
-        function togglePanel() {
-            const panel = document.getElementById('languagePanel');
-            panel.classList.toggle('open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const panel = document.getElementById('languagePanel');
-            const toggle = document.querySelector('.language-toggle');
-            if (!toggle.contains(event.target) && !panel.contains(event.target)) {
-                panel.classList.remove('open');
-            }
-        });
-
-        function showToast(message) {
-            const old = document.querySelector('.toast-message');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.className = 'toast-message';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => toast.remove(), 500);
-            }, 3000);
-        }
-
-        function updateHeader() {
-            const nav = document.getElementById('mainNav');
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (user) {
-                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') +
-                    '&background=6c5ce7&color=fff&size=40&bold=true';
-                nav.innerHTML = `
-                            <img src="${avatar}" class="user-avatar" onclick="window.location.href='dashboard.html'">
-                            <span class="user-name" onclick="window.location.href='dashboard.html'">${user.name || 'کاربر'}</span>
-                            <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
-                            <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
-                        `;
-            } else {
-                nav.innerHTML = `
-                            <a href="signup.html" class="btn-signup">📝 ثبتنام</a>
-                            <a href="login.html" class="btn-login">🔐 ورود</a>
-                        `;
-            }
-        }
-
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که میخواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => window.location.reload(), 500);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateHeader();
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    document.getElementById('languagePanel').classList.remove('open');
-                    document.getElementById('bgPanel')?.classList.remove('open');
-                }
-            });
-        });
-
-        console.log('💙 PackZone MC - صفحه اصلی با ۱۰ بخش!');
-    </script>
+    } catch (e) {}
+})();
+</script>
 
 </body>
-
 </html>
