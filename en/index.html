@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PackZone MC | Home</title>
+<title>PackZone MC | Minecraft Packs Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Orbitron:wght@500..900&family=Lalezar&display=swap" rel="stylesheet">
@@ -14,413 +14,226 @@
 body {
     font-family: 'Vazirmatn', sans-serif;
     min-height: 100vh;
-    padding: 16px;
+    padding: 0 16px 20px;
     line-height: 1.75;
     overflow-x: hidden;
 }
 
 .container { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 26px;
-    border-radius: 22px;
-    background: rgba(10, 18, 38, 0.6);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid var(--pz-border);
-    position: sticky;
-    top: 12px;
-    z-index: 50;
-    margin-bottom: 22px;
-    transition: var(--pz-tr);
-}
-
-.header:hover { border-color: rgba(56, 189, 248, 0.35); }
-
-.logo {
-    font-family: 'Orbitron', sans-serif !important;
-    font-size: 1.25rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #fff 10%, #7dd3fc 50%, #22d3ee);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
-}
-
-.nav { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-
-.nav .btn-signup {
-    color: #06121f;
-    text-decoration: none;
-    font-weight: 800;
-    padding: 9px 24px;
-    background: linear-gradient(135deg, #7dd3fc, #22d3ee);
-    border-radius: 40px;
-    font-size: 0.88rem;
-    box-shadow: 0 6px 26px rgba(34, 211, 238, 0.28);
-    position: relative;
-    overflow: hidden;
-    transition: var(--pz-tr);
-}
-
-.nav .btn-signup:hover { transform: translateY(-2px); box-shadow: 0 10px 38px rgba(34, 211, 238, 0.42); }
-
-.nav .btn-login {
-    color: #cdd9ee;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 9px 20px;
-    border-radius: 40px;
-    border: 1px solid var(--pz-border);
-    font-size: 0.88rem;
-    transition: var(--pz-tr);
-}
-
-.nav .btn-login:hover { color: #fff; border-color: rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.08); }
-
-.nav .btn-dashboard {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    padding: 9px 20px;
-    background: linear-gradient(135deg, #10b981, #0891b2);
-    border-radius: 40px;
-    font-size: 0.85rem;
-    box-shadow: 0 6px 26px rgba(16, 185, 129, 0.25);
-    transition: var(--pz-tr);
-}
-
-.nav .btn-dashboard:hover { transform: translateY(-2px); box-shadow: 0 10px 38px rgba(16, 185, 129, 0.4); }
-
-.nav .btn-logout {
-    background: rgba(255, 23, 68, 0.10);
-    color: #ff5b77;
-    border: 1px solid rgba(255, 23, 68, 0.25);
-    padding: 7px 18px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 0.82rem;
-    font-family: inherit;
-    transition: var(--pz-tr);
-}
-
-.nav .btn-logout:hover { background: #ff1744; color: #fff; }
-
-.user-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 2px solid rgba(56, 189, 248, 0.4);
-    object-fit: cover;
-    cursor: pointer;
-    transition: var(--pz-tr);
-}
-
-.user-avatar:hover { border-color: var(--pz-blue); transform: scale(1.06); }
-
-.user-name { color: #7dd3fc; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
-
-.user-name:hover { color: #fff; }
+@keyframes pzUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
 .hero {
     text-align: center;
-    padding: 74px 22px 62px;
-    border-radius: 30px;
-    margin-bottom: 24px;
+    padding: 64px 22px 54px;
+    border-radius: 28px;
+    margin-bottom: 46px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(8, 47, 73, 0.55), rgba(2, 132, 199, 0.30) 55%, rgba(56, 189, 248, 0.16));
+    background:
+        radial-gradient(600px 240px at 50% -40px, rgba(56, 189, 248, 0.16), transparent 70%),
+        linear-gradient(160deg, rgba(8, 47, 73, 0.5), rgba(2, 132, 199, 0.18) 55%, rgba(139, 92, 246, 0.10));
     border: 1px solid var(--pz-border);
-    animation: pzFadeUp 0.7s ease both;
+    animation: pzUp 0.6s ease both;
 }
 
 .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(1.5px 1.5px at 18% 28%, rgba(255,255,255,0.35), transparent), radial-gradient(1.5px 1.5px at 72% 60%, rgba(255,255,255,0.22), transparent), radial-gradient(2px 2px at 44% 80%, rgba(255,255,255,0.3), transparent), radial-gradient(1.5px 1.5px at 86% 22%, rgba(255,255,255,0.25), transparent);
-    animation: pzStars 22s linear infinite;
+    background-image:
+        radial-gradient(1.5px 1.5px at 18% 28%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(2px 2px at 72% 60%, rgba(255,255,255,0.22), transparent),
+        radial-gradient(1.5px 1.5px at 44% 80%, rgba(255,255,255,0.3), transparent);
 }
 
-@keyframes pzStars {
-    0% { background-position: 0 0; }
-    100% { background-position: -240px -160px; }
-}
-
-.hero-content { position: relative; z-index: 2; }
-
-.hero h2 {
-    font-family: 'Lalezar', 'Vazirmatn', sans-serif !important;
-    font-weight: 400 !important;
-    font-size: 2.7rem;
-    color: #fff;
-    text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
-    margin-bottom: 10px;
-}
-
-.hero p { font-size: 1.12rem; color: rgba(255, 255, 255, 0.88); }
-
-.hero-badges { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-
-.badge {
-    background: rgba(255, 255, 255, 0.13);
-    backdrop-filter: blur(8px);
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 7px 18px;
     border-radius: 50px;
+    background: rgba(56, 189, 248, 0.10);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #7dd3fc;
     font-size: 0.8rem;
     font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-family: 'Lalezar', 'Vazirmatn', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 3rem;
+    line-height: 1.35;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
+    margin-bottom: 8px;
+}
+
+.hero h1 em {
+    font-style: normal;
+    background: linear-gradient(120deg, #7dd3fc, #22d3ee 50%, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p { font-size: 1.08rem; color: rgba(255, 255, 255, 0.82); max-width: 560px; margin: 0 auto 26px; }
+
+.hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 30px;
+    border-radius: 14px;
+    font-size: 0.98rem;
+    font-weight: 800;
+    text-decoration: none;
     transition: var(--pz-tr);
 }
 
-.badge:hover { background: rgba(255, 255, 255, 0.24); transform: translateY(-2px); }
+.btn-hero-blue { color: #06121f; background: linear-gradient(135deg, #7dd3fc, #22d3ee); box-shadow: 0 8px 30px rgba(34, 211, 238, 0.3); }
+.btn-hero-blue:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(34, 211, 238, 0.45); }
 
-.about {
-    padding: 34px 36px;
-    margin-bottom: 24px;
-    border-radius: 24px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--pz-border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+.btn-hero-ghost { color: #dce8f8; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.14); }
+.btn-hero-ghost:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.1); border-color: rgba(56, 189, 248, 0.4); }
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 38px;
+    margin-top: 34px;
+    flex-wrap: wrap;
 }
 
-.about-icon { font-size: 2.4rem; margin-bottom: 6px; }
+.hstat b { display: block; font-size: 1.5rem; font-weight: 900; color: #22d3ee; font-family: 'Orbitron', 'Vazirmatn', sans-serif; }
+.hstat span { font-size: 0.78rem; color: var(--pz-muted); }
 
-.about h2 { color: #7dd3fc; font-size: 1.5rem; margin-bottom: 10px; }
+.section { margin-bottom: 46px; animation: pzUp 0.6s ease both; }
 
-.about p { color: var(--pz-muted); max-width: 720px; margin: 0 auto; }
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
 
-.about-stats { display: flex; justify-content: center; gap: 44px; margin-top: 20px; flex-wrap: wrap; }
-
-.stat-number { display: block; font-size: 1.9rem; font-weight: 900; color: #22d3ee; }
-
-.stat-label { font-size: 0.8rem; color: var(--pz-muted); opacity: 0.7; }
-
-.menu-box {
+.section-ico {
+    width: 46px;
+    height: 46px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 8px;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.04));
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    flex-shrink: 0;
 }
 
-.small-card {
-    border-radius: 24px;
-    padding: 28px 22px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+.section-head h2 { font-size: 1.55rem; color: #fff; }
+.section-head p { font-size: 0.9rem; color: var(--pz-muted); }
+
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--pz-border), transparent); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+.card {
+    border-radius: 20px;
+    padding: 24px 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.032);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    text-decoration: none;
     transition: var(--pz-tr);
-    animation: pzFadeUp 0.6s ease both;
 }
 
-.small-card:nth-child(2) { animation-delay: 0.05s; }
-.small-card:nth-child(3) { animation-delay: 0.1s; }
-.small-card:nth-child(4) { animation-delay: 0.15s; }
-.small-card:nth-child(5) { animation-delay: 0.2s; }
-.small-card:nth-child(6) { animation-delay: 0.25s; }
-.small-card:nth-child(7) { animation-delay: 0.3s; }
-.small-card:nth-child(8) { animation-delay: 0.35s; }
-.small-card:nth-child(9) { animation-delay: 0.4s; }
-
-@keyframes pzFadeUp {
-    from { opacity: 0; transform: translateY(26px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.small-card::before {
+.card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #38bdf8, #22d3ee, #8b5cf6, #fbbf24);
-    background-size: 300% 300%;
+    height: 2.5px;
+    background: var(--ac, #38bdf8);
     opacity: 0;
     transition: var(--pz-tr);
-    animation: pzGrad 4s ease-in-out infinite;
 }
 
-@keyframes pzGrad {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+.card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--ac, #38bdf8) 35%, transparent); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35); }
+.card:hover::before { opacity: 1; }
+
+.card-ico {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+    background: color-mix(in srgb, var(--ac, #38bdf8) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ac, #38bdf8) 22%, transparent);
 }
 
-.small-card:hover { transform: translateY(-7px); border-color: rgba(56, 189, 248, 0.30); box-shadow: 0 18px 55px rgba(56, 189, 248, 0.10); }
+.card h3 { font-size: 1.12rem; color: #fff; margin-bottom: 6px; }
+.card p { font-size: 0.88rem; color: var(--pz-muted); margin-bottom: 16px; flex: 1; }
 
-.small-card:hover::before { opacity: 1; }
-
-.card-icon { font-size: 2.1rem; margin-bottom: 8px; }
-
-.small-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
-
-.small-card p { font-size: 0.92rem; color: var(--pz-muted); margin-bottom: 18px; flex: 1; }
-
-.card-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
-
-.btn-card {
-    display: inline-block;
-    padding: 11px 26px;
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: #fff;
+.card-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.86rem;
     font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 40px;
-    text-decoration: none;
-    text-align: center;
-    flex: 1;
-    min-width: 100px;
-    box-shadow: 0 6px 24px rgba(56, 189, 248, 0.16);
-    position: relative;
-    overflow: hidden;
-    transition: var(--pz-tr);
+    color: var(--ac, #38bdf8);
 }
 
-.btn-card:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 36px rgba(56, 189, 248, 0.3); }
+.card-go svg { width: 14px; height: 14px; transition: var(--pz-tr); }
+.card:hover .card-go svg { transform: translateX(4px); }
 
-.btn-card-gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1005; box-shadow: 0 6px 24px rgba(251, 191, 36, 0.18); }
-
-.btn-card-gold:hover { box-shadow: 0 10px 36px rgba(251, 191, 36, 0.32); }
-
-.btn-card-green { background: linear-gradient(135deg, #10b981, #06b6d4); box-shadow: 0 6px 24px rgba(16, 185, 129, 0.18); }
-
-.btn-card-green:hover { box-shadow: 0 10px 36px rgba(16, 185, 129, 0.32); }
+.ac-blue { --ac: #38bdf8; }
+.ac-cyan { --ac: #22d3ee; }
+.ac-gold { --ac: #fbbf24; }
+.ac-green { --ac: #10b981; }
+.ac-purple { --ac: #a78bfa; }
+.ac-pink { --ac: #f472b6; }
 
 .footer {
     text-align: center;
-    padding: 24px 20px;
-    border-radius: 24px;
-    margin-top: 24px;
-    color: rgba(255, 255, 255, 0.25);
+    padding: 22px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.28);
     font-size: 0.85rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.toast-message {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(10, 18, 38, 0.95);
-    backdrop-filter: blur(16px);
-    color: #e6edf7;
-    padding: 14px 32px;
-    border-radius: 16px;
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    box-shadow: 0 10px 44px rgba(0, 0, 0, 0.55);
-    font-size: 0.95rem;
-    z-index: 9999;
-    animation: pzToast 0.4s ease;
-}
-
-@keyframes pzToast {
-    from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-}
-
-.lang-toggle {
-    position: fixed;
-    top: 14px;
-    left: 14px;
-    z-index: 1000;
-    background: rgba(10, 18, 38, 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--pz-border);
-    border-radius: 50px;
-    padding: 10px 18px;
-    color: #cdd9ee;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    font-size: 0.85rem;
-    transition: var(--pz-tr);
-}
-
-.lang-toggle:hover { border-color: rgba(56, 189, 248, 0.45); transform: translateY(-2px); }
-
-.lang-panel {
-    position: fixed;
-    top: 68px;
-    left: 14px;
-    z-index: 999;
-    background: rgba(10, 18, 38, 0.96);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--pz-border);
-    border-radius: 20px;
-    padding: 20px 22px;
-    min-width: 240px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-    display: none;
-}
-
-.lang-panel.open { display: block; animation: pzPanel 0.32s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-@keyframes pzPanel {
-    from { opacity: 0; transform: translateY(-14px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.panel-title {
-    color: #7dd3fc;
-    font-size: 0.68rem;
-    letter-spacing: 2.5px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding-bottom: 10px;
-    font-weight: 800;
-}
-
-.lang-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 9px 14px;
-    border-radius: 12px;
-    color: #cdd9ee;
-    text-decoration: none;
-    transition: var(--pz-tr);
-}
-
-.lang-item:hover { background: rgba(56, 189, 248, 0.12); color: #fff; }
-
-.lang-item.active { background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.22); color: #fff; }
-
-.lang-code { margin-right: auto; font-size: 0.66rem; opacity: 0.45; font-weight: 700; }
-
 @media (max-width: 768px) {
-    body { padding: 10px; }
-    .header { flex-direction: column; padding: 12px 14px; gap: 10px; top: 8px; }
-    .hero { padding: 48px 16px 40px; border-radius: 24px; }
-    .hero h2 { font-size: 1.9rem; }
-    .menu-box { grid-template-columns: 1fr; }
-    .about { padding: 24px 18px; }
-    .about-stats { gap: 24px; }
+    .hero { padding: 44px 16px 38px; border-radius: 22px; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 0.95rem; }
+    .hero-stats { gap: 22px; }
+    .hstat b { font-size: 1.2rem; }
+    .section-head h2 { font-size: 1.25rem; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { padding: 18px 14px 16px; }
+    .card p { font-size: 0.8rem; }
 }
 
-@media (max-width: 400px) {
-    .hero h2 { font-size: 1.5rem; }
-    .logo { font-size: 1.05rem; }
-    .btn-card { font-size: 0.82rem; padding: 9px 18px; }
+@media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.6rem; }
+    .btn-hero { width: 100%; justify-content: center; }
 }
 </style>
 </head>
 <body>
+<div id="pzNavbar"></div>
 
 <div class="pz-loader" id="pzLoader">
     <div class="pz-loader-inner">
@@ -436,114 +249,104 @@ body {
     <div class="pz-bg-grid"></div>
     <div class="pz-bg-glow pz-bg-glow--a"></div>
     <div class="pz-bg-glow pz-bg-glow--b"></div>
-    <div class="pz-bg-glow pz-bg-glow--c"></div>
-    <div class="pz-bg-icon" style="top:12%;left:5%;width:58px;height:58px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
-    <div class="pz-bg-icon" style="bottom:14%;right:6%;width:46px;height:46px;opacity:0.08;animation-delay:-7s;animation-duration:27s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
-    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:54px;height:54px;animation-delay:-4s;"></div>
-    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:40px;height:40px;animation-delay:-9s;"></div>
-    <div class="pz-bg-shape pz-bg-shape--ln" style="top:58%;left:18%;width:180px;animation-delay:-2s;animation-duration:30s;"></div>
-    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
-    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
-    <div class="pz-bg-dot" style="top:16%;right:36%;width:5px;height:5px;animation-delay:-5s;"></div>
 </div>
 
-<div class="lang-toggle" onclick="togglePanel()">
-    <span>🌍</span>
-    <span>English</span>
-    <span style="font-size:0.6rem;opacity:0.5;">▼</span>
-</div>
-
-<div class="lang-panel" id="languagePanel">
-    <div class="panel-title">🌍 Select Language</div>
-    <a href="../fa/index.html" class="lang-item"><span>🇮🇷</span><span>Persian</span><span class="lang-code">FA</span></a>
-    <a href="../en/index.html" class="lang-item active"><span>🇺🇸</span><span>English</span><span class="lang-code">EN</span></a>
-</div>
 
 <div class="container">
 
-    <header class="header">
-        <div class="logo">💙 PACKZONE MC</div>
-        <nav class="nav" id="mainNav"></nav>
-    </header>
-
     <section class="hero">
-        <div class="hero-content">
-            <h2>Welcome to PackZone MC 💙</h2>
-            <p>A specialized hub for Minecraft Java and Bedrock resource packs</p>
-            <div class="hero-badges">
-                <span class="badge">🚀 Professional</span>
-                <span class="badge">🎨 ۴K</span>
-                <span class="badge">⚡ 60+ Packs</span>
-                <span class="badge">🔥 PvP</span>
+        <div class="hero-kicker">💙 The professional Minecraft packs hub</div>
+        <h1>Explore the world of <em>PackZone</em></h1>
+        <p>Exclusive resource packs for Java and Bedrock, plus conversion and building tools — all in one place</p>
+        <div class="hero-cta">
+            <a href="#packs" class="btn-hero btn-hero-blue">🎮 Browse Packs</a>
+            <a href="#tools" class="btn-hero btn-hero-ghost">🛠️ Tools</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hstat"><b>60+</b><span>Resource Packs</span></div>
+            <div class="hstat"><b>5</b><span>Pro Tools</span></div>
+            <div class="hstat"><b>2</b><span>Platforms</span></div>
+            <div class="hstat"><b>100%</b><span>Free</span></div>
+        </div>
+    </section>
+
+    <section class="section" id="packs">
+        <div class="section-head">
+            <div class="section-ico">🎮</div>
+            <div>
+                <h2>Packs</h2>
+                <p>Exclusive collections for Bedrock and Java</p>
             </div>
+            <div class="section-line"></div>
+        </div>
+        <div class="grid">
+            <a href="my-packs.html" class="card ac-blue">
+                <div class="card-ico">📦</div>
+                <h3>My Packs</h3>
+                <p>Exclusive packs created by PackZone MC itself</p>
+                <span class="card-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="mysmce.html" class="card ac-cyan">
+                <div class="card-ico">🎮</div>
+                <h3>MysMce Collection</h3>
+                <p>Famous MysMce packs ported to Bedrock</p>
+                <span class="card-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="dewier.html" class="card ac-gold">
+                <div class="card-ico">🔥</div>
+                <h3>Dewier Collection</h3>
+                <p>Professional dewier packs for Bedrock Edition</p>
+                <span class="card-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="bedrock.html" class="card ac-green">
+                <div class="card-ico">🟩</div>
+                <h3>MCBE Packs</h3>
+                <p>Download resource packs for Minecraft Bedrock</p>
+                <span class="card-go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="java.html" class="card ac-purple">
+                <div class="card-ico">🟦</div>
+                <h3>Java Packs</h3>
+                <p>Browse and download Java Edition resource packs</p>
+                <span class="card-go">View <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
         </div>
     </section>
 
-    <section class="about">
-        <div class="about-icon">📌</div>
-        <h2>About PackZone MC</h2>
-        <p>PackZone MC is a hub dedicated to professional resource packs, PvP packs, pack conversion tools and useful Minecraft utilities. Our goal is to build a better and simpler experience for every Minecraft player.</p>
-        <div class="about-stats">
-            <div class="stat"><span class="stat-number">60+</span><span class="stat-label">Packs</span></div>
-            <div class="stat"><span class="stat-number">5</span><span class="stat-label">Tools</span></div>
-            <div class="stat"><span class="stat-number">100%</span><span class="stat-label">Satisfaction</span></div>
+    <section class="section" id="tools">
+        <div class="section-head">
+            <div class="section-ico">🛠️</div>
+            <div>
+                <h2>Tools</h2>
+                <p>Online building and conversion tools — no coding needed</p>
+            </div>
+            <div class="section-line"></div>
         </div>
-    </section>
-
-    <section class="menu-box">
-        <div class="small-card">
-            <div class="card-icon">🎮</div>
-            <h3>MysMce Packs for Bedrock</h3>
-            <p>Collection of MysMce packs ported to Bedrock</p>
-            <div class="card-actions"><a href="mysmce.html" class="btn-card">View Collection</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">📄</div>
-            <h3>Manifest Builder</h3>
-            <p>Build your manifest.json without any coding</p>
-            <div class="card-actions"><a href="manifest.html" class="btn-card btn-card-gold">Start Building</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">🔄</div>
-            <h3>Pack Converter Java → Bedrock</h3>
-            <p>Convert your Java pack to Bedrock</p>
-            <div class="card-actions"><a href="en_converter.html" class="btn-card btn-card-gold">Convert</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">🌤️</div>
-            <h3>Sky Converter Java → Bedrock</h3>
-            <p>Convert Java sky into 6 Bedrock cubemap faces</p>
-            <div class="card-actions"><a href="sky-converter.html" class="btn-card btn-card-gold">Convert</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">🟦</div>
-            <h3>Java Edition Packs</h3>
-            <p>Browse resource packs for Minecraft Java</p>
-            <div class="card-actions"><a href="java.html" class="btn-card">Browse Java</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">🟩</div>
-            <h3>Bedrock Edition Packs</h3>
-            <p>Download resource packs for Minecraft Bedrock</p>
-            <div class="card-actions"><a href="bedrock.html" class="btn-card btn-card-green">Download</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">🔥</div>
-            <h3>Dewier Collection</h3>
-            <p>Collection of professional dewier packs for Bedrock</p>
-            <div class="card-actions"><a href="dewier.html" class="btn-card btn-card-gold">View Collection</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">📦</div>
-            <h3>My Packs</h3>
-            <p>Exclusive packs created by PackZone MC</p>
-            <div class="card-actions"><a href="my-packs.html" class="btn-card">View Exclusives</a></div>
-        </div>
-        <div class="small-card">
-            <div class="card-icon">📦</div>
-            <h3>Java pack.mcmeta Builder</h3>
-            <p>Build a Java pack.mcmeta file without any coding</p>
-            <div class="card-actions"><a href="mcmeta.html" class="btn-card btn-card-gold">Build</a></div>
+        <div class="grid">
+            <a href="en_converter.html" class="card ac-cyan">
+                <div class="card-ico">🔄</div>
+                <h3>Pack Converter</h3>
+                <p>Convert Java packs to Bedrock in a few clicks</p>
+                <span class="card-go">Convert <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="manifest.html" class="card ac-gold">
+                <div class="card-ico">📄</div>
+                <h3>Manifest Builder</h3>
+                <p>Build your manifest.json without a single line of code</p>
+                <span class="card-go">Build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="mcmeta.html" class="card ac-purple">
+                <div class="card-ico">🧩</div>
+                <h3>mcmeta Builder</h3>
+                <p>Build pack.mcmeta files for Java packs</p>
+                <span class="card-go">Build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
+            <a href="sky-converter.html" class="card ac-pink">
+                <div class="card-ico">🌤️</div>
+                <h3>Sky Converter</h3>
+                <p>Convert Java skies into 6 Bedrock cubemap faces</p>
+                <span class="card-go">Convert <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+            </a>
         </div>
     </section>
 
@@ -568,64 +371,7 @@ body {
 
 </div>
 
-<script>
-function togglePanel() {
-    document.getElementById('languagePanel').classList.toggle('open');
-}
-document.addEventListener('click', function(e) {
-    var panel = document.getElementById('languagePanel');
-    var toggle = document.querySelector('.lang-toggle');
-    if (!toggle.contains(e.target) && !panel.contains(e.target)) panel.classList.remove('open');
-});
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') document.getElementById('languagePanel').classList.remove('open');
-});
-window.addEventListener('scroll', function() {
-    var p = document.documentElement;
-    var s = p.scrollTop / (p.scrollHeight - p.clientHeight) * 100;
-    var b = document.getElementById('pzProgress');
-    if (b) b.style.width = s + '%';
-}, { passive: true });
-function showToast(message) {
-    var old = document.querySelector('.toast-message');
-    if (old) old.remove();
-    var toast = document.createElement('div');
-    toast.className = 'toast-message';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(function() {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.5s ease';
-        setTimeout(function() { toast.remove(); }, 500);
-    }, 3000);
-}
-function updateHeader() {
-    var nav = document.getElementById('mainNav');
-    var user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-    if (user) {
-        var avatar = localStorage.getItem('pzmc_avatar_' + user.email) || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=0ea5e9&color=fff&size=40&bold=true';
-        nav.innerHTML = '<img src="' + avatar + '" class="user-avatar" onclick="window.location.href=\'profile.html\'"><span class="user-name" onclick="window.location.href=\'profile.html\'">' + (user.name || 'User') + '</span><a href="dashboard.html" class="btn-dashboard">📊 Dashboard</a><button class="btn-logout" onclick="logoutUser()">🚪 Logout</button>';
-    } else {
-        nav.innerHTML = '<a href="signup.html" class="btn-signup">📝 Sign Up</a><a href="login.html" class="btn-login">🔐 Login</a>';
-    }
-}
-function logoutUser() {
-    if (confirm('Are you sure you want to log out?')) {
-        localStorage.removeItem('pzmc_current_user');
-        showToast('👋 You have been logged out successfully');
-        setTimeout(function() { window.location.reload(); }, 500);
-    }
-}
-document.addEventListener('DOMContentLoaded', updateHeader);
-(function() {
-    function hide() {
-        var l = document.getElementById('pzLoader');
-        if (l) { l.classList.add('is-hidden'); setTimeout(function() { l.remove(); }, 700); }
-    }
-    window.addEventListener('load', function() { setTimeout(hide, 450); });
-    setTimeout(hide, 2400);
-})();
-</script>
+<script src="../global.js"></script>
 
 </body>
 </html>
