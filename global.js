@@ -182,7 +182,7 @@ function PZNavConfig() {
             label: fa ? 'ابزارها' : 'Tools',
             icon: PZ_ICONS.tool,
             items: [
-                { ico: '🔄', label: fa ? 'کانورتر پک' : 'Converter', href: dir + 'converter.html', key: 'converter' },
+                { ico: '🔄', label: fa ? 'کانورتر پک' : 'Converter', href: fa ? 'fa_converter.html' : 'en_converter.html', key: 'converter' },
                 { ico: '📄', label: fa ? 'مانیفست بیلدر' : 'Manifest Builder', href: 'manifest.html', key: 'manifest' },
                 { ico: '📦', label: fa ? 'mcmeta بیلدر' : 'mcmeta Builder', href: 'mcmeta.html', key: 'mcmeta' },
                 { ico: '🌤️', label: fa ? 'کانورتر اسکای' : 'Sky Converter', href: 'sky-converter.html', key: 'sky-converter' }
