@@ -1,38 +1,31 @@
-// ============================================================
-// ===== سیستم نوتیفیکیشن مرکزی =====
-// ============================================================
 
-// ===== ۱. دریافت همه نوتیفیکیشن‌ها =====
+
 function getNotifications() {
     return JSON.parse(localStorage.getItem('pzmc_notifications')) || [];
 }
 
-// ===== ۲. ذخیره نوتیفیکیشن‌ها =====
 function saveNotifications(notifications) {
     localStorage.setItem('pzmc_notifications', JSON.stringify(notifications));
 }
 
-// ===== ۳. افزودن نوتیفیکیشن جدید =====
 function addNotification(type, data) {
     const notifications = getNotifications();
     notifications.unshift({
         id: Date.now(),
-        type: type, // 'comment', 'signup', 'login'
+        type: type,
         ...data,
         time: new Date().toLocaleString('fa-IR'),
         read: false
     });
     saveNotifications(notifications);
     updateNotificationBadge();
-    
-    // نمایش نوتیفیکیشن در صورت فعال بودن
+
     if (typeof showToastNotification === 'function') {
         const msg = getNotificationMessage(type, data);
         showToastNotification(msg);
     }
 }
 
-// ===== ۴. پیام نوتیفیکیشن =====
 function getNotificationMessage(type, data) {
     switch(type) {
         case 'comment':
@@ -46,7 +39,6 @@ function getNotificationMessage(type, data) {
     }
 }
 
-// ===== ۵. به‌روزرسانی تعداد نوتیفیکیشن‌ها =====
 function updateNotificationBadge() {
     const notifications = getNotifications();
     const unread = notifications.filter(n => !n.read).length;
@@ -57,7 +49,6 @@ function updateNotificationBadge() {
     }
 }
 
-// ===== ۶. علامت‌گذاری همه به عنوان خوانده شده =====
 function markAllAsRead() {
     const notifications = getNotifications();
     notifications.forEach(n => n.read = true);
@@ -65,7 +56,6 @@ function markAllAsRead() {
     updateNotificationBadge();
 }
 
-// ===== ۷. نمایش پنل نوتیفیکیشن‌ها =====
 function toggleNotificationPanel() {
     const panel = document.getElementById('notificationPanel');
     if (panel) {
@@ -76,17 +66,16 @@ function toggleNotificationPanel() {
     }
 }
 
-// ===== ۸. رندر نوتیفیکیشن‌ها در پنل =====
 function renderNotifications() {
     const list = document.getElementById('notificationList');
     if (!list) return;
-    
+
     const notifications = getNotifications();
     if (notifications.length === 0) {
         list.innerHTML = '<div class="empty-notifications">📭 هیچ نوتیفیکیشنی وجود ندارد</div>';
         return;
     }
-    
+
     let html = '';
     notifications.slice(0, 20).forEach(n => {
         const icon = n.type === 'comment' ? '💬' : n.type === 'signup' ? '🆕' : '👤';
@@ -102,8 +91,7 @@ function renderNotifications() {
         `;
     });
     list.innerHTML = html;
-    
-    // کلیک روی هر آیتم برای علامت‌گذاری به عنوان خوانده شده
+
     list.querySelectorAll('.notification-item').forEach(item => {
         item.addEventListener('click', function() {
             const id = parseInt(this.dataset.id);
@@ -112,7 +100,6 @@ function renderNotifications() {
     });
 }
 
-// ===== ۹. علامت‌گذاری یک نوتیفیکیشن به عنوان خوانده شده =====
 function markNotificationAsRead(id) {
     const notifications = getNotifications();
     const found = notifications.find(n => n.id === id);
@@ -124,7 +111,6 @@ function markNotificationAsRead(id) {
     }
 }
 
-// ===== ۱۰. حذف همه نوتیفیکیشن‌ها =====
 function clearAllNotifications() {
     if (confirm('آیا مطمئن هستید که می‌خواهید همه نوتیفیکیشن‌ها را پاک کنید؟')) {
         localStorage.removeItem('pzmc_notifications');

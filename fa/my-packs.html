@@ -7,9 +7,7 @@
     <title>PackZone MC | پک‌های من</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-        ===== RESET & BASE =====
-        ============================================================ */
+
         * {
             margin: 0;
             padding: 0;
@@ -110,9 +108,6 @@
             background: var(--primary-light);
         }
 
-        /* ============================================================
-        ===== HEADER STYLES =====
-        ============================================================ */
         .custom-header {
             display: flex;
             justify-content: space-between;
@@ -485,16 +480,43 @@
         }
     </style>
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 
 <body>
-<!-- ============================================================
-===== HEADER =====
-============================================================ -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <header class="custom-header glass-strong" id="mainHeader">
     <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
-        <!-- توسط JS پر میشه -->
+
     </nav>
 </header>
 
@@ -512,7 +534,7 @@
     </section>
 
     <section class="menu-box">
-        <!-- ===== PZMC v1 ===== -->
+
         <div class="card" data-pack="PZMC v1">
             <img src="../v1.png" width="300">
             <h3>📦 PZMC v1</h3>
@@ -529,7 +551,6 @@
             </div>
         </div>
 
-        <!-- ===== PZMC v2 ===== -->
         <div class="card" data-pack="PZMC v2">
             <img src="../v2.png" width="300">
             <h3>📦 PZMC v2</h3>
@@ -546,7 +567,6 @@
             </div>
         </div>
 
-        <!-- ===== PZMC v3 ===== -->
         <div class="card" data-pack="PZMC v3">
             <img src="../v3.png" width="300">
             <h3>📦 PZMC v3</h3>
@@ -563,7 +583,6 @@
             </div>
         </div>
 
-        <!-- ===== PZMC 1k ===== -->
         <div class="card" data-pack="PZMC 1k">
             <img src="../InShot_۲۰۲۶۰۷۲۲_۱۸۱۰۴۴۴۲۹.jpg" width="300">
             <h3>📦 PZMC 1k</h3>
@@ -585,9 +604,7 @@
     <footer>© PackZone MC 💙</footer>
 
 </div>
-    <!-- ============================================================
-    ===== COMMENT MODAL =====
-    ============================================================ -->
+
     <div class="comment-modal" id="commentModal">
         <div class="modal-box">
             <div class="modal-header">
@@ -603,9 +620,7 @@
     </div>
 
     <style>
-        /* ============================================================
-        ===== COMMENT MODAL STYLES =====
-        ============================================================ */
+
         .comment-modal {
             display: none;
             position: fixed;
@@ -790,15 +805,10 @@
     </style>
 
     <script>
-        // ============================================================
-        // ===== APPLY SAVED FONT =====
-        // ============================================================
+
         document.addEventListener('DOMContentLoaded', function() {
             });
 
-        // ============================================================
-        // ===== COMMENT SYSTEM =====
-        // ============================================================
         let currentCommentPack = '';
 
         function getComments(packName) {
@@ -883,9 +893,6 @@
             showToast('✅ نظر شما ثبت شد!', 'success');
         }
 
-        // ============================================================
-        // ===== TOAST SYSTEM =====
-        // ============================================================
         function showToast(message, type = 'info') {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
@@ -906,9 +913,6 @@
             return JSON.parse(localStorage.getItem('pzmc_current_user')) !== null;
         }
 
-        // ============================================================
-        // ===== SAVE PACK =====
-        // ============================================================
         function savePack(packName) {
             if (!checkUser()) {
                 showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
@@ -936,9 +940,6 @@
             }
         }
 
-        // ============================================================
-        // ===== COPY LINK =====
-        // ============================================================
         function copyLink(packName, btn) {
             const url = window.location.href.split('?')[0] + '?pack=' + encodeURIComponent(packName);
             if (navigator.clipboard) {
@@ -966,9 +967,6 @@
             }
         }
 
-        // ============================================================
-        // ===== HEADER MANAGEMENT =====
-        // ============================================================
         function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
@@ -997,9 +995,6 @@
             }
         }
 
-        // ============================================================
-        // ===== PAGE LOAD =====
-        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             updateHeader();
 

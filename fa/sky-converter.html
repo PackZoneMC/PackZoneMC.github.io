@@ -8,9 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
-        /* ============================================================
-                   RESET & BASE
-                   ============================================================ */
+
         *,
         *::before,
         *::after {
@@ -75,9 +73,6 @@
             z-index: 1;
         }
 
-        /* ============================================================
-                   SCROLLBAR
-                   ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -92,9 +87,6 @@
             background: var(--primary-light);
         }
 
-        /* ============================================================
-                   VERSION BADGE
-                   ============================================================ */
         .version-badge {
             text-align: center;
             font-size: 0.75rem;
@@ -122,9 +114,6 @@
             color: var(--gold);
         }
 
-        /* ============================================================
-                   HERO SECTION
-                   ============================================================ */
         .hero {
             text-align: center;
             padding: 48px 24px 36px;
@@ -226,9 +215,6 @@
             box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
         }
 
-        /* ============================================================
-                   CARDS
-                   ============================================================ */
         .card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(14px);
@@ -302,12 +288,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 <body>
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
     <style>
-        /* ============================================================
-                   DROP ZONE
-                   ============================================================ */
+
         .drop-zone {
             border: 2px dashed rgba(255, 255, 255, 0.08);
             border-radius: var(--radius-sm);
@@ -353,9 +367,6 @@
             display: none;
         }
 
-        /* ============================================================
-                   FILE INFO
-                   ============================================================ */
         .file-info {
             display: none;
             background: rgba(255, 255, 255, 0.03);
@@ -395,9 +406,6 @@
             transform: scale(1.2);
         }
 
-        /* ============================================================
-                   PREVIEW
-                   ============================================================ */
         .preview-single {
             text-align: center;
             margin-top: 14px;
@@ -422,9 +430,6 @@
             border-color: var(--primary);
         }
 
-        /* ============================================================
-                   FORM ELEMENTS
-                   ============================================================ */
         label {
             display: block;
             color: #ccc;
@@ -475,9 +480,6 @@
             cursor: default;
         }
 
-        /* ============================================================
-                   BUTTONS
-                   ============================================================ */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -544,9 +546,6 @@
             width: auto;
         }
 
-        /* ============================================================
-                   PROGRESS
-                   ============================================================ */
         .progress-container {
             display: none;
             margin-top: 16px;
@@ -589,9 +588,6 @@
             font-weight: 600;
         }
 
-        /* ============================================================
-                   LOG
-                   ============================================================ */
         .log {
             margin-top: 14px;
             background: rgba(0, 0, 0, 0.3);
@@ -628,9 +624,6 @@
             color: #fbbf24;
         }
 
-        /* ============================================================
-                   RESULT
-                   ============================================================ */
         .result {
             display: none;
             margin-top: 16px;
@@ -674,9 +667,6 @@
             max-width: 250px;
         }
 
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
         .footer {
             text-align: center;
             padding: 24px 20px;
@@ -696,9 +686,6 @@
             font-weight: 600;
         }
 
-        /* ============================================================
-                   OPTIONS ROW
-                   ============================================================ */
         .options-row {
             display: flex;
             gap: 14px;
@@ -726,9 +713,6 @@
             margin: 0;
         }
 
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
         @media (max-width: 768px) {
             body {
                 padding: 12px;
@@ -799,14 +783,12 @@
 <body>
 <div class="container">
 
-    <!-- ===== VERSION BADGE ===== -->
     <div style="text-align:center;">
         <span class="version-badge">
             ✨ نسخه <span class="version-number">۱.۰.۰</span> ✨
         </span>
     </div>
 
-    <!-- ===== HERO ===== -->
     <section class="hero">
         <h1 class="main-logo">💙 PackZone MC</h1>
         <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:8px;">
@@ -817,9 +799,6 @@
         <p>یک عکس اسکای جاوا (۳×۲) را به ۶ تکه cubemap بدراک تبدیل کن</p>
     </section>
 
-    <!-- ============================================================
-    CARD: آپلود
-    ============================================================ -->
     <div class="card">
         <h2>
             📁 آپلود اسکای
@@ -845,9 +824,6 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    CARD: تنظیمات
-    ============================================================ -->
     <div class="card">
         <h2>
             ⚙️ تنظیمات
@@ -873,9 +849,6 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    CARD: تبدیل
-    ============================================================ -->
     <div class="card">
         <h2>
             🚀 تبدیل
@@ -911,16 +884,10 @@
 
 </div>
 
-<!-- ============================================================
-FOOTER
-============================================================ -->
 <footer class="footer">
     <p>© <span>PackZone MC</span> <span class="heart">💙</span> — تمامی حقوق محفوظ است</p>
 </footer>
 
-<!-- ============================================================
-SCRIPTS
-============================================================ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js">
@@ -1048,9 +1015,7 @@ SCRIPTS
             if (label) this.progressLabel.textContent = label;
             this.progressContainer.classList.add('show');
         }
-                    // ============================================================
-            //  متدهای کمکی
-            // ============================================================
+
             async arrayBufferToBase64(buffer) {
                 const blob = new Blob([buffer]);
                 return new Promise((resolve) => {
@@ -1106,9 +1071,6 @@ SCRIPTS
                 });
             }
 
-            // ============================================================
-            //  هسته اصلی تبدیل (بهینه شده برای سرعت)
-            // ============================================================
             async convertSky(skyName) {
                 const isFast = this.optionFast.checked;
                 this.setProgress(5, '🔄 بارگذاری تصویر...');
@@ -1125,7 +1087,6 @@ SCRIPTS
 
                 this.setProgress(15, '✂️ برش تصویر...');
 
-                // ====== نقشه نهایی درست ======
                 const parts = [
                     { x: w * 2, y: 0, name: 'cubemap_0.png', rotate: false },
                     { x: 0, y: h, name: 'cubemap_1.png', rotate: false },
@@ -1150,14 +1111,12 @@ SCRIPTS
                     return { name: part.name, data: cropped };
                 };
 
-                // پردازش موازی برای سرعت بیشتر (زیر ۲ ثانیه)
                 const promises = parts.map(p => processPart(p));
                 results.push(...await Promise.all(promises));
 
                 this.setProgress(85, '📦 ساخت فایل‌های خروجی...');
                 this.skyData = results;
 
-                // ====== ساخت Mcpack ======
                 const mcpack = new JSZip();
                 const folder = mcpack.folder('textures/environment/overworld_cubemap');
                 for (const r of results) {
@@ -1187,7 +1146,6 @@ SCRIPTS
                     compressionOptions: { level: compressLevel }
                 });
 
-                // ====== ساخت Zip (۶ عکس جداگانه) ======
                 const zip = new JSZip();
                 for (const r of results) {
                     zip.file(r.name, r.data, { base64: true });
@@ -1201,9 +1159,6 @@ SCRIPTS
                 this.setProgress(100, '✅ تبدیل کامل شد!');
             }
 
-            // ============================================================
-            //  شروع تبدیل
-            // ============================================================
             async startConversion() {
                 if (!this.file) {
                     this.addLog('❌ لطفاً یک عکس انتخاب کنید', 'error');
@@ -1241,9 +1196,6 @@ SCRIPTS
                 }
             }
 
-            // ============================================================
-            //  دانلود
-            // ============================================================
             downloadMcpack() {
                 if (this.convertedBlob && this.optionMcpack.checked) {
                     const name = this.skyNameInput.value.trim() || 'MySky';

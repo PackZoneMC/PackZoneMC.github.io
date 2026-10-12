@@ -1,4 +1,4 @@
-// PZMC Language System
+
 
 function changeLanguage(language) {
 

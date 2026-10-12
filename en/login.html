@@ -1,729 +1,576 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | PackZone MC</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | PackZone MC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Orbitron:wght@500..900&family=Lalezar&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../pzmc-global.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <style>
-        /* ============================================================
-                   RESET & BASE - Manifest Builder Style
-                   ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    color: var(--pz-text);
+}
 
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0f1e 0%, #14203a 40%, #0b1322 100%);
-            min-height: 100vh;
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-        }
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    border-radius: 30px;
+    padding: 42px 36px;
+    border: 1px solid var(--pz-border);
+    background: rgba(10, 18, 38, 0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 34px 110px rgba(0, 0, 0, 0.55), 0 0 90px rgba(56, 189, 248, 0.06);
+    animation: pzCardIn 0.7s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+    animation-delay: 0.45s;
+    position: relative;
+    z-index: 1;
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 30px;
-            background: rgba(18, 27, 42, 0.7);
-            backdrop-filter: blur(16px);
-            border-bottom: 2px solid rgba(56, 189, 248, 0.15);
-            flex-wrap: wrap;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
+@keyframes pzCardIn {
+    from { opacity: 0; transform: translateY(36px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-        .header:hover {
-            border-bottom-color: rgba(56, 189, 248, 0.3);
-        }
+.auth-card::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 33px;
+    padding: 2px;
+    background: conic-gradient(from 0deg, #38bdf8, #22d3ee, #8b5cf6, #38bdf8);
+    background-size: 300% 300%;
+    animation: pzSpinBorder 7s linear infinite;
+    z-index: -1;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+}
 
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #38bdf8, #7dd3fc, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+@keyframes pzSpinBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        .nav a {
-            color: #c7e2ff;
-            text-decoration: none;
-            font-weight: 500;
-            margin: 0 10px;
-            transition: 0.3s;
-            padding: 6px 12px;
-            border-radius: 30px;
-        }
+.auth-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 22px;
+}
 
-        .nav a:hover {
-            color: #fff;
-            background: rgba(56, 189, 248, 0.15);
-        }
+.auth-logo svg {
+    width: 62px;
+    height: 62px;
+    filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.5));
+    animation: pzBob 3.4s ease-in-out infinite;
+}
 
-        .nav a.active {
-            color: #fff;
-            background: rgba(56, 189, 248, 0.2);
-        }
+@keyframes pzBob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+}
 
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            padding: 30px 20px;
-        }
+.auth-logo span {
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 1.15rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 15%, #7dd3fc 55%, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
 
-        .auth-box {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(16px);
-            padding: 35px 30px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 8px 40px rgba(56, 189, 248, 0.04);
-            transition: all 0.3s ease;
-        }
+.auth-card h1 {
+    font-family: 'Lalezar', 'Vazirmatn', sans-serif !important;
+    font-weight: 400 !important;
+    color: #bae6fd;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 22px;
+}
 
-        .auth-box:hover {
-            border-color: rgba(56, 189, 248, 0.2);
-            box-shadow: 0 12px 50px rgba(56, 189, 248, 0.06);
-        }
+.field { margin-bottom: 16px; }
 
-        .auth-box h1 {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, #bae6fd, #7dd3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #9fb4d8;
+    margin-bottom: 7px;
+}
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+.input-wrap { position: relative; }
 
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #c7e2ff;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
+.input-wrap .f-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 14px;
+    width: 19px;
+    height: 19px;
+    color: #4f6285;
+    pointer-events: none;
+}
 
-        .auth-box input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            background: rgba(0, 0, 0, 0.2);
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            font-family: inherit;
-        }
+.input-wrap input {
+    width: 100%;
+    padding: 13px 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(4, 10, 24, 0.65);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--pz-tr);
+}
 
-        .auth-box input:focus {
-            border-color: #38bdf8;
-            background: rgba(56, 189, 248, 0.05);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.05);
-        }
+.input-wrap input::placeholder { color: rgba(255, 255, 255, 0.22); font-weight: 300; }
 
-        .auth-box input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
+.input-wrap input:focus {
+    border-color: var(--pz-blue);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.10);
+    background: rgba(4, 10, 24, 0.85);
+}
 
-        /* ============================================================
-                   CAPTCHA
-                   ============================================================ */
-        .captcha-container {
-            margin: 16px 0;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+.eye-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4f6285;
+    padding: 5px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    transition: var(--pz-tr);
+}
 
-        .captcha-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
+.eye-btn:hover { color: #7dd3fc; }
 
-        #captchaCanvas {
-            border-radius: 12px;
-            border: 2px solid rgba(56, 189, 248, 0.15);
-            background: #0a0f1e;
-            cursor: pointer;
-            height: 60px;
-            width: 160px;
-            transition: all 0.3s ease;
-        }
+.eye-btn svg { width: 19px; height: 19px; }
 
-        #captchaCanvas:hover {
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
-        }
+.captcha-container {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+    margin: 18px 0 20px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(4, 10, 24, 0.45);
+    border: 1px dashed rgba(56, 189, 248, 0.25);
+}
 
-        .captcha-refresh {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ddd;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: inherit;
-            flex-shrink: 0;
-        }
+.captcha-box { position: relative; flex-shrink: 0; }
 
-        .captcha-refresh:hover {
-            background: rgba(56, 189, 248, 0.15);
-            border-color: #38bdf8;
-            color: #fff;
-            transform: rotate(60deg);
-        }
+#captchaCanvas {
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: block;
+}
 
-        .captcha-input label {
-            display: block;
-            font-size: 0.85rem;
-            color: #c7e2ff;
-            margin-bottom: 4px;
-        }
+.captcha-refresh {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--pz-border);
+    background: rgba(10, 18, 38, 0.95);
+    color: #7dd3fc;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: grid;
+    place-items: center;
+    transition: var(--pz-tr);
+}
 
-        .captcha-input input {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            background: rgba(0, 0, 0, 0.2);
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s ease;
-            text-align: center;
-            letter-spacing: 6px;
-            font-weight: 700;
-            font-family: inherit;
-        }
+.captcha-refresh:hover { transform: rotate(180deg); border-color: var(--pz-blue); color: #fff; }
 
-        .captcha-input input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
-        }
+.captcha-input { flex: 1; }
 
-        .captcha-input input::placeholder {
-            letter-spacing: 2px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.2);
-        }
+.captcha-input label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #9fb4d8;
+    margin-bottom: 7px;
+}
 
-        .captcha-error {
-            display: block;
-            margin-top: 4px;
-            font-size: 0.8rem;
-            color: #ff6b6b;
-            min-height: 20px;
-        }
+.captcha-input input {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(4, 10, 24, 0.7);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    letter-spacing: 4px;
+    outline: none;
+    transition: var(--pz-tr);
+    direction: ltr;
+    text-align: center;
+}
 
-        .captcha-error.success {
-            color: #00c853;
-        }
+.captcha-input input:focus { border-color: var(--pz-blue); box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.10); }
 
-        /* ============================================================
-                   BUTTONS
-                   ============================================================ */
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #38bdf8, #7dd3fc);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
-            font-family: inherit;
-        }
+.captcha-error { display: block; font-size: 0.74rem; color: #f43f5e; margin-top: 6px; min-height: 16px; }
 
-        .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 35px rgba(56, 189, 248, 0.25);
-        }
+.captcha-error.success { color: #10b981; }
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9 55%, #22d3ee);
+    background-size: 200% 200%;
+    color: #06121f;
+    font-size: 1.02rem;
+    font-weight: 900;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--pz-tr);
+    position: relative;
+    overflow: hidden;
+}
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 18px 0;
-        }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(56, 189, 248, 0.35); background-position: 100% 50%; }
 
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.06);
-        }
+.btn-primary:active { transform: scale(0.97); }
 
-        .divider span {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.85rem;
-        }
+.btn-primary:disabled { opacity: 0.6; cursor: wait; transform: none; }
 
-        .auth-footer {
-            text-align: center;
-            margin-top: 18px;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
-        }
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(6, 18, 31, 0.35);
+    border-top-color: #06121f;
+    border-radius: 50%;
+    animation: pzSpin 0.7s linear infinite;
+    vertical-align: -3px;
+    margin-left: 8px;
+}
 
-        .auth-footer a {
-            color: #7dd3fc;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+@keyframes pzSpin { to { transform: rotate(360deg); } }
 
-        .auth-footer a:hover {
-            text-decoration: underline;
-            color: #fff;
-        }
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0 0;
+}
 
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(18, 27, 42, 0.95);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            z-index: 999;
-            opacity: 0;
-            transition: all 0.4s ease;
-            pointer-events: none;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-            min-width: 200px;
-            text-align: center;
-            font-family: inherit;
-        }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.08); }
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+.divider span { color: rgba(255, 255, 255, 0.3); font-size: 0.82rem; }
 
-        .toast.error {
-            border-color: #e74c3c;
-        }
+.auth-footer { text-align: center; margin-top: 14px; color: rgba(255, 255, 255, 0.42); font-size: 0.9rem; }
 
-        .toast.success {
-            border-color: #00c853;
-        }
+.auth-footer a { color: #7dd3fc; text-decoration: none; font-weight: 800; transition: var(--pz-tr); }
 
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            margin-top: auto;
-            font-size: 0.85rem;
-        }
+.auth-footer a:hover { color: #22d3ee; text-decoration: underline; }
 
-        @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                padding: 12px 16px;
-            }
-            .nav a {
-                margin: 0 6px;
-                font-size: 0.85rem;
-                padding: 4px 10px;
-            }
-            .auth-box {
-                padding: 25px 18px;
-                border-radius: 20px;
-            }
-            .auth-box h1 {
-                font-size: 1.4rem;
-            }
-            .auth-box input {
-                padding: 10px 14px;
-                font-size: 0.95rem;
-            }
-            .btn-primary {
-                padding: 12px;
-                font-size: 0.95rem;
-            }
-            .toast {
-                min-width: 150px;
-                padding: 12px 20px;
-                font-size: 0.85rem;
-            }
-            #captchaCanvas {
-                width: 130px;
-                height: 50px;
-            }
-            .captcha-refresh {
-                width: 38px;
-                height: 38px;
-                font-size: 1rem;
-            }
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../pzmc-theme.css">
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(10, 18, 38, 0.96);
+    border: 1px solid var(--pz-blue);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 15px;
+    font-size: 0.93rem;
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+    pointer-events: none;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.55);
+    min-width: 210px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+}
+
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.error { border-color: #f43f5e; }
+.toast.success { border-color: #10b981; }
+
+@media (max-width: 520px) {
+    .auth-card { padding: 30px 20px; border-radius: 24px; }
+    .captcha-container { flex-direction: column; }
+    .captcha-box { align-self: center; }
+}
+</style>
 </head>
 <body>
 
-    <div class="toast" id="toast"></div>
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
 
-    <header class="header">
-        <div class="logo">💙 PackZone MC</div>
-        <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
-            <a href="login.html" class="active">Login</a>
-        </nav>
-    </header>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:14%;left:7%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:7%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:24%;right:13%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:25%;left:11%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:32%;left:27%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:30%;right:25%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
 
-    <main class="auth-container">
-        <section class="auth-box">
-            <h1>🔐 Login</h1>
+<main class="auth-card">
+    <div class="auth-logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8" stroke="#22d3ee" stroke-width="1"/></svg>
+        <span>PACKZONE MC</span>
+    </div>
+    <h1>🔐 Login</h1>
 
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="example@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPass">Password</label>
-                    <input type="password" id="loginPass" placeholder="Enter your password" required>
-                </div>
-
-                <!-- ===== CAPTCHA ===== -->
-                <div class="captcha-container">
-                    <div class="captcha-box">
-                        <canvas id="captchaCanvas" width="160" height="60"></canvas>
-                        <button type="button" onclick="generateCaptcha()" class="captcha-refresh" title="Refresh security code">🔄</button>
-                    </div>
-                    <div class="captcha-input">
-                        <label for="captchaInput">Enter security code</label>
-                        <input type="text" id="captchaInput" placeholder="e.g. 73605" maxlength="5" autocomplete="off">
-                        <span id="captchaError" class="captcha-error"></span>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-primary" id="loginBtn">Login</button>
-            </form>
-
-            <div class="divider">
-                <span>or</span>
+    <form id="loginForm" novalidate>
+        <div class="field">
+            <label for="loginEmail">Email</label>
+            <div class="input-wrap">
+                <input type="email" id="loginEmail" placeholder="example@email.com" autocomplete="email" dir="ltr">
+                <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
             </div>
+        </div>
 
-            <p class="auth-footer">Don't have an account? <a href="signup.html">Sign Up</a></p>
-        </section>
-    </main>
+        <div class="field">
+            <label for="loginPass">Password</label>
+            <div class="input-wrap">
+                <input type="password" id="loginPass" placeholder="Enter your password" autocomplete="current-password" dir="ltr">
+                <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                <button type="button" class="eye-btn" id="passEye" aria-label="Show password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+                </button>
+            </div>
+        </div>
 
-    <footer class="footer">
-        <p>© PackZone MC 💙</p>
-    </footer>
-    <script>
-        // ============================================================
-        // ===== Toast System =====
-        // ============================================================
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast';
-            if (type === 'error') toast.classList.add('error');
-            if (type === 'success') toast.classList.add('success');
-            toast.classList.add('show');
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => toast.classList.remove('show'), 4000);
+        <div class="captcha-container">
+            <div class="captcha-box">
+                <canvas id="captchaCanvas" width="160" height="60"></canvas>
+                <button type="button" onclick="generateCaptcha()" class="captcha-refresh" title="Refresh security code">🔄</button>
+            </div>
+            <div class="captcha-input">
+                <label for="captchaInput">Enter security code</label>
+                <input type="text" id="captchaInput" placeholder="─────" maxlength="5" autocomplete="off">
+                <span id="captchaError" class="captcha-error"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="loginBtn">Login</button>
+    </form>
+
+    <div class="divider"><span>or</span></div>
+    <p class="auth-footer">Don't have an account? <a href="signup.html">Sign Up</a></p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showToast(message, type) {
+    var toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast';
+    if (type === 'error') toast.classList.add('error');
+    if (type === 'success') toast.classList.add('success');
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
+}
+
+document.getElementById('passEye').addEventListener('click', function() {
+    var input = document.getElementById('loginPass');
+    input.type = input.type === 'password' ? 'text' : 'password';
+    this.style.color = input.type === 'text' ? '#22d3ee' : '';
+});
+
+var currentCaptcha = '';
+var captchaTimer = null;
+
+function generateCaptcha() {
+    var canvas = document.getElementById('captchaCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var width = canvas.width;
+    var height = canvas.height;
+    ctx.clearRect(0, 0, width, height);
+    var gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#0b1322');
+    gradient.addColorStop(0.5, '#14203a');
+    gradient.addColorStop(1, '#0a0f1e');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+    for (var i = 0; i < 80; i++) {
+        ctx.fillStyle = 'rgba(' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',0.08)';
+        ctx.beginPath();
+        ctx.arc(Math.random() * width, Math.random() * height, Math.random() * 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    for (var j = 0; j < 6; j++) {
+        ctx.strokeStyle = 'rgba(' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',0.12)';
+        ctx.lineWidth = Math.random() * 2 + 1;
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * width, Math.random() * height);
+        ctx.lineTo(Math.random() * width, Math.random() * height);
+        ctx.stroke();
+    }
+    for (var k = 0; k < 3; k++) {
+        ctx.strokeStyle = 'rgba(' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',' + (Math.random() * 255 | 0) + ',0.08)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        var startX = Math.random() * width;
+        var startY = Math.random() * height;
+        ctx.moveTo(startX, startY);
+        for (var m = 0; m < 5; m++) {
+            ctx.quadraticCurveTo(Math.random() * width, Math.random() * height, Math.random() * width, Math.random() * height);
         }
+        ctx.stroke();
+    }
+    var code = '';
+    for (var c = 0; c < 5; c++) code += Math.floor(Math.random() * 10);
+    currentCaptcha = code;
+    var charWidth = width / (code.length + 1);
+    var colors = ['#38bdf8', '#7dd3fc', '#22d3ee', '#fbbf24', '#55efc4', '#74b9ff', '#ff6b6b', '#e17055', '#00cec9'];
+    for (var n = 0; n < code.length; n++) {
+        var x = charWidth * (n + 0.5) + Math.random() * 6 - 3;
+        var y = height / 2 + Math.random() * 12 - 6;
+        var angle = (Math.random() - 0.5) * 0.4;
+        var fontSize = 28 + Math.random() * 8;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.font = 'bold ' + fontSize + 'px "Vazirmatn", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(56, 189, 248, 0.15)';
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = colors[n % colors.length];
+        ctx.fillText(code[n], 0, 0);
+        ctx.shadowBlur = 0;
+        ctx.restore();
+    }
+    var errorEl = document.getElementById('captchaError');
+    if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.className = 'captcha-error';
+    }
+}
 
-        // ============================================================
-        // ===== CAPTCHA SYSTEM =====
-        // ============================================================
-        let currentCaptcha = '';
-        let captchaTimer = null;
-
-        function generateCaptcha() {
-            const canvas = document.getElementById('captchaCanvas');
-            if (!canvas) return;
-
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
-
-            ctx.clearRect(0, 0, width, height);
-
-            // Background
-            const gradient = ctx.createLinearGradient(0, 0, width, height);
-            gradient.addColorStop(0, '#0b1322');
-            gradient.addColorStop(0.5, '#14203a');
-            gradient.addColorStop(1, '#0a0f1e');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, width, height);
-
-            // Noise (dots)
-            for (let i = 0; i < 80; i++) {
-                ctx.fillStyle = `rgba(${Math.random()*255|0}, ${Math.random()*255|0}, ${Math.random()*255|0}, 0.08)`;
-                ctx.beginPath();
-                ctx.arc(Math.random() * width, Math.random() * height, Math.random() * 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            // Wavy lines
-            for (let i = 0; i < 6; i++) {
-                ctx.strokeStyle = `rgba(${Math.random()*255|0}, ${Math.random()*255|0}, ${Math.random()*255|0}, 0.12)`;
-                ctx.lineWidth = Math.random() * 2 + 1;
-                ctx.beginPath();
-                ctx.moveTo(Math.random() * width, Math.random() * height);
-                ctx.lineTo(Math.random() * width, Math.random() * height);
-                ctx.stroke();
-            }
-
-            // Curves
-            for (let i = 0; i < 3; i++) {
-                ctx.strokeStyle = `rgba(${Math.random()*255|0}, ${Math.random()*255|0}, ${Math.random()*255|0}, 0.08)`;
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                const startX = Math.random() * width;
-                const startY = Math.random() * height;
-                ctx.moveTo(startX, startY);
-                for (let j = 0; j < 5; j++) {
-                    const cpX = Math.random() * width;
-                    const cpY = Math.random() * height;
-                    const endX = Math.random() * width;
-                    const endY = Math.random() * height;
-                    ctx.quadraticCurveTo(cpX, cpY, endX, endY);
-                }
-                ctx.stroke();
-            }
-
-            // Generate 5-digit numeric code
-            let code = '';
-            for (let i = 0; i < 5; i++) {
-                code += Math.floor(Math.random() * 10);
-            }
-            currentCaptcha = code;
-
-            // Draw digits
-            const charWidth = width / (code.length + 1);
-            const colors = ['#38bdf8', '#7dd3fc', '#22d3ee', '#fbbf24', '#55efc4', '#74b9ff', '#ff6b6b', '#e17055', '#00cec9'];
-
-            for (let i = 0; i < code.length; i++) {
-                const x = charWidth * (i + 0.5) + Math.random() * 6 - 3;
-                const y = height / 2 + Math.random() * 12 - 6;
-                const angle = (Math.random() - 0.5) * 0.4;
-                const fontSize = 28 + Math.random() * 8;
-                const color = colors[i % colors.length];
-
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(angle);
-                ctx.font = `bold ${fontSize}px "Inter", "Segoe UI", sans-serif`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-
-                ctx.shadowColor = 'rgba(56, 189, 248, 0.15)';
-                ctx.shadowBlur = 8;
-                ctx.fillStyle = color;
-                ctx.fillText(code[i], 0, 0);
-
-                ctx.shadowBlur = 0;
-                ctx.strokeStyle = `rgba(255, 255, 255, 0.04)`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(-12, 12);
-                ctx.lineTo(12, 12);
-                ctx.stroke();
-
-                ctx.restore();
-            }
-
-            // Extra lines
-            for (let i = 0; i < 4; i++) {
-                ctx.strokeStyle = `rgba(${Math.random()*255|0}, ${Math.random()*255|0}, ${Math.random()*255|0}, 0.06)`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(Math.random() * width, Math.random() * height);
-                ctx.lineTo(Math.random() * width, Math.random() * height);
-                ctx.stroke();
-            }
-
-            const errorEl = document.getElementById('captchaError');
-            if (errorEl) {
-                errorEl.textContent = '';
-                errorEl.className = 'captcha-error';
-            }
-        }
-
-        function validateCaptcha() {
-            const input = document.getElementById('captchaInput');
-            const errorEl = document.getElementById('captchaError');
-            if (!input || !errorEl) return false;
-
-            const userCode = input.value.trim();
-
-            if (!userCode) {
-                errorEl.textContent = '❌ Please enter the security code';
-                errorEl.className = 'captcha-error';
-                return false;
-            }
-
-            if (userCode !== currentCaptcha) {
-                errorEl.textContent = '❌ Security code is incorrect';
-                errorEl.className = 'captcha-error';
-                setTimeout(() => {
-                    generateCaptcha();
-                    input.value = '';
-                    errorEl.textContent = '🔄 New security code generated';
-                    errorEl.className = 'captcha-error';
-                    setTimeout(() => {
-                        errorEl.textContent = '';
-                        errorEl.className = 'captcha-error';
-                    }, 2000);
-                }, 800);
-                return false;
-            }
-
-            errorEl.textContent = '✅ Security code is correct';
-            errorEl.className = 'captcha-error success';
-            setTimeout(() => {
-                errorEl.textContent = '';
-                errorEl.className = 'captcha-error';
-            }, 2000);
-            return true;
-        }
-
-        function startCaptchaTimer() {
-            if (captchaTimer) clearInterval(captchaTimer);
-            captchaTimer = setInterval(() => {
-                generateCaptcha();
-                const input = document.getElementById('captchaInput');
-                if (input) input.value = '';
-                const errorEl = document.getElementById('captchaError');
-                if (errorEl) {
-                    errorEl.textContent = '🔄 Security code auto-refreshed';
-                    errorEl.className = 'captcha-error';
-                    setTimeout(() => {
-                        if (errorEl) {
-                            errorEl.textContent = '';
-                            errorEl.className = 'captcha-error';
-                        }
-                    }, 2000);
-                }
-            }, 60000);
-        }
-
-        // ============================================================
-        // ===== Login System (LocalStorage) =====
-        // ============================================================
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // ===== Validate CAPTCHA =====
-            if (!validateCaptcha()) {
-                return;
-            }
-
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPass').value;
-            const btn = document.getElementById('loginBtn');
-
-            if (!email || !password) {
-                showToast('❌ Please fill in all fields', 'error');
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (!user) {
-                showToast('❌ Invalid email or password', 'error');
-                return;
-            }
-
-            localStorage.setItem('pzmc_current_user', JSON.stringify(user));
-
-            showToast('✅ Login successful! Welcome ' + (user.name || user.email), 'success');
-
-            btn.disabled = true;
-            btn.textContent = '⏳ Redirecting...';
-
-            setTimeout(() => {
-                window.location.href = 'profile.html';
-            }, 1200);
-        });
-
-        // ============================================================
-        // ===== Check if user is already logged in =====
-        // ============================================================
-        window.addEventListener('DOMContentLoaded', function() {
-            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (currentUser && !window.location.pathname.includes('profile.html')) {
-                window.location.href = 'profile.html';
-            }
-
-            // ===== Initialize CAPTCHA =====
+function validateCaptcha() {
+    var input = document.getElementById('captchaInput');
+    var errorEl = document.getElementById('captchaError');
+    if (!input || !errorEl) return false;
+    var userCode = input.value.trim();
+    if (!userCode) {
+        errorEl.textContent = '❌ Please enter the security code';
+        errorEl.className = 'captcha-error';
+        return false;
+    }
+    if (userCode !== currentCaptcha) {
+        errorEl.textContent = '❌ Incorrect security code';
+        errorEl.className = 'captcha-error';
+        setTimeout(function() {
             generateCaptcha();
-            startCaptchaTimer();
+            input.value = '';
+            errorEl.textContent = '🔄 A new security code was generated';
+            setTimeout(function() { errorEl.textContent = ''; }, 2000);
+        }, 800);
+        return false;
+    }
+    errorEl.textContent = '✅ Security code verified';
+    errorEl.className = 'captcha-error success';
+    setTimeout(function() {
+        errorEl.textContent = '';
+        errorEl.className = 'captcha-error';
+    }, 2000);
+    return true;
+}
 
-            // Refresh CAPTCHA on canvas click
-            const canvas = document.getElementById('captchaCanvas');
-            if (canvas) {
-                canvas.addEventListener('click', function() {
-                    generateCaptcha();
-                    const input = document.getElementById('captchaInput');
-                    if (input) input.value = '';
-                    const errorEl = document.getElementById('captchaError');
-                    if (errorEl) {
-                        errorEl.textContent = '🔄 Security code refreshed';
-                        errorEl.className = 'captcha-error';
-                        setTimeout(() => {
-                            if (errorEl) {
-                                errorEl.textContent = '';
-                                errorEl.className = 'captcha-error';
-                            }
-                        }, 1500);
-                    }
-                });
-            }
+function startCaptchaTimer() {
+    if (captchaTimer) clearInterval(captchaTimer);
+    captchaTimer = setInterval(function() {
+        generateCaptcha();
+        var input = document.getElementById('captchaInput');
+        if (input) input.value = '';
+    }, 60000);
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validateCaptcha()) return;
+    var email = document.getElementById('loginEmail').value.trim();
+    var password = document.getElementById('loginPass').value;
+    var btn = document.getElementById('loginBtn');
+    if (!email || !password) {
+        showToast('❌ Please fill in all fields', 'error');
+        return;
+    }
+    var users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+    var user = users.find(function(u) { return u.email === email && u.password === password; });
+    if (!user) {
+        showToast('❌ Invalid email or password', 'error');
+        return;
+    }
+    localStorage.setItem('pzmc_current_user', JSON.stringify(user));
+    showToast('✅ Login successful! Welcome ' + (user.name || user.email), 'success');
+    btn.disabled = true;
+    btn.innerHTML = 'Redirecting<span class="spinner"></span>';
+    setTimeout(function() { window.location.href = 'profile.html'; }, 1200);
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    var currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (currentUser) window.location.href = 'profile.html';
+    generateCaptcha();
+    startCaptchaTimer();
+    var canvas = document.getElementById('captchaCanvas');
+    if (canvas) {
+        canvas.addEventListener('click', function() {
+            generateCaptcha();
+            document.getElementById('captchaInput').value = '';
         });
-    </script>
+    }
+});
+(function() {
+    function hide() {
+        var l = document.getElementById('pzLoader');
+        if (l) { l.classList.add('is-hidden'); setTimeout(function() { l.remove(); }, 700); }
+    }
+    window.addEventListener('load', function() { setTimeout(hide, 450); });
+    setTimeout(hide, 2400);
+})();
+</script>
+
 </body>
 </html>

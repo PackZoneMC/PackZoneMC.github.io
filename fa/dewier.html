@@ -108,14 +108,43 @@
         }
     </style>
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 
 <body>
-<!-- ===== HEADER ===== -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <header class="custom-header glass-strong" id="mainHeader">
     <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
-        <!-- توسط JS پر میشه -->
+
     </nav>
 </header>
 
@@ -506,7 +535,7 @@
     </section>
 
     <section class="menu-box">
-    <!-- dewier 2k -->
+
 <div class="card" data-pack="dewier 2k">
     <img src="../assets/2k.jpg" width="300">
     <h3>🎮 dewier 2k</h3>
@@ -524,7 +553,6 @@
     </div>
 </div>
 
-<!-- dewier 2k Revamp -->
 <div class="card" data-pack="dewier 2k Revamp">
     <img src="../assets/2krevamp.jpg" width="300">
     <h3>🎮 dewier 2k Revamp</h3>
@@ -542,7 +570,6 @@
     </div>
 </div>
 
-<!-- dewier 5k -->
 <div class="card" data-pack="dewier 5k">
     <img src="../assets/5k.jpg" width="300">
     <h3>🎮 dewier 5k</h3>
@@ -560,7 +587,6 @@
     </div>
 </div>
 
-<!-- dewier 20k -->
 <div class="card" data-pack="dewier 20k">
     <img src="../assets/20k.jpg" width="300">
     <h3>🎮 dewier 20k</h3>
@@ -578,7 +604,6 @@
     </div>
 </div>
 
-<!-- dewier 30k -->
 <div class="card" data-pack="dewier 30k">
     <img src="../assets/30k.jpg" width="300">
     <h3>🎮 dewier 30k</h3>
@@ -596,7 +621,6 @@
     </div>
 </div>
 
-<!-- dewier 40k -->
 <div class="card" data-pack="dewier 40k">
     <img src="../assets/40k.jpg" width="300">
     <h3>🎮 dewier 40k</h3>
@@ -614,7 +638,6 @@
     </div>
 </div>
 
-<!-- dewier 50k -->
 <div class="card" data-pack="dewier 50k">
     <img src="../assets/50k.jpg" width="300">
     <h3>🎮 dewier 50k</h3>
@@ -632,7 +655,6 @@
     </div>
 </div>
 
-<!-- dewier 60k -->
 <div class="card" data-pack="dewier 60k">
     <img src="../assets/60k.jpg" width="300">
     <h3>🎮 dewier 60k</h3>
@@ -650,7 +672,6 @@
     </div>
 </div>
 
-<!-- dewier 70k -->
 <div class="card" data-pack="dewier 70k">
     <img src="../assets/70k.jpg" width="300">
     <h3>🎮 dewier 70k</h3>
@@ -668,7 +689,6 @@
     </div>
 </div>
 
-<!-- dewier 80k -->
 <div class="card" data-pack="dewier 80k">
     <img src="../assets/80k.jpg" width="300">
     <h3>🎮 dewier 80k</h3>
@@ -686,7 +706,6 @@
     </div>
 </div>
 
-<!-- dewier 90k -->
 <div class="card" data-pack="dewier 90k">
     <img src="../assets/90k.jpg" width="300">
     <h3>🎮 dewier 90k</h3>
@@ -703,7 +722,7 @@
         <button class="copy-btn" onclick="copyLink('dewier 90k', this)">🔗 کپی لینک <span class="copy-feedback">✓</span></button>
     </div>
     </div>
-            <!-- dewier 100k -->
+
         <div class="card" data-pack="dewier 100k">
             <img src="../assets/100k.jpg" width="300">
             <h3>🎮 dewier 100k</h3>
@@ -721,7 +740,6 @@
             </div>
         </div>
 
-        <!-- dewier 110k -->
         <div class="card" data-pack="dewier 110k">
             <img src="../assets/110k.jpg" width="300">
             <h3>🎮 dewier 110k</h3>
@@ -739,7 +757,6 @@
             </div>
         </div>
 
-        <!-- dewier 120k -->
         <div class="card" data-pack="dewier 120k">
             <img src="../assets/120k.jpg" width="300">
             <h3>🎮 dewier 120k</h3>
@@ -757,7 +774,6 @@
             </div>
         </div>
 
-        <!-- dewier 130k -->
         <div class="card" data-pack="dewier 130k">
             <img src="../assets/130k.jpg" width="300">
             <h3>🎮 dewier 130k</h3>
@@ -775,7 +791,6 @@
             </div>
         </div>
 
-        <!-- dewier 140k -->
         <div class="card" data-pack="dewier 140k">
             <img src="../assets/140k.jpg" width="300">
             <h3>🎮 dewier 140k</h3>
@@ -793,7 +808,6 @@
             </div>
         </div>
 
-        <!-- dewier 150k -->
         <div class="card" data-pack="dewier 150k">
             <img src="../assets/150k.jpg" width="300">
             <h3>🎮 dewier 150k</h3>
@@ -811,7 +825,6 @@
             </div>
         </div>
 
-        <!-- dewier 160k -->
         <div class="card" data-pack="dewier 160k">
             <img src="../assets/160k.jpg" width="300">
             <h3>🎮 dewier 160k</h3>
@@ -829,7 +842,6 @@
             </div>
         </div>
 
-        <!-- dewier 170k -->
         <div class="card" data-pack="dewier 170k">
             <img src="../assets/170k.jpg" width="300">
             <h3>🎮 dewier 170k</h3>
@@ -852,7 +864,7 @@
     <footer>© PackZone MC 💙</footer>
 
 </div>
-    <!-- ===== Comment Modal ===== -->
+
     <div class="comment-modal" id="commentModal">
         <div class="modal-box">
             <div class="modal-header">
@@ -1062,15 +1074,10 @@
     </style>
 
     <script>
-        // ============================================================
-        // اعمال فونت ذخیره‌شده از صفحه اصلی
-        // ============================================================
+
         document.addEventListener('DOMContentLoaded', function() {
             });
 
-        // ============================================================
-        // Comment System
-        // ============================================================
         let currentCommentPack = '';
 
         function getComments(packName) {
@@ -1155,9 +1162,6 @@
             showToast('✅ نظر شما ثبت شد!', 'success');
         }
 
-        // ============================================================
-        // Toast System
-        // ============================================================
         function showToast(message, type = 'info') {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
@@ -1178,9 +1182,6 @@
             return JSON.parse(localStorage.getItem('pzmc_current_user')) !== null;
         }
 
-        // ============================================================
-        // Save Pack
-        // ============================================================
         function savePack(packName) {
             if (!checkUser()) {
                 showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
@@ -1209,9 +1210,6 @@
             }
         }
 
-        // ============================================================
-        // Copy Link
-        // ============================================================
         function copyLink(packName, btn) {
             const url = window.location.href.split('?')[0] + '?pack=' + encodeURIComponent(packName);
             if (navigator.clipboard) {
@@ -1241,9 +1239,6 @@
             }
         }
 
-        // ============================================================
-        // Header
-        // ============================================================
         function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
@@ -1272,9 +1267,6 @@
             }
         }
 
-        // ============================================================
-        // Page Load
-        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             updateHeader();
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));

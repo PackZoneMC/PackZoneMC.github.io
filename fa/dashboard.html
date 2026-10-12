@@ -7,9 +7,7 @@
     <title>PackZone MC | صفحه اصلی</title>
 
     <style>
-        /* ============================================================
-        ===== بخش ۱: RESET و متغیرها =====
-        ============================================================ */
+
         * {
             margin: 0;
             padding: 0;
@@ -110,17 +108,42 @@
         }
     </style>
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 
 <body>
-<!-- ============================================================
-===== بخش ۲: ۲۵ فونت گوگل =====
-============================================================ -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-    /* ============================================================
-    ===== بخش ۲: کلاس‌های فونت =====
-    ============================================================ */
+
     .font-cinzel { font-family: 'Cinzel', 'Vazirmatn', serif !important; }
     .font-raleway { font-family: 'Raleway', 'Vazirmatn', sans-serif !important; }
     .font-poppins { font-family: 'Poppins', 'Vazirmatn', sans-serif !important; }
@@ -136,25 +159,13 @@
     .font-satisfy { font-family: 'Satisfy', 'Vazirmatn', cursive !important; }
     .font-bangers { font-family: 'Bangers', 'Vazirmatn', cursive !important; }
 </style>
-<!-- ============================================================
-===== بخش ۳: هدر و پنل پس‌زمینه (HTML) =====
-============================================================ -->
 
-<!-- ===== پنل پس‌زمینه ===== -->
-
-
-
-
-<!-- ===== HEADER ===== -->
 <header class="custom-header glass-strong" id="mainHeader">
     <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
-        <!-- توسط JS پر میشه -->
+
     </nav>
 </header>
-<!-- ============================================================
-===== بخش ۴: استایل هدر و پنل پس‌زمینه =====
-============================================================ -->
 
 <style>
     .custom-header {
@@ -290,9 +301,6 @@
         }
     }
 </style>
-<!-- ============================================================
-===== بخش ۵: پنل زبان (HTML) =====
-============================================================ -->
 
 <div class="language-toggle" onclick="togglePanel()">
     <span class="toggle-icon">🌍</span>
@@ -315,9 +323,6 @@
     <div class="panel-subtitle">📋 پایه</div>
     <div class="panel-subtitle">⭐ اضافی</div>
 </div>
-<!-- ============================================================
-===== بخش ۶: استایل پنل زبان =====
-============================================================ -->
 
 <style>
     .language-toggle {
@@ -418,13 +423,9 @@
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         margin: 12px 0;
     }</style>
-<!-- ============================================================
-===== بخش ۷: هیرو و درباره =====
-============================================================ -->
 
 <div class="container">
 
-    <!-- ===== HERO ===== -->
     <section class="hero glass">
         <div class="hero-content">
             <h2>به PackZone MC خوش آمدید 💙</h2>
@@ -438,7 +439,6 @@
         </div>
     </section>
 
-    <!-- ===== ABOUT ===== -->
     <section class="about glass">
         <div class="about-icon">📌</div>
         <h2>درباره PackZone MC</h2>
@@ -582,9 +582,6 @@
         opacity: 0.6;
     }
 </style>
-<!-- ============================================================
-===== بخش ۸: کارتها (دست نزن - مانیفست بولدر) =====
-============================================================ -->
 
     <section class="menu-box">
         <div class="small-card glass">
@@ -740,9 +737,6 @@
         box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
     }
 </style>
-<!-- ============================================================
-===== بخش ۹: فوتر و استایل‌های تکمیلی =====
-============================================================ -->
 
 </div>
 
@@ -862,18 +856,13 @@
             padding: 14px;
         }}
 </style>
-    <!-- ============================================================
-    ===== بخش ۱۰: جاوااسکریپت کامل =====
-    ============================================================ -->
 
     <script>
-        // ===== ۱. مدیریت کاربر =====
+
         function getUserData() {
             return JSON.parse(localStorage.getItem('pzmc_current_user'));
         }
 
-        // ===== ۲. توابع پنل پس‌زمینه =====
-        // ===== ۳. توابع پنل زبان =====
         function togglePanel() {
             const panel = document.getElementById('languagePanel');
             panel.classList.toggle('open');
@@ -887,8 +876,6 @@
             }
         });
 
-        // ===== ۴. تغییر فونت =====
-        // ===== ۵. Toast =====
         function showToast(message) {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
@@ -903,7 +890,6 @@
             }, 3000);
         }
 
-        // ===== ۶. مدیریت هدر =====
         function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
@@ -933,7 +919,6 @@
             }
         }
 
-        // ===== ۷. بارگذاری صفحه =====
         document.addEventListener('DOMContentLoaded', function() {
             updateHeader();
 

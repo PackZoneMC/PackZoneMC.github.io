@@ -2,14 +2,11 @@ function saveLanguage(language) {
     localStorage.setItem("PZMC_language", language);
 }
 
-
 window.onload = function() {
 
     let language = localStorage.getItem("PZMC_language");
     let path = window.location.pathname;
 
-
-    // فقط در صفحه اصلی ریدایرکت کن
     if (path === "/" || path.endsWith("PackZoneMC.github.io/")) {
 
         if (language === "fa") {
@@ -23,16 +20,10 @@ window.onload = function() {
     }
 
 }
-// =========================
-// Pack.mcmeta Builder
-// =========================
-
 
 let selectedIcon = "";
 
-
 const iconInput = document.getElementById("packIconInput");
-
 
 if(iconInput){
 
@@ -62,29 +53,17 @@ iconInput.addEventListener("change", function(){
 
 }
 
-
-
-// Pack Format Preview
-
-
 const version = document.getElementById("minecraftVersion");
-
 
 function updateMcmeta(){
 
-
 if(!version) return;
-
 
 let format = version.value;
 
-
 let name = document.getElementById("packNameInput").value;
 
-
 let description = document.getElementById("descriptionInput").value;
-
-
 
 let json = {
 
@@ -98,31 +77,22 @@ let json = {
 
 };
 
-
-
 document.getElementById("jsonPreview").textContent =
 JSON.stringify(json,null,2);
 
-
-
 document.getElementById("previewName").textContent =
 name || "نام پک";
-
 
 document.getElementById("previewDescription").textContent =
 description || "توضیحات پک";
 
 }
 
-
-
 if(version){
 
 version.addEventListener("change",updateMcmeta);
 
 }
-
-
 
 let inputs = [
 
@@ -132,12 +102,9 @@ let inputs = [
 
 ];
 
-
 inputs.forEach(function(id){
 
-
 let element=document.getElementById(id);
-
 
 if(element){
 
@@ -145,44 +112,27 @@ element.addEventListener("input",updateMcmeta);
 
 }
 
-
 });
-
-
-
-// Toolbar
-
 
 document.querySelectorAll(".text-tools button")
 .forEach(function(button){
 
-
 button.addEventListener("click",function(){
-
 
 let code=this.dataset.code;
 
-
 let textarea=this.parentElement.nextElementSibling;
-
 
 if(textarea){
 
-
 textarea.value += code;
-
 
 textarea.focus();
 
-
 updateMcmeta();
-
 
 }
 
-
-
 });
-
 
 });

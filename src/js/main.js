@@ -1,38 +1,26 @@
-// ========================================
-// PACKZONE MC - MAIN SCRIPT (نسخه نهایی)
-// ========================================
+
 
 console.log('💙 PackZone MC Loaded!');
 
-// ===== اجرا وقتی صفحه کامل لود شد =====
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ===== گرفتن کاربر از localStorage =====
     const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
 
-    // ===== پیدا کردن هدر =====
     const header = document.querySelector('.custom-header') || document.querySelector('.header') || document.querySelector('header');
     if (!header) return;
 
-    // ===== پیدا کردن یا ساخت منو =====
     let nav = header.querySelector('.custom-nav') || header.querySelector('.nav') || header.querySelector('nav');
 
-    // اگه منو وجود نداشت، بسازش
     if (!nav) {
         nav = document.createElement('nav');
         nav.className = 'custom-nav';
         header.appendChild(nav);
     }
 
-    // ===== خالی کردن منو =====
     nav.innerHTML = '';
 
-    // ============================================================
-    // ===== کاربر وارد شده =====
-    // ============================================================
     if (currentUser) {
 
-        // ۱. عکس پروفایل
         const avatarImg = document.createElement('img');
         const savedAvatar = localStorage.getItem('pzmc_avatar_' + currentUser.email);
         avatarImg.src = savedAvatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.name) + '&background=008cff&color=fff&size=40';
@@ -50,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'profile.html';
         };
 
-        // ۲. نام کاربری
         const userName = document.createElement('span');
         userName.textContent = currentUser.name || 'کاربر';
         userName.style.cssText = `
@@ -64,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'profile.html';
         };
 
-        // ۳. دکمه خروج
         const logoutBtn = document.createElement('button');
         logoutBtn.textContent = '🚪 خروج';
         logoutBtn.style.cssText = `
@@ -97,25 +83,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        // ===== اضافه کردن به منو =====
         nav.appendChild(avatarImg);
         nav.appendChild(userName);
         nav.appendChild(logoutBtn);
 
-        // مخفی کردن دکمه‌های ثبت‌نام و ورود از هدر دستی (اگه باشن)
         document.querySelectorAll('.btn-signup, .btn-login, a[href="signup.html"], a[href="login.html"]').forEach(el => {
-            // اگه توی منوی ناوبری نباشن، مخفی کن
+
             if (!el.closest('nav') && !el.closest('.custom-nav')) {
                 el.style.display = 'none';
             }
         });
 
-    // ============================================================
-    // ===== کاربر وارد نشده =====
-    // ============================================================
     } else {
 
-        // ۱. دکمه ثبت‌نام
         const signupBtn = document.createElement('a');
         signupBtn.href = 'signup.html';
         signupBtn.textContent = '📝 ثبت‌نام';
@@ -139,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = 'none';
         };
 
-        // ۲. دکمه ورود
         const loginBtn = document.createElement('a');
         loginBtn.href = 'login.html';
         loginBtn.textContent = '🔐 ورود';
@@ -155,19 +134,14 @@ document.addEventListener('DOMContentLoaded', function() {
         loginBtn.onmouseover = function() { this.style.color = '#bae6fd'; };
         loginBtn.onmouseout = function() { this.style.color = '#c7e2ff'; };
 
-        // ===== اضافه کردن به منو =====
         nav.appendChild(signupBtn);
         nav.appendChild(loginBtn);
     }
 });
 
-// ============================================================
-// ===== توابع ذخیره پک =====
-// ============================================================
-
 function addFavorite(packName) {
     const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-    
+
     if (!user) {
         showToast('❌ لطفاً اول وارد حساب خود شوید');
         setTimeout(() => {
@@ -285,10 +259,6 @@ function loadFavorites() {
     container.innerHTML = html;
 }
 
-// ============================================================
-// ===== توابع خروج و تغییرات =====
-// ============================================================
-
 function logoutUser() {
     if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
         localStorage.removeItem('pzmc_current_user');
@@ -298,10 +268,6 @@ function logoutUser() {
         }, 1000);
     }
 }
-
-// ============================================================
-// ===== توابع تم، فونت و Toast =====
-// ============================================================
 
 function showToast(message) {
     const old = document.querySelector('.toast-message');
@@ -334,7 +300,6 @@ function showToast(message) {
     }, 2500);
 }
 
-// ===== انیمیشن =====
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeInUp {
@@ -344,6 +309,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ===== بارگذاری تم و فونت ذخیره‌شده =====
 window.onload = function() {
     };

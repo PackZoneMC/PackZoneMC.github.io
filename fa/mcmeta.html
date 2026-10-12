@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PackZone MC | ساخت McMeta نسخه ۲.۰.۰</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
-        /* ============================================================
-                   RESET & BASE
-                   ============================================================ */
+
         *,
         *::before,
         *::after {
@@ -75,9 +73,6 @@
             z-index: 1;
         }
 
-        /* ============================================================
-                   SCROLLBAR
-                   ============================================================ */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -92,9 +87,6 @@
             background: var(--primary-light);
         }
 
-        /* ============================================================
-                   VERSION BADGE
-                   ============================================================ */
         .version-badge {
             text-align: center;
             font-size: 0.75rem;
@@ -122,9 +114,6 @@
             color: var(--gold);
         }
 
-        /* ============================================================
-                   HERO SECTION
-                   ============================================================ */
         .hero {
             text-align: center;
             padding: 48px 24px 36px;
@@ -226,9 +215,6 @@
             box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
         }
 
-        /* ============================================================
-                   CARDS
-                   ============================================================ */
         .card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(14px);
@@ -317,9 +303,6 @@
             font-style: italic;
         }
 
-        /* ============================================================
-                   FORM ELEMENTS
-                   ============================================================ */
         label {
             display: block;
             color: #ccc;
@@ -429,26 +412,48 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 <body>
-<!-- ============================================================
-TOAST CONTAINER
-============================================================ -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ============================================================
-MAIN CONTAINER
-============================================================ -->
 <div class="container">
 
-    <!-- ===== VERSION BADGE ===== -->
     <div style="text-align:center;">
         <span class="version-badge">
             ✨ نسخه <span class="version-number">۲.۰.۰</span> ✨
         </span>
     </div>
 
-    <!-- ===== HERO ===== -->
     <section class="hero">
         <h1 class="main-logo">💙 PackZone MC</h1>
         <a href="index.html" class="home-button">🏠 خانه</a>
@@ -456,20 +461,15 @@ MAIN CONTAINER
         <p>فایل pack.mcmeta رو برای نسخه جاوا ماینکرفت به‌راحتی بساز</p>
     </section>
 
-    <!-- ============================================================
-    CARD 1: اطلاعات پک
-    ============================================================ -->
     <div class="card">
         <h2>
             📦 اطلاعات پک
             <span class="badge">مهم</span>
         </h2>
 
-        <!-- Pack Name -->
         <label>📛 اسم پک <span class="required">*</span></label>
         <input type="text" id="packName" placeholder="مثلاً PZMC Pack" value="PackZone Pack">
 
-        <!-- Colored Description -->
         <h3>
             🎨 توضیحات رنگی
             <span class="sub-badge">اختیاری</span>
@@ -521,7 +521,6 @@ MAIN CONTAINER
 
         <br><br>
 
-        <!-- Minecraft Version -->
         <label>🎮 نسخه ماینکرفت (جاوا) <span class="required">*</span></label>
         <select id="mcVersion">
             <option value="1.8.9">1.8.9 🔥 (محبوب PvP)</option>
@@ -541,9 +540,6 @@ MAIN CONTAINER
         </div>
     </div>
 
-    <!-- ============================================================
-    CARD 2: آیکون پک
-    ============================================================ -->
     <div class="card">
         <h2>
             🖼 آیکون پک
@@ -558,9 +554,6 @@ MAIN CONTAINER
         </div>
     </div>
 
-    <!-- ============================================================
-    CARD 3: ساخت و دانلود
-    ============================================================ -->
     <div class="card">
         <h2>
             ⚡ ساخت و دانلود
@@ -585,27 +578,17 @@ MAIN CONTAINER
 
 </div>
 
-<!-- ============================================================
-FOOTER
-============================================================ -->
 <footer class="footer">
     <p>© PackZone MC <span class="heart">💙</span> — تمامی حقوق محفوظ است</p>
 </footer>
-<!-- ============================================================
-SCRIPTS
-============================================================ -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
 </script>
 
 <script>
-    // ============================================================
-    // STATE
-    // ============================================================
+
     let packIconFile = null;
 
-    // ============================================================
-    // TOAST SYSTEM
-    // ============================================================
     function showToast(message, type = 'info', duration = 3500) {
         const container = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -634,9 +617,6 @@ SCRIPTS
         });
     }
 
-    // ============================================================
-    // ADD DESCRIPTION PART
-    // ============================================================
     function addDescPart() {
         const container = document.getElementById('descParts');
         const box = document.createElement('div');
@@ -668,9 +648,6 @@ SCRIPTS
         showToast('➕ بخش جدید اضافه شد', 'success', 1500);
     }
 
-    // ============================================================
-    // BUILD COLORED TEXT
-    // ============================================================
     function buildColoredText(container, textClass, colorClass, styleClass) {
         let result = '';
         const texts = document.querySelectorAll(container + ' ' + textClass);
@@ -689,9 +666,6 @@ SCRIPTS
         return result || '§bساخته شده با PackZone MC';
     }
 
-    // ============================================================
-    // GET PACK FORMAT
-    // ============================================================
     function getPackFormat(version) {
         const map = {
             '1.8.9': 1,
@@ -706,17 +680,11 @@ SCRIPTS
         return map[version] || 6;
     }
 
-    // ============================================================
-    // UPDATE PACK FORMAT DISPLAY
-    // ============================================================
     document.getElementById('mcVersion').addEventListener('change', function() {
         const format = getPackFormat(this.value);
         document.getElementById('packFormatDisplay').textContent = `pack_format: ${format}`;
     });
 
-    // ============================================================
-    // BUILD MCMETA
-    // ============================================================
     function buildMcmeta() {
         const name = document.getElementById('packName').value.trim() || 'PackZone Pack';
         const desc = buildColoredText('#descParts', '.descText', '.descColor', '.descStyle');
@@ -731,9 +699,6 @@ SCRIPTS
         };
     }
 
-    // ============================================================
-    // GET CLEAN PACK NAME
-    // ============================================================
     function getCleanPackName() {
         let name = document.getElementById('packName').value.trim();
         if (!name) name = 'PackZone-Pack';
@@ -742,9 +707,6 @@ SCRIPTS
         return name || 'PackZone-Pack';
     }
 
-    // ============================================================
-    // DOWNLOAD MCMETA
-    // ============================================================
     function downloadMcmeta() {
         try {
             const data = buildMcmeta();
@@ -763,9 +725,6 @@ SCRIPTS
         }
     }
 
-    // ============================================================
-    // DOWNLOAD ZIP
-    // ============================================================
     function downloadZip() {
         try {
             if (!packIconFile) {
@@ -802,9 +761,6 @@ SCRIPTS
         }
     }
 
-    // ============================================================
-    // PREVIEW ICON
-    // ============================================================
     function previewIcon(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -833,9 +789,6 @@ SCRIPTS
         reader.readAsDataURL(file);
     }
 
-    // ============================================================
-    // INIT
-    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
         const version = document.getElementById('mcVersion').value;
         document.getElementById('packFormatDisplay').textContent = `pack_format: ${getPackFormat(version)}`;
@@ -851,9 +804,7 @@ SCRIPTS
     });
 </script>
     <style>
-        /* ============================================================
-                   BUTTONS (ادامه استایل)
-                   ============================================================ */
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -941,9 +892,6 @@ SCRIPTS
             justify-content: center;
         }
 
-        /* ============================================================
-                   SUBPACK LIST
-                   ============================================================ */
         .subpack-item {
             background: rgba(255, 255, 255, 0.03);
             border-radius: var(--radius-sm);
@@ -1002,9 +950,6 @@ SCRIPTS
             margin-bottom: 8px;
         }
 
-        /* ============================================================
-                   ICON PREVIEW
-                   ============================================================ */
         #iconPreview {
             border-radius: var(--radius-sm);
             border: 2px solid rgba(255, 255, 255, 0.06);
@@ -1020,9 +965,6 @@ SCRIPTS
             box-shadow: 0 4px 25px rgba(56, 189, 248, 0.1);
         }
 
-        /* ============================================================
-                   ROW / GRID
-                   ============================================================ */
         .row {
             display: flex;
             gap: 14px;
@@ -1038,9 +980,6 @@ SCRIPTS
             flex: 1;
         }
 
-        /* ============================================================
-                   TOAST
-                   ============================================================ */
         .toast-container {
             position: fixed;
             bottom: 30px;
@@ -1089,9 +1028,6 @@ SCRIPTS
             border-color: var(--primary);
         }
 
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
         .footer {
             text-align: center;
             padding: 24px 20px;
@@ -1106,9 +1042,6 @@ SCRIPTS
             color: var(--secondary);
         }
 
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
         @media (max-width: 768px) {
             body {
                 padding: 12px;

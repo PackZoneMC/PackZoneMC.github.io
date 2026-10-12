@@ -7,9 +7,7 @@
     <title>PackZone MC | کالکشن رسمی MysMce</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-                   RESET & BASE
-                   ============================================================ */
+
         * {
             margin: 0;
             padding: 0;
@@ -84,7 +82,6 @@
             z-index: 1;
         }
 
-        /* ===== GLASS EFFECT ===== */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
@@ -97,9 +94,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-        }/* ============================================================
-                   SCROLLBAR
-                   ============================================================ */
+        }
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -115,22 +110,47 @@
         }
     </style>
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 <body>
-<!-- ============================================================
-HEADER
-============================================================ -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <header class="custom-header glass-strong" id="mainHeader">
     <div class="custom-logo">💙 PackZone MC</div>
     <nav class="custom-nav" id="mainNav">
-        <!-- توسط JS پر میشه -->
+
     </nav>
 </header>
 
 <style>
-    /* ============================================================
-               HEADER
-               ============================================================ */
+
     .custom-header {
         display: flex;
         justify-content: space-between;
@@ -269,9 +289,6 @@ HEADER
         color: #fff;
     }
 
-    /* ============================================================
-               HERO
-               ============================================================ */
     .hero {
         text-align: center;
         padding: 40px 20px 30px;
@@ -347,7 +364,7 @@ HEADER
         <p>۱۹ ریسورس‌پک حرفه‌ای ماینکرفت بدراک</p>
     </section>
     <section class="menu-box">
-<!-- Abyss -->
+
 <div class="card" data-pack="Abyss">
     <img src="../Abyss.jpg" width="300">
     <h3>🎮 Abyss</h3>
@@ -365,7 +382,6 @@ HEADER
     </div>
 </div>
 
-<!-- Bermuda -->
 <div class="card" data-pack="Bermuda">
     <img src="../Bermuda.jpg" width="300">
     <h3>🎮 Bermuda 32x</h3>
@@ -383,7 +399,6 @@ HEADER
     </div>
 </div>
 
-<!-- BixPix -->
 <div class="card" data-pack="BixPix">
     <img src="../BixPix.jpg" width="300">
     <h3>🎮 BixPix 16x</h3>
@@ -401,7 +416,6 @@ HEADER
     </div>
 </div>
 
-<!-- BlackHole -->
 <div class="card" data-pack="BlackHole">
     <img src="../Black hole.jpg" width="300">
     <h3>🎮 BlackHole 16x</h3>
@@ -419,7 +433,6 @@ HEADER
     </div>
 </div>
 
-<!-- DARK-NØVA -->
 <div class="card" data-pack="DARK-NØVA">
     <img src="../DarkNØVA.jpg" width="300">
     <h3>🎮 DARK-NØVA 32x</h3>
@@ -437,7 +450,6 @@ HEADER
     </div>
 </div>
 
-<!-- Elysium -->
 <div class="card" data-pack="Elysium">
     <img src="../Elysium.jpg" width="300">
     <h3>🎮 Elysium 32x</h3>
@@ -455,7 +467,6 @@ HEADER
     </div>
 </div>
 
-<!-- Erph4n v1 -->
 <div class="card" data-pack="Erph4n v1">
     <img src="../Erph4n v1.jpg" width="300">
     <h3>🎮 Erph4n v1</h3>
@@ -473,7 +484,6 @@ HEADER
     </div>
 </div>
 
-<!-- Erph4n v2 -->
 <div class="card" data-pack="Erph4n v2">
     <img src="../Erph4n v2.jpg" width="300">
     <h3>🎮 Erph4n v2</h3>
@@ -491,7 +501,6 @@ HEADER
     </div>
 </div>
 
-<!-- Gliese 16x -->
 <div class="card" data-pack="Gliese 16x">
     <img src="../Gliese 16x.jpg" width="300">
     <h3>🎮 Gliese 16x</h3>
@@ -509,7 +518,6 @@ HEADER
     </div>
 </div>
 
-<!-- Gliese 32x -->
 <div class="card" data-pack="Gliese 32x">
     <img src="../Gliese 32x.jpg" width="300">
     <h3>🎮 Gliese 32x</h3>
@@ -527,7 +535,6 @@ HEADER
     </div>
 </div>
 
-<!-- Jason -->
 <div class="card" data-pack="Jason">
     <img src="../Jason.jpg" width="300">
     <h3>🎮 Jason Voorhees 16x</h3>
@@ -545,7 +552,6 @@ HEADER
     </div>
 </div>
 
-<!-- Kepler -->
 <div class="card" data-pack="Kepler">
     <img src="../Kepler.jpg" width="300">
     <h3>🎮 Kepler 7.5k</h3>
@@ -563,7 +569,6 @@ HEADER
     </div>
 </div>
 
-<!-- M00N -->
 <div class="card" data-pack="M00N">
     <img src="../M00N.jpg" width="300">
     <h3>🎮 M00N 16x</h3>
@@ -581,7 +586,6 @@ HEADER
     </div>
 </div>
 
-<!-- Mysticism 5k -->
 <div class="card" data-pack="Mysticism 5k">
     <img src="../Mysticism 5k.jpg" width="300">
     <h3>🎮 Mysticism 5k</h3>
@@ -599,7 +603,6 @@ HEADER
     </div>
 </div>
 
-<!-- MysMce 3k -->
 <div class="card" data-pack="MysMce 3k">
     <img src="../MysMce 3k.jpg" width="300">
     <h3>🎮 MysMce 3k</h3>
@@ -617,7 +620,6 @@ HEADER
     </div>
 </div>
 
-<!-- Nimbus -->
 <div class="card" data-pack="Nimbus">
     <img src="https://my.uupload.ir/dl/mbJjXORb" width="300" alt="Nimbus">
     <h3>🎮 Nimbus</h3>
@@ -635,7 +637,6 @@ HEADER
     </div>
 </div>
 
-<!-- Rigel -->
 <div class="card" data-pack="Rigel">
     <img src="../Rigel.jpg" width="300">
     <h3>🎮 Rigel 16x</h3>
@@ -653,7 +654,6 @@ HEADER
     </div>
 </div>
 
-<!-- Saturn -->
 <div class="card" data-pack="Saturn">
     <img src="../Saturn.jpg" width="300">
     <h3>🎮 Saturn 16x</h3>
@@ -671,7 +671,6 @@ HEADER
     </div>
 </div>
 
-<!-- Telalco -->
 <div class="card" data-pack="Telalco">
     <img src="../Telalco.jpg" width="300">
     <h3>🎮 Telalco 13.2k</h3>
@@ -693,7 +692,7 @@ HEADER
     <footer>© PackZone MC 💙</footer>
 
 </div>
-<!-- ===== Comment Modal ===== -->
+
 <div class="comment-modal" id="commentModal">
     <div class="modal-box">
         <div class="modal-header">
@@ -709,9 +708,7 @@ HEADER
 </div>
 
 <style>
-    /* ============================================================
-               CARDS
-               ============================================================ */
+
     .card {
         background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(12px);
@@ -883,9 +880,6 @@ HEADER
         margin-top: 30px;
     }
 
-    /* ============================================================
-               COMMENT MODAL
-               ============================================================ */
     .comment-modal {
         display: none;
         position: fixed;
@@ -1044,9 +1038,6 @@ HEADER
         cursor: not-allowed;
     }
 
-    /* ============================================================
-               TOAST & RESPONSIVE
-               ============================================================ */
     .toast-message {
         position: fixed;
         bottom: 30px;
@@ -1127,15 +1118,10 @@ HEADER
     }
     </style>
     <script>
-        // ============================================================
-        // اعمال فونت ذخیره‌شده از صفحه اصلی
-        // ============================================================
+
         document.addEventListener('DOMContentLoaded', function() {
             });
 
-        // ============================================================
-        // Comment System
-        // ============================================================
         let currentCommentPack = '';
 
         function getComments(packName) {
@@ -1220,9 +1206,6 @@ HEADER
             showToast('✅ نظر شما ثبت شد!', 'success');
         }
 
-        // ============================================================
-        // Toast System
-        // ============================================================
         function showToast(message, type = 'info') {
             const old = document.querySelector('.toast-message');
             if (old) old.remove();
@@ -1243,9 +1226,6 @@ HEADER
             return JSON.parse(localStorage.getItem('pzmc_current_user')) !== null;
         }
 
-        // ============================================================
-        // Save Pack
-        // ============================================================
         function savePack(packName) {
             if (!checkUser()) {
                 showToast('❌ لطفاً ابتدا وارد حساب خود شوید!', 'error');
@@ -1274,9 +1254,6 @@ HEADER
             }
         }
 
-        // ============================================================
-        // Copy Link
-        // ============================================================
         function copyLink(packName, btn) {
             const url = window.location.href.split('?')[0] + '?pack=' + encodeURIComponent(packName);
             if (navigator.clipboard) {
@@ -1306,9 +1283,6 @@ HEADER
             }
         }
 
-        // ============================================================
-        // Header
-        // ============================================================
         function updateHeader() {
             const nav = document.getElementById('mainNav');
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
@@ -1337,9 +1311,6 @@ HEADER
             }
         }
 
-        // ============================================================
-        // Page Load
-        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             updateHeader();
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));

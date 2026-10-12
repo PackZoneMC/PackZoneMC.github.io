@@ -1,464 +1,530 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | PackZone MC</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | PackZone MC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Orbitron:wght@500..900&family=Lalezar&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../pzmc-global.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    color: var(--pz-text);
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0e1a;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+.auth-wrap {
+    width: 100%;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid var(--pz-border);
+    background: rgba(10, 18, 38, 0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 34px 110px rgba(0, 0, 0, 0.55), 0 0 90px rgba(56, 189, 248, 0.06);
+    animation: pzCardIn 0.7s cubic-bezier(0.34, 1.3, 0.64, 1) both;
+    animation-delay: 0.45s;
+    position: relative;
+    z-index: 1;
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 30px;
-            background: rgba(18, 27, 42, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
-            flex-wrap: wrap;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+@keyframes pzCardIn {
+    from { opacity: 0; transform: translateY(36px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #bae6fd, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.auth-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 33px;
+    padding: 2px;
+    background: conic-gradient(from 0deg, #38bdf8, #22d3ee, #8b5cf6, #38bdf8);
+    background-size: 300% 300%;
+    animation: pzSpinBorder 7s linear infinite;
+    z-index: -1;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.55;
+}
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+@keyframes pzSpinBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        .nav-links a {
-            color: #c7e2ff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            padding: 6px 14px;
-            border-radius: 8px;
-        }
+.brand-side {
+    padding: 44px 34px;
+    background: linear-gradient(160deg, rgba(8, 47, 73, 0.65), rgba(2, 132, 199, 0.22) 60%, rgba(139, 92, 246, 0.12));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
 
-        .nav-links a:hover {
-            color: #fff;
-            background: rgba(56, 189, 248, 0.1);
-        }
+.brand-side::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(1.5px 1.5px at 22% 30%, rgba(255,255,255,0.3), transparent), radial-gradient(1.5px 1.5px at 70% 66%, rgba(255,255,255,0.2), transparent), radial-gradient(2px 2px at 46% 84%, rgba(255,255,255,0.25), transparent);
+    animation: pzStars 20s linear infinite;
+}
 
-        .nav-links a.active {
-            color: #bae6fd;
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-        }
+@keyframes pzStars {
+    0% { background-position: 0 0; }
+    100% { background-position: -220px -150px; }
+}
 
-        .auth-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            padding: 40px 20px;
-        }
+.brand-cube {
+    width: 92px;
+    height: 92px;
+    filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.5));
+    animation: pzBob 3.6s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
 
-        .auth-box {
-            background: rgba(18, 27, 42, 0.6);
-            backdrop-filter: blur(16px);
-            padding: 40px 35px;
-            border-radius: 28px;
-            border: 1px solid rgba(56, 189, 248, 0.12);
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4), 0 0 40px rgba(56, 189, 248, 0.04);
-            transition: all 0.4s ease;
-        }
+@keyframes pzBob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
 
-        .auth-box:hover {
-            border-color: rgba(56, 189, 248, 0.25);
-            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5), 0 0 60px rgba(56, 189, 248, 0.06);
-        }
+.brand-side h2 {
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 20%, #7dd3fc 55%, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    margin: 16px 0 8px;
+    position: relative;
+    z-index: 1;
+}
 
-        .auth-box h1 {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 28px;
-            background: linear-gradient(135deg, #bae6fd, #7dd3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.brand-side p { color: rgba(230, 237, 247, 0.75); font-size: 0.92rem; position: relative; z-index: 1; }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+.brand-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 20px; position: relative; z-index: 1; }
 
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #c7e2ff;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
+.brand-chips span {
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 15px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #dcebff;
+}
 
-        .auth-box input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: #061220;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
+.form-side { padding: 42px 38px; }
 
-        .auth-box input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
-        }
+.form-side h1 {
+    font-family: 'Lalezar', 'Vazirmatn', sans-serif !important;
+    font-weight: 400 !important;
+    color: #bae6fd;
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+}
 
-        .auth-box input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
+.form-side .form-sub { color: var(--pz-muted); font-size: 0.88rem; margin-bottom: 24px; }
 
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.field { margin-bottom: 16px; }
 
-        .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.25);
-        }
+.field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #9fb4d8;
+    margin-bottom: 7px;
+}
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+.input-wrap { position: relative; }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
+.input-wrap .f-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 14px;
+    width: 19px;
+    height: 19px;
+    color: #4f6285;
+    transition: var(--pz-tr);
+    pointer-events: none;
+}
 
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.06);
-        }
+.input-wrap input {
+    width: 100%;
+    padding: 13px 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(4, 10, 24, 0.65);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--pz-tr);
+}
 
-        .divider span {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.85rem;
-        }
+.input-wrap input::placeholder { color: rgba(255, 255, 255, 0.22); font-weight: 300; }
 
-        .auth-footer {
-            text-align: center;
-            margin-top: 18px;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
-        }
+.input-wrap input:focus {
+    border-color: var(--pz-blue);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.10);
+    background: rgba(4, 10, 24, 0.85);
+}
 
-        .auth-footer a {
-            color: #bae6fd;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+.input-wrap input:focus ~ .f-icon, .input-wrap input:focus + .f-icon { color: var(--pz-blue); }
 
-        .auth-footer a:hover {
-            text-decoration: underline;
-            color: #7dd3fc;
-        }
+.field.valid input { border-color: rgba(16, 185, 129, 0.55); }
+.field.valid .f-icon { color: #10b981; }
+.field.invalid input { border-color: rgba(244, 63, 94, 0.55); }
 
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #14203a;
-            border: 1px solid #38bdf8;
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            z-index: 999;
-            opacity: 0;
-            transition: all 0.4s ease;
-            pointer-events: none;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            min-width: 200px;
-            text-align: center;
-        }
+.eye-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4f6285;
+    padding: 5px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    transition: var(--pz-tr);
+}
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+.eye-btn:hover { color: #7dd3fc; }
 
-        .toast.error {
-            border-color: #e74c3c;
-        }
+.eye-btn svg { width: 19px; height: 19px; }
 
-        .toast.success {
-            border-color: #00c853;
-        }
+.strength { display: flex; align-items: center; gap: 8px; margin-top: 9px; }
 
-        .footer {
-            text-align: center;
-            padding: 16px;
-            color: rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            margin-top: auto;
-            font-size: 0.8rem;
-        }
+.strength-bars { display: flex; gap: 4px; flex: 1; }
 
-        @media (max-width: 600px) {
-            .header {
-                padding: 10px 16px;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .nav-links {
-                justify-content: center;
-                gap: 8px;
-            }
-            .nav-links a {
-                font-size: 0.8rem;
-                padding: 4px 10px;
-            }
-            .auth-box {
-                padding: 24px 16px;
-                border-radius: 20px;
-            }
-            .auth-box h1 {
-                font-size: 1.4rem;
-            }
-            .auth-box input {
-                padding: 10px 14px;
-                font-size: 0.95rem;
-            }
-            .btn-primary {
-                padding: 12px;
-                font-size: 0.95rem;
-            }
-            .toast {
-                min-width: 150px;
-                padding: 12px 20px;
-                font-size: 0.85rem;
-            }
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../pzmc-theme.css">
+.strength-bars i {
+    height: 4px;
+    flex: 1;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: var(--pz-tr);
+}
+
+.strength-label { font-size: 0.72rem; color: var(--pz-muted); min-width: 64px; text-align: right; }
+
+.strength.s1 .strength-bars i:nth-child(1) { background: #f43f5e; }
+.strength.s2 .strength-bars i:nth-child(-n+2) { background: #fbbf24; }
+.strength.s3 .strength-bars i:nth-child(-n+3) { background: #22d3ee; }
+.strength.s4 .strength-bars i { background: #10b981; }
+
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9 55%, #22d3ee);
+    background-size: 200% 200%;
+    color: #06121f;
+    font-size: 1.02rem;
+    font-weight: 900;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--pz-tr);
+    position: relative;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(56, 189, 248, 0.35); background-position: 100% 50%; }
+
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-primary:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(6, 18, 31, 0.35);
+    border-top-color: #06121f;
+    border-radius: 50%;
+    animation: pzSpin 0.7s linear infinite;
+    vertical-align: -3px;
+    margin-left: 8px;
+}
+
+@keyframes pzSpin { to { transform: rotate(360deg); } }
+
+.auth-footer { text-align: center; margin-top: 20px; color: rgba(255, 255, 255, 0.42); font-size: 0.9rem; }
+
+.auth-footer a { color: #7dd3fc; text-decoration: none; font-weight: 800; transition: var(--pz-tr); }
+
+.auth-footer a:hover { color: #22d3ee; text-decoration: underline; }
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(10, 18, 38, 0.96);
+    border: 1px solid var(--pz-blue);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 15px;
+    font-size: 0.93rem;
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+    pointer-events: none;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.55);
+    min-width: 210px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+}
+
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.error { border-color: #f43f5e; }
+.toast.success { border-color: #10b981; }
+
+@media (max-width: 820px) {
+    .auth-wrap { grid-template-columns: 1fr; max-width: 460px; }
+    .brand-side { padding: 30px 22px 26px; }
+    .brand-cube { width: 64px; height: 64px; }
+    .brand-side p { display: none; }
+    .form-side { padding: 28px 22px; }
+}
+</style>
 </head>
 <body>
-<!-- ===== TOAST ===== -->
-<div class="toast" id="toast"></div>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">💙 PackZone MC</div>
-    <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="signup.html" class="active">Sign Up</a>
-        <a href="login.html">Login</a>
-    </nav>
-</header>
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
 
-<!-- ===== SIGNUP FORM ===== -->
-<main class="auth-container">
-    <section class="auth-box">
-        <h1>📝 Sign Up</h1>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:14%;left:7%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:7%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:24%;right:13%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:25%;left:11%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:32%;left:27%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:30%;right:25%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
 
-        <form id="signupForm">
-            <div class="form-group">
+<main class="auth-wrap">
+    <aside class="brand-side">
+        <svg class="brand-cube" viewBox="0 0 24 24" fill="none"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8" stroke="#22d3ee" stroke-width="1"/></svg>
+        <h2>PACKZONE MC</h2>
+        <p>Join the ultimate Minecraft resource pack hub</p>
+        <div class="brand-chips">
+            <span>⚡ 60+ Packs</span>
+            <span>🎨 ۴K</span>
+            <span>🔥 PvP</span>
+        </div>
+    </aside>
+
+    <section class="form-side">
+        <h1>📝 Create Account</h1>
+        <p class="form-sub">Join the PackZone family in seconds</p>
+
+        <form id="signupForm" novalidate>
+            <div class="field" id="f-name">
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" placeholder="Enter your full name" required>
+                <div class="input-wrap">
+                    <input type="text" id="fullname" placeholder="Enter your full name" autocomplete="name">
+                    <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+                </div>
             </div>
-            <div class="form-group">
+
+            <div class="field" id="f-email">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="example@email.com" required>
+                <div class="input-wrap">
+                    <input type="email" id="email" placeholder="example@email.com" autocomplete="email" dir="ltr">
+                    <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+                </div>
             </div>
-            <div class="form-group">
+
+            <div class="field" id="f-pass">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Minimum 6 characters" required>
+                <div class="input-wrap">
+                    <input type="password" id="password" placeholder="Minimum 6 characters" autocomplete="new-password" dir="ltr">
+                    <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                    <button type="button" class="eye-btn" data-target="password" aria-label="Show password">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+                    </button>
+                </div>
+                <div class="strength" id="strength">
+                    <div class="strength-bars"><i></i><i></i><i></i><i></i></div>
+                    <span class="strength-label" id="strengthLabel">امنیت رمز</span>
+                </div>
             </div>
-            <div class="form-group">
+
+            <div class="field" id="f-confirm">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                <div class="input-wrap">
+                    <input type="password" id="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password" dir="ltr">
+                    <svg class="f-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="m9.5 15 1.8 1.8 3.2-3.4"/></svg>
+                    <button type="button" class="eye-btn" data-target="confirmPassword" aria-label="Show password">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+                    </button>
+                </div>
             </div>
+
             <button type="submit" class="btn-primary" id="signupBtn">Create Account</button>
         </form>
 
-        <div class="divider">
-            <span>or</span>
-        </div>
-
-        <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:0.9rem;">
-            Already have an account? <a href="login.html" style="color:#bae6fd;text-decoration:none;font-weight:600;">Login</a>
-        </p>
+        <p class="auth-footer">Already have an account? <a href="login.html">Login</a></p>
     </section>
 </main>
 
-<footer class="footer">
-    <p>© PackZone MC — All rights reserved</p>
-</footer>
-    <script>
-        // ============================================================
-        // ===== Toast System =====
-        // ============================================================
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast';
-            if (type === 'error') toast.classList.add('error');
-            if (type === 'success') toast.classList.add('success');
-            toast.classList.add('show');
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
-        }
+<div class="toast" id="toast"></div>
 
-        // ============================================================
-        // ===== Signup System (LocalStorage) =====
-        // ============================================================
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+<script>
+function showToast(message, type) {
+    var toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast';
+    if (type === 'error') toast.classList.add('error');
+    if (type === 'success') toast.classList.add('success');
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
+}
 
-            const name = document.getElementById('fullname').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirm = document.getElementById('confirmPassword').value;
-            const btn = document.getElementById('signupBtn');
+document.querySelectorAll('.eye-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var input = document.getElementById(this.dataset.target);
+        input.type = input.type === 'password' ? 'text' : 'password';
+        this.style.color = input.type === 'text' ? '#22d3ee' : '';
+    });
+});
 
-            // ===== Validation =====
-            if (!name || name.length < 3) {
-                showToast('❌ Full name must be at least 3 characters', 'error');
-                return;
-            }
+var strengthLabels = ['Strength', 'Weak', 'Fair', 'Good', 'Strong'];
+document.getElementById('password').addEventListener('input', function() {
+    var v = this.value;
+    var score = 0;
+    if (v.length >= 6) score++;
+    if (v.length >= 10) score++;
+    if (/[0-9]/.test(v) && /[a-zA-Z]/.test(v)) score++;
+    if (/[^a-zA-Z0-9]/.test(v) && v.length >= 8) score++;
+    if (!v.length) score = 0;
+    var box = document.getElementById('strength');
+    box.className = 'strength' + (score ? ' s' + score : '');
+    document.getElementById('strengthLabel').textContent = strengthLabels[score];
+});
 
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                showToast('❌ Please enter a valid email address', 'error');
-                return;
-            }
+document.getElementById('confirmPassword').addEventListener('input', function() {
+    var f = document.getElementById('f-confirm');
+    if (!this.value) { f.className = 'field'; return; }
+    f.className = 'field ' + (this.value === document.getElementById('password').value ? 'valid' : 'invalid');
+});
 
-            if (password.length < 6) {
-                showToast('❌ Password must be at least 6 characters', 'error');
-                return;
-            }
+function setFieldState(id, ok) {
+    var f = document.getElementById(id);
+    f.classList.remove('valid', 'invalid');
+    if (ok === true) f.classList.add('valid');
+    if (ok === false) f.classList.add('invalid');
+}
 
-            if (password !== confirm) {
-                showToast('❌ Passwords do not match', 'error');
-                return;
-            }
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('fullname').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value;
+    var confirm = document.getElementById('confirmPassword').value;
+    var btn = document.getElementById('signupBtn');
 
-            // ===== Check if user exists =====
-            let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
-            if (users.find(u => u.email === email)) {
-                showToast('❌ This email is already registered', 'error');
-                return;
-            }
+    if (!name || name.length < 3) {
+        setFieldState('f-name', false);
+        showToast('❌ Full name must be at least 3 characters', 'error');
+        return;
+    }
+    setFieldState('f-name', true);
 
-            // ===== Save user =====
-            const newUser = {
-                name: name,
-                email: email,
-                password: password,
-                createdAt: new Date().toLocaleDateString('en-US'),
-                id: Date.now(),
-                favorites: [],
-                packs: []
-            };
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        setFieldState('f-email', false);
+        showToast('❌ Please enter a valid email address', 'error');
+        return;
+    }
+    setFieldState('f-email', true);
 
-            users.push(newUser);
-            localStorage.setItem('pzmc_users', JSON.stringify(users));
+    if (password.length < 6) {
+        setFieldState('f-pass', false);
+        showToast('❌ Password must be at least 6 characters', 'error');
+        return;
+    }
+    setFieldState('f-pass', true);
 
-            showToast('✅ Account created successfully! Welcome ' + name, 'success');
+    if (password !== confirm) {
+        setFieldState('f-confirm', false);
+        showToast('❌ Passwords do not match', 'error');
+        return;
+    }
+    setFieldState('f-confirm', true);
 
-            btn.disabled = true;
-            btn.textContent = '⏳ Redirecting...';
+    var users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
+    if (users.find(function(u) { return u.email === email; })) {
+        setFieldState('f-email', false);
+        showToast('❌ This email is already registered', 'error');
+        return;
+    }
 
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1500);
-        });
+    var newUser = {
+        name: name,
+        email: email,
+        password: password,
+        createdAt: new Date().toLocaleDateString('en-US'),
+        id: Date.now(),
+        favorites: []
+    };
+    users.push(newUser);
+    localStorage.setItem('pzmc_users', JSON.stringify(users));
 
-        // ============================================================
-        // ===== Check if user is already logged in =====
-        // ============================================================
-        window.addEventListener('DOMContentLoaded', function() {
-            const currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (currentUser && !window.location.pathname.includes('profile.html')) {
-                window.location.href = 'profile.html';
-            }
-        });
+    btn.disabled = true;
+    btn.innerHTML = 'Redirecting<span class="spinner"></span>';
+    showToast('✅ Sign up successful! Welcome ' + name, 'success');
+    setTimeout(function() { window.location.href = 'login.html'; }, 1500);
+});
 
-        // ============================================================
-        // ===== Enter Key Support =====
-        // ============================================================
-        document.getElementById('fullname').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('signupForm').dispatchEvent(new Event('submit'));
-            }
-        });
+window.addEventListener('DOMContentLoaded', function() {
+    var currentUser = JSON.parse(localStorage.getItem('pzmc_current_user'));
+    if (currentUser) window.location.href = 'profile.html';
+});
+(function() {
+    function hide() {
+        var l = document.getElementById('pzLoader');
+        if (l) { l.classList.add('is-hidden'); setTimeout(function() { l.remove(); }, 700); }
+    }
+    window.addEventListener('load', function() { setTimeout(hide, 450); });
+    setTimeout(hide, 2400);
+})();
+</script>
 
-        document.getElementById('email').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('signupForm').dispatchEvent(new Event('submit'));
-            }
-        });
-
-        document.getElementById('password').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('signupForm').dispatchEvent(new Event('submit'));
-            }
-        });
-
-        document.getElementById('confirmPassword').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('signupForm').dispatchEvent(new Event('submit'));
-            }
-        });
-    </script>
 </body>
 </html>

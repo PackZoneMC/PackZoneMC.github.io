@@ -664,20 +664,47 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 <body>
-<!-- ===== TOAST ===== -->
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
 <div class="toast" id="toast"></div>
 
-<!-- ===== HEADER ===== -->
 <header class="header" id="mainHeader">
     <div class="logo">💙 PackZone MC</div>
     <nav class="nav-links" id="navLinks">
-        <!-- Populated by JS -->
+
     </nav>
 </header>
 
-<!-- ===== PROFILE ===== -->
 <main class="profile-container">
     <section class="profile-box">
         <h1>👤 Profile</h1>
@@ -744,7 +771,6 @@
     </section>
 </main>
 
-<!-- ===== MODALS ===== -->
 <div class="modal" id="editModal">
     <div class="modal-box">
         <h2>✏️ Edit Name</h2>
@@ -772,9 +798,7 @@
     <p>© PackZone MC — All rights reserved</p>
 </footer>
     <script>
-        // ============================================================
-        // ===== Toast System =====
-        // ============================================================
+
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -786,9 +810,6 @@
             toast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
-        // ============================================================
-        // ===== Check User & Load Profile =====
-        // ============================================================
         function checkUser() {
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
 
@@ -808,9 +829,6 @@
             loadProfile(user);
         }
 
-        // ============================================================
-        // ===== Logout =====
-        // ============================================================
         function logoutUser() {
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('pzmc_current_user');
@@ -819,9 +837,6 @@
             }
         }
 
-        // ============================================================
-        // ===== Load Profile =====
-        // ============================================================
         function loadProfile(user) {
             document.getElementById('profileNameText').textContent = user.name || '---';
             document.getElementById('profileEmail').textContent = user.email || '---';
@@ -839,9 +854,6 @@
             loadFavorites();
         }
 
-        // ============================================================
-        // ===== Update Stats =====
-        // ============================================================
         function updateStats(user) {
             let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
             const index = users.findIndex(u => u.email === user.email);
@@ -870,9 +882,6 @@
             }
         }
 
-        // ============================================================
-        // ===== Avatar Upload =====
-        // ============================================================
         document.getElementById('avatarInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -900,9 +909,6 @@
             reader.readAsDataURL(file);
         });
 
-        // ============================================================
-        // ===== Modals =====
-        // ============================================================
         function openEditModal() {
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             if (user) {
@@ -927,9 +933,6 @@
             });
         });
 
-        // ============================================================
-        // ===== Save Name =====
-        // ============================================================
         function saveName() {
             const newName = document.getElementById('editNameInput').value.trim();
 
@@ -955,9 +958,6 @@
             }
         }
 
-        // ============================================================
-        // ===== Save Password =====
-        // ============================================================
         function savePassword() {
             const newPass = document.getElementById('newPassInput').value;
             const confirmPass = document.getElementById('confirmPassInput').value;
@@ -987,9 +987,6 @@
             }
         }
 
-        // ============================================================
-        // ===== Delete Account =====
-        // ============================================================
         function confirmDeleteAccount() {
             if (!confirm('⚠️ Are you sure you want to delete your account? This action cannot be undone!')) {
                 return;
@@ -1013,9 +1010,6 @@
             setTimeout(() => window.location.href = 'index.html', 1500);
         }
 
-        // ============================================================
-        // ===== Favorites =====
-        // ============================================================
         function loadFavorites() {
             const container = document.getElementById('favoritesList');
             const countEl = document.getElementById('favoriteCount');
@@ -1057,9 +1051,6 @@
             container.innerHTML = html;
         }
 
-        // ============================================================
-        // ===== Remove Favorite =====
-        // ============================================================
         function removeFavorite(packName) {
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             if (!user) {
@@ -1088,9 +1079,6 @@
             updateStats(user);
         }
 
-        // ============================================================
-        // ===== Init =====
-        // ============================================================
         document.addEventListener('DOMContentLoaded', checkUser);
 
         document.getElementById('editNameInput').addEventListener('keydown', function(e) {

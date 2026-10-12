@@ -7,7 +7,7 @@
     <title>PackZone MC | پک‌های جاوا</title>
 
     <style>
-        /* ===== RESET ===== */
+
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +27,6 @@
             margin: 0 auto;
         }
 
-        /* ===== VERSION BADGE ===== */
         .version-badge {
             text-align: center;
             font-size: 0.8rem;
@@ -41,7 +40,6 @@
             letter-spacing: 1px;
         }
 
-        /* ===== HERO ===== */
         .hero {
             text-align: center;
             padding: 40px 20px 30px;
@@ -91,7 +89,6 @@
             transform: scale(1.05);
         }
 
-        /* ===== CARDS ===== */
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
@@ -172,7 +169,6 @@
             box-shadow: 0 8px 35px rgba(56, 189, 248, 0.3);
         }
 
-        /* ===== GRID ===== */
         .menu-box {
             display: flex;
             flex-wrap: wrap;
@@ -180,7 +176,6 @@
             gap: 10px;
         }
 
-        /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 20px;
@@ -189,7 +184,6 @@
             margin-top: 30px;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .card {
                 max-width: 100%;
@@ -228,17 +222,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 
 <body>
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
     <div class="container">
 
-        <!-- ===== VERSION BADGE ===== -->
         <div style="text-align:center;">
             <span class="version-badge">✨ پک‌های جاوا ✨</span>
         </div>
 
-        <!-- ===== HERO ===== -->
         <section class="hero">
             <h1 class="main-logo">💙 PackZone MC</h1>
             <a href="index.html" class="home-button">🏠 خانه</a>
@@ -246,10 +268,8 @@
             <p>مجموعه ریسورس پک‌های حرفه‌ای Minecraft Java Edition</p>
         </section>
 
-        <!-- ===== PACKS GRID ===== -->
         <section class="menu-box">
 
-            <!-- ===== FruitFul ===== -->
             <div class="card">
                 <img src="../fr.png" alt="FruitFul">
                 <h3>📦 FruitFul</h3>
@@ -261,7 +281,6 @@
                 <a href="../! §3FruitFul §8[§f32x§8].zip" download class="btn-download">⬇️ دانلود</a>
             </div>
 
-            <!-- ===== Ranked Faith ===== -->
             <div class="card">
                 <img src="../ranked.png" alt="Ranked Faith">
                 <h3>📦 Ranked Faith</h3>
@@ -273,7 +292,6 @@
                 <a href="../Ranked Faith.zip" download class="btn-download">⬇️ دانلود</a>
             </div>
 
-            <!-- ===== BladeHart ===== -->
             <div class="card">
                 <img src="../bl.jpg" alt="BladeHart">
                 <h3>📦 BladeHart</h3>

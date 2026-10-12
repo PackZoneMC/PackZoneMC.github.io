@@ -1,63 +1,48 @@
-/* ============================================================
-   PACKZONE MC - ULTIMATE STYLE v3.0
-   PART 1/3 - ROOT + RESET + BASE + ANIMATIONS
-   ============================================================ */
 
-/* ===== Fonts ===== */
+
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ===== Root Variables ===== */
 :root {
-    /* Primary Colors */
+
     --primary: #38bdf8;
     --primary-dark: #0369a1;
     --primary-light: #7dd3fc;
     --primary-gradient: linear-gradient(135deg, #38bdf8, #7dd3fc);
 
-    /* Secondary Colors */
     --secondary: #22d3ee;
     --secondary-dark: #d6306a;
     --secondary-light: #67e8f9;
 
-    /* Accent Colors */
     --gold: #fbbf24;
     --gold-dark: #f59e0b;
     --gold-light: #fde68a;
 
-    /* Background */
     --bg-body: #0a0f1e;
     --bg-card: rgba(255, 255, 255, 0.04);
     --bg-card-hover: rgba(255, 255, 255, 0.07);
     --bg-hero: rgba(255, 255, 255, 0.03);
     --bg-dropdown: rgba(18, 27, 42, 0.95);
 
-    /* Text */
     --text-light: #ffffff;
     --text-muted: #888888;
     --text-primary: #7dd3fc;
 
-    /* Border / Shadow */
     --border-color: rgba(255, 255, 255, 0.06);
     --border-hover: rgba(56, 189, 248, 0.25);
     --shadow-color: rgba(56, 189, 248, 0.15);
     --shadow-hover: rgba(56, 189, 248, 0.25);
     --glow-color: rgba(56, 189, 248, 0.3);
 
-    /* Fonts */
     --font-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-secondary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    /* Sizes */
     --radius: 24px;
     --radius-sm: 14px;
     --radius-xs: 10px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============================================================
-   Reset
-   ============================================================ */
 *,
 *::before,
 *::after {
@@ -84,9 +69,6 @@ body {
     line-height: 1.7;
 }
 
-/* ============================================================
-   Scrollbar
-   ============================================================ */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -101,17 +83,11 @@ body {
     background: var(--primary-light);
 }
 
-/* ============================================================
-   Selection
-   ============================================================ */
 ::selection {
     background: var(--primary);
     color: #fff;
 }
 
-/* ============================================================
-   Typography
-   ============================================================ */
 a {
     text-decoration: none;
     color: inherit;
@@ -131,9 +107,6 @@ img {
     display: block;
 }
 
-/* ============================================================
-   Glass Effect
-   ============================================================ */
 .glass {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
@@ -148,9 +121,6 @@ img {
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* ============================================================
-   Animations
-   ============================================================ */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -212,14 +182,7 @@ img {
         background-position: 200% center;
     }
 }
-/* ============================================================
-   PACKZONE MC - ULTIMATE STYLE v3.0
-   PART 2/3 - COMPONENTS
-   ============================================================ */
 
-/* ============================================================
-   Hero
-   ============================================================ */
 .hero {
     text-align: center;
     padding: 60px 20px 50px;
@@ -286,9 +249,6 @@ img {
     z-index: 1;
 }
 
-/* ============================================================
-   Home Button
-   ============================================================ */
 .home-button {
     display: inline-block;
     background: rgba(255, 255, 255, 0.06);
@@ -313,9 +273,6 @@ img {
     box-shadow: 0 4px 25px rgba(56, 189, 248, 0.15);
 }
 
-/* ============================================================
-   Language Panel (Ultimate)
-   ============================================================ */
 .language-toggle {
     position: fixed;
     top: 20px;
@@ -359,7 +316,6 @@ img {
     transform: translateY(2px);
 }
 
-/* Dropdown */
 .language-panel {
     position: fixed;
     top: 78px;
@@ -469,9 +425,7 @@ img {
 
 .theme-item:hover .color-dot {
     transform: scale(1.1);
-}/* ============================================================
-   Cards (Ultimate)
-   ============================================================ */
+}
 .menu-box {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -596,9 +550,6 @@ img {
     box-shadow: 0 8px 30px rgba(0, 206, 201, 0.25);
 }
 
-/* ============================================================
-   Footer
-   ============================================================ */
 footer {
     text-align: center;
     padding: 25px 20px;
@@ -608,14 +559,7 @@ footer {
     font-size: 0.85rem;
     font-family: var(--font-primary);
     }
-/* ============================================================
-   PACKZONE MC - ULTIMATE STYLE v3.0
-   PART 3/3 - LANGUAGE BOX + BUILDER + RESPONSIVE
-   ============================================================ */
 
-/* ============================================================
-   Language Select Page
-   ============================================================ */
 .language-box {
     max-width: 500px;
     margin: 80px auto;
@@ -674,9 +618,6 @@ footer {
     box-shadow: 0 8px 35px rgba(56, 189, 248, 0.25);
 }
 
-/* ============================================================
-   Builder
-   ============================================================ */
 .builder-page {
     max-width: 1000px;
     margin: auto;
@@ -868,9 +809,6 @@ footer {
     box-shadow: 0 8px 30px rgba(243, 156, 18, 0.25);
 }
 
-/* ============================================================
-   Responsive (Ultimate)
-   ============================================================ */
 @media (max-width: 768px) {
     body {
         padding: 12px;

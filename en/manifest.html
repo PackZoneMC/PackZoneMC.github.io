@@ -412,9 +412,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pzmc-theme.css">
+<link rel="stylesheet" href="/pzmc-global.css">
 </head>
 
 <body>
+<div class="pz-loader" id="pzLoader">
+    <div class="pz-loader-inner">
+        <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+        <div class="pz-loader-brand">PACKZONE MC</div>
+        <div class="pz-loader-bar"><span></span></div>
+    </div>
+</div>
+<div class="pz-progress"><span id="pzProgress"></span></div>
+<div class="pz-bg">
+    <div class="pz-bg-grid"></div>
+    <div class="pz-bg-glow pz-bg-glow--a"></div>
+    <div class="pz-bg-glow pz-bg-glow--b"></div>
+    <div class="pz-bg-glow pz-bg-glow--c"></div>
+    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
+    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
+    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
+    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
+    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
+    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
+</div>
+<script>
+(function(){
+    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
+    window.addEventListener('load',function(){setTimeout(hide,450);});
+    setTimeout(hide,2400);
+    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
+})();
+</script>
+
     <div class="container">
         <div style="text-align:center;">
             <span class="version-badge">✨ Version 1.1.3 ✨</span>
@@ -426,7 +456,6 @@
         <p>Build your resource pack manifest without any coding.</p>
     </section>
 
-    <!-- Card: Pack Info -->
     <div class="card">
         <h2>📦 Pack Info</h2>
 
@@ -510,7 +539,6 @@
         </select>
     </div>
 
-    <!-- Card: UUID -->
     <div class="card">
         <h2>🆔 Generate UUID</h2>
         <p>Valid UUIDs for your manifest are automatically generated.</p>
@@ -523,7 +551,6 @@
         <button onclick="generateUUID()" class="btn-secondary">🔄 Generate New UUID</button>
     </div>
 
-    <!-- Card: Pack Icon -->
     <div class="card">
         <h2>🖼 Select Pack Icon</h2>
         <p>Choose your pack icon (PNG or JPG).</p>
@@ -532,7 +559,6 @@
         <img id="iconPreview" width="128" style="display:none;border-radius:16px;">
     </div>
 
-    <!-- Card: Subpack -->
     <div class="card">
         <h2>📂 Build Subpack</h2>
         <label>📁 Subpack Folder Name</label>
@@ -577,7 +603,6 @@
         <div id="subpackList"></div>
     </div>
 
-    <!-- Card: Final Actions -->
     <div class="card">
         <h2>📦 Build & Download</h2>
         <div class="row">
@@ -591,7 +616,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <script>
-        // ===== UUID =====
+
         function createUUID() {
             return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
                 let r = Math.random() * 16 | 0;
@@ -609,7 +634,6 @@
         let subpacks = [];
         let packIconFile = null;
 
-        // ===== Add Pack Name Part =====
         function addNamePart() {
             let box = document.createElement("div");
             box.className = "namePart";
@@ -639,7 +663,6 @@
             document.getElementById("nameParts").appendChild(box);
         }
 
-        // ===== Add Description Part =====
         function addDescPart() {
             let box = document.createElement("div");
             box.className = "descPart";
@@ -666,7 +689,6 @@
             document.getElementById("descParts").appendChild(box);
         }
 
-        // ===== Add Subpack Part =====
         function addSubPart() {
             let box = document.createElement("div");
             box.className = "subPart";
@@ -693,7 +715,6 @@
             document.getElementById("subParts").appendChild(box);
         }
 
-        // ===== Build Colored Text =====
         function buildColoredText(container, textClass, colorClass, styleClass) {
             let result = "";
             let texts = document.querySelectorAll(container + " " + textClass);
@@ -708,7 +729,6 @@
             return result;
         }
 
-        // ===== Create Subpack =====
         function addSubpack() {
             let folder = document.getElementById("subFolder").value;
             if (folder === "") {
@@ -745,7 +765,6 @@
             showSubpacks();
         }
 
-        // ===== Generate Manifest =====
         function generateManifest() {
             let packName = buildColoredText("#nameParts", ".partText", ".partColor", ".partStyle");
             let description = buildColoredText("#descParts", ".descText", ".descColor", ".descStyle");
@@ -782,7 +801,6 @@
             link.click();
         }
 
-        // ===== Preview Icon =====
         function previewIcon(event) {
             let file = event.target.files[0];
             packIconFile = file;
@@ -797,7 +815,6 @@
             }
         }
 
-        // ===== Download Full Pack =====
         function downloadPack() {
             let zip = new JSZip();
 
