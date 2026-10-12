@@ -49,7 +49,6 @@
         body {
             font-family: var(--font-primary);
             background: linear-gradient(135deg, #0a0f1e 0%, #101828 25%, #14203a 50%, #0b1322 75%, #0a0f1e 100%);
-            background-attachment: fixed;
             min-height: 100vh;
             color: var(--text-secondary);
             line-height: 1.7;
@@ -84,15 +83,11 @@
 
         .glass {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-strong {
             background: rgba(18, 27, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
         ::-webkit-scrollbar {
@@ -126,13 +121,6 @@
     <div class="pz-bg-grid"></div>
     <div class="pz-bg-glow pz-bg-glow--a"></div>
     <div class="pz-bg-glow pz-bg-glow--b"></div>
-    <div class="pz-bg-glow pz-bg-glow--c"></div>
-    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
-    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
-    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
-    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
-    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
-    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
 </div>
 
 
@@ -172,7 +160,6 @@
         padding: 40px 20px 30px;
         background: rgba(255, 255, 255, 0.04);
         border-radius: 30px;
-        backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.06);
         margin-bottom: 30px;
     }
@@ -244,7 +231,7 @@
     <section class="menu-box">
 
 <div class="card" data-pack="Abyss">
-    <img src="../Abyss.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Abyss.jpg" width="300">
     <h3>🎮 Abyss</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -261,7 +248,7 @@
 </div>
 
 <div class="card" data-pack="Bermuda">
-    <img src="../Bermuda.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Bermuda.jpg" width="300">
     <h3>🎮 Bermuda 32x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -278,7 +265,7 @@
 </div>
 
 <div class="card" data-pack="BixPix">
-    <img src="../BixPix.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../BixPix.jpg" width="300">
     <h3>🎮 BixPix 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -295,7 +282,7 @@
 </div>
 
 <div class="card" data-pack="BlackHole">
-    <img src="../Black hole.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Black hole.jpg" width="300">
     <h3>🎮 BlackHole 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -312,7 +299,7 @@
 </div>
 
 <div class="card" data-pack="DARK-NØVA">
-    <img src="../DarkNØVA.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../DarkNØVA.jpg" width="300">
     <h3>🎮 DARK-NØVA 32x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -329,7 +316,7 @@
 </div>
 
 <div class="card" data-pack="Elysium">
-    <img src="../Elysium.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Elysium.jpg" width="300">
     <h3>🎮 Elysium 32x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -346,7 +333,7 @@
 </div>
 
 <div class="card" data-pack="Erph4n v1">
-    <img src="../Erph4n v1.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Erph4n v1.jpg" width="300">
     <h3>🎮 Erph4n v1</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -363,7 +350,7 @@
 </div>
 
 <div class="card" data-pack="Erph4n v2">
-    <img src="../Erph4n v2.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Erph4n v2.jpg" width="300">
     <h3>🎮 Erph4n v2</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -380,7 +367,7 @@
 </div>
 
 <div class="card" data-pack="Gliese 16x">
-    <img src="../Gliese 16x.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Gliese 16x.jpg" width="300">
     <h3>🎮 Gliese 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -397,7 +384,7 @@
 </div>
 
 <div class="card" data-pack="Gliese 32x">
-    <img src="../Gliese 32x.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Gliese 32x.jpg" width="300">
     <h3>🎮 Gliese 32x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -414,7 +401,7 @@
 </div>
 
 <div class="card" data-pack="Jason">
-    <img src="../Jason.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Jason.jpg" width="300">
     <h3>🎮 Jason Voorhees 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -431,7 +418,7 @@
 </div>
 
 <div class="card" data-pack="Kepler">
-    <img src="../Kepler.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Kepler.jpg" width="300">
     <h3>🎮 Kepler 7.5k</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -448,7 +435,7 @@
 </div>
 
 <div class="card" data-pack="M00N">
-    <img src="../M00N.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../M00N.jpg" width="300">
     <h3>🎮 M00N 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -465,7 +452,7 @@
 </div>
 
 <div class="card" data-pack="Mysticism 5k">
-    <img src="../Mysticism 5k.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Mysticism 5k.jpg" width="300">
     <h3>🎮 Mysticism 5k</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -482,7 +469,7 @@
 </div>
 
 <div class="card" data-pack="MysMce 3k">
-    <img src="../MysMce 3k.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../MysMce 3k.jpg" width="300">
     <h3>🎮 MysMce 3k</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -499,7 +486,7 @@
 </div>
 
 <div class="card" data-pack="Nimbus">
-    <img src="https://my.uupload.ir/dl/mbJjXORb" width="300" alt="Nimbus">
+    <img loading="lazy" decoding="async" src="https://my.uupload.ir/dl/mbJjXORb" width="300" alt="Nimbus">
     <h3>🎮 Nimbus</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -516,7 +503,7 @@
 </div>
 
 <div class="card" data-pack="Rigel">
-    <img src="../Rigel.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Rigel.jpg" width="300">
     <h3>🎮 Rigel 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -533,7 +520,7 @@
 </div>
 
 <div class="card" data-pack="Saturn">
-    <img src="../Saturn.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Saturn.jpg" width="300">
     <h3>🎮 Saturn 16x</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -550,7 +537,7 @@
 </div>
 
 <div class="card" data-pack="Telalco">
-    <img src="../Telalco.jpg" width="300">
+    <img loading="lazy" decoding="async" src="../Telalco.jpg" width="300">
     <h3>🎮 Telalco 13.2k</h3>
     <p>👤 Creator : <span>MysMce</span></p>
     <p>🔧 Porter : <span>AmirPZ</span></p>
@@ -589,7 +576,6 @@
 
     .card {
         background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(12px);
         border-radius: 24px;
         padding: 22px 20px;
         margin-bottom: 24px;
@@ -766,7 +752,6 @@
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(8px);
         z-index: 1000;
         justify-content: center;
         align-items: center;
@@ -922,7 +907,6 @@
         left: 50%;
         transform: translateX(-50%);
         background: rgba(18, 27, 42, 0.95);
-        backdrop-filter: blur(12px);
         color: #e0e0e0;
         padding: 14px 28px;
         border-radius: 14px;
