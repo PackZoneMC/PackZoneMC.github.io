@@ -112,6 +112,7 @@
 </head>
 
 <body>
+<div id="pzNavbar"></div>
 <div class="pz-loader" id="pzLoader">
     <div class="pz-loader-inner">
         <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
@@ -132,134 +133,11 @@
     <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
     <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
 </div>
-<script>
-(function(){
-    function hide(){var l=document.getElementById('pzLoader');if(l){l.classList.add('is-hidden');setTimeout(function(){l.remove();},700);}}
-    window.addEventListener('load',function(){setTimeout(hide,450);});
-    setTimeout(hide,2400);
-    window.addEventListener('scroll',function(){var p=document.documentElement;var s=p.scrollTop/(p.scrollHeight-p.clientHeight)*100;var b=document.getElementById('pzProgress');if(b)b.style.width=s+'%';},{passive:true});
-})();
-</script>
 
-<header class="custom-header glass-strong" id="mainHeader">
-    <div class="custom-logo">💙 PackZone MC</div>
-    <nav class="custom-nav" id="mainNav">
 
-    </nav>
-</header>
+
 
 <style>
-    .custom-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 30px;
-        background: rgba(18, 27, 42, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 2px solid rgba(56, 189, 248, 0.12);
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        flex-wrap: wrap;
-        gap: 10px;
-        transition: var(--transition);
-    }
-
-    .custom-header:hover {
-        border-bottom-color: rgba(56, 189, 248, 0.25);
-    }
-
-    .custom-logo {
-        font-size: 1.8rem;
-        font-weight: 900;
-        background: var(--gradient-hero);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 0.5px;
-        transition: var(--transition);
-    }
-
-    .custom-logo:hover {
-        transform: scale(1.02);
-    }
-
-    .custom-nav {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .custom-nav .btn-signup {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 22px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        border-radius: 30px;
-        transition: var(--transition);
-        font-size: 0.9rem;
-        box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
-    }
-
-    .custom-nav .btn-signup:hover {
-        transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 35px rgba(56, 189, 248, 0.25);
-    }
-
-    .custom-nav .btn-login {
-        color: #ddd;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 8px 18px;
-        transition: var(--transition);
-        border-radius: 30px;
-        font-size: 0.9rem;
-    }
-
-    .custom-nav .btn-login:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .custom-nav .btn-dashboard {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 18px;
-        background: linear-gradient(135deg, #00b894, #00cec9);
-        border-radius: 30px;
-        transition: var(--transition);
-        font-size: 0.85rem;
-        box-shadow: 0 4px 20px rgba(0, 206, 201, 0.15);
-    }
-
-    .custom-nav .btn-dashboard:hover {
-        transform: scale(1.04) translateY(-2px);
-        box-shadow: 0 8px 35px rgba(0, 206, 201, 0.25);
-    }
-
-    .custom-nav .btn-logout {
-        background: rgba(255, 23, 68, 0.12);
-        color: #ff1744;
-        border: 1px solid rgba(255, 23, 68, 0.2);
-        padding: 6px 18px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.85rem;
-        transition: var(--transition);
-        font-family: inherit;
-    }
-
-    .custom-nav .btn-logout:hover {
-        background: #ff1744;
-        color: #fff;
-        border-color: #ff1744;
-        transform: scale(1.04);
-    }
-
     .user-avatar {
         width: 38px;
         height: 38px;
@@ -1239,36 +1117,12 @@
             }
         }
 
-        function updateHeader() {
-            const nav = document.getElementById('mainNav');
-            const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
-            if (user) {
-                const avatar = localStorage.getItem('pzmc_avatar_' + user.email) ||
-                    'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.name || 'User') + '&background=6c5ce7&color=fff&size=40&bold=true';
-                nav.innerHTML = `
-                    <img src="${avatar}" class="user-avatar" onclick="window.location.href='profile.html'">
-                    <span class="user-name" onclick="window.location.href='profile.html'">${user.name || 'کاربر'}</span>
-                    <a href="dashboard.html" class="btn-dashboard">📊 داشبورد</a>
-                    <button class="btn-logout" onclick="logoutUser()">🚪 خروج</button>
-                `;
-            } else {
-                nav.innerHTML = `
-                    <a href="signup.html" class="btn-signup">📝 ثبت‌نام</a>
-                    <a href="login.html" class="btn-login">🔐 ورود</a>
-                `;
-            }
-        }
+        
 
-        function logoutUser() {
-            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
-                localStorage.removeItem('pzmc_current_user');
-                showToast('👋 شما با موفقیت خارج شدید');
-                setTimeout(() => { window.location.reload(); }, 500);
-            }
-        }
+        
 
         document.addEventListener('DOMContentLoaded', function() {
-            updateHeader();
+            
             const user = JSON.parse(localStorage.getItem('pzmc_current_user'));
             if (user) {
                 let users = JSON.parse(localStorage.getItem('pzmc_users')) || [];
@@ -1311,5 +1165,6 @@
         });
     </script>
 
+<script src="../global.js"></script>
 </body>
 </html>
