@@ -49,7 +49,6 @@
         body {
             font-family: var(--font-primary);
             background: linear-gradient(135deg, #0a0f1e 0%, #101828 25%, #14203a 50%, #0b1322 75%, #0a0f1e 100%);
-            background-attachment: fixed;
             min-height: 100vh;
             color: var(--text-secondary);
             line-height: 1.7;
@@ -84,15 +83,11 @@
 
         .glass {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-strong {
             background: rgba(18, 27, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }::-webkit-scrollbar {
             width: 8px;
@@ -153,7 +148,6 @@
             padding: 40px 20px 30px;
             background: rgba(255, 255, 255, 0.04);
             border-radius: 30px;
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.06);
             margin-bottom: 30px;
         }
@@ -199,7 +193,6 @@
 
         .card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
             border-radius: 24px;
             padding: 22px 20px;
             margin-bottom: 24px;
@@ -386,13 +379,6 @@
     <div class="pz-bg-grid"></div>
     <div class="pz-bg-glow pz-bg-glow--a"></div>
     <div class="pz-bg-glow pz-bg-glow--b"></div>
-    <div class="pz-bg-glow pz-bg-glow--c"></div>
-    <div class="pz-bg-icon" style="top:12%;left:5%;width:56px;height:56px;animation-duration:20s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></div>
-    <div class="pz-bg-icon" style="bottom:12%;right:6%;width:44px;height:44px;opacity:0.08;animation-delay:-6s;animation-duration:26s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M9.5 3 7 9l5 12M14.5 3 17 9l-5 12"/></svg></div>
-    <div class="pz-bg-shape pz-bg-shape--sq" style="top:22%;right:12%;width:52px;height:52px;animation-delay:-4s;"></div>
-    <div class="pz-bg-shape pz-bg-shape--rd" style="bottom:24%;left:10%;width:38px;height:38px;animation-delay:-9s;"></div>
-    <div class="pz-bg-dot" style="top:30%;left:26%;width:6px;height:6px;"></div>
-    <div class="pz-bg-dot" style="bottom:28%;right:22%;width:8px;height:8px;animation-delay:-3s;"></div>
 </div>
 
 
@@ -414,7 +400,7 @@
     <section class="menu-box">
 
         <div class="card" data-pack="PZMC v1">
-            <img src="../v1.png" width="300">
+            <img loading="lazy" decoding="async" src="../v1.png" width="300">
             <h3>📦 PZMC v1</h3>
             <p>🏷️ برچسب : <span>Revamp</span></p>
             <p>🎨 کیفیت : <span>16x</span></p>
@@ -430,7 +416,7 @@
         </div>
 
         <div class="card" data-pack="PZMC v2">
-            <img src="../v2.png" width="300">
+            <img loading="lazy" decoding="async" src="../v2.png" width="300">
             <h3>📦 PZMC v2</h3>
             <p>🏷️ برچسب : <span>FPS Boost</span></p>
             <p>🎨 کیفیت : <span>16x</span></p>
@@ -446,7 +432,7 @@
         </div>
 
         <div class="card" data-pack="PZMC v3">
-            <img src="../v3.png" width="300">
+            <img loading="lazy" decoding="async" src="../v3.png" width="300">
             <h3>📦 PZMC v3</h3>
             <p>🏷️ برچسب : <span>Bedwars</span></p>
             <p>🎨 کیفیت : <span>32x</span></p>
@@ -462,7 +448,7 @@
         </div>
 
         <div class="card" data-pack="PZMC 1k">
-            <img src="../InShot_۲۰۲۶۰۷۲۲_۱۸۱۰۴۴۴۲۹.jpg" width="300">
+            <img loading="lazy" decoding="async" src="../InShot_۲۰۲۶۰۷۲۲_۱۸۱۰۴۴۴۲۹.jpg" width="300">
             <h3>📦 PZMC 1k</h3>
             <p>🏷️ برچسب : <span>FPS Boost / RWB</span></p>
             <p>🎨 کیفیت : <span>16x</span></p>
@@ -507,7 +493,6 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -657,7 +642,6 @@
             left: 50%;
             transform: translateX(-50%);
             background: rgba(18, 27, 42, 0.95);
-            backdrop-filter: blur(12px);
             color: #e0e0e0;
             padding: 14px 28px;
             border-radius: 14px;
