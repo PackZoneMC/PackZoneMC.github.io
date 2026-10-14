@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | PackZone MC</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../pzmc-theme.css">
+    <link rel="stylesheet" href="/pzmc-global.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: #070a16;
+            color: #c9d1d9;
+            min-height: 100vh;
+            padding: 20px 16px 40px;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .header {
+            text-align: center;
+            padding: 26px 20px 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            margin: 20px 0 28px;
+        }
+
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #7dd3fc, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p { color: #8b97bd; font-size: 0.83rem; margin-top: 6px; }
+
+        .login-box {
+            max-width: 380px;
+            margin: 48px auto;
+            background: rgba(255, 255, 255, 0.045);
+            padding: 32px 28px;
+            border-radius: 22px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .login-box h2 { color: #f0f6fc; font-size: 1.15rem; margin-bottom: 18px; text-align: center; }
+        .login-box .lock-ico { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.25);
+            color: #f0f6fc;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 14px;
+            font-family: inherit;
+            transition: 0.25s;
+        }
+
+        .login-box input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12); }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #38bdf8, #22d3ee);
+            color: #06121f;
+            font-size: 0.98rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+        }
+
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3); }
+
+        .error-msg {
+            color: #f87171;
+            font-size: 0.82rem;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .admin-panel { display: none; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.045);
+            padding: 18px 12px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            text-align: center;
+        }
+
+        .stat-card .number { font-size: 1.65rem; font-weight: 800; color: #f0f6fc; }
+        .stat-card .number.hot { color: #fbbf24; }
+        .stat-card .label { font-size: 0.72rem; color: #8b97bd; margin-top: 3px; }
+
+        .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+
+        .tab-btn {
+            padding: 9px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.04);
+            color: #b9c4e6;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover { border-color: rgba(56, 189, 248, 0.4); color: #fff; }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(34, 211, 238, 0.16));
+            border-color: rgba(56, 189, 248, 0.5);
+            color: #fff;
+        }
+        .tab-btn .cnt {
+            display: inline-block;
+            min-width: 20px;
+            padding: 1px 7px;
+            margin-right: 5px;
+            border-radius: 20px;
+            background: #f43f5e;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .panel-header h2 { font-size: 1.08rem; font-weight: 700; color: #f0f6fc; }
+
+        .panel-header .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .panel-header .actions button {
+            padding: 8px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.05);
+            color: #c9d1d9;
+        }
+
+        .panel-header .actions button:hover { border-color: rgba(56, 189, 248, 0.45); color: #fff; }
+        .btn-danger { color: #f87171 !important; }
+        .btn-danger:hover { border-color: rgba(248, 113, 113, 0.5) !important; background: rgba(248, 113, 113, 0.08) !important; }
+
+        .list { display: flex; flex-direction: column; gap: 10px; }
+
+        .item {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .item:hover { border-color: rgba(56, 189, 248, 0.28); }
+        .item.unread { border-right: 3px solid #38bdf8; }
+        html[dir="ltr"] .item.unread { border-right: 1px solid rgba(255,255,255,.07); border-left: 3px solid #38bdf8; }
+
+        .item .info { flex: 1; min-width: 0; }
+        .item .info .user { font-weight: 700; color: #7dd3fc; font-size: 0.9rem; }
+        .item .info .pack-name { font-size: 0.76rem; color: #8b97bd; margin-right: 6px; }
+        .item .info .text { color: #c9d1d9; font-size: 0.9rem; margin-top: 3px; word-wrap: break-word; line-height: 1.7; }
+        .item .info .time { font-size: 0.68rem; color: #5e6a92; margin-top: 5px; }
+
+        .item .actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+        .item .actions button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #8b97bd;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 5px 9px;
+            border-radius: 8px;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .item .actions button:hover { background: rgba(56, 189, 248, 0.1); color: #fff; }
+        .item .actions .del-btn:hover { background: rgba(248, 113, 113, 0.12); color: #f87171; }
+
+        .evt-ico {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.15rem;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            flex-shrink: 0;
+        }
+
+        .empty-state { text-align: center; padding: 44px 20px; color: #5e6a92; }
+        .empty-state .icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+
+        .toast {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 18, 38, 0.96);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 12px 24px;
+            border-radius: 14px;
+            color: #e2e8f0;
+            font-size: 0.88rem;
+            z-index: 99999;
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+            pointer-events: none;
+            font-family: inherit;
+        }
+
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+        .toast.error { border-color: #f43f5e; }
+        .toast.success { border-color: #10b981; }
+
+        .auto-note { text-align: center; color: #5e6a92; font-size: 0.72rem; margin-top: 18px; }
+
+        @media (max-width: 700px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .item { flex-direction: column; align-items: stretch; }
+            .item .actions { justify-content: flex-end; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+            .panel-header { flex-direction: column; align-items: stretch; }
+            .header h1 { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pzNavbar"></div>
+    <div class="pz-loader" id="pzLoader">
+        <div class="pz-loader-inner">
+            <div class="pz-loader-ring"><span class="pz-loader-core"><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.6"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M3.3 7.2 12 12l8.7-4.8"/></svg></span></div>
+            <div class="pz-loader-brand">PACKZONE MC</div>
+            <div class="pz-loader-bar"><span></span></div>
+        </div>
+    </div>
+    <div class="pz-progress"><span id="pzProgress"></span></div>
+    <div class="pz-bg">
+        <div class="pz-bg-grid"></div>
+        <div class="pz-bg-glow pz-bg-glow--a"></div>
+        <div class="pz-bg-glow pz-bg-glow--b"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔐 PackZone Admin Panel</h1>
+            <p>Notifications, comments, users & saved packs — from the whole site</p>
+        </div>
+
+        <div class="login-box" id="loginBox">
+            <div class="lock-ico">🔒</div>
+            <h2>Admin Login</h2>
+            <input type="password" id="adminPassword" placeholder="Password..." autocomplete="off">
+            <button class="btn-login" onclick="loginAdmin()">Login</button>
+            <div class="error-msg" id="loginError">❌ Wrong password!</div>
+        </div>
+
+        <div class="admin-panel" id="adminPanel">
+            <div class="stats">
+                <div class="stat-card"><div class="number" id="statEvents">0</div><div class="label">🔔 Events</div></div>
+                <div class="stat-card"><div class="number hot" id="statUnread">0</div><div class="label">🆕 Unread</div></div>
+                <div class="stat-card"><div class="number" id="statComments">0</div><div class="label">💬 Comments</div></div>
+                <div class="stat-card"><div class="number" id="statUsers">0</div><div class="label">👤 Users</div></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="events" onclick="switchTab('events')">🔔 Events <span class="cnt" id="cntUnread" style="display:none">0</span></button>
+                <button class="tab-btn" data-tab="comments" onclick="switchTab('comments')">💬 Comments</button>
+                <button class="tab-btn" data-tab="users" onclick="switchTab('users')">👤 Users</button>
+                <button class="tab-btn" data-tab="favorites" onclick="switchTab('favorites')">⭐ Saved</button>
+            </div>
+
+            <div class="panel-header">
+                <h2 id="tabTitle">🔔 Live notifications</h2>
+                <div class="actions">
+                    <button onclick="refresh()">🔄 Refresh</button>
+                    <button onclick="markAllRead()">✅ Mark all read</button>
+                    <button onclick="exportBackup()">💾 Backup</button>
+                    <button onclick="importBackup()">📂 Restore</button>
+                    <button class="btn-danger" onclick="clearTab()">🗑️ Clear</button>
+                    <button class="btn-danger" onclick="logoutAdmin()">🚪 Logout</button>
+                </div>
+            </div>
+
+            <div class="list" id="tabList"></div>
+            <div class="auto-note">📡 Auto-refreshes every 30 seconds</div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        /* SHA-256 of the admin password — plaintext is NOT stored anywhere */
+        var ADMIN_HASH = '2b69ded4a80566d122ec3656f76c7bbb4a8788ad08abeec1b7309ed0f51af90a';
+        var _db = null;
+        var _tab = 'events';
+        var _timer = null;
+
+        function showToast(message, type) {
+            var t = document.getElementById('toast');
+            t.textContent = message;
+            t.className = 'toast';
+            if (type) t.classList.add(type);
+            t.classList.add('show');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+        }
+
+        function sha256hex(str) {
+            return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+                return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+            });
+        }
+
+        function loginAdmin() {
+            var pw = document.getElementById('adminPassword').value;
+            var err = document.getElementById('loginError');
+            sha256hex(pw).then(function (h) {
+                if (h === ADMIN_HASH) {
+                    sessionStorage.setItem('pz_admin_ok', '1');
+                    document.getElementById('loginBox').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
+                    err.style.display = 'none';
+                    refresh();
+                    _timer = setInterval(refresh, 30000);
+                    showToast('✅ Welcome back, boss! 👑', 'success');
+                } else {
+                    err.style.display = 'block';
+                    setTimeout(function () { err.style.display = 'none'; }, 3000);
+                }
+            }).catch(function () {
+                /* crypto unavailable (e.g. http) — fallback compare is disabled */
+                err.style.display = 'block';
+            });
+        }
+
+        function logoutAdmin() {
+            if (!confirm('Logout from panel?')) return;
+            sessionStorage.removeItem('pz_admin_ok');
+            clearInterval(_timer);
+            document.getElementById('loginBox').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function refresh() {
+            PZDB.read().then(function (db) {
+                _db = db;
+                renderStats();
+                renderTab();
+            }).catch(function () { showToast('❌ Failed to fetch data', 'error'); });
+        }
+
+        function renderStats() {
+            document.getElementById('statEvents').textContent = _db.events.length;
+            var unread = _db.events.filter(function (e) { return !e.read; }).length;
+            document.getElementById('statUnread').textContent = unread;
+            document.getElementById('statComments').textContent = _db.comments.length;
+            document.getElementById('statUsers').textContent = _db.users.length;
+            var cnt = document.getElementById('cntUnread');
+            if (unread > 0) { cnt.style.display = 'inline-block'; cnt.textContent = unread; }
+            else cnt.style.display = 'none';
+            var unreadComments = _db.comments.filter(function (c) { return !c.read; }).length;
+            document.title = unread > 0 ? '(' + unread + ') Admin Panel | PackZone MC' : 'Admin Panel | PackZone MC';
+        }
+
+        function switchTab(tab) {
+            _tab = tab;
+            document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.tab === tab); });
+            var titles = { events: '🔔 Live notifications', comments: '💬 All comments', users: '👤 Registered users', favorites: '⭐ Saved packs' };
+            document.getElementById('tabTitle').textContent = titles[tab];
+            renderTab();
+        }
+
+        function fmtDate(iso) {
+            var d = new Date(iso);
+            if (isNaN(d)) return '';
+            return d.toLocaleDateString('fa-IR') + ' — ' + d.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function evtIco(t) {
+            return t === 'signup' ? '🆕' : t === 'comment' ? '💬' : t === 'save' ? '⭐' : t === 'login' ? '👤' : '🔔';
+        }
+
+        function evtText(e) {
+            switch (e.type) {
+                case 'signup': return 'User "' + esc(e.user) + '" signed up 🎉';
+                case 'comment': return 'User "' + esc(e.user) + '" commented on "' + esc(e.pack) + '": ' + esc((e.text || '').slice(0, 80));
+                case 'save': return 'User "' + esc(e.user) + '" saved pack "' + esc(e.pack) + '" ⭐';
+                case 'login': return 'User "' + esc(e.user) + '" logged in 👤';
+                default: return esc(e.text || '');
+            }
+        }
+
+        function renderTab() {
+            var box = document.getElementById('tabList');
+            var html = '';
+            var i;
+
+            if (_tab === 'events') {
+                if (!_db.events.length) { box.innerHTML = '<div class="empty-state"><span class="icon">📭</span><p>No activity yet</p></div>'; return; }
+                _db.events.forEach(function (e, idx) {
+                    html += '<div class="item ' + (e.read ? '' : 'unread') + '">' +
+                        '<div class="evt-ico">' + evtIco(e.type) + '</div>' +
+                        '<div class="info"><div class="text">' + evtText(e) + '</div><div class="time">' + fmtDate(e.date) + '</div></div>' +
+                        '<div class="actions"><button class="del-btn" onclick="delEvent(' + idx + ')" title="Delete">🗑️</button></div></div>';
+                });
+            } else if (_tab === 'comments') {
+                if (!_db.comments.length) { box.innerHTML = '<div class="empty-state"><span class="icon">💬</span><p>No comments yet</p></div>'; return; }
+                _db.comments.slice().reverse().forEach(function (c) {
+                    html += '<div class="item">' +
+                        '<div class="info"><div><span class="user">' + esc(c.user) + '</span><span class="pack-name">📦 ' + esc(c.pack) + '</span></div>' +
+                        '<div class="text">' + esc(c.text) + '</div><div class="time">' + fmtDate(c.date) + '</div></div>' +
+                        '<div class="actions"><button class="del-btn" onclick="delComment(\'' + c.id + '\')" title="Delete">🗑️</button></div></div>';
+                });
+            } else if (_tab === 'users') {
+                if (!_db.users.length) { box.innerHTML = '<div class="empty-state"><span class="icon">👤</span><p>No registered users yet</p></div>'; return; }
+                _db.users.slice().reverse().forEach(function (u, idx) {
+                    html += '<div class="item">' +
+                        '<div class="info"><div class="user">' + esc(u.name) + '</div><div class="text" dir="ltr">' + esc(u.email) + '</div><div class="time">' + fmtDate(u.date) + '</div></div>' +
+                        '<div class="actions"><button class="del-btn" onclick="delUser(' + idx + ')" title="Delete">🗑️</button></div></div>';
+                });
+            } else if (_tab === 'favorites') {
+                if (!_db.favorites.length) { box.innerHTML = '<div class="empty-state"><span class="icon">⭐</span><p>No saved packs yet</p></div>'; return; }
+                _db.favorites.slice().reverse().forEach(function (f, idx) {
+                    html += '<div class="item">' +
+                        '<div class="info"><div class="user">' + esc(f.user) + '</div><div class="text">📦 ' + esc(f.pack) + '</div><div class="time">' + fmtDate(f.date) + '</div></div>' +
+                        '<div class="actions"><button class="del-btn" onclick="delFav(' + idx + ')" title="Delete">🗑️</button></div></div>';
+                });
+            }
+            box.innerHTML = html;
+        }
+
+        function clearTab() {
+            var names = { events: 'all events', comments: 'all comments', users: 'all users', favorites: 'all saved items' };
+            if (!confirm('Delete ' + names[_tab] + '?')) return;
+            if (!confirm('Are you sure? This cannot be undone!')) return;
+            PZDB.mutate(function (db) {
+                if (_tab === 'events') db.events = [];
+                else if (_tab === 'comments') db.comments = [];
+                else if (_tab === 'users') db.users = [];
+                else db.favorites = [];
+            }).then(function () { refresh(); showToast('🗑️ Cleared', 'success'); });
+        }
+
+        function delEvent(idx) {
+            PZDB.mutate(function (db) { db.events.splice(idx, 1); }).then(function () { refresh(); showToast('🗑️ Deleted', 'success'); });
+        }
+        function delComment(id) {
+            if (!confirm('Delete this comment?')) return;
+            PZDB.mutate(function (db) { db.comments = db.comments.filter(function (c) { return c.id !== id; }); }).then(function () { refresh(); showToast('🗑️ Deleted', 'success'); });
+        }
+        function delUser(idx) {
+            if (!confirm('Delete this user?')) return;
+            PZDB.mutate(function (db) { db.users.splice(idx, 1); }).then(function () { refresh(); showToast('🗑️ Deleted', 'success'); });
+        }
+        function delFav(idx) {
+            PZDB.mutate(function (db) { db.favorites.splice(idx, 1); }).then(function () { refresh(); showToast('🗑️ Deleted', 'success'); });
+        }
+        function markAllRead() {
+            PZDB.mutate(function (db) { db.events.forEach(function (e) { e.read = true; }); }).then(function () { refresh(); showToast('✅ All marked as read', 'success'); });
+        }
+
+        function exportBackup() {
+            var blob = new Blob([JSON.stringify(_db, null, 2)], { type: 'application/json' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'packzone-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+            a.click();
+            showToast('💾 Backup downloaded', 'success');
+        }
+
+        function importBackup() {
+            var inp = document.createElement('input');
+            inp.type = 'file';
+            inp.accept = '.json';
+            inp.onchange = function () {
+                var f = inp.files[0];
+                if (!f) return;
+                var r = new FileReader();
+                r.onload = function () {
+                    try {
+                        var db = JSON.parse(r.result);
+                        if (!confirm('Restore this backup? Current data will be replaced!')) return;
+                        fetch('https://textdb.dev/api/data/pzmc-db-7f3k9x2v8q', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(db) })
+                            .then(function () { refresh(); showToast('📂 Restored', 'success'); });
+                    } catch (e) { showToast('❌ Invalid file', 'error'); }
+                };
+                r.readAsText(f);
+            };
+            inp.click();
+        }
+
+        document.getElementById('adminPassword').addEventListener('keydown', function (e) { if (e.key === 'Enter') loginAdmin(); });
+
+        if (sessionStorage.getItem('pz_admin_ok') === '1') {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            refresh();
+            _timer = setInterval(refresh, 30000);
+        }
+    </script>
+
+    <script src="../global.js"></script>
+    <script src="../pz-api.js"></script>
+</body>
+
+</html>

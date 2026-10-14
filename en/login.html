@@ -401,5 +401,86 @@ body {
 
 
 <script src="../global.js"></script>
+<script src="../pz-api.js"></script>
+
+<script>
+/* PackZone login — cloud synced (pz-api.js) */
+(function () {
+    var form = document.getElementById('loginForm');
+    if (!form) return;
+    function toast(m, t) { if (window.showToast) showToast(m, t); else alert(m); }
+    var captchaCode = '';
+    function drawCaptcha() {
+        var canvas = document.getElementById('captchaCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        captchaCode = '';
+        for (var i = 0; i < 5; i++) captchaCode += chars[Math.floor(Math.random() * chars.length)];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(10,18,38,0.9)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < 5; i++) {
+            ctx.save();
+            ctx.font = 'bold ' + (18 + Math.random() * 6) + 'px Vazirmatn, monospace';
+            ctx.fillStyle = [' #38bdf8', '#7dd3fc', '#22d3ee', '#fbbf24'][i % 4].trim();
+            ctx.translate(14 + i * 20, 24 + Math.random() * 6 - 3);
+            ctx.rotate((Math.random() - 0.5) * 0.5);
+            ctx.fillText(captchaCode[i], 0, 0);
+            ctx.restore();
+        }
+        for (var i = 0; i < 4; i++) {
+            ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+            ctx.beginPath();
+            ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+            ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+            ctx.stroke();
+        }
+    }
+    window.generateCaptcha = drawCaptcha;
+    drawCaptcha();
+    var eye = document.getElementById('passEye');
+    if (eye) eye.addEventListener('click', function () {
+        var inp = document.getElementById('loginPass');
+        if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('loginEmail').value.trim();
+        var pass = document.getElementById('loginPass').value;
+        var cap = document.getElementById('captchaInput').value.trim().toUpperCase();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast('⚠️ Invalid email', 'error'); return; }
+        if (!pass) { toast('⚠️ Please enter your password', 'error'); return; }
+        if (cap !== captchaCode) { toast('❌ Wrong security code!', 'error'); drawCaptcha(); document.getElementById('captchaInput').value = ''; return; }
+        var btn = document.getElementById('loginBtn');
+        btn.disabled = true; btn.textContent = '⏳ Logging in...';
+        PZDB.login(email, pass).then(function (res) {
+            if (!res.ok) {
+                btn.disabled = false; btn.textContent = 'Login';
+                drawCaptcha(); document.getElementById('captchaInput').value = '';
+                toast(res.reason === 'notfound' ? "❌ No account found — please sign up first!" : '❌ Wrong password!', 'error');
+                return;
+            }
+            localStorage.setItem('pzmc_current_user', JSON.stringify(res.user));
+            toast('👋 Welcome back ' + res.user.name + '!', 'success');
+            setTimeout(function () { window.location.href = 'dashboard.html'; }, 1100);
+        }).catch(function () {
+            var users = [];
+            try { users = JSON.parse(localStorage.getItem('pzmc_users')) || []; } catch (err) {}
+            var u = users.filter(function (x) { return x.email === email; })[0];
+            if (u && String(u.pass) === String(pass)) {
+                localStorage.setItem('pzmc_current_user', JSON.stringify({ name: u.name, email: u.email }));
+                toast('👋 Welcome back ' + u.name + '!', 'success');
+                setTimeout(function () { window.location.href = 'dashboard.html'; }, 1100);
+            } else {
+                btn.disabled = false; btn.textContent = 'Login';
+                drawCaptcha();
+                toast('❌ Login failed', 'error');
+            }
+        });
+    });
+})();
+</script>
+
 </body>
 </html>

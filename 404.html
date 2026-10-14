@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>۴۰۴ — صفحه پیدا نشد | PackZone MC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    font-family: 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(800px 400px at 50% -10%, rgba(56, 189, 248, 0.13), transparent 70%),
+        radial-gradient(600px 300px at 90% 110%, rgba(139, 92, 246, 0.10), transparent 70%),
+        #070a16;
+    color: #eef2ff;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+        linear-gradient(rgba(148, 172, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 172, 255, 0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 40%, transparent 100%);
+}
+
+.wrap { position: relative; z-index: 1; text-align: center; max-width: 620px; width: 100%; animation: pzUp .7s cubic-bezier(.2,.9,.3,1) both; }
+@keyframes pzUp { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.cube { width: 92px; height: 92px; margin: 0 auto 8px; filter: drop-shadow(0 12px 34px rgba(56,189,248,.35)); animation: pzFloat 4.2s ease-in-out infinite; }
+@keyframes pzFloat { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+
+.code {
+    font-size: clamp(4.6rem, 16vw, 7.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #38bdf8 10%, #7dd3fc 45%, #22d3ee 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    text-shadow: none;
+}
+
+.title { font-size: 1.45rem; font-weight: 800; color: #fff; margin-top: 6px; }
+.desc { color: #8b97bd; font-size: .98rem; line-height: 2; margin: 14px auto 30px; max-width: 460px; }
+
+.btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 30px;
+    border-radius: 40px;
+    font-weight: 700; font-size: .95rem;
+    text-decoration: none;
+    transition: all .3s cubic-bezier(.2,.9,.3,1);
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #38bdf8, #22d3ee);
+    color: #06121f;
+    box-shadow: 0 10px 34px rgba(56, 189, 248, .28);
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 44px rgba(56, 189, 248, .4); }
+
+.btn-ghost {
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(148, 172, 255, .18);
+    color: #cdd7f5;
+}
+.btn-ghost:hover { border-color: rgba(56, 189, 248, .5); color: #fff; transform: translateY(-3px); }
+
+.error-codes { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+.chip {
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: .74rem;
+    color: #5e6a92;
+    background: rgba(255, 255, 255, .035);
+    border: 1px solid rgba(255, 255, 255, .06);
+    font-weight: 600;
+    direction: ltr;
+}
+
+.footer { margin-top: 30px; color: rgba(255, 255, 255, .25); font-size: .78rem; }
+
+@media (max-width: 480px) {
+    .btn { padding: 12px 24px; font-size: .88rem; }
+    .desc { font-size: .9rem; }
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<main class="wrap">
+    <svg class="cube" viewBox="0 0 24 24" fill="none" stroke-width="1.1">
+        <path d="M12 2 21 7v10l-9 5-9-5V7l9-5z" stroke="#38bdf8" fill="rgba(56,189,248,.08)"/>
+        <path d="M12 22V12M3.3 7.2 12 12l8.7-4.8" stroke="#22d3ee"/>
+    </svg>
+
+    <div class="code" dir="ltr">404</div>
+    <h1 class="title" id="errTitle">صفحه‌ای که دنبالش بودی پیدا نشد! 🕳️</h1>
+    <p class="desc" id="errDesc">
+        انگار این صفحه مُرد و به دنیای دیگر رفت... ولی نگران نباش، همه پک‌ها و ابزارهای خفن ما سر جاشون هستن!
+    </p>
+
+    <div class="btns">
+        <a class="btn btn-primary" href="/fa/index.html" id="btnFa">🏠 صفحه اصلی فارسی</a>
+        <a class="btn btn-ghost" href="/en/index.html" id="btnEn">🏠 English Home</a>
+    </div>
+
+    <div class="error-codes">
+        <span class="chip">404 Not Found</span>
+        <span class="chip">400 Bad Request</span>
+        <span class="chip">403 Forbidden</span>
+        <span class="chip">502 Bad Gateway</span>
+    </div>
+
+    <div class="footer">💙 PackZone MC</div>
+</main>
+
+<script>
+(function () {
+    var isFa = (navigator.language || 'fa').toLowerCase().indexOf('fa') === 0;
+    if (!isFa) {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        document.title = '404 — Page Not Found | PackZone MC';
+        document.getElementById('errTitle').textContent = 'The page you were looking for was not found! 🕳️';
+        document.getElementById('errDesc').textContent = 'Looks like this page died and went to another world... but don\'t worry, all our awesome packs and tools are right where they should be!';
+        document.getElementById('btnFa').textContent = '🏠 Persian Home';
+        document.getElementById('btnEn').textContent = '🏠 English Home';
+        if (document.querySelector('.footer')) document.querySelector('.footer').textContent = '💙 PackZone MC';
+    }
+})();
+</script>
+</body>
+</html>

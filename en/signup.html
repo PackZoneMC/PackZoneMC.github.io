@@ -409,5 +409,80 @@ body {
 
 
 <script src="../global.js"></script>
+<script src="../pz-api.js"></script>
+
+<script>
+/* PackZone signup — cloud synced (pz-api.js) */
+(function () {
+    var form = document.getElementById('signupForm');
+    if (!form) return;
+    function toast(m, t) { if (window.showToast) showToast(m, t); else alert(m); }
+    function setField(id, ok) {
+        var f = document.getElementById(id);
+        if (f) { f.classList.remove('valid', 'invalid'); if (ok !== null) f.classList.add(ok ? 'valid' : 'invalid'); }
+    }
+    function strength(p) {
+        var s = 0;
+        if (p.length >= 6) s++;
+        if (p.length >= 10) s++;
+        if (/[A-Z]/.test(p) && /[a-z]/.test(p)) s++;
+        if (/[0-9!@#$%^&*()_+=-]/.test(p)) s++;
+        return s;
+    }
+    var passInput = document.getElementById('password');
+    if (passInput) passInput.addEventListener('input', function () {
+        var bars = document.querySelectorAll('#strength .strength-bars i');
+        var lbl = document.getElementById('strengthLabel');
+        var s = strength(this.value);
+        var names = ['Very weak', 'Weak', 'Okay', 'Good', 'Strong'];
+        var colors = ['#f43f5e', '#f43f5e', '#fbbf24', '#38bdf8', '#10b981'];
+        bars.forEach(function (b, i) { b.style.background = i < s ? colors[s] : 'rgba(255,255,255,.12)'; });
+        if (lbl) lbl.textContent = 'Password strength: ' + (this.value ? names[s] : 'Password strength');
+    });
+    document.querySelectorAll('.eye-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var inp = document.getElementById(this.dataset.target);
+            if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+        });
+    });
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('fullname').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var pass = document.getElementById('password').value;
+        var confirm = document.getElementById('confirmPassword').value;
+        if (name.length < 2) { toast('⚠️ Please enter your full name', 'error'); setField('f-name', false); return; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast('⚠️ Invalid email', 'error'); setField('f-email', false); return; }
+        if (pass.length < 6) { toast('⚠️ Password must be at least 6 characters', 'error'); setField('f-pass', false); return; }
+        if (pass !== confirm) { toast('⚠️ Passwords do not match', 'error'); setField('f-confirm', false); return; }
+        var btn = document.getElementById('signupBtn');
+        btn.disabled = true; btn.textContent = '⏳ Creating account...';
+        PZDB.signup(name, email, pass).then(function (res) {
+            if (!res.ok) {
+                btn.disabled = false; btn.textContent = 'Create account';
+                toast('❌ This email is already registered!', 'error');
+                return;
+            }
+            localStorage.setItem('pzmc_current_user', JSON.stringify({ name: name, email: email }));
+            var users = [];
+            try { users = JSON.parse(localStorage.getItem('pzmc_users')) || []; } catch (err) {}
+            if (!users.some(function (u) { return u.email === email; })) users.push({ name: name, email: email, pass: pass, favorites: [] });
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+            toast('🎉 Welcome ' + name + '!', 'success');
+            setTimeout(function () { window.location.href = 'dashboard.html'; }, 1200);
+        }).catch(function () {
+            localStorage.setItem('pzmc_current_user', JSON.stringify({ name: name, email: email }));
+            var users = [];
+            try { users = JSON.parse(localStorage.getItem('pzmc_users')) || []; } catch (err) {}
+            if (!users.some(function (u) { return u.email === email; })) users.push({ name: name, email: email, pass: pass, favorites: [] });
+            localStorage.setItem('pzmc_users', JSON.stringify(users));
+            PZDB.pushEvent('signup', name, '', '');
+            toast('🎉 Account created!', 'success');
+            setTimeout(function () { window.location.href = 'dashboard.html'; }, 1200);
+        });
+    });
+})();
+</script>
+
 </body>
 </html>
